@@ -1,5 +1,6 @@
 package br.com.monitoranuvem.view;
 
+import br.com.monitoranuvem.controller.ProviderDialogControl;
 import br.com.monitoranuvem.model.Provider;
 import java.util.ArrayList;
 
@@ -9,8 +10,10 @@ import java.util.ArrayList;
  */
 public class ProviderDialog {
 
-    public ProviderDialog() {
+    ProviderDialogControl pro;
 
+    public ProviderDialog() {
+        pro = new ProviderDialogControl();
     }
 
     public ArrayList<Provider> getAllProvider() {
@@ -19,6 +22,10 @@ public class ProviderDialog {
             p.add(provider);
         }
         return p;
+    }
+
+    public boolean connectProvider(Provider p, String login, String password) {
+        return pro.connecta(p, login, password);
     }
 
 }
