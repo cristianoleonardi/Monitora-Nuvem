@@ -1,4 +1,4 @@
-package tcc.monitoranuvem.controller;
+package br.com.monitoranuvem.controller;
 
 /**
  *

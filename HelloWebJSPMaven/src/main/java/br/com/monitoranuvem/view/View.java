@@ -1,4 +1,4 @@
-package tcc.monitoranuvem.view;
+package br.com.monitoranuvem.view;
 
 /**
  *
