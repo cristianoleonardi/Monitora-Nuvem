@@ -14,10 +14,13 @@
     <body>
         <div>Connection</div>
         <form name="Name Input Form" action="response.jsp">
-            Provider:
+            <jsp:useBean id="providerdialog" scope="page" class="br.com.monitoranuvem.view.ProviderDialog" />
+            <jsp:getProperty name="providerdialog" property="allProvider" />
+            Provedor:
             <select name="provider">
-                <option>Amazon</option>
-                <option>Azure</option>
+                
+                    <option>Teste</option>
+                
             </select>
             <br />
             Access Key ID:
