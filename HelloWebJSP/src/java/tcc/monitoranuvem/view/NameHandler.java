@@ -1,4 +1,4 @@
-package org.mypackage.hello;
+package tcc.monitoranuvem.view;
 
 /**
  *
