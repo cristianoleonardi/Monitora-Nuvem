@@ -1,7 +1,7 @@
 <%-- 
     Document   : response
     Created on : 24/08/2014, 23:22:06
-    Author     : Cristiano Leonardi
+    Author     : Cristiano Leonardi, Márcio Bolzan
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
