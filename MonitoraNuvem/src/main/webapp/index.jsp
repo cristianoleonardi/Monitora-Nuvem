@@ -17,9 +17,9 @@
     <body>
         <div>Conexão - Efetue uma conexão com o provedor desejado</div>
         <form name="Name Input Form" action="response.jsp">
+            <jsp:useBean id="providerdialog" scope="page" class="br.com.monitoranuvem.view.ProviderDialog" />
             Provedor:
             <select name="provider">
-                <jsp:useBean id="providerdialog" scope="page" class="br.com.monitoranuvem.view.ProviderDialog" />
                 <c:forEach var="provider" items="${providerdialog.allProvider}">
                     <option value="${provider}"><c:out value="${provider.providerName}" /></option>
                 </c:forEach>
