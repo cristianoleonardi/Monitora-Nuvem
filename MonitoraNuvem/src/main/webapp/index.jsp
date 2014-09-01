@@ -12,7 +12,7 @@
         <title>Monitora Nuvem - jclouds</title>
     </head>
     <body>
-        <div><h1>Conexão - Efetue uma conexão com o provedor desejado:</h1></div>
+        <div><h1>Conexão - Efetue uma conexão com o provedor desejado::</h1></div>
         <form name="Name Input Form" action="response.jsp">
             <jsp:useBean id="providerdialog" scope="page" class="br.com.monitoranuvem.view.ProviderDialog" />
             Provedor:
