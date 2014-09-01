@@ -1,9 +1,9 @@
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : index
     Created on : 31/08/2014, 17:38:42
     Author     : Cristiano Leonardi, Márcio Bolzan
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="java.util.List"%>
 <%@page import="br.com.monitoranuvem.model.Provider"%>
 <%@page import="br.com.monitoranuvem.view.ProviderDialog"%>
@@ -17,15 +17,11 @@
     <body>
         <div>Connection</div>
         <form name="Name Input Form" action="response.jsp">
-            <jsp:useBean id="providerdialog" scope="session" class="br.com.monitoranuvem.view.ProviderDialog" />
             Provedor:
             <select name="provider">
-                <%
-                    ProviderDialog providers = new ProviderDialog();
-                    List<Provider> providerList = providers.getAllProvider();
-                %>
-                <c:forEach items="${providerList}" var="provider">
-                    <option>${provider.providerName}</option>
+                <jsp:useBean id="providerdialog" scope="page" class="br.com.monitoranuvem.view.ProviderDialog" />
+                <c:forEach var="provider" items="${providerdialog.allProvider}">
+                    <option value="${provider}"><c:out value="${provider.providerName}" /></option>
                 </c:forEach>
             </select>
             <br />
