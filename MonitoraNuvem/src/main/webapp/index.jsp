@@ -12,10 +12,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Monitora Nuvem - jclouds</title>
     </head>
     <body>
-        <div>Connection</div>
+        <div>Conexão - Efetue uma conexão com o provedor desejado</div>
         <form name="Name Input Form" action="response.jsp">
             Provedor:
             <select name="provider">
