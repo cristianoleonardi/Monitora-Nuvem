@@ -16,7 +16,7 @@
         <form name="Name Input Form" action="response.jsp">
             <jsp:useBean id="providerdialog" scope="page" class="br.com.monitoranuvem.view.ProviderDialog" />
             Provedor:
-            <select name="provider">
+            <select name="providers">
                 <c:forEach var="provider" items="${providerdialog.allProvider}">
                     <option value="${provider}"><c:out value="${provider.providerName}" /></option>
                 </c:forEach>

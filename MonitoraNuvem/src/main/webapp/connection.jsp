@@ -3,7 +3,6 @@
     Created on : 24/08/2014, 23:22:06
     Author     : Cristiano Leonardi, Márcio Bolzan
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,6 +13,8 @@
     <body>
         <%--Cria um instância para a classe NomeHandler--%>
         <jsp:useBean id="mybean" scope="session" class="br.com.monitoranuvem.view.NameHandler" />
+        <%--Recebe o objeto provider--%>
+        
         <%--Faz um Set do nome--%>
         <jsp:setProperty name="mybean" property="name" />
         <%--Obtem o nome através de um Get--%>
