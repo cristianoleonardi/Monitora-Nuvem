@@ -13,7 +13,7 @@
     </head>
     <body>
         <div><h1>Conexão - Efetue uma conexão com o provedor desejado::</h1></div>
-        <form name="Name Input Form" action="#">
+        <form name="Name Input Form" action="startmon.jsp">
             <jsp:useBean id="providerdialog" scope="page" class="br.com.monitoranuvem.view.ProviderDialog" />
             Provedor:
             <select name="providers">
@@ -23,10 +23,10 @@
             </select>
             <br />
             Access Key ID:
-            <input type="text" name="name" size="30" />
+            <input type="text" name="login" size="30" />
             <br />
             Secret Access Key:
-            <input type="text" name="endereco" size="50" />
+            <input type="text" name="password" size="50" />
             <br /><br />
             <input type="submit" value="OK" />
         </form>
