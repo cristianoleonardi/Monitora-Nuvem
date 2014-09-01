@@ -4,9 +4,6 @@
     Author     : Cristiano Leonardi, Márcio Bolzan
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="java.util.List"%>
-<%@page import="br.com.monitoranuvem.model.Provider"%>
-<%@page import="br.com.monitoranuvem.view.ProviderDialog"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
