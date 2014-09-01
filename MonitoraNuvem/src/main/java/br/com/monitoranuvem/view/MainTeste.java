@@ -22,11 +22,13 @@ public class MainTeste {
 //        for (int i = 0; i < p.getAllProvider().size(); i++) {
 //            System.out.println(p.getAllProvider().get(i));
 //        }
-        if (p.connectProvider(Provider.AMAZON, "AKIAI57KBUTAC4I3RVCQ", "NtBOtdX+dX0Qf51xo1PlU92laHn7fs/6OyVvaYjW"))
-            System.out.println("AMAZON OK");
-//        if (p.connectProvider(Provider.GOGRID, "123", "123"))
-//            System.out.println("GOGRID OK");
-//        if (p.connectProvider(Provider.GOOGLE, "123", "123"))
-//            System.out.println("GOOGLE OK");
+        try {
+            if (p.connectProvider(Provider.AMAZON, "AKIAI57KBUTAC4I3RVCQ", "NtBOtdX+dX0Qf51xo1PlU92laHn7fs/6OyVvaYjW")) {
+                System.out.println("AMAZON OK");
+            }
+
+        } catch (Exception e) {
+            System.out.println("teste");
+        }
     }
 }

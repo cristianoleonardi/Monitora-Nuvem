@@ -4,9 +4,11 @@ import br.com.monitoranuvem.connection.Connection;
 import br.com.monitoranuvem.model.Configuration;
 import br.com.monitoranuvem.model.JVComputeServiceContextFactory;
 import br.com.monitoranuvem.model.Provider;
+import java.util.ArrayList;
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.ComputeServiceContext;
 import org.jclouds.compute.domain.ComputeMetadata;
+import org.jclouds.compute.domain.NodeMetadata;
 
 /**
  *
@@ -15,7 +17,7 @@ import org.jclouds.compute.domain.ComputeMetadata;
 public class ProviderDialogControl {
 
     public ProviderDialogControl() {
-        //      dialog = new ProviderDialog();
+
     }
 
     public boolean connecta(Provider p, String login, String password) {
@@ -39,12 +41,17 @@ public class ProviderDialogControl {
 //            list.addElement(storage);
 //        }
 //    }
-    
-    public void listaCServ(){
+    public void listaCServ() {
         ComputeServiceContext context = JVComputeServiceContextFactory.createContext();
         ComputeService compute = context.getComputeService();
+
+        ArrayList<ComputeMetadata> metadatas = new ArrayList<ComputeMetadata>();
+
         for (ComputeMetadata node : compute.listNodes()) {
-            System.out.println(node.getName());
+            metadatas.add(node);
+            NodeMetadata metadata = compute.getNodeMetadata(node.getId());
+            System.out.println(metadata.getName());
+
         }
     }
 }

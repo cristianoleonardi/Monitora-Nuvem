@@ -15,7 +15,7 @@ import org.jclouds.compute.ComputeServiceContextFactory;
  */
 public class JVComputeServiceContextFactory {
 
-    public static ComputeServiceContext createContext() {
+    public static ComputeServiceContext createContext(){
         Connection con = Configuration.getInstance().getConnection();
         Provider provider = Configuration.getInstance().getProvider();
 
