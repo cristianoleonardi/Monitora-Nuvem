@@ -15,7 +15,7 @@
         <title>Monitora Nuvem - jclouds</title>
     </head>
     <body>
-        <div>Conexão - Efetue uma conexão com o provedor desejado</div>
+        <div><h1>Conexão - Efetue uma conexão com o provedor desejado:</h1></div>
         <form name="Name Input Form" action="response.jsp">
             <jsp:useBean id="providerdialog" scope="page" class="br.com.monitoranuvem.view.ProviderDialog" />
             Provedor:
@@ -30,7 +30,7 @@
             <br />
             Secret Access Key:
             <input type="text" name="endereco" size="50" />
-            <br />
+            <br /><br />
             <input type="submit" value="OK" />
         </form>
     </body>
