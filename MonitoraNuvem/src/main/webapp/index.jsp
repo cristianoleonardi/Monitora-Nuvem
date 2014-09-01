@@ -13,7 +13,7 @@
     </head>
     <body>
         <div><h1>Conexão - Efetue uma conexão com o provedor desejado::</h1></div>
-        <form name="Name Input Form" action="response.jsp">
+        <form name="Name Input Form" action="#">
             <jsp:useBean id="providerdialog" scope="page" class="br.com.monitoranuvem.view.ProviderDialog" />
             Provedor:
             <select name="providers">
