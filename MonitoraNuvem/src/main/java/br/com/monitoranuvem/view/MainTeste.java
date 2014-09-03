@@ -23,8 +23,7 @@ public class MainTeste {
 //            System.out.println(p.getAllProvider().get(i));
 //        }
         try {
-            if (p.connectProvider(Provider.AMAZON, "AKIAI57KBUTAC4I3RVCQ", "NtBOtdX+dX0Qf51xo1PlU92laHn7fs/6OyVvaYjW")) {
-                System.out.println("AMAZON OK");
+            if (p.connectProvider(Provider.AMAZON, "AKIAIS5QMZ2ZK2RWPYQA", "k2jR/TLPaFAIobJ7aef+J0VFP6ED6qTTsQU/9/fp")) {
             }
 
         } catch (Exception e) {

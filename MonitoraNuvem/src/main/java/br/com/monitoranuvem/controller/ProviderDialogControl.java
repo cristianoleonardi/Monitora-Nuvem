@@ -50,7 +50,13 @@ public class ProviderDialogControl {
         for (ComputeMetadata node : compute.listNodes()) {
             metadatas.add(node);
             NodeMetadata metadata = compute.getNodeMetadata(node.getId());
-            System.out.println(metadata.getName());
+            System.out.println("ID = " + metadata.getId());
+            System.out.println("ID Provedor = " + metadata.getProviderId());
+            System.out.println("Nome = "+metadata.getName());
+            System.out.println("Localização = " + metadata.getLocation().getDescription());
+            System.out.println("Familia = "+metadata.getOperatingSystem().getFamily().name());
+            System.out.println("Estatus = "+metadata.getState().name());
+            System.out.println("Host/IP = "+metadata.getHostname());
 
         }
     }
