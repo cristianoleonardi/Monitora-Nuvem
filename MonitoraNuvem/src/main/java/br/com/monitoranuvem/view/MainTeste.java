@@ -25,7 +25,7 @@ public class MainTeste {
 //        }
         JOptionPane.showMessageDialog(null,"Pra ti não esquecer quem é FODA no bagulho!");
         try {
-            if (p.connectProvider(Provider.AMAZON, "AKIAIS5QMZ2ZK2RWPYQA", "k2jR/TLPaFAIobJ7aef+J0VFP6ED6qTTsQU/9/fp")) {
+            if (p.connectProvider(Provider.AMAZON, "", "")) {
             }
 
         } catch (Exception e) {
