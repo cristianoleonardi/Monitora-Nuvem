@@ -58,7 +58,6 @@ public class ProviderDialogControl {
             System.out.println("Estatus = "+metadata.getState().name());
             System.out.println("Host/IP = "+metadata.getHostname());
             System.out.println("Sistema Operando = " + metadata.getOperatingSystem().getDescription());
-
         }
     }
 }
