@@ -25,7 +25,7 @@ public class ProviderDialogControl {
         conn.setAcessKey(login);
         conn.setSecretKey(password);
         Configuration.getInstance().setProvider(p);
-        Configuration.getInstance().setConnection(conn);
+        Configuration.getInstance().setCredentials(conn);
 //        listaBlob();
         listaCServ();
         return true;

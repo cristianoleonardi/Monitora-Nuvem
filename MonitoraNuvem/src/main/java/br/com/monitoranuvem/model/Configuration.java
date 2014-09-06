@@ -10,7 +10,7 @@ public class Configuration {
 
     private static Configuration instance;
     private Provider provider;
-    private Credentials connection;
+    private Credentials credentials;
 
     public Provider getProvider() {
         return provider;
@@ -27,11 +27,11 @@ public class Configuration {
         return instance;
     }
 
-    public Credentials getConnection() {
-        return connection;
+    public Credentials getCredentials() {
+        return credentials;
     }
 
-    public void setConnection(Credentials connection) {
-        this.connection = connection;
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
     }
 }

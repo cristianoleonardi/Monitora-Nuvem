@@ -16,12 +16,12 @@ import org.jclouds.compute.ComputeServiceContextFactory;
 public class JVComputeServiceContextFactory {
 
     public static ComputeServiceContext createContext(){
-        Credentials con = Configuration.getInstance().getConnection();
+        Credentials cre = Configuration.getInstance().getCredentials();
         Provider provider = Configuration.getInstance().getProvider();
 
         ComputeServiceContext computeServiceContext = new ComputeServiceContextFactory().createContext(
-                provider.getProviderCService(), con.getAcessKey(),
-                con.getSecretKey());
+                provider.getProviderCService(), cre.getAcessKey(),
+                cre.getSecretKey());
         return computeServiceContext;
     }
 }
