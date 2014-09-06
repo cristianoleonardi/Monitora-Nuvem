@@ -1,6 +1,6 @@
 package br.com.monitoranuvem.controller;
 
-import br.com.monitoranuvem.connection.Connection;
+import br.com.monitoranuvem.connection.Credentials;
 import br.com.monitoranuvem.model.Configuration;
 import br.com.monitoranuvem.model.JVComputeServiceContextFactory;
 import br.com.monitoranuvem.model.Provider;
@@ -21,9 +21,9 @@ public class ProviderDialogControl {
     }
 
     public boolean connecta(Provider p, String login, String password) {
-        Connection conn = new Connection();
-        conn.setLogin(login);
-        conn.setPassword(password);
+        Credentials conn = new Credentials();
+        conn.setAcessKey(login);
+        conn.setSecretKey(password);
         Configuration.getInstance().setProvider(p);
         Configuration.getInstance().setConnection(conn);
 //        listaBlob();

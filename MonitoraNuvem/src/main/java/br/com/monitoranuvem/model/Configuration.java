@@ -1,6 +1,6 @@
 package br.com.monitoranuvem.model;
 
-import br.com.monitoranuvem.connection.Connection;
+import br.com.monitoranuvem.connection.Credentials;
 
 /**
  *
@@ -10,7 +10,7 @@ public class Configuration {
 
     private static Configuration instance;
     private Provider provider;
-    private Connection connection;
+    private Credentials connection;
 
     public Provider getProvider() {
         return provider;
@@ -27,11 +27,11 @@ public class Configuration {
         return instance;
     }
 
-    public Connection getConnection() {
+    public Credentials getConnection() {
         return connection;
     }
 
-    public void setConnection(Connection connection) {
+    public void setConnection(Credentials connection) {
         this.connection = connection;
     }
 }

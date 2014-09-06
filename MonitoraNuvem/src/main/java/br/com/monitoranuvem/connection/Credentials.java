@@ -5,23 +5,22 @@ package br.com.monitoranuvem.connection;
  * @author Marcio
  */
 public class Credentials {
-    private String login;
-    private String password;
+    private String acessKey;
+    private String secretKey;
 
-    public String getLogin() {
-        return login;
+    public String getAcessKey() {
+        return acessKey;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setAcessKey(String acessKey) {
+        this.acessKey = acessKey;
     }
 
-    public String getPassword() {
-        return password;
+    public String getSecretKey() {
+        return secretKey;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
+    }   
 }
