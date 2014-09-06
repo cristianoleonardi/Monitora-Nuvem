@@ -1,4 +1,4 @@
-package br.com.monitoranuvem.connection;
+package br.com.monitoranuvem.model;
 
 /**
  *

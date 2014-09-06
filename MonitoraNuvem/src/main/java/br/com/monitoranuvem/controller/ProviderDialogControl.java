@@ -1,8 +1,8 @@
 package br.com.monitoranuvem.controller;
 
-import br.com.monitoranuvem.connection.Credentials;
+import br.com.monitoranuvem.model.Credentials;
 import br.com.monitoranuvem.model.Configuration;
-import br.com.monitoranuvem.model.JVComputeServiceContextFactory;
+import br.com.monitoranuvem.model.MNComputeServiceContextFactory;
 import br.com.monitoranuvem.model.Provider;
 import java.util.ArrayList;
 import org.jclouds.compute.ComputeService;
@@ -21,11 +21,11 @@ public class ProviderDialogControl {
     }
 
     public boolean connecta(Provider p, String login, String password) {
-        Credentials conn = new Credentials();
-        conn.setAcessKey(login);
-        conn.setSecretKey(password);
+        Credentials cred = new Credentials();
+        cred.setAcessKey(login);
+        cred.setSecretKey(password);
         Configuration.getInstance().setProvider(p);
-        Configuration.getInstance().setCredentials(conn);
+        Configuration.getInstance().setCredentials(cred);
 //        listaBlob();
         listaCServ();
         return true;
@@ -42,7 +42,9 @@ public class ProviderDialogControl {
 //        }
 //    }
     public void listaCServ() {
-        ComputeServiceContext context = JVComputeServiceContextFactory.createContext();
+        
+        
+        ComputeServiceContext context = MNComputeServiceContextFactory.createContext();
         ComputeService compute = context.getComputeService();
 
         ArrayList<ComputeMetadata> metadatas = new ArrayList<ComputeMetadata>();

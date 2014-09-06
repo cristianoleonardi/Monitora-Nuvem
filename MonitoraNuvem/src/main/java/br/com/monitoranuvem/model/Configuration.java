@@ -1,7 +1,5 @@
 package br.com.monitoranuvem.model;
 
-import br.com.monitoranuvem.connection.Credentials;
-
 /**
  *
  * @author Marcio

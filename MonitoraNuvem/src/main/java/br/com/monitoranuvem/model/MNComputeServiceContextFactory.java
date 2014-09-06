@@ -5,7 +5,6 @@
  */
 package br.com.monitoranuvem.model;
 
-import br.com.monitoranuvem.connection.Credentials;
 import org.jclouds.compute.ComputeServiceContext;
 import org.jclouds.compute.ComputeServiceContextFactory;
 
@@ -13,9 +12,9 @@ import org.jclouds.compute.ComputeServiceContextFactory;
  *
  * @author Marcio
  */
-public class JVComputeServiceContextFactory {
+public class MNComputeServiceContextFactory {
 
-    public static ComputeServiceContext createContext(){
+    public static ComputeServiceContext createContext() {
         Credentials cre = Configuration.getInstance().getCredentials();
         Provider provider = Configuration.getInstance().getProvider();
 
