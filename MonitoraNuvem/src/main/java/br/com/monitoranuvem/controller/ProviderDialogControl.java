@@ -9,6 +9,8 @@ import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.ComputeServiceContext;
 import org.jclouds.compute.domain.ComputeMetadata;
 import org.jclouds.compute.domain.NodeMetadata;
+import org.jclouds.cloudwatch.domain.GetMetricStatistics;
+import org.jclouds.cloudwatch.domain.Namespaces;
 
 /**
  *
@@ -45,14 +47,13 @@ public class ProviderDialogControl {
         ComputeServiceContext context = MNComputeServiceContextFactory.createContext();
         ComputeService compute = context.getComputeService();
         ArrayList<ComputeMetadata> metadatas = new ArrayList<ComputeMetadata>();
-      
-        for (ComputeMetadata node : compute.listNodes()){
+
+        for (ComputeMetadata node : compute.listNodes()) {
             metadatas.add(node);
             NodeMetadata metadata = compute.getNodeMetadata(node.getId());
             System.out.println(metadata.getName());
             System.out.println(metadata.getLocation().getId());
             System.out.println(metadata.getProviderId());
         }
-        
     }
 }
