@@ -6,8 +6,6 @@ import br.com.monitoranuvem.model.MNComputeServiceContextFactory;
 import br.com.monitoranuvem.model.Provider;
 import java.util.ArrayList;
 import org.jclouds.cloudwatch.CloudWatch;
-import org.jclouds.cloudwatch.CloudWatchAsyncClient;
-import org.jclouds.cloudwatch.CloudWatchClient;
 import org.jclouds.cloudwatch.domain.Dimension;
 import org.jclouds.cloudwatch.domain.EC2Constants;
 import org.jclouds.cloudwatch.domain.Namespaces;
@@ -18,7 +16,6 @@ import org.jclouds.compute.domain.ComputeMetadata;
 import org.jclouds.compute.domain.NodeMetadata;
 import org.jclouds.domain.Location;
 import org.jclouds.domain.LocationScope;
-import org.jclouds.rest.RestContext;
 
 
 
@@ -78,16 +75,7 @@ public class ProviderDialogControl {
                     .build();
 
             String region = getRegion(node.getLocation());
-            Credentials cred = Configuration.getInstance().getCredentials();      
-            RestContext<CloudWatchClient, CloudWatchAsyncClient> cloudWatchContext = null;
-//            cloudWatchContext = ContextBuilder.newBuilder(new AWSCloudWatchProviderMetadata())
-//                    .credentials(cred.getAcessKey(), cred.getSecretKey())
-//                    .build();
-//            MetricClient metricClient= cloudWatchContext.getApi().getMetricClientForRegion(region);
-//            
-//            System.out.println(metricClient.listMetrics(lmOptions));
-            
-        }
+         }
     }
 
     private static String getRegion(Location location) {
