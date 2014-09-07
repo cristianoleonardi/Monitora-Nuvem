@@ -9,8 +9,6 @@ import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.ComputeServiceContext;
 import org.jclouds.compute.domain.ComputeMetadata;
 import org.jclouds.compute.domain.NodeMetadata;
-import org.jclouds.cloudwatch.domain.GetMetricStatistics;
-import org.jclouds.cloudwatch.domain.Namespaces;
 
 /**
  *
