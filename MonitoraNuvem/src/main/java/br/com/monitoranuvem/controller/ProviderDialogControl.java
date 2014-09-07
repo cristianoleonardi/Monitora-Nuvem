@@ -51,7 +51,8 @@ public class ProviderDialogControl {
             NodeMetadata metadata = compute.getNodeMetadata(node.getId());
             System.out.println(metadata.getName());
             System.out.println(metadata.getLocation().getId());
-            System.out.println(metadata.getProviderId());
+            System.out.println(metadata.getProviderId());;
+            
         }
     }
 }
