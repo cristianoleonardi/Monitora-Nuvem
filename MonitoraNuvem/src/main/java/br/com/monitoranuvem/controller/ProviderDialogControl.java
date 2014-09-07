@@ -1,14 +1,20 @@
 package br.com.monitoranuvem.controller;
 
-import br.com.monitoranuvem.model.MNComputeServiceContextFactory;
-import br.com.monitoranuvem.model.Credentials;
 import br.com.monitoranuvem.model.Configuration;
+import br.com.monitoranuvem.model.Credentials;
+import br.com.monitoranuvem.model.MNComputeServiceContextFactory;
 import br.com.monitoranuvem.model.Provider;
 import java.util.ArrayList;
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.ComputeServiceContext;
 import org.jclouds.compute.domain.ComputeMetadata;
 import org.jclouds.compute.domain.NodeMetadata;
+import org.jclouds.domain.Location;
+import org.jclouds.domain.LocationScope;
+
+
+
+
 
 /**
  *
@@ -51,8 +57,43 @@ public class ProviderDialogControl {
             NodeMetadata metadata = compute.getNodeMetadata(node.getId());
             System.out.println(metadata.getName());
             System.out.println(metadata.getLocation().getId());
-            System.out.println(metadata.getProviderId());;
+            System.out.println(metadata.getProviderId());
+
+//            CloudWatch cw = new CloudWatch();
+//            Dimension instanceIdDimension = new Dimension(EC2Constants.Dimension.INSTANCE_ID, node.getId());
+//            ListMetricsOptions lmOptions = ListMetricsOptions.builder()
+//                    .metricName(EC2Constants.MetricName.CPU_UTILIZATION)
+//                    .namespace(Namespaces.EC2)
+//                    .dimension(instanceIdDimension)
+//                    .build();
+//
+//            String region = getRegion(node.getLocation());
+//            Credentials cred = Configuration.getInstance().getCredentials();
+//            RestContext<CloudWatchClient, CloudWatchAsyncClient> cloudWatchContext = null;
+//            cloudWatchContext = ContextBuilder.newBuilder(new AWSCloudWatchProviderMetadata())
+//                    .credentials(cred.getAcessKey(), cred.getSecretKey())
+//                    .build();
+//            MetricClient metricClient= cloudWatchContext.getApi().getMetricClientForRegion(region);
+//            
+//            System.out.println(metricClient.listMetrics(lmOptions));
             
         }
+    }
+
+    private static String getRegion(Location location) {
+        // Just to be safe
+        if (location == null) {
+            return null;
+        }
+
+        String region = null;
+        while (region == null && location.getParent() != null) {
+            if (location.getScope() == LocationScope.REGION) {
+                region = location.getId();
+            } else {
+                location = location.getParent();
+            }
+        }
+        return region;
     }
 }
