@@ -14,6 +14,7 @@ import java.util.Properties;
  * @author Marcio
  */
 public class ViewProperties {
+
     private String acessKey;
     private String secretKey;
 
