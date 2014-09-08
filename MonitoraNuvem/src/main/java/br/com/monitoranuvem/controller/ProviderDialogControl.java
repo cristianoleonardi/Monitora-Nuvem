@@ -10,7 +10,7 @@ import org.jclouds.compute.ComputeServiceContext;
  */
 public class ProviderDialogControl {
 
-    public ComputeService getListaCServ() {
+    public ComputeService getListCServ() {
         ComputeServiceContext context = MNComputeServiceContextFactory.createContext();
         ComputeService compute = context.getComputeService();
         return compute;
