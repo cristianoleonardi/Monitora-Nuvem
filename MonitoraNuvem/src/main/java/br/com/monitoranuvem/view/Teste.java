@@ -28,8 +28,7 @@ public class Teste {
         ConectionCloud conn = new ConectionCloud();
 //        System.out.println(v.getAcessKey());
 //        System.out.println(v.getSecretKey());
-        conn.conection(Provider.AMAZON, v.getAcessKey().trim(), "HzRJ4lAn8ImL8zvEziWPxS8MbRrJEtdJdhjM2pXy");
-//        conn.conection(Provider.AMAZON, "AKIAIBWQEFUF5AQBOZGQ", "HzRJ4lAn8ImL8zvEziWPxS8MbRrJEtdJdhjM2pXy");
+        conn.conection(Provider.AMAZON, v.getAcessKey().trim(), v.getSecretKey());
         computer = pr.getListaCServ();
         
         ArrayList<ComputeMetadata> metadatas = new ArrayList<ComputeMetadata>();
