@@ -22,23 +22,23 @@ import org.jclouds.compute.domain.NodeMetadata;
 public class Teste {
 
     public static void main(String[] args) throws IOException {
-        ViewProperties v = new ViewProperties();
-        ProviderDialogControl pr = new ProviderDialogControl();
-        ComputeService computer;
-        ConectionCloud conn = new ConectionCloud();
-//        System.out.println(v.getAcessKey());
-//        System.out.println(v.getSecretKey());
-        conn.conection(Provider.AMAZON, v.getAcessKey().trim(), v.getSecretKey());
-        computer = pr.getListaCServ();
-        
-        ArrayList<ComputeMetadata> metadatas = new ArrayList<ComputeMetadata>();
-        for (ComputeMetadata node : computer.listNodes()) {
-            metadatas.add(node);
-            NodeMetadata metadata = computer.getNodeMetadata(node.getId());
-            System.out.println(metadata.getName());
-            System.out.println(metadata.getLocation().getId());
-            System.out.println(metadata.getProviderId()); 
-        }
+//        ViewProperties v = new ViewProperties();
+//        ProviderDialogControl pr = new ProviderDialogControl();
+//        ComputeService computer;
+//        ConectionCloud conn = new ConectionCloud();
+////        System.out.println(v.getAcessKey());
+////        System.out.println(v.getSecretKey());
+//        conn.conection(Provider.AMAZON, v.getAcessKey().trim(), v.getSecretKey());
+//        computer = pr.getListaCServ();
+//        
+//        ArrayList<ComputeMetadata> metadatas = new ArrayList<ComputeMetadata>();
+//        for (ComputeMetadata node : computer.listNodes()) {
+//            metadatas.add(node);
+//            NodeMetadata metadata = computer.getNodeMetadata(node.getId());
+//            System.out.println(metadata.getName());
+//            System.out.println(metadata.getLocation().getId());
+//            System.out.println(metadata.getProviderId()); 
+//        }
     }
 
 }
