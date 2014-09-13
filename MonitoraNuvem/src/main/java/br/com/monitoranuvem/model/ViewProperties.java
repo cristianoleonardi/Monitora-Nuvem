@@ -20,7 +20,8 @@ public class ViewProperties {
 
     public ViewProperties() throws IOException {
         Properties props = new Properties();
-        FileInputStream file = new FileInputStream("./src/main/java/br/com/monitoranuvem/properties/user.properties");
+//        FileInputStream file = new FileInputStream("./src/main/java/br/com/monitoranuvem/properties/user.properties");
+        FileInputStream file = new FileInputStream("C:/Márcio/Projeto-Java-Web/MonitoraNuvem/src/main/java/br/com/monitoranuvem/properties/user.properties");
         props.load(file);
         this.acessKey = props.getProperty("acessKey");
         this.secretKey = props.getProperty("secretKey");

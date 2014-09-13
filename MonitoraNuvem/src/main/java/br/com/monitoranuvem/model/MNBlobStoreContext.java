@@ -6,20 +6,22 @@
 package br.com.monitoranuvem.model;
 
 import org.jclouds.ContextBuilder;
-import org.jclouds.compute.ComputeServiceContext;
+import org.jclouds.blobstore.BlobStoreContext;
 
 /**
  *
  * @author Marcio
  */
-public class MNComputeServiceContextFactory {
+public class MNBlobStoreContext {
 
-    public static ComputeServiceContext createContext() {
+    public static BlobStoreContext createContext() {
         Credentials cred = Configuration.getInstance().getCredentials();
         Provider provider = Configuration.getInstance().getProvider();
-        ComputeServiceContext context = ContextBuilder.newBuilder(provider.getProviderCService())
+        
+        BlobStoreContext context = ContextBuilder.newBuilder(provider.getProviderBService())
                 .credentials(cred.getAcessKey(), cred.getSecretKey())
-                .buildView(ComputeServiceContext.class);
+                .buildView(BlobStoreContext.class);
         return context;
     }
- }
+
+}

@@ -1,6 +1,6 @@
 package br.com.monitoranuvem.controller;
 
-import br.com.monitoranuvem.model.MNComputeServiceContextFactory;
+import br.com.monitoranuvem.model.MNComputeServiceContext;
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.ComputeServiceContext;
 
@@ -11,7 +11,7 @@ import org.jclouds.compute.ComputeServiceContext;
 public class ProviderDialogControl {
 
     public ComputeService getListCServ() {
-        ComputeServiceContext context = MNComputeServiceContextFactory.createContext();
+        ComputeServiceContext context = MNComputeServiceContext.createContext();
         ComputeService compute = context.getComputeService();
         return compute;
     }
