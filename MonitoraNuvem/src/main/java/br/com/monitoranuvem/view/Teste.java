@@ -5,6 +5,8 @@
  */
 package br.com.monitoranuvem.view;
 
+import br.com.monitoranuvem.controller.ProviderDialogControl;
+import br.com.monitoranuvem.model.ViewProperties;
 import com.google.common.collect.ImmutableSet;
 import com.google.inject.Module;
 import java.io.Closeable;
@@ -29,9 +31,9 @@ public class Teste {
     private ComputeService compute;
 
     public static void main(String[] args) throws IOException {
-//        ViewProperties v = new ViewProperties();
-//        ProviderDialogControl pr = new ProviderDialogControl();
-//        ComputeService computer;
+        ViewProperties v = new ViewProperties();
+        ProviderDialogControl pr = new ProviderDialogControl();
+        ComputeService computer;
 //        ConectionCloud conn = new ConectionCloud();
 ////        System.out.println(v.getAcessKey());
 ////        System.out.println(v.getSecretKey());
