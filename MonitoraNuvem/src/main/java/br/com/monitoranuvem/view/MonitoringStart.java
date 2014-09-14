@@ -86,6 +86,7 @@ public class MonitoringStart extends HttpServlet {
             
 
             out.println("<h2>Hardware</h2>");
+            out.println("<p>Em breve</p>");
             
             out.println("</ul>");
             //out.println("<li>Hardware: " + metadata.getHardware().getRam() + "</li>");
