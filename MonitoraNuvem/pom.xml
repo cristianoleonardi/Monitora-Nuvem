@@ -4,7 +4,7 @@
 
     <groupId>br.com.monitoranuvem</groupId>
     <artifactId>MonitoraNuvem</artifactId>
-    <version>1.8.8</version>
+    <version>1.0.0</version>
     <packaging>war</packaging>
 
     <name>MonitoraNuvem</name>
@@ -39,6 +39,41 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+
+    <!-- OpenStack dependencies -->
+    <dependency>
+      <groupId>org.apache.jclouds.api</groupId>
+      <artifactId>openstack-keystone</artifactId>
+      <version>${jclouds.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.jclouds.api</groupId>
+      <artifactId>openstack-nova</artifactId>
+      <version>${jclouds.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.jclouds.api</groupId>
+      <artifactId>swift</artifactId>
+      <version>${jclouds.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.jclouds.api</groupId>
+      <artifactId>openstack-cinder</artifactId>
+      <version>${jclouds.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.jclouds.api</groupId>
+      <artifactId>openstack-trove</artifactId>
+      <version>${jclouds.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.jclouds.labs</groupId>
+      <artifactId>openstack-glance</artifactId>
+      <version>${jclouds.version}</version>
+    </dependency>
+ 
+
+
     </dependencies>
 
     <build>
