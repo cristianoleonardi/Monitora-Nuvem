@@ -11,7 +11,6 @@ import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.ViewProperties;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +48,6 @@ public class MonitoringStart extends HttpServlet {
 
         //Instancia de Hardware
         Hardware hardware = null;
-        ArrayList<ComputeMetadata> metadatas = new ArrayList<ComputeMetadata>();
 
         if (con.conection(Provider.AMAZON, prop.getAcessKey(), prop.getSecretKey())) {
             ProviderDialogControl pdc = new ProviderDialogControl();
@@ -80,13 +78,14 @@ public class MonitoringStart extends HttpServlet {
             out.println("<li>Provedor: " + metadata.getProviderId() + "</li>");
             out.println("<li>Sistema Operacional: " + metadata.getOperatingSystem().getDescription() + "</li>");
             out.println("<li>Arquitetura S.O.: " + metadata.getOperatingSystem().getArch() + "</li>");
-            out.println("<li>Status do que?: " + metadata.getStatus().name() + "</li>");
+            out.println("<li>Status do que?: " + metadata.getStatus() + "</li>");
 
             out.println("</ul>");
             
 
             out.println("<h2>Hardware</h2>");
-            out.println("<p>Em breve</p>");
+            //hardware = metadata.getHardware();
+            //out.println("<p>Teste</p>" + hardware.getRam());
             
             out.println("</ul>");
             //out.println("<li>Hardware: " + metadata.getHardware().getRam() + "</li>");
