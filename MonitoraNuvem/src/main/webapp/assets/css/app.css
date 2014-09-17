@@ -2841,7 +2841,7 @@ html.loginPage {
 	}
 	#login .login-wrapper .icon i {margin-left: 8px;margin-top: 6px;}
 	#login .login-wrapper .from-group input.form-control {padding-left: 46px !important;}
-	#login .login-wrapper .or strong{
+	#login .login-wrapper .orr strong{
 		background: white;
 		padding-left: 10px;
 		padding-right: 10px;
@@ -2897,7 +2897,7 @@ html.errorPage {
     text-shadow: 4px 3px 0px #fff, 9px 8px 0px rgba(0,0,0,0.15);
 }
 	.errorContainer .page-header h1.offline {font-size: 100px; line-height: 124px;}
-.errorContainer .or strong{
+.errorContainer .orr strong{
 	background: white;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -3396,4 +3396,5 @@ html.fixedWidth .main.isCollapse #sidebarbg {width: 38px;}
 	/* ------------------ Error page--------------------*/
 	.errorContainer {margin-top: -180px;width: 280px;margin-left: -140px;}
 
+}
 }
