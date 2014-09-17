@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.domain.ComputeMetadata;
-import org.jclouds.compute.domain.Hardware;
 import org.jclouds.compute.domain.NodeMetadata;
 
 /**
