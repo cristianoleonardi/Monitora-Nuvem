@@ -28,9 +28,7 @@ public class ConnectionMySql {
         try {
             Class.forName(driver);
             conexao = DriverManager.getConnection(url, usuario, senha);
-        } catch (ClassNotFoundException Driver) {
-            result = false;
-        } catch (SQLException Fonte) {
+        } catch (ClassNotFoundException | SQLException e) {
             result = false;
         }
         return result;
