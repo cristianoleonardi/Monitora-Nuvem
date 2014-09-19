@@ -33,25 +33,3 @@ public class ConnectionMySql {
         return result;
     }
 }
-
-//
-//    private static ConnectionMySql conn = null;
-//
-//    public static ConnectionMySql getInstance() throws ClassNotFoundException, SQLException {
-//        if (conn == null) {
-//            conn = new ConnectionMySql();
-//            System.out.println("conectou");
-//        }
-//        return conn;
-//    }
-//
-//    private Connection ConnectionMySql() throws ClassNotFoundException, SQLException {
-//        Class.forName("com.mysql.jdbc.Driver");
-//        String serverName = "127.0.0.1:3306";
-//        String mydatabase = "tcc";
-//        String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
-//        String username = "root";
-//        String password = "tcc";
-//        return DriverManager.getConnection(url, username, password);
-//    }
-//}
