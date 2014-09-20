@@ -8,7 +8,10 @@ package br.com.monitoranuvem.model;
 import br.com.monitoranuvem.connection.ConnectionMySql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,8 +19,10 @@ import java.sql.SQLException;
  */
 public class ProviderBD {
 
+    private Connection conn;
+
     public boolean createProvider(String provider) throws ClassNotFoundException, SQLException {
-        Connection conn = new ConnectionMySql().getConnection();
+        conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO PROVIDER (PROVIDER) VALUES (?)"
         );
@@ -28,5 +33,52 @@ public class ProviderBD {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<NProvider> getProvider() throws ClassNotFoundException, SQLException {
+        conn = new ConnectionMySql().getConnection();
+        Statement stmt = conn.createStatement();
+        ResultSet resultado = stmt.executeQuery("SELECT * FROM PROVIDER ORDER BY PROVIDER");
+        ArrayList<NProvider> lista = new ArrayList<>();
+        NProvider provider;
+        while (resultado.next()) {
+            int codigo = resultado.getInt("IDPROVIDER");
+            String provedor = resultado.getString("PROVIDER");
+            provider = new NProvider(codigo, provedor);
+            lista.add(provider);
+        }
+        conn.close();
+        return lista;
+    }
+
+    public boolean deletaProvider(NProvider np) throws ClassNotFoundException, SQLException {
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "DELETE FROM PROVIDER WHERE IDPROVIDER = ?"
+        );
+        stmt.setInt(1, np.getId());
+        int ret = stmt.executeUpdate();
+        conn.close();
+        if (ret > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean atualizaProvider(NProvider np, String provider) throws ClassNotFoundException, SQLException {
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE PROVIDER SET PROVIDER=?WHERE IDPROVIDER=?"
+        );
+        stmt.setString(1, provider);
+        stmt.setInt(2, np.getId());
+        int ret = stmt.executeUpdate();
+        conn.close();
+        if (ret > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
