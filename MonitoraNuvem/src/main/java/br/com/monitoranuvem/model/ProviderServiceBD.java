@@ -96,12 +96,12 @@ public class ProviderServiceBD {
         return lista;
     }
 
-    public boolean deletaProvider(ProviderN np) throws ClassNotFoundException, SQLException {
+    public boolean deletaProviderService(ProviderService ps) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "DELETE FROM PROVIDER WHERE IDPROVIDER = ?"
+                "DELETE FROM PROVIDERSERVICE WHERE IDPROVIDERSERVICE = ?"
         );
-        stmt.setInt(1, np.getId());
+        stmt.setInt(1, ps.getIdProviderService());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -111,13 +111,16 @@ public class ProviderServiceBD {
         }
     }
 
-    public boolean atualizaProvider(ProviderN np, String provider) throws ClassNotFoundException, SQLException {
+    public boolean atualizaProvider(ProviderService old, ProviderService ne) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE PROVIDER SET PROVIDER=?WHERE IDPROVIDER=?"
+                "UPDATE PROVIDERSERVICE SET PROVIDERSERVICE=?,ACESSKEY=?, SECRETKEY=?, IDPROVIDER=? WHERE IDPROVIDER=?"
         );
-        stmt.setString(1, provider);
-        stmt.setInt(2, np.getId());
+        stmt.setString(1, ne.getProviderService());
+        stmt.setString(2, ne.getAcessKey());
+        stmt.setString(3, ne.getSecretKey());
+        stmt.setInt(4, ne.getProvider().getId());
+        stmt.setInt(5, old.getProvider().getId());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {

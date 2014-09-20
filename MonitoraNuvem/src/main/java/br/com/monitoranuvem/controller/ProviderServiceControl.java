@@ -24,7 +24,16 @@ public class ProviderServiceControl {
     public ProviderService buscaProviderService(int id) throws ClassNotFoundException, SQLException {
         return new ProviderServiceBD().buscaProviderService(id);
     }
-    public ArrayList<ProviderService> listaProviderService() throws ClassNotFoundException, SQLException{
+
+    public ArrayList<ProviderService> listaProviderService() throws ClassNotFoundException, SQLException {
         return new ProviderServiceBD().listaProviderService();
+    }
+
+    public boolean deletaProviderServide(ProviderService psc) throws ClassNotFoundException, SQLException {
+        return new ProviderServiceBD().deletaProviderService(psc);
+    }
+
+    public boolean atualizaProvider(ProviderService old, ProviderService ne) throws ClassNotFoundException, SQLException {
+        return new ProviderServiceBD().atualizaProvider(old, ne);
     }
 }
