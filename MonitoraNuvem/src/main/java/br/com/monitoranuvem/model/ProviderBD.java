@@ -35,23 +35,23 @@ public class ProviderBD {
         return false;
     }
 
-    public ArrayList<NProvider> getProvider() throws ClassNotFoundException, SQLException {
+    public ArrayList<ProviderN> getProvider() throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         Statement stmt = conn.createStatement();
         ResultSet resultado = stmt.executeQuery("SELECT * FROM PROVIDER ORDER BY PROVIDER");
-        ArrayList<NProvider> lista = new ArrayList<>();
-        NProvider provider;
+        ArrayList<ProviderN> lista = new ArrayList<>();
+        ProviderN provider;
         while (resultado.next()) {
             int codigo = resultado.getInt("IDPROVIDER");
             String provedor = resultado.getString("PROVIDER");
-            provider = new NProvider(codigo, provedor);
+            provider = new ProviderN(codigo, provedor);
             lista.add(provider);
         }
         conn.close();
         return lista;
     }
 
-    public boolean deletaProvider(NProvider np) throws ClassNotFoundException, SQLException {
+    public boolean deletaProvider(ProviderN np) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "DELETE FROM PROVIDER WHERE IDPROVIDER = ?"
@@ -66,7 +66,7 @@ public class ProviderBD {
         }
     }
 
-    public boolean atualizaProvider(NProvider np, String provider) throws ClassNotFoundException, SQLException {
+    public boolean atualizaProvider(ProviderN np, String provider) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "UPDATE PROVIDER SET PROVIDER=?WHERE IDPROVIDER=?"

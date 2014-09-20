@@ -2,7 +2,7 @@ package br.com.monitoranuvem.controller;
 
 import br.com.monitoranuvem.model.MNBlobStoreContext;
 import br.com.monitoranuvem.model.MNComputeServiceContext;
-import br.com.monitoranuvem.model.NProvider;
+import br.com.monitoranuvem.model.ProviderN;
 import br.com.monitoranuvem.model.ProviderBD;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,21 +29,21 @@ public class ProviderDialogControl {
         return blobstore;
     }
 
-    public boolean RegisterProvider(String provider) throws ClassNotFoundException, SQLException {
+    public boolean registraProvider(String provider) throws ClassNotFoundException, SQLException {
         ProviderBD rp = new ProviderBD();
         rp.createProvider(provider);
         return true;
     }
 
-    public ArrayList<NProvider> getProvider() throws ClassNotFoundException, SQLException {
+    public ArrayList<ProviderN> buscaProvider() throws ClassNotFoundException, SQLException {
         return new ProviderBD().getProvider();
     }
 
-    public boolean deletaProvider(NProvider np) throws ClassNotFoundException, SQLException {
+    public boolean deletaProvider(ProviderN np) throws ClassNotFoundException, SQLException {
         return new ProviderBD().deletaProvider(np);
     }
 
-    public boolean atualizarProvider(NProvider np, String provider) throws ClassNotFoundException, SQLException {
+    public boolean atualizaProvider(ProviderN np, String provider) throws ClassNotFoundException, SQLException {
         return new ProviderBD().atualizaProvider(np, provider);
     }
 }

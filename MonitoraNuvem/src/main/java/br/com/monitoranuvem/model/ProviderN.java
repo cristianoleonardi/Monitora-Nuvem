@@ -9,12 +9,12 @@ package br.com.monitoranuvem.model;
  *
  * @author Marcio
  */
-public class NProvider {
+public class ProviderN {
     
     private int id;
     private String nome;
 
-    public NProvider(int id, String nome) {
+    public ProviderN(int id, String nome) {
         this.id = id;
         this.nome = nome;
     }
