@@ -4,6 +4,7 @@ import br.com.monitoranuvem.model.MNBlobStoreContext;
 import br.com.monitoranuvem.model.MNComputeServiceContext;
 import br.com.monitoranuvem.model.ProviderN;
 import br.com.monitoranuvem.model.ProviderBD;
+import br.com.monitoranuvem.model.ProviderService;
 import br.com.monitoranuvem.model.ProviderServiceBD;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -33,6 +34,10 @@ public class ProviderDialogControl {
     public boolean criarProvider(ProviderN provider) throws ClassNotFoundException, SQLException {
         return new ProviderBD().criarProvider(provider);
     }
+    
+    public ProviderN buscaProvider(int id) throws ClassNotFoundException, SQLException{
+        return new ProviderBD().buscaProvider(id);
+    }
 
     public ArrayList<ProviderN> listaProvider() throws ClassNotFoundException, SQLException {
         return new ProviderBD().listaProvider();
@@ -46,7 +51,7 @@ public class ProviderDialogControl {
         return new ProviderBD().atualizaProvider(pn, provider);
     }
     
-    public boolean criarProviderService(String providerService, String acessKey, String secretKey,ProviderN pn) throws ClassNotFoundException, SQLException{
-        return new ProviderServiceBD().createProviderService(providerService, acessKey, secretKey, pn);
+    public boolean criarProviderService(ProviderService ps, ProviderN pn) throws ClassNotFoundException, SQLException{
+        return new ProviderServiceBD().criarProviderService(ps, pn);
     }
 }

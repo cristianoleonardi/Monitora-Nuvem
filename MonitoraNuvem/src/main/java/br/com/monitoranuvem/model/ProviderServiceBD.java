@@ -18,22 +18,41 @@ import java.util.ArrayList;
  * @author Marcio
  */
 public class ProviderServiceBD {
+
     private Connection conn;
 
-    public boolean createProviderService(String providerService, String acessKey, String secretKey,ProviderN pn) throws ClassNotFoundException, SQLException {
+    public boolean criarProviderService(ProviderService ps, ProviderN pn) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO PROVIDERSERVICE (PROVIDERSERVICE,ACESSKEY,SECRETKEY,IDPROVIDER) VALUES (?,?,?,?)"
         );
-        stmt.setString(1, providerService);
-        stmt.setString(2, acessKey);
-        stmt.setString(3, secretKey);
+        stmt.setString(1, ps.getProviderService());
+        stmt.setString(2, ps.getAcessKey());
+        stmt.setString(3, ps.getSecretKey());
         stmt.setInt(4, pn.getId());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
             return true;
         }
+        return false;
+    }
+
+    private boolean setIdProviderService(ProviderService ps, ProviderN pn) throws ClassNotFoundException, SQLException {
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT IDPROVIDERSERVICE FROM PROVIDERSERVICE WHERE PROVIDERSERVICE=? AND IDPROVIDER=?"
+        );
+        stmt.setString(1, ps.getProviderService());
+        stmt.setInt(2, pn.getId());
+        ResultSet resultado = stmt.executeQuery();
+        if (resultado.next()) {
+            int codigo = resultado.getInt("IDPROVIDERSERVICE");
+            ps.setIdProviderService(codigo);
+            conn.close();
+            return true;
+        }
+        conn.close();
         return false;
     }
 
@@ -85,6 +104,5 @@ public class ProviderServiceBD {
             return false;
         }
     }
-    
-    
+
 }
