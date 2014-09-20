@@ -2,7 +2,7 @@ package br.com.monitoranuvem.controller;
 
 import br.com.monitoranuvem.model.MNBlobStoreContext;
 import br.com.monitoranuvem.model.MNComputeServiceContext;
-import br.com.monitoranuvem.model.RegisterProviderBD;
+import br.com.monitoranuvem.model.ProviderBD;
 import java.sql.SQLException;
 import org.jclouds.blobstore.BlobStore;
 import org.jclouds.blobstore.BlobStoreContext;
@@ -28,7 +28,7 @@ public class ProviderDialogControl {
     }
 
     public boolean RegisterProvider(String provider) throws ClassNotFoundException, SQLException {
-        RegisterProviderBD rp = new RegisterProviderBD();
+        ProviderBD rp = new ProviderBD();
         rp.createProvider(provider);
         return true;
     }

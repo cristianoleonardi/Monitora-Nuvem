@@ -14,7 +14,7 @@ import java.sql.SQLException;
  *
  * @author Marcio
  */
-public class RegisterProviderBD {
+public class ProviderBD {
 
     public boolean createProvider(String provider) throws ClassNotFoundException, SQLException {
         Connection conn = new ConnectionMySql().getConnection();
