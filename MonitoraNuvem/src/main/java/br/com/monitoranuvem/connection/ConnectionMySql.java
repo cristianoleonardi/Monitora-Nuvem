@@ -20,16 +20,13 @@ public class ConnectionMySql {
     final private String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
     final private String usuario = "root";
     final private String senha = "tcc";
-    private Connection conexao;
+    private Connection conexao=null;
 
-    public boolean conecta() {
-        boolean result = true;
-        try {
+    public Connection getConnection() throws ClassNotFoundException, SQLException{
+        if (conexao== null) {
             Class.forName(driver);
             conexao = DriverManager.getConnection(url, usuario, senha);
-        } catch (ClassNotFoundException | SQLException e) {
-            result = false;
-        }
-        return result;
+         }
+        return  conexao;
     }
 }
