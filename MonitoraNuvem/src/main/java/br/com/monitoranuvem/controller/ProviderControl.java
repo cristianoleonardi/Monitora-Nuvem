@@ -24,6 +24,9 @@ public class ProviderControl {
         return new ProviderBD().buscaProvider(id);
     }
 
+    public ProviderN buscaProvider(String provider) throws ClassNotFoundException, SQLException {
+        return new ProviderBD().buscaProvider(provider);
+    }
     public ArrayList<ProviderN> listaProvider() throws ClassNotFoundException, SQLException {
         return new ProviderBD().listaProvider();
     }

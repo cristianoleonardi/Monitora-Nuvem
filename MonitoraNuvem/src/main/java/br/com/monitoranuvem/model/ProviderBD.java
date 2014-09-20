@@ -67,6 +67,22 @@ public class ProviderBD {
         conn.close();
         return pn;
     }
+    public ProviderN buscaProvider(String provider) throws ClassNotFoundException, SQLException {
+        ProviderN pn=null;
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT IDPROVIDER FROM PROVIDER WHERE PROVIDER=?"
+        );
+        stmt.setString(1, provider);
+        ResultSet resultado = stmt.executeQuery();
+        if (resultado.next()) {
+            pn = new ProviderN();
+            pn.setId(resultado.getInt("IDPROVIDER"));
+            pn.setNome(provider);
+        }
+        conn.close();
+        return pn;
+    }
 
     public ArrayList<ProviderN> listaProvider() throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
