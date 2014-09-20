@@ -45,11 +45,27 @@ public class ProviderBD {
         if (resultado.next()) {
             int codigo = resultado.getInt("IDPROVIDER");
             provider.setId(codigo);
-            conn.close();
-            return true;
         }
         conn.close();
-        return false;
+        return true;
+    }
+
+    public ProviderN buscaProvider(int id) throws ClassNotFoundException, SQLException {
+        ProviderN pn=null;
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT PROVIDER FROM PROVIDER WHERE IDPROVIDER=?"
+        );
+        stmt.setInt(1, id);
+        ResultSet resultado = stmt.executeQuery();
+        if (resultado.next()) {
+            String provider = resultado.getString("PROVIDER");
+            pn = new ProviderN();
+            pn.setId(id);
+            pn.setNome(provider);
+        }
+        conn.close();
+        return pn;
     }
 
     public ArrayList<ProviderN> listaProvider() throws ClassNotFoundException, SQLException {
