@@ -15,12 +15,13 @@ import br.com.monitoranuvem.model.Provider;
  */
 public class ConectionCloud {
 
-    public boolean conection(Provider p, String login, String password) {
-        Credentials cred = new Credentials();
-        cred.setAcessKey(login);
-        cred.setSecretKey(password);
-        Configuration.getInstance().setProvider(p);
-        Configuration.getInstance().setCredentials(cred);
-        return true;
-    }
+//    public boolean conection(Provider p, String login, String password) {
+//        Credentials cred = new Credentials();
+//        cred.setAcessKey(login);
+//        cred.setSecretKey(password);
+//        Configuration.getInstance().setProvider(p);
+//        Configuration.getInstance().setCredentials(cred);
+//        return true;
+//    }
+    
 }

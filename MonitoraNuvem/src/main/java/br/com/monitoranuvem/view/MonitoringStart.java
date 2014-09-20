@@ -1,12 +1,19 @@
 package br.com.monitoranuvem.view;
 
 import br.com.monitoranuvem.connection.ConectionCloud;
+import br.com.monitoranuvem.controller.ProviderControl;
 import br.com.monitoranuvem.controller.ProviderDialogControl;
+import br.com.monitoranuvem.controller.ProviderServiceControl;
 import br.com.monitoranuvem.model.Provider;
+import br.com.monitoranuvem.model.ProviderN;
+import br.com.monitoranuvem.model.ProviderService;
 import br.com.monitoranuvem.model.ViewProperties;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 
 import javax.servlet.ServletException;
@@ -25,7 +32,8 @@ import org.jclouds.compute.domain.NodeMetadata;
 public class MonitoringStart extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -35,39 +43,64 @@ public class MonitoringStart extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //Credenciais de acesso
-        ViewProperties prop = new ViewProperties();
-
-        //Efetua a conexao com o provedor
-        ConectionCloud con = new ConectionCloud();
-
-        //Instancia de Compute
-        ComputeService compute = null;
-
-        if (con.conection(Provider.AMAZON, prop.getAcessKey(), prop.getSecretKey())) {
-            ProviderDialogControl pdc = new ProviderDialogControl();
-            compute = pdc.getListCServ();
+        ProviderN pn = new ProviderN();
+        ProviderControl pnc = new ProviderControl();
+        try {
+            pn = pnc.buscaProvider("Amazon");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MonitoringStart.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MonitoringStart.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        ProviderService ps = new ProviderService();
+        ProviderServiceControl psc = new ProviderServiceControl();
+        try {
+            ps = psc.buscaProviderService(1);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(MonitoringStart.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(MonitoringStart.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        ConectionCloud con = new ConectionCloud();
+
+        ComputeService compute = null;
+
+        ProviderDialogControl pdc = new ProviderDialogControl();
+        compute = pdc.getListCServ(pn, ps);
+
+//        //Credenciais de acesso
+//        ViewProperties prop = new ViewProperties();
+//
+//        //Efetua a conexao com o provedor
+//        ConectionCloud con = new ConectionCloud();
+//
+//        //Instancia de Compute
+//        ComputeService compute = null;
+//
+//        if (con.conection(Provider.AMAZON, prop.getAcessKey(), prop.getSecretKey())) {
+//            ProviderDialogControl pdc = new ProviderDialogControl();
+//            compute = pdc.getListCServ();
+//        }
         //Futuro será utilizado para redirecionar para o JSP e não ficar fazendo includes
         //RequestDispatcher rd = request
         //        .getRequestDispatcher("/dashboard.jsp");
         //rd.forward(request, response);
-        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
         RequestDispatcher rd1 = request.getRequestDispatcher("header.jsp");
         rd1.include(request, response);
-        
+
         RequestDispatcher rd2 = request.getRequestDispatcher("topbar.jsp");
         rd2.include(request, response);
-        
+
         out.println("<div class=\"main\">");
-        
+
         RequestDispatcher rd3 = request.getRequestDispatcher("sidebar.jsp");
         rd3.include(request, response);
-        
+
         out.println("<section id=\"content\">");
         out.println("<div class=\"wrapper\">");
         out.println("<div class=\"crumb\">");
@@ -88,32 +121,32 @@ public class MonitoringStart extends HttpServlet {
             out.println("</div>");
             out.println("<table class=\"table table-bordered\">");
             out.println("<tbody>");
-            
+
             out.println("<tr>");
             out.println("<th>ID:</th>");
             out.println("<td class=\"center\">" + metadata.getId() + "</td>");
             out.println("</tr>");
-            
+
             out.println("<tr>");
             out.println("<th>Nome:</th>");
             out.println("<td class=\"center\">" + metadata.getName() + "</td>");
             out.println("</tr>");
-            
+
             out.println("<tr>");
             out.println("<th>Grupo:</th>");
             out.println("<td class=\"center\">" + metadata.getGroup() + "</td>");
             out.println("</tr>");
-            
+
             out.println("<tr>");
             out.println("<th>Status:</th>");
             out.println("<td class=\"center\">" + metadata.getStatus().name() + "</td>");
             out.println("</tr>");
-            
+
             out.println("<tr>");
             out.println("<th>Alertas:</th>");
             out.println("<td class=\"center\"></td>");
             out.println("</tr>");
-            
+
             out.println("<tr>");
             out.println("<th>Detalhes:</th>");
             out.println("<td class=\"center\">"
@@ -125,7 +158,7 @@ public class MonitoringStart extends HttpServlet {
                     + "</div>"
                     + "</td>");
             out.println("</tr>");
-            
+
             out.println("</tbody>");
             out.println("</table>");
             out.println("</div>");
@@ -137,7 +170,7 @@ public class MonitoringStart extends HttpServlet {
         out.println("</div>");
         out.println("</section>");
         out.println("</div>");
-        
+
         RequestDispatcher rd4 = request.getRequestDispatcher("footer.jsp");
         rd4.include(request, response);
     }
