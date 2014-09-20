@@ -47,9 +47,7 @@ public class MonitoringStart extends HttpServlet {
         ProviderControl pnc = new ProviderControl();
         try {
             pn = pnc.buscaProvider("Amazon");
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MonitoringStart.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MonitoringStart.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -57,9 +55,7 @@ public class MonitoringStart extends HttpServlet {
         ProviderServiceControl psc = new ProviderServiceControl();
         try {
             ps = psc.buscaProviderService(1);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MonitoringStart.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(MonitoringStart.class.getName()).log(Level.SEVERE, null, ex);
         }
 
