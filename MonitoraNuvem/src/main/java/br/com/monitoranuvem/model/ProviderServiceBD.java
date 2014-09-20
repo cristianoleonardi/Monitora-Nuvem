@@ -33,9 +33,10 @@ public class ProviderServiceBD {
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
-            return true;
+            return this.setIdProviderService(ps, pn);
+        } else {
+            return false;
         }
-        return false;
     }
 
     private boolean setIdProviderService(ProviderService ps, ProviderN pn) throws ClassNotFoundException, SQLException {
@@ -56,7 +57,27 @@ public class ProviderServiceBD {
         return false;
     }
 
-    public ArrayList<ProviderN> listaProviderService() throws ClassNotFoundException, SQLException {
+    public ProviderService buscaProviderService(int id) throws ClassNotFoundException, SQLException {
+        ProviderService ps = null;
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT PROVIDERSERVICE,ACESSKEY,SECRETKEY,IDPROVIDER FROM PROVIDERSERVICE WHERE IDPROVIDERSERVICE=?"
+        );
+        stmt.setInt(1, id);
+        ResultSet resultado = stmt.executeQuery();
+        if (resultado.next()) {
+            ps = new ProviderService();
+            ps.setIdProviderService(id);
+            ps.setProviderService(resultado.getString("PROVIDERSERVICE"));
+            ps.setAcessKey(resultado.getString("ACESSKEY"));
+            ps.setSecretKey(resultado.getString("SECRETKEY"));
+            ps.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
+        }
+        conn.close();
+        return ps;
+    }
+
+    public ArrayList<ProviderN> listaProvider() throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         Statement stmt = conn.createStatement();
         ResultSet resultado = stmt.executeQuery("SELECT * FROM PROVIDER ORDER BY PROVIDER");
@@ -104,5 +125,4 @@ public class ProviderServiceBD {
             return false;
         }
     }
-
 }
