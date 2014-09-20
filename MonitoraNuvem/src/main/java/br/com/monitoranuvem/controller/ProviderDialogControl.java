@@ -4,7 +4,7 @@ import br.com.monitoranuvem.model.MNBlobStoreContext;
 import br.com.monitoranuvem.model.MNComputeServiceContext;
 import br.com.monitoranuvem.model.ProviderN;
 import br.com.monitoranuvem.model.ProviderBD;
-import br.com.monitoranuvem.model.ProviderService;
+import br.com.monitoranuvem.model.ProviderServiceBD;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.jclouds.blobstore.BlobStore;
@@ -30,7 +30,7 @@ public class ProviderDialogControl {
         return blobstore;
     }
 
-    public boolean criarProvider(String provider) throws ClassNotFoundException, SQLException {
+    public boolean criarProvider(ProviderN provider) throws ClassNotFoundException, SQLException {
         return new ProviderBD().criarProvider(provider);
     }
 
@@ -46,7 +46,7 @@ public class ProviderDialogControl {
         return new ProviderBD().atualizaProvider(pn, provider);
     }
     
-    public boolean registraProviderService(String providerService, String acessKey, String secretKey,ProviderN pn) throws ClassNotFoundException, SQLException{
-        return new ProviderService().createProviderService(providerService, acessKey, secretKey, pn);
+    public boolean criarProviderService(String providerService, String acessKey, String secretKey,ProviderN pn) throws ClassNotFoundException, SQLException{
+        return new ProviderServiceBD().createProviderService(providerService, acessKey, secretKey, pn);
     }
 }

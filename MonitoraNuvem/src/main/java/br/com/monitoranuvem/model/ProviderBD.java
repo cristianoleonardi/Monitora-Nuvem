@@ -21,17 +21,34 @@ public class ProviderBD {
 
     private Connection conn;
 
-    public boolean criarProvider(String provider) throws ClassNotFoundException, SQLException {
+    public boolean criarProvider(ProviderN provider) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO PROVIDER (PROVIDER) VALUES (?)"
         );
-        stmt.setString(1, provider);
+        stmt.setString(1, provider.getNome());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
+            return this.setIdProvider(provider);
+        }
+        return false;
+    }
+
+    private boolean setIdProvider(ProviderN provider) throws ClassNotFoundException, SQLException {
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT IDPROVIDER FROM PROVIDER WHERE PROVIDER=?"
+        );
+        stmt.setString(1, provider.getNome());
+        ResultSet resultado = stmt.executeQuery();
+        if (resultado.next()) {
+            int codigo = resultado.getInt("IDPROVIDER");
+            provider.setId(codigo);
+            conn.close();
             return true;
         }
+        conn.close();
         return false;
     }
 
@@ -44,7 +61,9 @@ public class ProviderBD {
         while (resultado.next()) {
             int codigo = resultado.getInt("IDPROVIDER");
             String provedor = resultado.getString("PROVIDER");
-            provider = new ProviderN(codigo, provedor);
+            provider = new ProviderN();
+            provider.setId(codigo);
+            provider.setNome(provedor);
             lista.add(provider);
         }
         conn.close();

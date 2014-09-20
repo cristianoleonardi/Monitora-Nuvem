@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author Marcio
  */
-public class ProviderService {
+public class ProviderServiceBD {
     private Connection conn;
 
     public boolean createProviderService(String providerService, String acessKey, String secretKey,ProviderN pn) throws ClassNotFoundException, SQLException {
@@ -46,7 +46,9 @@ public class ProviderService {
         while (resultado.next()) {
             int codigo = resultado.getInt("IDPROVIDER");
             String provedor = resultado.getString("PROVIDER");
-            provider = new ProviderN(codigo, provedor);
+            provider = new ProviderN();
+            provider.setId(codigo);
+            provider.setNome(provedor);
             lista.add(provider);
         }
         conn.close();

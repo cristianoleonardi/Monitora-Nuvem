@@ -10,14 +10,9 @@ package br.com.monitoranuvem.model;
  * @author Marcio
  */
 public class ProviderN {
-    
+
     private int id;
     private String nome;
-
-    public ProviderN(int id, String nome) {
-        this.id = id;
-        this.nome = nome;
-    }
 
     public int getId() {
         return id;
@@ -34,5 +29,5 @@ public class ProviderN {
     public void setNome(String nome) {
         this.nome = nome;
     }
-       
+
 }
