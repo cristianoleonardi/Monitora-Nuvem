@@ -4,10 +4,8 @@ import br.com.monitoranuvem.connection.ConectionCloud;
 import br.com.monitoranuvem.controller.ProviderControl;
 import br.com.monitoranuvem.controller.ProviderDialogControl;
 import br.com.monitoranuvem.controller.ProviderServiceControl;
-import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.ProviderN;
 import br.com.monitoranuvem.model.ProviderService;
-import br.com.monitoranuvem.model.ViewProperties;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -64,7 +62,7 @@ public class MonitoringStart extends HttpServlet {
         ComputeService compute = null;
 
         ProviderDialogControl pdc = new ProviderDialogControl();
-        compute = pdc.getListCServ(pn, ps);
+        compute = pdc.getListCServ(ps);
 
 //        //Credenciais de acesso
 //        ViewProperties prop = new ViewProperties();

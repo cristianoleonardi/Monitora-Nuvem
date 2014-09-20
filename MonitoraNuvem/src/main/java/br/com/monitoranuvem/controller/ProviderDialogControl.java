@@ -22,8 +22,8 @@ public class ProviderDialogControl {
 //        ComputeService compute = context.getComputeService();
 //        return compute;
 //    }
-    public ComputeService getListCServ(ProviderN pn, ProviderService ps) {
-        ComputeServiceContext context = MNComputeServiceContext.createContext(pn, ps);
+    public ComputeService getListCServ(ProviderService ps) {
+        ComputeServiceContext context = MNComputeServiceContext.createContext(ps);
         ComputeService compute = context.getComputeService();
         return compute;
     }

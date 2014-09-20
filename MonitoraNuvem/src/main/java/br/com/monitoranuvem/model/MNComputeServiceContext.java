@@ -22,9 +22,9 @@ public class MNComputeServiceContext {
 //                .buildView(ComputeServiceContext.class);
 //        return context;
 //    }
-    public static ComputeServiceContext createContext(ProviderN pn, ProviderService ps) {
-        ComputeServiceContext context = ContextBuilder.newBuilder(ps.getProvider().toString())
-                .credentials(ps.getAcessKey(), ps.getSecretKey())
+    public static ComputeServiceContext createContext(ProviderService ps) {
+        ComputeServiceContext context = ContextBuilder.newBuilder(ps.getProviderService())
+                .credentials(ps.getAcessKey().trim(), ps.getSecretKey().trim())
                 .buildView(ComputeServiceContext.class);
         return context;
     }
