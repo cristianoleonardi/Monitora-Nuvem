@@ -4,6 +4,7 @@ import br.com.monitoranuvem.model.MNBlobStoreContext;
 import br.com.monitoranuvem.model.MNComputeServiceContext;
 import br.com.monitoranuvem.model.ProviderN;
 import br.com.monitoranuvem.model.ProviderBD;
+import br.com.monitoranuvem.model.ProviderService;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.jclouds.blobstore.BlobStore;
@@ -29,21 +30,23 @@ public class ProviderDialogControl {
         return blobstore;
     }
 
-    public boolean registraProvider(String provider) throws ClassNotFoundException, SQLException {
-        ProviderBD rp = new ProviderBD();
-        rp.createProvider(provider);
-        return true;
+    public boolean criarProvider(String provider) throws ClassNotFoundException, SQLException {
+        return new ProviderBD().criarProvider(provider);
     }
 
-    public ArrayList<ProviderN> buscaProvider() throws ClassNotFoundException, SQLException {
-        return new ProviderBD().getProvider();
+    public ArrayList<ProviderN> listaProvider() throws ClassNotFoundException, SQLException {
+        return new ProviderBD().listaProvider();
     }
 
-    public boolean deletaProvider(ProviderN np) throws ClassNotFoundException, SQLException {
-        return new ProviderBD().deletaProvider(np);
+    public boolean deletaProvider(ProviderN pn) throws ClassNotFoundException, SQLException {
+        return new ProviderBD().deletaProvider(pn);
     }
 
-    public boolean atualizaProvider(ProviderN np, String provider) throws ClassNotFoundException, SQLException {
-        return new ProviderBD().atualizaProvider(np, provider);
+    public boolean atualizaProvider(ProviderN pn, String provider) throws ClassNotFoundException, SQLException {
+        return new ProviderBD().atualizaProvider(pn, provider);
+    }
+    
+    public boolean registraProviderService(String providerService, String acessKey, String secretKey,ProviderN pn) throws ClassNotFoundException, SQLException{
+        return new ProviderService().createProviderService(providerService, acessKey, secretKey, pn);
     }
 }

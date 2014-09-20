@@ -21,7 +21,7 @@ public class ProviderBD {
 
     private Connection conn;
 
-    public boolean createProvider(String provider) throws ClassNotFoundException, SQLException {
+    public boolean criarProvider(String provider) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO PROVIDER (PROVIDER) VALUES (?)"
@@ -35,7 +35,7 @@ public class ProviderBD {
         return false;
     }
 
-    public ArrayList<ProviderN> getProvider() throws ClassNotFoundException, SQLException {
+    public ArrayList<ProviderN> listaProvider() throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         Statement stmt = conn.createStatement();
         ResultSet resultado = stmt.executeQuery("SELECT * FROM PROVIDER ORDER BY PROVIDER");
