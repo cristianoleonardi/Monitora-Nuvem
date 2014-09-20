@@ -77,19 +77,20 @@ public class ProviderServiceBD {
         return ps;
     }
 
-    public ArrayList<ProviderN> listaProvider() throws ClassNotFoundException, SQLException {
+    public ArrayList<ProviderService> listaProviderService() throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         Statement stmt = conn.createStatement();
-        ResultSet resultado = stmt.executeQuery("SELECT * FROM PROVIDER ORDER BY PROVIDER");
-        ArrayList<ProviderN> lista = new ArrayList<>();
-        ProviderN provider;
+        ResultSet resultado = stmt.executeQuery("SELECT * FROM PROVIDERSERVICE ORDER BY PROVIDERSERVICE");
+        ArrayList<ProviderService> lista = new ArrayList<>();
+        ProviderService providerService;
         while (resultado.next()) {
-            int codigo = resultado.getInt("IDPROVIDER");
-            String provedor = resultado.getString("PROVIDER");
-            provider = new ProviderN();
-            provider.setId(codigo);
-            provider.setNome(provedor);
-            lista.add(provider);
+            providerService = new ProviderService();
+            providerService.setIdProviderService(resultado.getInt("IDPROVIDERSERVICE"));
+            providerService.setProviderService(resultado.getString("PROVIDERSERVICE"));
+            providerService.setAcessKey(resultado.getString("ACESSKEY"));
+            providerService.setSecretKey(resultado.getString("SECRETKEY"));
+            providerService.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
+            lista.add(providerService);
         }
         conn.close();
         return lista;

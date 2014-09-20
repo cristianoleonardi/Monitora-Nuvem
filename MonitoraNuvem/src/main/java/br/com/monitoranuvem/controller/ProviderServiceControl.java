@@ -9,6 +9,7 @@ import br.com.monitoranuvem.model.ProviderN;
 import br.com.monitoranuvem.model.ProviderService;
 import br.com.monitoranuvem.model.ProviderServiceBD;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,7 +20,11 @@ public class ProviderServiceControl {
     public boolean criarProviderService(ProviderService ps, ProviderN pn) throws ClassNotFoundException, SQLException {
         return new ProviderServiceBD().criarProviderService(ps, pn);
     }
-    public ProviderService buscaProviderService(int id) throws ClassNotFoundException, SQLException{
+
+    public ProviderService buscaProviderService(int id) throws ClassNotFoundException, SQLException {
         return new ProviderServiceBD().buscaProviderService(id);
+    }
+    public ArrayList<ProviderService> listaProviderService() throws ClassNotFoundException, SQLException{
+        return new ProviderServiceBD().listaProviderService();
     }
 }
