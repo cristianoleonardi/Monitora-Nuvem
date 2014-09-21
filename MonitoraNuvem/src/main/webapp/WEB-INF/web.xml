@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>provider</servlet-name>
-        <servlet-class>br.com.monitoranuvem.view.provider</servlet-class>
+        <servlet-class>br.com.monitoranuvem.view.ProviderView</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MonitoringStart</servlet-name>

@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Cristiano
  */
-public class provider extends HttpServlet {
+public class ProviderView extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -70,9 +70,9 @@ public class provider extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(provider.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProviderView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(provider.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProviderView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }
@@ -91,9 +91,9 @@ public class provider extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(provider.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProviderView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(provider.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProviderView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
