@@ -25,7 +25,7 @@
                     </a>
                     <ul class="sub">
                         <li>
-                            <a href="provider.jsp">
+                            <a href="provider">
                                 <span class="icon"><i class="icon20 i-cloud-download"></i></span>
                                 <span class="txt">Provedores</span>
                             </a>

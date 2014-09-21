@@ -1,4 +1,6 @@
 <%-- Inclusão do cabeçalho da página --%>
+<%@page import="br.com.monitoranuvem.model.Provider"%>
+<%@page import="java.util.ArrayList"%>
 <jsp:include page="header.jsp" />
 
 <%-- Inclusão da barra superior da página --%>
@@ -78,11 +80,17 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <% ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores"); %>
+                                        <% for (Provider provedor : listaProvedores) { %>
                                         <tr class="gradeA">
-                                            <td class="center">Teste</td>
-                                            <td>Teste</td>
-                                            <td class="center"><a class="btn btn-xs" title="Editar"><i class="icon20 i-pencil"></i></a>&nbsp;<a class="btn btn-xs" title="Remover"><i class="icon20 i-close"></i></a></td>
+                                            <td class="center"><% out.print(provedor.getId()); %></td>
+                                            <td><% out.print(provedor.getNome()); %></td>
+                                            <td class="center">
+                                                <a href="" class="btn btn-xs" title="Editar"><i class="icon20 i-pencil"></i></a>&nbsp;
+                                                <a href="" class="btn btn-xs" title="Remover"><i class="icon20 i-close"></i></a>
+                                            </td>
                                         </tr>
+                                        <% }%>
                                     </tbody>
                                 </table>
                             </div>

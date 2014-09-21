@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.monitoranuvem.view;
 
 import br.com.monitoranuvem.controller.ProviderControl;
+import br.com.monitoranuvem.model.Provider;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -15,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -34,21 +32,37 @@ public class ProviderView extends HttpServlet {
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
 
+        //Instancia do controller do provider
+        ProviderControl pc = new ProviderControl();
+        
+        //Instancia para manipular variáveis de sessao
+        HttpSession session = request.getSession(true);
+
         //Ação que determina o que será executado pelo Controller.
         String action = request.getParameter("action");
 
-        if (action.equalsIgnoreCase("criarProvider")) {
-
-            String provider = request.getParameter("provider");
-
-            ProviderControl pc = new ProviderControl();
-            pc.criarProvider(provider);
+        if (action == null || action.equalsIgnoreCase("")) {
+            //Lista provedores cadastrados
+            ArrayList<Provider> listaProvedores = pc.listaProvider();
+            
+            session.setAttribute("listaProvedores", listaProvedores);
 
             RequestDispatcher rd = request
                     .getRequestDispatcher("/provider.jsp");
             rd.forward(request, response);
-        } else if (action.equalsIgnoreCase("atualizaProvider")) {
+        } else if (action.equalsIgnoreCase("criarProvider")) {
+            //Cadastra novo provedor
+            String provider = request.getParameter("provider");
+
+            pc.criarProvider(provider);
             
+            session.setAttribute("responseAction", "cadastroOk");
+            
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("/provider.jsp");
+            rd.forward(request, response);
+        } else if (action.equalsIgnoreCase("atualizaProvider")) {
+
         } else if (action.equalsIgnoreCase("deletaProvider")) {
             
         }
