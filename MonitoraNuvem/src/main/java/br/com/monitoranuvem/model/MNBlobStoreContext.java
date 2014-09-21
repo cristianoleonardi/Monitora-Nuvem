@@ -14,14 +14,14 @@ import org.jclouds.blobstore.BlobStoreContext;
  */
 public class MNBlobStoreContext {
 
-    public static BlobStoreContext createContext() {
-        Credentials cred = Configuration.getInstance().getCredentials();
-        Provider provider = Configuration.getInstance().getProvider();
-        
-        BlobStoreContext context = ContextBuilder.newBuilder(provider.getProviderBService())
-                .credentials(cred.getAcessKey(), cred.getSecretKey())
-                .buildView(BlobStoreContext.class);
-        return context;
-    }
+//    public static BlobStoreContext createContext() {
+//        Credentials cred = Configuration.getInstance().getCredentials();
+//        Provider provider = Configuration.getInstance().getProvider();
+//        
+//        BlobStoreContext context = ContextBuilder.newBuilder(provider.getProviderBService())
+//                .credentials(cred.getAcessKey(), cred.getSecretKey())
+//                .buildView(BlobStoreContext.class);
+//        return context;
+//    }
 
 }

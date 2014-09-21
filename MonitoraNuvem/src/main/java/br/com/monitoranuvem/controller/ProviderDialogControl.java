@@ -28,9 +28,9 @@ public class ProviderDialogControl {
         return compute;
     }
 
-    public BlobStore getsListBServ() {
-        BlobStoreContext context = MNBlobStoreContext.createContext();
-        BlobStore blobstore = context.getBlobStore();
-        return blobstore;
-    }
+//    public BlobStore getsListBServ() {
+//        BlobStoreContext context = MNBlobStoreContext.createContext();
+//        BlobStore blobstore = context.getBlobStore();
+//        return blobstore;
+//    }
 }

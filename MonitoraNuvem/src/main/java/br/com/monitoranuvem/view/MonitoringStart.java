@@ -1,6 +1,5 @@
 package br.com.monitoranuvem.view;
 
-import br.com.monitoranuvem.connection.ConectionCloud;
 import br.com.monitoranuvem.controller.ProviderControl;
 import br.com.monitoranuvem.controller.ProviderDialogControl;
 import br.com.monitoranuvem.controller.ProviderServiceControl;
@@ -57,26 +56,11 @@ public class MonitoringStart extends HttpServlet {
             Logger.getLogger(MonitoringStart.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        ConectionCloud con = new ConectionCloud();
-
         ComputeService compute = null;
 
         ProviderDialogControl pdc = new ProviderDialogControl();
         compute = pdc.getListCServ(ps);
 
-//        //Credenciais de acesso
-//        ViewProperties prop = new ViewProperties();
-//
-//        //Efetua a conexao com o provedor
-//        ConectionCloud con = new ConectionCloud();
-//
-//        //Instancia de Compute
-//        ComputeService compute = null;
-//
-//        if (con.conection(Provider.AMAZON, prop.getAcessKey(), prop.getSecretKey())) {
-//            ProviderDialogControl pdc = new ProviderDialogControl();
-//            compute = pdc.getListCServ();
-//        }
         //Futuro será utilizado para redirecionar para o JSP e não ficar fazendo includes
         //RequestDispatcher rd = request
         //        .getRequestDispatcher("/dashboard.jsp");
