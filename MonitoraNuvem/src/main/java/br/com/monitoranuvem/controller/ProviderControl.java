@@ -16,8 +16,10 @@ import java.util.ArrayList;
  */
 public class ProviderControl {
 
-    public boolean criarProvider(Provider provider) throws ClassNotFoundException, SQLException {
-        return new ProviderBD().criarProvider(provider);
+    public boolean criarProvider(String provider) throws ClassNotFoundException, SQLException {
+        Provider p = new Provider();
+        p.setNome(provider);
+        return new ProviderBD().criarProvider(p);
     }
 
     public Provider buscaProvider(int id) throws ClassNotFoundException, SQLException {
