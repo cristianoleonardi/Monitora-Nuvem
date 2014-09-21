@@ -102,12 +102,12 @@ public class ProviderBD {
         return lista;
     }
 
-    public boolean deletaProvider(Provider np) throws ClassNotFoundException, SQLException {
+    public boolean deletaProvider(int id) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "DELETE FROM PROVIDER WHERE IDPROVIDER = ?"
         );
-        stmt.setInt(1, np.getId());
+        stmt.setInt(1, id);
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {

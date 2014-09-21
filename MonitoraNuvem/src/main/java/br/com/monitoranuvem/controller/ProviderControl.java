@@ -33,8 +33,8 @@ public class ProviderControl {
         return new ProviderBD().listaProvider();
     }
 
-    public boolean deletaProvider(Provider pn) throws ClassNotFoundException, SQLException {
-        return new ProviderBD().deletaProvider(pn);
+    public boolean deletaProvider(int id) throws ClassNotFoundException, SQLException {
+        return new ProviderBD().deletaProvider(id);
     }
 
     public boolean atualizaProvider(Provider pn, String provider) throws ClassNotFoundException, SQLException {
