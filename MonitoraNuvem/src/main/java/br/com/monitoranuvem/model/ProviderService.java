@@ -14,7 +14,7 @@ public class ProviderService {
     private String providerService;
     private String acessKey;
     private String secretKey;
-    private ProviderN provider;
+    private Provider provider;
 
     public int getIdProviderService() {
         return idProviderService;
@@ -48,11 +48,11 @@ public class ProviderService {
         this.secretKey = secretKey;
     }
 
-    public ProviderN getProvider() {
+    public Provider getProvider() {
         return provider;
     }
 
-    public void setProvider(ProviderN provider) {
+    public void setProvider(Provider provider) {
         this.provider = provider;
     }
    

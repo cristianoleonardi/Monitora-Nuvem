@@ -9,7 +9,7 @@ package br.com.monitoranuvem.model;
  *
  * @author Marcio
  */
-public class ProviderN {
+public class Provider {
 
     private int id;
     private String nome;

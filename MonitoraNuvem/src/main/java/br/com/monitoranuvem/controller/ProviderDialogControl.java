@@ -2,7 +2,7 @@ package br.com.monitoranuvem.controller;
 
 import br.com.monitoranuvem.model.MNBlobStoreContext;
 import br.com.monitoranuvem.model.MNComputeServiceContext;
-import br.com.monitoranuvem.model.ProviderN;
+import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.ProviderService;
 import br.com.monitoranuvem.model.ProviderServiceBD;
 import java.sql.SQLException;
@@ -17,11 +17,6 @@ import org.jclouds.compute.ComputeServiceContext;
  */
 public class ProviderDialogControl {
 
-//    public ComputeService getListCServ() {
-//        ComputeServiceContext context = MNComputeServiceContext.createContext();
-//        ComputeService compute = context.getComputeService();
-//        return compute;
-//    }
     public ComputeService getListCServ(ProviderService ps) {
         ComputeServiceContext context = MNComputeServiceContext.createContext(ps);
         ComputeService compute = context.getComputeService();

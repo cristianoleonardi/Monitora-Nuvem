@@ -21,7 +21,7 @@ public class ProviderBD {
 
     private Connection conn;
 
-    public boolean criarProvider(ProviderN provider) throws ClassNotFoundException, SQLException {
+    public boolean criarProvider(Provider provider) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO PROVIDER (PROVIDER) VALUES (?)"
@@ -35,7 +35,7 @@ public class ProviderBD {
         return false;
     }
 
-    private boolean setIdProvider(ProviderN provider) throws ClassNotFoundException, SQLException {
+    private boolean setIdProvider(Provider provider) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDPROVIDER FROM PROVIDER WHERE PROVIDER=?"
@@ -50,8 +50,8 @@ public class ProviderBD {
         return true;
     }
 
-    public ProviderN buscaProvider(int id) throws ClassNotFoundException, SQLException {
-        ProviderN pn=null;
+    public Provider buscaProvider(int id) throws ClassNotFoundException, SQLException {
+        Provider pn=null;
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT PROVIDER FROM PROVIDER WHERE IDPROVIDER=?"
@@ -60,15 +60,15 @@ public class ProviderBD {
         ResultSet resultado = stmt.executeQuery();
         if (resultado.next()) {
             String provider = resultado.getString("PROVIDER");
-            pn = new ProviderN();
+            pn = new Provider();
             pn.setId(id);
             pn.setNome(provider);
         }
         conn.close();
         return pn;
     }
-    public ProviderN buscaProvider(String provider) throws ClassNotFoundException, SQLException {
-        ProviderN pn=null;
+    public Provider buscaProvider(String provider) throws ClassNotFoundException, SQLException {
+        Provider pn=null;
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDPROVIDER FROM PROVIDER WHERE PROVIDER=?"
@@ -76,7 +76,7 @@ public class ProviderBD {
         stmt.setString(1, provider);
         ResultSet resultado = stmt.executeQuery();
         if (resultado.next()) {
-            pn = new ProviderN();
+            pn = new Provider();
             pn.setId(resultado.getInt("IDPROVIDER"));
             pn.setNome(provider);
         }
@@ -84,16 +84,16 @@ public class ProviderBD {
         return pn;
     }
 
-    public ArrayList<ProviderN> listaProvider() throws ClassNotFoundException, SQLException {
+    public ArrayList<Provider> listaProvider() throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         Statement stmt = conn.createStatement();
         ResultSet resultado = stmt.executeQuery("SELECT * FROM PROVIDER ORDER BY PROVIDER");
-        ArrayList<ProviderN> lista = new ArrayList<>();
-        ProviderN provider;
+        ArrayList<Provider> lista = new ArrayList<>();
+        Provider provider;
         while (resultado.next()) {
             int codigo = resultado.getInt("IDPROVIDER");
             String provedor = resultado.getString("PROVIDER");
-            provider = new ProviderN();
+            provider = new Provider();
             provider.setId(codigo);
             provider.setNome(provedor);
             lista.add(provider);
@@ -102,7 +102,7 @@ public class ProviderBD {
         return lista;
     }
 
-    public boolean deletaProvider(ProviderN np) throws ClassNotFoundException, SQLException {
+    public boolean deletaProvider(Provider np) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "DELETE FROM PROVIDER WHERE IDPROVIDER = ?"
@@ -117,7 +117,7 @@ public class ProviderBD {
         }
     }
 
-    public boolean atualizaProvider(ProviderN np, String provider) throws ClassNotFoundException, SQLException {
+    public boolean atualizaProvider(Provider np, String provider) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "UPDATE PROVIDER SET PROVIDER=?WHERE IDPROVIDER=?"

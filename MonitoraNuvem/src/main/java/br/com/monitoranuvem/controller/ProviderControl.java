@@ -6,7 +6,7 @@
 package br.com.monitoranuvem.controller;
 
 import br.com.monitoranuvem.model.ProviderBD;
-import br.com.monitoranuvem.model.ProviderN;
+import br.com.monitoranuvem.model.Provider;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -16,26 +16,26 @@ import java.util.ArrayList;
  */
 public class ProviderControl {
 
-    public boolean criarProvider(ProviderN provider) throws ClassNotFoundException, SQLException {
+    public boolean criarProvider(Provider provider) throws ClassNotFoundException, SQLException {
         return new ProviderBD().criarProvider(provider);
     }
 
-    public ProviderN buscaProvider(int id) throws ClassNotFoundException, SQLException {
+    public Provider buscaProvider(int id) throws ClassNotFoundException, SQLException {
         return new ProviderBD().buscaProvider(id);
     }
 
-    public ProviderN buscaProvider(String provider) throws ClassNotFoundException, SQLException {
+    public Provider buscaProvider(String provider) throws ClassNotFoundException, SQLException {
         return new ProviderBD().buscaProvider(provider);
     }
-    public ArrayList<ProviderN> listaProvider() throws ClassNotFoundException, SQLException {
+    public ArrayList<Provider> listaProvider() throws ClassNotFoundException, SQLException {
         return new ProviderBD().listaProvider();
     }
 
-    public boolean deletaProvider(ProviderN pn) throws ClassNotFoundException, SQLException {
+    public boolean deletaProvider(Provider pn) throws ClassNotFoundException, SQLException {
         return new ProviderBD().deletaProvider(pn);
     }
 
-    public boolean atualizaProvider(ProviderN pn, String provider) throws ClassNotFoundException, SQLException {
+    public boolean atualizaProvider(Provider pn, String provider) throws ClassNotFoundException, SQLException {
         return new ProviderBD().atualizaProvider(pn, provider);
     }
 

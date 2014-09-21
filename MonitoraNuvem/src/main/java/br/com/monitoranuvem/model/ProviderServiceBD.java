@@ -21,7 +21,7 @@ public class ProviderServiceBD {
 
     private Connection conn;
 
-    public boolean criarProviderService(ProviderService ps, ProviderN pn) throws ClassNotFoundException, SQLException {
+    public boolean criarProviderService(ProviderService ps, Provider pn) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO PROVIDERSERVICE (PROVIDERSERVICE,ACESSKEY,SECRETKEY,IDPROVIDER) VALUES (?,?,?,?)"
@@ -39,7 +39,7 @@ public class ProviderServiceBD {
         }
     }
 
-    private boolean setIdProviderService(ProviderService ps, ProviderN pn) throws ClassNotFoundException, SQLException {
+    private boolean setIdProviderService(ProviderService ps, Provider pn) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDPROVIDERSERVICE FROM PROVIDERSERVICE WHERE PROVIDERSERVICE=? AND IDPROVIDER=?"

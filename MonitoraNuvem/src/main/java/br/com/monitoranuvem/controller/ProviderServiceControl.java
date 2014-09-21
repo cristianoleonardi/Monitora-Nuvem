@@ -5,7 +5,7 @@
  */
 package br.com.monitoranuvem.controller;
 
-import br.com.monitoranuvem.model.ProviderN;
+import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.ProviderService;
 import br.com.monitoranuvem.model.ProviderServiceBD;
 import java.sql.SQLException;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class ProviderServiceControl {
 
-    public boolean criarProviderService(ProviderService ps, ProviderN pn) throws ClassNotFoundException, SQLException {
+    public boolean criarProviderService(ProviderService ps, Provider pn) throws ClassNotFoundException, SQLException {
         return new ProviderServiceBD().criarProviderService(ps, pn);
     }
 

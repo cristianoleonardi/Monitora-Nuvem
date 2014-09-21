@@ -3,7 +3,7 @@ package br.com.monitoranuvem.view;
 import br.com.monitoranuvem.controller.ProviderControl;
 import br.com.monitoranuvem.controller.ProviderDialogControl;
 import br.com.monitoranuvem.controller.ProviderServiceControl;
-import br.com.monitoranuvem.model.ProviderN;
+import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.ProviderService;
 
 import java.io.IOException;
@@ -40,7 +40,7 @@ public class MonitoringStart extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        ProviderN pn = new ProviderN();
+        Provider pn = new Provider();
         ProviderControl pnc = new ProviderControl();
         try {
             pn = pnc.buscaProvider("Amazon");
