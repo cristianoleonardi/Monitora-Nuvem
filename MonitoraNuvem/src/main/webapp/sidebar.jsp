@@ -31,6 +31,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="credential.jsp">
+                                <span class="icon"><i class="icon20 i-key"></i></span>
+                                <span class="txt">Credenciais</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="#">
                                 <span class="icon"><i class="icon20 i-stack-checkmark"></i></span>
                                 <span class="txt">Monitorações</span>

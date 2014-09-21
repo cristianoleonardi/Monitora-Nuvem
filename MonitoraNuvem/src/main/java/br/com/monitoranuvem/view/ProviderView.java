@@ -47,6 +47,10 @@ public class ProviderView extends HttpServlet {
             RequestDispatcher rd = request
                     .getRequestDispatcher("/provider.jsp");
             rd.forward(request, response);
+        } else if (action.equalsIgnoreCase("atualizaProvider")) {
+            
+        } else if (action.equalsIgnoreCase("deletaProvider")) {
+            
         }
     }
 
