@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.monitoranuvem.view;
 
 import com.google.common.collect.ImmutableSet;
 import com.google.common.io.Closeables;
 import com.google.inject.Module;
 import org.jclouds.ContextBuilder;
-import org.jclouds.logging.LoggingModules;
+import org.jclouds.logging.slf4j.config.SLF4JLoggingModule;
 import org.jclouds.openstack.nova.v2_0.NovaApi;
 import org.jclouds.openstack.nova.v2_0.domain.Server;
 import org.jclouds.openstack.nova.v2_0.features.ServerApi;
@@ -19,7 +14,6 @@ import java.io.IOException;
 import java.util.Set;
 
 public class JCloudsNova implements Closeable {
-
     private final NovaApi novaApi;
     private final Set<String> zones;
 
@@ -37,17 +31,18 @@ public class JCloudsNova implements Closeable {
     }
 
     public JCloudsNova() {
+        Iterable<Module> modules = ImmutableSet.<Module>of(new SLF4JLoggingModule());
 
         String provider = "openstack-nova";
-        String identity = "admin"; // tenantName:userName
-        String credential = "openstack";
+        String identity = "admin:admin"; // tenantName:userName
+        String credential = "rpa2k2";
 
         novaApi = ContextBuilder.newBuilder(provider)
-                .endpoint("http://192.168.221.130:5000/v2.0/")
+                .endpoint("http://198.58.125.137:5000/v2.0/")
                 .credentials(identity, credential)
+                .modules(modules)
                 .buildApi(NovaApi.class);
         zones = novaApi.getConfiguredZones();
-
     }
 
     private void listServers() {
