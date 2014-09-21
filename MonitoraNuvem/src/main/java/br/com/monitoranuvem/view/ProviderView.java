@@ -6,7 +6,6 @@
 package br.com.monitoranuvem.view;
 
 import br.com.monitoranuvem.controller.ProviderControl;
-import br.com.monitoranuvem.model.Provider;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -37,22 +36,18 @@ public class ProviderView extends HttpServlet {
 
         //Ação que determina o que será executado pelo Controller.
         String action = request.getParameter("action");
-        
+
         if (action.equalsIgnoreCase("criarProvider")) {
 
             String provider = request.getParameter("provider");
 
-            Provider p = new Provider();
-            p.setNome(provider);
-
             ProviderControl pc = new ProviderControl();
-            pc.criarProvider(p);
+            pc.criarProvider(provider);
 
             RequestDispatcher rd = request
                     .getRequestDispatcher("/provider.jsp");
             rd.forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -74,7 +69,7 @@ public class ProviderView extends HttpServlet {
         } catch (SQLException ex) {
             Logger.getLogger(ProviderView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
     /**
