@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import com.google.common.io.Closeables;
 import com.google.inject.Module;
 import org.jclouds.ContextBuilder;
-import org.jclouds.logging.slf4j.config.SLF4JLoggingModule;
 import org.jclouds.openstack.nova.v2_0.NovaApi;
 import org.jclouds.openstack.nova.v2_0.domain.Server;
 import org.jclouds.openstack.nova.v2_0.features.ServerApi;
@@ -31,16 +30,17 @@ public class JCloudsNova implements Closeable {
     }
 
     public JCloudsNova() {
-        Iterable<Module> modules = ImmutableSet.<Module>of(new SLF4JLoggingModule());
+//        Iterable<Module> modules = ImmutableSet.<Module>of(new SLF4JLoggingModule());
 
         String provider = "openstack-nova";
         String identity = "admin:admin"; // tenantName:userName
-        String credential = "rpa2k2";
+        String credential = "openstack";
 
         novaApi = ContextBuilder.newBuilder(provider)
-                .endpoint("http://198.58.125.137:5000/v2.0/")
+//                .endpoint("http://198.58.125.137:5000/v2.0/")
+                .endpoint("http://192.168.221.130:5000/v2.0/")
                 .credentials(identity, credential)
-                .modules(modules)
+//                .modules(modules)
                 .buildApi(NovaApi.class);
         zones = novaApi.getConfiguredZones();
     }
