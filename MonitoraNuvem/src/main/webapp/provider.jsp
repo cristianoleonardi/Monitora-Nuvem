@@ -26,6 +26,21 @@
                 <div id="heading" class="page-header">
                     <h1><i class="icon20 i-cloud-download"></i> Cadastro de Provedores</h1>
                 </div>
+
+                <% if (session.getAttribute("responseAction") == "criarOk") { %>
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong><i class="icon24 i-checkmark-circle"></i> Parabéns!</strong> Seu provedor foi gravado com sucesso.
+                </div>
+                <% session.removeAttribute("responseAction"); %>
+                <% } else if (session.getAttribute("responseAction") == "criarErro") { %>
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong><i class="icon24 i-close-4"></i> Erro!</strong> Não foi possível cadastrar este provedor.
+                </div>
+                <% session.removeAttribute("responseAction"); %>
+                <% } %>
+
                 <div class="row">
 
                     <div class="col-lg-12">
@@ -38,18 +53,27 @@
 
                             <div class="panel-body">
                                 <form class="form-horizontal" action="provider" method="POST">
+                                    <% Provider provedor = (Provider)session.getAttribute("provedor"); %>
+                                    <% if (session.getAttribute("action") == "atualizarProvider") { %>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label" for="normal">ID</label>
+                                        <div class="col-lg-10">
+                                            <input class="form-control" type="text" name="provider" value="<% if(provedor != null) out.print(provedor.getId()); %>" required readonly /><br />
+                                        </div>
+                                    </div>
+                                    <% } %>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">Provedor</label>
                                         <div class="col-lg-10">
-                                            <input class="form-control" type="text" name="provider" required /><br />
+                                            <input class="form-control" type="text" name="provider" value="<% if(provedor != null) out.print(provedor.getNome()); %>" required /><br />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-lg-offset-2">
                                             <div class="pad-left15">
                                                 <input type="hidden" name="action" value="criarProvider" />
-                                                <button type="submit" class="btn btn-primary">Cadastrar</button>
-                                                <button type="button" class="btn">Cancelar</button>
+                                                <button type="submit" class="btn btn-success btn-xs"><i class="icon10 i-database"> Cadastrar</i></button>
+                                                <button type="reset" class="btn btn-danger btn-xs"><i class="icon10 i-close"> Cancelar</i></button>
                                             </div>
                                         </div>
                                     </div>
@@ -76,18 +100,29 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Descrição</th>
-                                            <th>Ações</th>
+                                            <th>Editar</th>
+                                            <th>Remover</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <% ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores"); %>
-                                        <% for (Provider provedor : listaProvedores) { %>
+                                        <% for (Provider provedores : listaProvedores) { %>
                                         <tr class="gradeA">
-                                            <td class="center"><% out.print(provedor.getId()); %></td>
-                                            <td><% out.print(provedor.getNome()); %></td>
+                                            <td class="center"><% out.print(provedores.getId()); %></td>
+                                            <td><% out.print(provedores.getNome()); %></td>
                                             <td class="center">
-                                                <a href="" class="btn btn-xs" title="Editar"><i class="icon20 i-pencil"></i></a>&nbsp;
-                                                <a href="" class="btn btn-xs" title="Remover"><i class="icon20 i-close"></i></a>
+                                                <form action="provider" method="POST">
+                                                    <input type="hidden" name="id" value="<% out.print(provedores.getId()); %>" />
+                                                    <input type="hidden" name="action" value="listarProvider" />
+                                                    <button type="submit" class="btn btn-primary btn-xs" title="Editar"><i class="icon10 i-pencil"> Editar</i></button>&nbsp;
+                                                </form>
+                                            </td>
+                                            <td class="center">
+                                                <form action="provider" method="POST">
+                                                    <input type="hidden" name="id" value="<% out.print(provedores.getId()); %>" />
+                                                    <input type="hidden" name="action" value="deletarProvider" />
+                                                    <button type="submit" class="btn btn-danger btn-xs" title="Deletar"><i class="icon10 i-close"> Remover</i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                         <% }%>
