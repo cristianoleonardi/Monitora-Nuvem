@@ -38,16 +38,16 @@ public class JCloudsNova implements Closeable {
                 .buildView(ComputeServiceContext.class);
 
         ComputeService compute = context.getComputeService();
-        System.out.println(compute.listHardwareProfiles());
         for (ComputeMetadata node : compute.listNodes()) {
             NodeMetadata metadata = compute.getNodeMetadata(node.getId());
-            System.out.println(node.getProviderId());
-            System.out.println(metadata.getId()); 
-            System.out.println(metadata.getName());
+//            System.out.println(node.getProviderId());
+//            System.out.println(metadata.getId()); 
+//            System.out.println(metadata.getName());
+            System.out.println(metadata.getHardware().getHypervisor());
             
-            System.out.println(metadata.getHardware().toString());
-            
-            System.out.println(metadata.getStatus().name());
+//            System.out.println(metadata.getHardware().toString());
+//            
+//            System.out.println(metadata.getStatus().name());
 
         }
 
