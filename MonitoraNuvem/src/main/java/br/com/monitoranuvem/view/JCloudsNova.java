@@ -1,3 +1,4 @@
+
 package br.com.monitoranuvem.view;
 
 import com.google.common.io.Closeables;
