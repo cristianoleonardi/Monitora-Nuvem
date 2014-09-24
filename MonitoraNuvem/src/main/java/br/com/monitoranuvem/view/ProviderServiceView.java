@@ -63,7 +63,7 @@ public class ProviderServiceView extends HttpServlet {
             int provider = Integer.parseInt(request.getParameter("provider"));
             String providerService = request.getParameter("providerservice");
             String accessKey = request.getParameter("accesskey");
-            String secretAccessKey = request.getParameter("secretAccessKey");
+            String secretAccessKey = request.getParameter("secretaccesskey");
 
             if (psc.criarProviderService(provider, providerService, accessKey, secretAccessKey)) {
                 session.setAttribute("responseAction", "Ok");
@@ -104,7 +104,7 @@ public class ProviderServiceView extends HttpServlet {
             int provider = Integer.parseInt(request.getParameter("provider"));
             String providerService = request.getParameter("providerservice");
             String accessKey = request.getParameter("accesskey");
-            String secretAccessKey = request.getParameter("secretAccessKey");
+            String secretAccessKey = request.getParameter("secretaccesskey");
 
             if (psc.atualizaProvider(id, provider, providerService, accessKey, secretAccessKey)) {
                 session.setAttribute("responseAction", "Ok");

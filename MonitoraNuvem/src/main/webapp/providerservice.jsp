@@ -72,7 +72,7 @@
                                     <% } %>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">Provedor</label>
-                                        <div class="col-lg-10">
+                                        <div class="col-lg-5">
                                             <select name="provider" class="form-control">
                                                 <% ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores"); %>
                                                 <% for (Provider provedores : listaProvedores) { %>

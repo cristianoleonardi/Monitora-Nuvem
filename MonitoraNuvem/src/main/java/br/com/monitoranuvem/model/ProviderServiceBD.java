@@ -24,7 +24,7 @@ public class ProviderServiceBD {
     public boolean criarProviderService(ProviderService ps) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO PROVIDERSERVICE (PROVIDERSERVICE,ACESSKEY,SECRETKEY,IDPROVIDER) VALUES (?,?,?,?)"
+                "INSERT INTO PROVIDERSERVICE (PROVIDERSERVICE, ACESSKEY, SECRETKEY, IDPROVIDER) VALUES (?,?,?,?)"
         );
         stmt.setString(1, ps.getProviderService());
         stmt.setString(2, ps.getAcessKey());
@@ -114,7 +114,7 @@ public class ProviderServiceBD {
     public boolean atualizaProvider(ProviderService old) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE PROVIDERSERVICE SET PROVIDERSERVICE=?,ACESSKEY=?, SECRETKEY=?, IDPROVIDER=? WHERE IDPROVIDERSERVICE=?"
+                "UPDATE PROVIDERSERVICE SET PROVIDERSERVICE=?, ACESSKEY=?, SECRETKEY=?, IDPROVIDER=? WHERE IDPROVIDERSERVICE=?"
         );
         stmt.setString(1, old.getProviderService());
         stmt.setString(2, old.getAcessKey());
