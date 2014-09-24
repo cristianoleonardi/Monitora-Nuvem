@@ -166,14 +166,14 @@
                                             <td><% out.print(prvServices.getSecretKey()); %></td>
                                             <td class="center">
                                                 <form action="providerservice" method="POST">
-                                                    <input type="hidden" name="id" value="<% out.print(prvServices.getIdProviderService()); %>" />
+                                                    <input type="hidden" name="id" value="<% out.print(prvServices.getProvider().getId()); %>" />
                                                     <input type="hidden" name="action" value="buscarProviderService" />
                                                     <button type="submit" class="btn btn-primary btn-xs" title="Editar"><i class="icon10 i-pencil"> Editar</i></button>&nbsp;
                                                 </form>
                                             </td>
                                             <td class="center">
                                                 <form action="providerservice" method="POST">
-                                                    <input type="hidden" name="id" value="<% out.print(prvServices.getIdProviderService()); %>" />
+                                                    <input type="hidden" name="id" value="<% out.print(prvServices.getProvider().getId()); %>" />
                                                     <input type="hidden" name="action" value="deletarProviderService" />
                                                     <button type="submit" class="btn btn-danger btn-xs" title="Remover"><i class="icon10 i-close"> Remover</i></button>
                                                 </form>

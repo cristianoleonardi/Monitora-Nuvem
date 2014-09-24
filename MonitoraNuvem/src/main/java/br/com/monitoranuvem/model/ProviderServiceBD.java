@@ -61,7 +61,7 @@ public class ProviderServiceBD {
         ProviderService ps = null;
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "SELECT PROVIDERSERVICE,ACESSKEY,SECRETKEY,IDPROVIDER FROM PROVIDERSERVICE WHERE IDPROVIDERSERVICE=?"
+                "SELECT PROVIDERSERVICE,ACESSKEY,SECRETKEY,IDPROVIDER FROM PROVIDERSERVICE WHERE IDPROVIDER=?"
         );
         stmt.setInt(1, id);
         ResultSet resultado = stmt.executeQuery();
