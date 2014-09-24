@@ -12,6 +12,10 @@
         <servlet-name>providerservice</servlet-name>
         <servlet-class>br.com.monitoranuvem.view.ProviderServiceView</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>dashboardview</servlet-name>
+        <servlet-class>br.com.monitoranuvem.view.DashboardView</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MonitoringStart</servlet-name>
         <url-pattern>/MonitoringStart</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>providerservice</servlet-name>
         <url-pattern>/providerservice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>dashboardview</servlet-name>
+        <url-pattern>/dashboardview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

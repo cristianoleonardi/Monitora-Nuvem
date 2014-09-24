@@ -13,7 +13,7 @@
         <nav id="mainnav">
             <ul class="nav nav-list">
                 <li>
-                    <a href="MonitoringStart">
+                    <a href="dashboardview">
                         <span class="icon"><i class="icon20 i-dashboard"></i></span>
                         <span class="txt">Dashboard</span>
                     </a>

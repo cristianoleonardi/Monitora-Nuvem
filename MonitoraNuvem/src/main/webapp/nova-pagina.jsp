@@ -23,6 +23,9 @@
             </div>
 
             <div class="container-fluid">
+                <div id="heading" class="page-header">
+                    <h1><i class="icon20 i-cloud"></i> Nonono</h1>
+                </div>
                 
             </div>
         </div>
