@@ -62,7 +62,7 @@
                                     <% if (session.getAttribute("action") == "atualizarProvider") { %>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">ID</label>
-                                        <div class="col-lg-10">
+                                        <div class="col-lg-2">
                                             <input class="form-control" type="text" name="id" value="<% if (provedor != null) {
                                                     out.print(provedor.getId());
                                                 } %>" required readonly /><br />
