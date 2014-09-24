@@ -21,7 +21,7 @@ public class ProviderServiceBD {
 
     private Connection conn;
 
-    public boolean criarProviderService(ProviderService ps, Provider pn) throws ClassNotFoundException, SQLException {
+    public boolean criarProviderService(ProviderService ps) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO PROVIDERSERVICE (PROVIDERSERVICE,ACESSKEY,SECRETKEY,IDPROVIDER) VALUES (?,?,?,?)"
@@ -29,23 +29,23 @@ public class ProviderServiceBD {
         stmt.setString(1, ps.getProviderService());
         stmt.setString(2, ps.getAcessKey());
         stmt.setString(3, ps.getSecretKey());
-        stmt.setInt(4, pn.getId());
+        stmt.setInt(4, ps.getProvider().getId());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
-            return this.setIdProviderService(ps, pn);
+            return this.setIdProviderService(ps);
         } else {
             return false;
         }
     }
 
-    private boolean setIdProviderService(ProviderService ps, Provider pn) throws ClassNotFoundException, SQLException {
+    private boolean setIdProviderService(ProviderService ps) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDPROVIDERSERVICE FROM PROVIDERSERVICE WHERE PROVIDERSERVICE=? AND IDPROVIDER=?"
         );
         stmt.setString(1, ps.getProviderService());
-        stmt.setInt(2, pn.getId());
+        stmt.setInt(2, ps.getProvider().getId());
         ResultSet resultado = stmt.executeQuery();
         if (resultado.next()) {
             int codigo = resultado.getInt("IDPROVIDERSERVICE");
@@ -111,16 +111,16 @@ public class ProviderServiceBD {
         }
     }
 
-    public boolean atualizaProvider(ProviderService old, ProviderService ne) throws ClassNotFoundException, SQLException {
+    public boolean atualizaProvider(ProviderService old) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE PROVIDERSERVICE SET PROVIDERSERVICE=?,ACESSKEY=?, SECRETKEY=?, IDPROVIDER=? WHERE IDPROVIDER=?"
+                "UPDATE PROVIDERSERVICE SET PROVIDERSERVICE=?,ACESSKEY=?, SECRETKEY=?, IDPROVIDER=? WHERE IDPROVIDERSERVICE=?"
         );
-        stmt.setString(1, ne.getProviderService());
-        stmt.setString(2, ne.getAcessKey());
-        stmt.setString(3, ne.getSecretKey());
-        stmt.setInt(4, ne.getProvider().getId());
-        stmt.setInt(5, old.getProvider().getId());
+        stmt.setString(1, old.getProviderService());
+        stmt.setString(2, old.getAcessKey());
+        stmt.setString(3, old.getSecretKey());
+        stmt.setInt(4, old.getProvider().getId());
+        stmt.setInt(5, old.getIdProviderService());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {

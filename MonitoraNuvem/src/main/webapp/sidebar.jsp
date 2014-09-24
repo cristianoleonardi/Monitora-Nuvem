@@ -31,7 +31,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="credential.jsp">
+                            <a href="providerservice">
                                 <span class="icon"><i class="icon20 i-key"></i></span>
                                 <span class="txt">Credenciais</span>
                             </a>

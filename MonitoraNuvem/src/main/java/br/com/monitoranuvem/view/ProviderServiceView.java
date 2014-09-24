@@ -1,7 +1,9 @@
 package br.com.monitoranuvem.view;
 
 import br.com.monitoranuvem.controller.ProviderControl;
+import br.com.monitoranuvem.controller.ProviderServiceControl;
 import br.com.monitoranuvem.model.Provider;
+import br.com.monitoranuvem.model.ProviderService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cristiano Leonardi, Márcio Bolzan
  */
-public class ProviderView extends HttpServlet {
+public class ProviderServiceView extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -33,6 +35,9 @@ public class ProviderView extends HttpServlet {
         
         //Instancia do controller do provider
         ProviderControl pc = new ProviderControl();
+        
+        //Instancia do controller do provider
+        ProviderServiceControl psc = new ProviderServiceControl();
 
         //Instancia a sessão para manipular as variáveis de sessao
         HttpSession session = request.getSession(true);
@@ -40,100 +45,109 @@ public class ProviderView extends HttpServlet {
         //Ação que determina o que será executado pelo Controller.
         String action = request.getParameter("action");
 
-        if (action == null || action.equalsIgnoreCase("") || action.equalsIgnoreCase("listarProvider")) {
-            //###LISTAR PROVIDER###
+        if (action == null || action.equalsIgnoreCase("") || action.equalsIgnoreCase("listarProviderService")) {
+            //###LISTAR PROVIDER SERVICE###
+            ArrayList<ProviderService> listaPrvServices = psc.listaProviderService();
+            
             ArrayList<Provider> listaProvedores = pc.listaProvider();
 
+            session.setAttribute("listaPrvServices", listaPrvServices);
             session.setAttribute("listaProvedores", listaProvedores);
 
             RequestDispatcher rd = request
-                    .getRequestDispatcher("/provider.jsp");
+                    .getRequestDispatcher("/providerservice.jsp");
             rd.forward(request, response);
 
-        } else if (action.equalsIgnoreCase("criarProvider")) {
-            //###CRIAR PROVIDER###
-            String provider = request.getParameter("provider");
+        } else if (action.equalsIgnoreCase("criarProviderService")) {
+            //###CRIAR PROVIDER SERVICE###
+            int provider = Integer.parseInt(request.getParameter("provider"));
+            String providerService = request.getParameter("providerservice");
+            String accessKey = request.getParameter("accesskey");
+            String secretAccessKey = request.getParameter("secretAccessKey");
 
-            if (pc.criarProvider(provider)) {
+            if (psc.criarProviderService(provider, providerService, accessKey, secretAccessKey)) {
                 session.setAttribute("responseAction", "Ok");
-                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Seu provedor foi cadastrado com sucesso.");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Sua credencial foi cadastrada com sucesso.");
 
-                ArrayList<Provider> listaProvedores = pc.listaProvider();
-                session.setAttribute("listaProvedores", listaProvedores);
+                ArrayList<ProviderService> listaPrvServices = psc.listaProviderService();
+                session.setAttribute("listaPrvServices", listaPrvServices);
 
                 RequestDispatcher rd = request
-                        .getRequestDispatcher("/provider.jsp");
+                        .getRequestDispatcher("/providerservice.jsp");
                 rd.forward(request, response);
             } else {
                 session.setAttribute("responseAction", "Erro");
-                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível cadastrar este provedor.");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível cadastrar esta credencial.");
 
                 RequestDispatcher rd = request
-                        .getRequestDispatcher("/provider.jsp");
+                        .getRequestDispatcher("/providerservice.jsp");
                 rd.forward(request, response);
             }
 
-        } else if (action.equalsIgnoreCase("buscarProvider")) {
-            //###BUSCAR PROVIDER PARA ATUALIZAR O MESMO###
-            String id = request.getParameter("id");
+        } else if (action.equalsIgnoreCase("buscarProviderService")) {
+            //###BUSCAR PROVIDER SERVICE PARA ATUALIZAR O MESMO###
+            int id = Integer.parseInt(request.getParameter("id"));
 
-            Provider provedor = new Provider();
-            provedor = pc.buscaProvider(Integer.parseInt(id));
+            ProviderService prvService = new ProviderService();
+            prvService = psc.buscaProviderService(id);
 
-            session.setAttribute("provedor", provedor);
-            session.setAttribute("action", "atualizarProvider");
+            session.setAttribute("prvService", prvService);
+            session.setAttribute("action", "atualizarProviderService");
+
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("/providerservice.jsp");
+            rd.forward(request, response);
+
+        } else if (action.equalsIgnoreCase("atualizarProviderService")) {
+            //###ALTERAR PROVIDER SERVICE###
+            int id = Integer.parseInt(request.getParameter("id"));
+            int provider = Integer.parseInt(request.getParameter("provider"));
+            String providerService = request.getParameter("providerservice");
+            String accessKey = request.getParameter("accesskey");
+            String secretAccessKey = request.getParameter("secretAccessKey");
+
+            if (psc.atualizaProvider(id, provider, providerService, accessKey, secretAccessKey)) {
+                session.setAttribute("responseAction", "Ok");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Sua credencial foi atualizada com sucesso.");
+
+                ArrayList<ProviderService> listaPrvServices = psc.listaProviderService();
+                session.setAttribute("listaPrvServices", listaPrvServices);
+                
+                RequestDispatcher rd = request
+                        .getRequestDispatcher("/providerservice.jsp");
+                rd.forward(request, response);
+            } else {
+                session.setAttribute("responseAction", "Erro");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível atualizar esta credencial.");
+
+                RequestDispatcher rd = request
+                        .getRequestDispatcher("/providerservice.jsp");
+                rd.forward(request, response);
+            }
 
             RequestDispatcher rd = request
                     .getRequestDispatcher("/provider.jsp");
             rd.forward(request, response);
 
-        } else if (action.equalsIgnoreCase("atualizarProvider")) {
-            //###ALTERAR PROVIDER###
-            String id = request.getParameter("id");
-            String provider = request.getParameter("provider");
-
-            if (pc.atualizaProvider(Integer.parseInt(id), provider)) {
+        } else if (action.equalsIgnoreCase("deletarProviderService")) {
+            //###DELETAR PROVIDER SERVICE###
+            int id = Integer.parseInt(request.getParameter("id"));
+            if (psc.deletaProviderServide(id)) {
                 session.setAttribute("responseAction", "Ok");
-                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Seu provedor foi atualizado com sucesso.");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Sua credencial foi removida com sucesso.");
 
-                ArrayList<Provider> listaProvedores = pc.listaProvider();
-                session.setAttribute("listaProvedores", listaProvedores);
+                ArrayList<ProviderService> listaPrvServices = psc.listaProviderService();
+                session.setAttribute("listaPrvServices", listaPrvServices);
                 
                 RequestDispatcher rd = request
-                        .getRequestDispatcher("/provider.jsp");
+                        .getRequestDispatcher("/providerservice.jsp");
                 rd.forward(request, response);
             } else {
                 session.setAttribute("responseAction", "Erro");
-                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível atualizar este provedor.");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível remover esta credencial.");
 
                 RequestDispatcher rd = request
-                        .getRequestDispatcher("/provider.jsp");
-                rd.forward(request, response);
-            }
-
-            RequestDispatcher rd = request
-                    .getRequestDispatcher("/provider.jsp");
-            rd.forward(request, response);
-
-        } else if (action.equalsIgnoreCase("deletarProvider")) {
-            //###DELETAR PROVIDER###
-            String id = request.getParameter("id");
-            if (pc.deletaProvider(Integer.parseInt(id))) {
-                session.setAttribute("responseAction", "Ok");
-                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Seu provedor removido com sucesso.");
-
-                ArrayList<Provider> listaProvedores = pc.listaProvider();
-                session.setAttribute("listaProvedores", listaProvedores);
-                
-                RequestDispatcher rd = request
-                        .getRequestDispatcher("/provider.jsp");
-                rd.forward(request, response);
-            } else {
-                session.setAttribute("responseAction", "Erro");
-                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível remover este provedor.");
-
-                RequestDispatcher rd = request
-                        .getRequestDispatcher("/provider.jsp");
+                        .getRequestDispatcher("/providerservice.jsp");
                 rd.forward(request, response);
             }
         }

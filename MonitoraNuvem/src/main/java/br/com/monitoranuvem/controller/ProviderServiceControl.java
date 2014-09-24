@@ -17,8 +17,17 @@ import java.util.ArrayList;
  */
 public class ProviderServiceControl {
 
-    public boolean criarProviderService(ProviderService ps, Provider pn) throws ClassNotFoundException, SQLException {
-        return new ProviderServiceBD().criarProviderService(ps, pn);
+    public boolean criarProviderService(int provider, String providerService, String accessKey, String secretAccessKey) throws ClassNotFoundException, SQLException {
+        ProviderControl pc = new ProviderControl();
+        Provider p = pc.buscaProvider(provider);
+        
+        ProviderService ps = new ProviderService();
+        ps.setProviderService(providerService);
+        ps.setProvider(p);
+        ps.setAcessKey(accessKey);
+        ps.setSecretKey(secretAccessKey);
+        
+        return new ProviderServiceBD().criarProviderService(ps);
     }
 
     public ProviderService buscaProviderService(int id) throws ClassNotFoundException, SQLException {
@@ -29,11 +38,22 @@ public class ProviderServiceControl {
         return new ProviderServiceBD().listaProviderService();
     }
 
-    public boolean deletaProviderServide(ProviderService psc) throws ClassNotFoundException, SQLException {
+    public boolean deletaProviderServide(int id) throws ClassNotFoundException, SQLException {
+        ProviderService psc = this.buscaProviderService(id);
+        
         return new ProviderServiceBD().deletaProviderService(psc);
     }
 
-    public boolean atualizaProvider(ProviderService old, ProviderService ne) throws ClassNotFoundException, SQLException {
-        return new ProviderServiceBD().atualizaProvider(old, ne);
+    public boolean atualizaProvider(int id, int provider, String providerService, String accessKey, String secretAccessKey) throws ClassNotFoundException, SQLException {
+        ProviderControl pc = new ProviderControl();
+        Provider p = pc.buscaProvider(provider);
+        
+        ProviderService old = this.buscaProviderService(id);
+        old.setProvider(p);
+        old.setProviderService(providerService);
+        old.setAcessKey(accessKey);
+        old.setSecretKey(secretAccessKey);
+        
+        return new ProviderServiceBD().atualizaProvider(old);
     }
 }

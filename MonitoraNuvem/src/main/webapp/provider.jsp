@@ -1,6 +1,8 @@
-<%-- Inclusão do cabeçalho da página --%>
+<%-- Imports --%>
 <%@page import="br.com.monitoranuvem.model.Provider"%>
 <%@page import="java.util.ArrayList"%>
+
+<%-- Inclusão do cabeçalho da página --%>
 <jsp:include page="header.jsp" />
 
 <%-- Inclusão da barra superior da página --%>
@@ -27,6 +29,7 @@
                     <h1><i class="icon20 i-cloud-download"></i> Cadastro de Provedores</h1>
                 </div>
 
+                <%-- Alertas de cadastro --%>
                 <% if (session.getAttribute("responseAction") == "Ok") { %>
                 <div class="alert alert-success">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -51,7 +54,7 @@
                                 <div class="icon"><i class="icon20 i-cloud-download"></i></div>
                                 <h4>Cadastro de Provedores</h4>
                                 <a href="#" class="minimize"></a>
-                            </div><!-- End .panel-heading -->
+                            </div>
 
                             <div class="panel-body">
                                 <form class="form-horizontal" action="provider" method="POST">
@@ -133,7 +136,7 @@
                                                 <form action="provider" method="POST">
                                                     <input type="hidden" name="id" value="<% out.print(provedores.getId()); %>" />
                                                     <input type="hidden" name="action" value="deletarProvider" />
-                                                    <button type="submit" class="btn btn-danger btn-xs" title="Deletar"><i class="icon10 i-close"> Remover</i></button>
+                                                    <button type="submit" class="btn btn-danger btn-xs" title="Remover"><i class="icon10 i-close"> Remover</i></button>
                                                 </form>
                                             </td>
                                         </tr>
