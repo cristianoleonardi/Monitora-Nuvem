@@ -29,91 +29,125 @@
                     <h1><i class="icon20 i-dashboard"></i> Dashboard</h1>
                 </div>
 
-                <div class="col-lg-12">
+                <div class="row">
                     <div class="page-header">
-                        <h4><i class="icon10 i-screen-4"></i> Compute Service - Lista de Instâncias por Status</h4>
+                        <h4><i class="icon10 i-screen-4"></i> Compute Service</h4>
                     </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="center" bgcolor="#CAFF70">Running</th>
-                                <th class="center" bgcolor="#E9967A">Error</th>
-                                <th class="center" bgcolor="#FFFACD">Pending</th>
-                                <th class="center" bgcolor="#EEE5DE">Suspended</th>
-                                <th class="center" bgcolor="#EEE9BF">Terminated</th>
-                                <th class="center" bgcolor="#FFFFF0">Unrecognized</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% ArrayList<MNComputeService> listaComputeService = (ArrayList<MNComputeService>) session.getAttribute("listaComputeService"); %>
-                            <% for (MNComputeService cs : listaComputeService) { %>
-                            <tr>
-                                <td class="center" bgcolor="#CAFF70">
-                                    <% if (cs.getStatus().equalsIgnoreCase("RUNNING")) { %>
-                                        <% out.print(cs.getProvedor()); %><br />
-                                        <% out.print(cs.getId()); %>
-                                    <% } %>
-                                </td>
-                                <td class="center" bgcolor="#E9967A">
-                                    <% if (cs.getStatus().equalsIgnoreCase("ERROR")) { %>
-                                        <% out.print(cs.getProvedor()); %><br />
-                                        <% out.print(cs.getId()); %>
-                                    <% } %>
-                                </td>
-                                <td class="center" bgcolor="#FFFACD">
-                                    <% if (cs.getStatus().equalsIgnoreCase("PENDING")) { %>
-                                        <% out.print(cs.getProvedor()); %><br />
-                                        <% out.print(cs.getId()); %>
-                                    <% } %>
-                                </td>
-                                <td class="center" bgcolor="#EEE5DE">
-                                    <% if (cs.getStatus().equalsIgnoreCase("SUSPENDED")) { %>
-                                        <% out.print(cs.getProvedor()); %><br />
-                                        <% out.print(cs.getId()); %>
-                                    <% } %>
-                                </td>
-                                <td class="center" bgcolor="#EEE9BF">
-                                    <% if (cs.getStatus().equalsIgnoreCase("TERMINATED")) { %>
-                                        <% out.print(cs.getProvedor()); %><br />
-                                        <% out.print(cs.getId()); %>
-                                    <% } %>
-                                </td>
-                                <td class="center" bgcolor="#FFFFF0">
-                                    <% if (cs.getStatus().equalsIgnoreCase("UNRECOGNIZED")) { %>
-                                        <% out.print(cs.getProvedor()); %><br />
-                                        <% out.print(cs.getId()); %>
-                                    <% } %>
-                                </td>
-                            </tr>
-                            <% }%>
-                        </tbody>
-                    </table>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="icon"><i class="icon20 i-pie-5"></i></div> 
+                                <h4>Instâncias Ativas por Provedor</h4>
+                                <a href="#" class="minimize"></a>
+                            </div>
 
-                    <div class="page-header">
-                        <h4><i class="icon10 i-database"></i> Blob Store - Lista de Storages por Status</h4>
+                            <div class="panel-body">
+                                <div class="active-instance-by-provider" style="width: 100%; height:250px;"></div>
+                            </div>
+                        </div>
                     </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="center" bgcolor="#CAFF70">Running</th>
-                                <th class="center" bgcolor="#E9967A">Error</th>
-                                <th class="center" bgcolor="#FFFACD">Pending</th>
-                                <th class="center" bgcolor="#EEE5DE">Suspended</th>
-                                <th class="center" bgcolor="#EEE9BF">Terminated</th>
-                                <th class="center" bgcolor="#FFFFF0">Unrecognized</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="center" bgcolor="#CAFF70"></td>
-                                <td class="center" bgcolor="#E9967A"></td>
-                                <td class="center" bgcolor="#FFFACD"></td>
-                                <td class="center" bgcolor="#EEE5DE"></td>
-                                <td class="center" bgcolor="#EEE9BF"></td>
-                                <td class="center" bgcolor="#FFFFF0"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="icon"><i class="icon20 i-pie-5"></i></div> 
+                                <h4>Instâncias por Zona</h4>
+                                <a href="#" class="minimize"></a>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="chart-pie" style="width: 100%; height:250px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="page-header">
+                            <h4><i class="icon10 i-screen-4"></i> Compute Service - Lista de Instâncias por Status</h4>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="center" bgcolor="#CAFF70">Running</th>
+                                    <th class="center" bgcolor="#E9967A">Error</th>
+                                    <th class="center" bgcolor="#FFFACD">Pending</th>
+                                    <th class="center" bgcolor="#EEE5DE">Suspended</th>
+                                    <th class="center" bgcolor="#EEE9BF">Terminated</th>
+                                    <th class="center" bgcolor="#FFFFF0">Unrecognized</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% ArrayList<MNComputeService> listaComputeService = (ArrayList<MNComputeService>) session.getAttribute("listaComputeService"); %>
+                                <% for (MNComputeService cs : listaComputeService) { %>
+                                <tr>
+                                    <td class="center" bgcolor="#CAFF70">
+                                        <% if (cs.getStatus().equalsIgnoreCase("RUNNING")) { %>
+                                        <% out.print(cs.getProvedor()); %><br />
+                                        <% out.print(cs.getId()); %>
+                                        <% } %>
+                                    </td>
+                                    <td class="center" bgcolor="#E9967A">
+                                        <% if (cs.getStatus().equalsIgnoreCase("ERROR")) { %>
+                                        <% out.print(cs.getProvedor()); %><br />
+                                        <% out.print(cs.getId()); %>
+                                        <% } %>
+                                    </td>
+                                    <td class="center" bgcolor="#FFFACD">
+                                        <% if (cs.getStatus().equalsIgnoreCase("PENDING")) { %>
+                                        <% out.print(cs.getProvedor()); %><br />
+                                        <% out.print(cs.getId()); %>
+                                        <% } %>
+                                    </td>
+                                    <td class="center" bgcolor="#EEE5DE">
+                                        <% if (cs.getStatus().equalsIgnoreCase("SUSPENDED")) { %>
+                                        <% out.print(cs.getProvedor()); %><br />
+                                        <% out.print(cs.getId()); %>
+                                        <% } %>
+                                    </td>
+                                    <td class="center" bgcolor="#EEE9BF">
+                                        <% if (cs.getStatus().equalsIgnoreCase("TERMINATED")) { %>
+                                        <% out.print(cs.getProvedor()); %><br />
+                                        <% out.print(cs.getId()); %>
+                                        <% } %>
+                                    </td>
+                                    <td class="center" bgcolor="#FFFFF0">
+                                        <% if (cs.getStatus().equalsIgnoreCase("UNRECOGNIZED")) { %>
+                                        <% out.print(cs.getProvedor()); %><br />
+                                        <% out.print(cs.getId()); %>
+                                        <% } %>
+                                    </td>
+                                </tr>
+                                <% }%>
+                            </tbody>
+                        </table>
+
+                        <div class="page-header">
+                            <h4><i class="icon10 i-database"></i> Blob Store - Lista de Storages por Status</h4>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="center" bgcolor="#CAFF70">Running</th>
+                                    <th class="center" bgcolor="#E9967A">Error</th>
+                                    <th class="center" bgcolor="#FFFACD">Pending</th>
+                                    <th class="center" bgcolor="#EEE5DE">Suspended</th>
+                                    <th class="center" bgcolor="#EEE9BF">Terminated</th>
+                                    <th class="center" bgcolor="#FFFFF0">Unrecognized</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="center" bgcolor="#CAFF70"></td>
+                                    <td class="center" bgcolor="#E9967A"></td>
+                                    <td class="center" bgcolor="#FFFACD"></td>
+                                    <td class="center" bgcolor="#EEE5DE"></td>
+                                    <td class="center" bgcolor="#EEE9BF"></td>
+                                    <td class="center" bgcolor="#FFFFF0"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
