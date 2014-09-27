@@ -24,12 +24,13 @@ public class ProviderServiceBD {
     public boolean criarProviderService(ProviderService ps) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO PROVIDERSERVICE (PROVIDERSERVICE, ACESSKEY, SECRETKEY, IDPROVIDER) VALUES (?,?,?,?)"
+                "INSERT INTO PROVIDERSERVICE (PROVIDERSERVICE, ACESSKEY, SECRETKEY, ENDPOINT, IDPROVIDER) VALUES (?,?,?,?,?)"
         );
         stmt.setString(1, ps.getProviderService());
         stmt.setString(2, ps.getAcessKey());
         stmt.setString(3, ps.getSecretKey());
-        stmt.setInt(4, ps.getProvider().getId());
+        stmt.setString(4, ps.getEndPoint());
+        stmt.setInt(5, ps.getProvider().getId());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -61,7 +62,7 @@ public class ProviderServiceBD {
         ProviderService ps = null;
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "SELECT PROVIDERSERVICE,ACESSKEY,SECRETKEY,IDPROVIDER FROM PROVIDERSERVICE WHERE IDPROVIDER=?"
+                "SELECT PROVIDERSERVICE,ACESSKEY,SECRETKEY,ENDPOINT,IDPROVIDER FROM PROVIDERSERVICE WHERE IDPROVIDER=?"
         );
         stmt.setInt(1, id);
         ResultSet resultado = stmt.executeQuery();
@@ -71,6 +72,7 @@ public class ProviderServiceBD {
             ps.setProviderService(resultado.getString("PROVIDERSERVICE"));
             ps.setAcessKey(resultado.getString("ACESSKEY"));
             ps.setSecretKey(resultado.getString("SECRETKEY"));
+            ps.setEndPoint(resultado.getString("ENDPOINT"));
             ps.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
         }
         conn.close();
@@ -89,6 +91,7 @@ public class ProviderServiceBD {
             providerService.setProviderService(resultado.getString("PROVIDERSERVICE"));
             providerService.setAcessKey(resultado.getString("ACESSKEY"));
             providerService.setSecretKey(resultado.getString("SECRETKEY"));
+            providerService.setEndPoint(resultado.getString("ENDPOINT"));
             providerService.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
             lista.add(providerService);
         }
@@ -114,7 +117,8 @@ public class ProviderServiceBD {
     public boolean atualizaProvider(ProviderService old) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE PROVIDERSERVICE SET PROVIDERSERVICE=?, ACESSKEY=?, SECRETKEY=?, IDPROVIDER=? WHERE IDPROVIDERSERVICE=?"
+                "UPDATE PROVIDERSERVICE SET PROVIDERSERVICE=?, ACESSKEY=?, "
+                        + "SECRETKEY=?, ENDPOINT=?,IDPROVIDER=? WHERE IDPROVIDERSERVICE=?"
         );
         stmt.setString(1, old.getProviderService());
         stmt.setString(2, old.getAcessKey());
