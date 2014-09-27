@@ -24,12 +24,12 @@ public class InstanceProvider {
         this.idInstance = idInstance;
     }
 
-    public String getInstanceprovider() {
+    public String getInstanceProvider() {
         return instanceProvider;
     }
 
-    public void setInstanceprovider(String instanceprovider) {
-        this.instanceProvider = instanceprovider;
+    public void setInstanceProvider(String instanceProvider) {
+        this.instanceProvider = instanceProvider;
     }
 
     public Provider getProvider() {
@@ -47,5 +47,5 @@ public class InstanceProvider {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
 }
