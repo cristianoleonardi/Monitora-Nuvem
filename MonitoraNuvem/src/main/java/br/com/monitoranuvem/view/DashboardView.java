@@ -1,7 +1,9 @@
 package br.com.monitoranuvem.view;
 
 import br.com.monitoranuvem.controller.DashboardControl;
+import br.com.monitoranuvem.controller.ProviderInstanceControl;
 import br.com.monitoranuvem.model.MNComputeService;
+import br.com.monitoranuvem.model.QtdStatusProvider;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +23,8 @@ import javax.servlet.http.HttpSession;
 public class DashboardView extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -31,13 +34,24 @@ public class DashboardView extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
 
-        DashboardControl dc = new DashboardControl();
-        ArrayList<MNComputeService> listaComputeService = dc.startComputeService();
+        //DashboardControl dc = new DashboardControl();
+        ProviderInstanceControl pic = new ProviderInstanceControl();
+
+        //ArrayList<MNComputeService> listaComputeService = dc.startComputeService();
+        ArrayList<QtdStatusProvider> listaStatusProvider = pic.listaQDTStatusProvider();
+
+        String dadosGrafico = "[";
+
+        for (QtdStatusProvider sp : listaStatusProvider) {
+            dadosGrafico += "{label: \"" + sp.getProvider().getNome() + "\", data: " + sp.getQuantidade() + ", color: chartColours[0]},";
+        }
+        dadosGrafico += "]";
 
         //Instancia a sessão para manipular as variáveis de sessao
         HttpSession session = request.getSession(true);
 
-        session.setAttribute("listaComputeService", listaComputeService);
+        //session.setAttribute("listaComputeService", listaComputeService);
+        session.setAttribute("listaStatusProvider", dadosGrafico);
 
         RequestDispatcher rd = request
                 .getRequestDispatcher("/dashboard.jsp");

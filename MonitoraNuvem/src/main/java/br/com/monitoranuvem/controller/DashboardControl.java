@@ -36,7 +36,7 @@ public class DashboardControl {
             pn = provedor;
             ps = psc.buscaProviderService(pn.getId());
 
-            if (ps.getProviderService().equalsIgnoreCase("aws-ec2")) {
+            if (ps != null && ps.getProviderService().equalsIgnoreCase("aws-ec2")) {
                 //Iniciar Monitorações de Compute Service
                 ComputeService compute = pdc.getListCServ(ps);
                 
