@@ -16,16 +16,20 @@ import java.util.ArrayList;
  * @author Marcio
  */
 public class ProviderInstanceControl {
-    
-    public ArrayList<QtdStatusProvider> listaQDTStatusProvider()throws ClassNotFoundException, SQLException {
+
+    public ArrayList<QtdStatusProvider> listaQDTStatusProvider() throws ClassNotFoundException, SQLException {
         return new InstanceProviderBD().listaQDTStatusProvider();
-    }  
-    
-    public ArrayList<InstanceProvider> listaStatusProvider() throws ClassNotFoundException, SQLException{
+    }
+
+    public ArrayList<QtdStatusProvider> listaQDTStatusProvider(String status) throws ClassNotFoundException, SQLException {
+        return new InstanceProviderBD().listaQDTStatusProvider(status);
+    }
+
+    public ArrayList<InstanceProvider> listaStatusProvider() throws ClassNotFoundException, SQLException {
         return new InstanceProviderBD().listaStatusProvider();
     }
-    
-    public ArrayList<InstanceProvider> listaStatusProvider(String status) throws ClassNotFoundException, SQLException{
+
+    public ArrayList<InstanceProvider> listaStatusProvider(String status) throws ClassNotFoundException, SQLException {
         return new InstanceProviderBD().listaStatusProvider(status);
     }
 }

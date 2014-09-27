@@ -46,7 +46,31 @@ public class InstanceProviderBD {
         ResultSet resultado = stmt.executeQuery(
                 "SELECT IDPROVIDER, STATUSPROVIDER, COUNT(*) AS QUANTIDADE \n"
                 + "FROM INSTANCEPROVIDER	\n"
-                + "GROUP BY IDPROVIDER, STATUSPROVIDER");
+                + "GROUP BY IDPROVIDER, STATUSPROVIDER \n"
+                        + "ORDER BY IDPROVIDER");
+        ArrayList<QtdStatusProvider> lista = new ArrayList<>();
+        QtdStatusProvider qtdStatus;
+        while (resultado.next()) {
+            qtdStatus = new QtdStatusProvider();
+            qtdStatus.setQuantidade(resultado.getInt("QUANTIDADE"));
+            qtdStatus.setStatus(resultado.getString("STATUSPROVIDER"));
+            qtdStatus.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
+            lista.add(qtdStatus);
+        }
+        conn.close();
+        return lista;
+    }
+
+    public ArrayList<QtdStatusProvider> listaQDTStatusProvider(String status) throws ClassNotFoundException, SQLException {
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT IDPROVIDER, STATUSPROVIDER, COUNT(*) AS QUANTIDADE \n"
+                + "FROM INSTANCEPROVIDER	\n"
+                + "WHERE STATUSPROVIDER=?"
+                + "GROUP BY IDPROVIDER, STATUSPROVIDER \n"
+                        + "ORDER BY IDPROVIDER");
+        stmt.setString(1, status);
+        ResultSet resultado = stmt.executeQuery();
         ArrayList<QtdStatusProvider> lista = new ArrayList<>();
         QtdStatusProvider qtdStatus;
         while (resultado.next()) {
@@ -63,7 +87,7 @@ public class InstanceProviderBD {
     public ArrayList<InstanceProvider> listaStatusProvider(String status) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(""
-                + "SELECT * FROM INSTANCEPROVIDER WHERE STATUSPROVIDER=?");
+                + "SELECT * FROM INSTANCEPROVIDER WHERE STATUSPROVIDER=? ORDER BY IDPROVIDER");
         stmt.setString(1, status);
         ResultSet resultado = stmt.executeQuery();
         ArrayList<InstanceProvider> lista = new ArrayList<>();
