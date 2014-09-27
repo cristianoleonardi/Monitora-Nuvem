@@ -44,11 +44,9 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         Statement stmt = conn.createStatement();
         ResultSet resultado = stmt.executeQuery(
-                "SELECT A.IDPROVIDER, B.STATUSPROVIDER, COUNT(*) AS QUANTIDADE \n"
-                        + "FROM INSTANCEPROVIDER	A,\n"
-                        + "	 STATUSPROVIDER		B \n"
-                        + "WHERE A.IDINSTANCEPROVIDER = B.IDINSTANCEPROVIDER\n"
-                        + "GROUP BY A.IDPROVIDER,B.STATUSPROVIDER");
+                "SELECT IDPROVIDER, STATUSPROVIDER, COUNT(*) AS QUANTIDADE \n"
+                        + "FROM INSTANCEPROVIDER	\n"
+                        + "GROUP BY IDPROVIDER, STATUSPROVIDER");
         ArrayList<QtdStatusProvider> lista = new ArrayList<>();
         QtdStatusProvider qtdStatus;
         while (resultado.next()) {
