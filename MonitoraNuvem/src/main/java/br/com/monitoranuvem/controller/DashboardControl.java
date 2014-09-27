@@ -6,6 +6,8 @@ import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.ProviderService;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.domain.ComputeMetadata;
 import org.jclouds.compute.domain.NodeMetadata;
@@ -55,7 +57,45 @@ public class DashboardControl {
         return listaComputeService;
     }
     
+    public Map<String,Integer> instancesByStatus() throws ClassNotFoundException, SQLException {
+        ArrayList<Provider> listaProvider = pnc.listaProvider();
+        Map<String,Integer> instancias = new HashMap<>();
+        
+        for (Provider provedor : listaProvider) {
+            pn = provedor;
+            ps = psc.buscaProviderService(pn.getId());
+
+            if (ps.getProviderService().equalsIgnoreCase("aws-ec2")) {
+                //Iniciar Monitorações de Compute Service
+                ComputeService compute = pdc.getListCServ(ps);
+                
+                for (ComputeMetadata node : compute.listNodes()) {
+                    NodeMetadata metadata = compute.getNodeMetadata(node.getId());
+                    
+                    if (metadata.getStatus().name().equalsIgnoreCase("RUNNING")) {
+                        
+                    } else if (metadata.getStatus().name().equalsIgnoreCase("ERROR")) {
+                        
+                    } else if (metadata.getStatus().name().equalsIgnoreCase("PENDING")) {
+                        
+                    } else if (metadata.getStatus().name().equalsIgnoreCase("SUSPENDED")) {
+                        
+                    } else if (metadata.getStatus().name().equalsIgnoreCase("TERMINATED")) {
+                        
+                    } else if (metadata.getStatus().name().equalsIgnoreCase("UNRECOGNIZED")) {
+                        
+                    }
+                    
+                }
+            }
+        }
+        return instancias;
+    }
+    
     public ArrayList<MNBlobStore> startBlobStore(){
+        if (ps.getProviderService().equalsIgnoreCase("BlobStore")) {
+            
+        }
         return null;
     }
 

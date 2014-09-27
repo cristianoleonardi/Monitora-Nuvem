@@ -69,6 +69,16 @@
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/core/jrespond/jRespond.min.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/jquery.genyxAdmin.js"></script>
 
+        <!-- Charts plugins -->
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/jquery.flot.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/jquery.flot.pie.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/jquery.flot.resize.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/jquery.flot.tooltip.min.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/jquery.flot.orderBars.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/jquery.flot.time.min.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/peity/jquery.peity.min.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/date.js"></script>
+        
         <!-- Form plugins -->
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/uniform/jquery.uniform.min.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/validation/jquery.validate.js"></script>
@@ -76,6 +86,7 @@
         <!-- Init plugins -->
         <script src="<% out.print(request.getContextPath()); %>/assets/js/app.js"></script><!-- Core js functions -->
         <script src="<% out.print(request.getContextPath());%>/assets/js/pages/login.js"></script><!-- Init plugins only for page -->
+        <script src="<% out.print(request.getContextPath());%>/assets/js/mngraficos/mngraficos.js"></script><!-- Init plugins only for page -->
 
     </head>
     <body>
