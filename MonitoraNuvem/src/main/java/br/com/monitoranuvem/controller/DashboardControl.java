@@ -1,6 +1,5 @@
 package br.com.monitoranuvem.controller;
 
-import br.com.monitoranuvem.model.MNBlobStore;
 import br.com.monitoranuvem.model.MNComputeService;
 import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.ProviderService;
@@ -91,12 +90,4 @@ public class DashboardControl {
         }
         return instancias;
     }
-    
-    public ArrayList<MNBlobStore> startBlobStore(){
-        if (ps.getProviderService().equalsIgnoreCase("BlobStore")) {
-            
-        }
-        return null;
-    }
-
 }

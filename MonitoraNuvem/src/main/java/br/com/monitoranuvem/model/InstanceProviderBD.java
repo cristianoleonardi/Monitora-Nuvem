@@ -10,64 +10,73 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
  * @author Marcio
  */
 public class InstanceProviderBD {
+
     private Connection conn;
-   
-   public InstanceProvider buscaInstanceProvider(int id) throws ClassNotFoundException, SQLException {
-        InstanceProvider instance=null;
+
+    public InstanceProvider buscaInstanceProvider(int id) throws ClassNotFoundException, SQLException {
+        InstanceProvider instance = null;
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "SELECT INSTANCEPROVIDER FROM INSTANCEPROVIDER WHERE IDINSTANCEPROVIDER=?"
+                "SELECT INSTANCEPROVIDER, STATUSPROVIDER "
+                        + "FROM INSTANCEPROVIDER WHERE IDINSTANCEPROVIDER=?"
         );
         stmt.setInt(1, id);
         ResultSet resultado = stmt.executeQuery();
         if (resultado.next()) {
-            String instanceProvider = resultado.getString("INSTANCEPROVIDER");
             instance = new InstanceProvider();
             instance.setIdInstance(id);
-            instance.setInstanceprovider(instanceProvider);
+            instance.setInstanceprovider(resultado.getString("INSTANCEPROVIDER"));
+            instance.setStatus(resultado.getString("STATUSPROVIDER"));
         }
         conn.close();
         return instance;
     }
-//    public Provider buscaProvider(String provider) throws ClassNotFoundException, SQLException {
-//        Provider pn=null;
-//        conn = new ConnectionMySql().getConnection();
-//        PreparedStatement stmt = conn.prepareStatement(
-//                "SELECT IDPROVIDER FROM PROVIDER WHERE PROVIDER=?"
-//        );
-//        stmt.setString(1, provider);
-//        ResultSet resultado = stmt.executeQuery();
-//        if (resultado.next()) {
-//            pn = new Provider();
-//            pn.setId(resultado.getInt("IDPROVIDER"));
-//            pn.setNome(provider);
-//        }
-//        conn.close();
-//        return pn;
-//    }
-//
-//    public ArrayList<Provider> listaProvider() throws ClassNotFoundException, SQLException {
+
+    public ArrayList<QtdStatusProvider> listaQDTStatusProvider() throws ClassNotFoundException, SQLException {
+        conn = new ConnectionMySql().getConnection();
+        Statement stmt = conn.createStatement();
+        ResultSet resultado = stmt.executeQuery(
+                "SELECT A.IDPROVIDER, B.STATUSPROVIDER, COUNT(*) AS QUANTIDADE \n"
+                        + "FROM INSTANCEPROVIDER	A,\n"
+                        + "	 STATUSPROVIDER		B \n"
+                        + "WHERE A.IDINSTANCEPROVIDER = B.IDINSTANCEPROVIDER\n"
+                        + "GROUP BY A.IDPROVIDER,B.STATUSPROVIDER");
+        ArrayList<QtdStatusProvider> lista = new ArrayList<>();
+        QtdStatusProvider qtdStatus;
+        while (resultado.next()) {
+            qtdStatus = new QtdStatusProvider();
+            qtdStatus.setQuantidade(resultado.getInt("QUANTIDADE"));
+            qtdStatus.setStatus(resultado.getString("STATUSPROVIDER"));
+            qtdStatus.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
+            lista.add(qtdStatus);
+        }
+        conn.close();
+        return lista;
+    }
+
+//    public ArrayList<InstanceProvider> listaStatusProvider() throws ClassNotFoundException, SQLException {
 //        conn = new ConnectionMySql().getConnection();
 //        Statement stmt = conn.createStatement();
-//        ResultSet resultado = stmt.executeQuery("SELECT * FROM PROVIDER ORDER BY PROVIDER");
-//        ArrayList<Provider> lista = new ArrayList<>();
-//        Provider provider;
+//        ResultSet resultado = stmt.executeQuery("SELECT * FROM STATUSPROVIDER");
+//        ArrayList<StatusProvider> lista = new ArrayList<>();
+//        StatusProvider statusProvider;
 //        while (resultado.next()) {
-//            int codigo = resultado.getInt("IDPROVIDER");
-//            String provedor = resultado.getString("PROVIDER");
-//            provider = new Provider();
-//            provider.setId(codigo);
-//            provider.setNome(provedor);
-//            lista.add(provider);
+//            statusProvider = new StatusProvider();
+//            statusProvider.setIdStatusProvider(resultado.getInt("IDSTATUSPROVIDER"));
+//            statusProvider.setStatusProvider(resultado.getString("STATUSPROVIDER"));
+//            statusProvider.setInstanceProvider(new InstanceProviderBD().buscaInstanceProvider(resultado.getInt("IDINSTANCEPROVIDER")));
+//            lista.add(statusProvider);
 //        }
 //        conn.close();
 //        return lista;
 //    }
-    
+
 }

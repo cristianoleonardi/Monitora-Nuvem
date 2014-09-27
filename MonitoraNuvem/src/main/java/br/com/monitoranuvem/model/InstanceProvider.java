@@ -12,7 +12,9 @@ package br.com.monitoranuvem.model;
 public class InstanceProvider {
     
     private int idInstance;
-    private String instanceprovider;
+    private String instanceProvider;
+    private Provider provider;
+    private String status;
 
     public int getIdInstance() {
         return idInstance;
@@ -23,10 +25,27 @@ public class InstanceProvider {
     }
 
     public String getInstanceprovider() {
-        return instanceprovider;
+        return instanceProvider;
     }
 
     public void setInstanceprovider(String instanceprovider) {
-        this.instanceprovider = instanceprovider;
+        this.instanceProvider = instanceprovider;
     }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+    
 }

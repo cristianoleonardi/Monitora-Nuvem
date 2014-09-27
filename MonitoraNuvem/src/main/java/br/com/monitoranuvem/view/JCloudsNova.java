@@ -31,7 +31,7 @@ public class JCloudsNova implements Closeable {
 //        Iterable<Module> modules = ImmutableSet.<Module>of(new SLF4JLoggingModule());
 //        System.out.println("passei");
         String provider = "openstack-nova";
-        String identity = "demo:demo"; // tenantName:userName
+        String identity = "admin:admin"; // tenantName:userName
         String credential = "openstack";
 //        ComputeServiceContext context = ContextBuilder.newBuilder(provider)
 //                .endpoint("http://192.168.221.130:5000/v2.0/")
@@ -67,6 +67,7 @@ public class JCloudsNova implements Closeable {
             for (Server server : serverApi.listInDetail().concat()) {
                 System.out.println("  " + server);
                 System.out.println(server.getId());
+                
             }
         }
     }
