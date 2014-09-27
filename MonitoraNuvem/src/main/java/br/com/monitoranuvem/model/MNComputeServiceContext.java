@@ -7,6 +7,7 @@ package br.com.monitoranuvem.model;
 
 import org.jclouds.ContextBuilder;
 import org.jclouds.compute.ComputeServiceContext;
+import org.jclouds.openstack.nova.v2_0.NovaApi;
 
 /**
  *
@@ -19,5 +20,13 @@ public class MNComputeServiceContext {
                 .credentials(ps.getAcessKey().trim(), ps.getSecretKey().trim())
                 .buildView(ComputeServiceContext.class);
         return context;
+    }
+
+    public static NovaApi createContexStack(ProviderService ps) {
+        NovaApi novaApi = ContextBuilder.newBuilder(ps.getProviderService())
+                .endpoint(ps.getEndPoint())
+                .credentials(ps.getAcessKey().trim(), ps.getSecretKey().trim())
+                .buildApi(NovaApi.class);
+        return novaApi;
     }
 }

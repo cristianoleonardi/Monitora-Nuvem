@@ -15,6 +15,7 @@ public class ProviderService {
     private String acessKey;
     private String secretKey;
     private Provider provider;
+    private String endPoint;
 
     public int getIdProviderService() {
         return idProviderService;
@@ -55,5 +56,12 @@ public class ProviderService {
     public void setProvider(Provider provider) {
         this.provider = provider;
     }
-   
+
+    public String getEndPoint() {
+        return endPoint;
+    }
+
+    public void setEndPoint(String endPoint) {
+        this.endPoint = endPoint;
+    }
 }
