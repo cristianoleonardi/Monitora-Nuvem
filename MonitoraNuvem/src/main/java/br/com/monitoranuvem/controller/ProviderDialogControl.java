@@ -17,9 +17,15 @@ public class ProviderDialogControl {
         ComputeService compute = context.getComputeService();
         return compute;
     }
-    
-    public NovaApi getListServiceOStack(ProviderService ps){
+
+    public NovaApi getListServiceOStack(ProviderService ps) {
         return MNComputeServiceContext.createContexStack(ps);
+    }
+
+    public ComputeService getContextCSStack(ProviderService ps) {
+        ComputeServiceContext context = MNComputeServiceContext.createContextCSStack(ps);
+        ComputeService compute = context.getComputeService();
+        return compute;
     }
 
 //    public BlobStore getsListBServ() {

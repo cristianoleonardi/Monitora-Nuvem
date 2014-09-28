@@ -29,4 +29,11 @@ public class MNComputeServiceContext {
                 .buildApi(NovaApi.class);
         return novaApi;
     }
+    public static ComputeServiceContext createContextCSStack(ProviderService ps) {
+        ComputeServiceContext context = ContextBuilder.newBuilder(ps.getProviderService())
+                .endpoint(ps.getEndPoint())
+                .credentials(ps.getAcessKey().trim(), ps.getSecretKey().trim())
+                .buildView(ComputeServiceContext.class);
+        return context;
+    }
 }
