@@ -27,7 +27,7 @@ public class ProviderInstanceControl {
            new InstanceProviderBD().criarInstancia(inst);
              new InstanceProviderBD().criarHistorico(inst);
         }
-        return true;//new InstanceProviderBD().criarInstancia(inst);
+        return true;
     }
 
     public InstanceProvider buscaInstanceProvider(String idInstance) throws ClassNotFoundException, SQLException, ParseException {
