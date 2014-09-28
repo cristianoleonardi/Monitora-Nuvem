@@ -43,6 +43,7 @@
                             </div>
 
                             <div class="panel-body">
+                                <input type="hidden" id="dadosgrafico" value='<% out.print(session.getAttribute("listaStatusProvider")); %>' />
                                 <div class="active-instance-by-provider" style="width: 100%; height:250px;"></div>
                             </div>
                         </div>

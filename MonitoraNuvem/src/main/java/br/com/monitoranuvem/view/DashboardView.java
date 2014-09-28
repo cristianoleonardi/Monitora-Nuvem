@@ -7,6 +7,7 @@ import br.com.monitoranuvem.model.QtdStatusProvider;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -40,12 +41,27 @@ public class DashboardView extends HttpServlet {
         //ArrayList<MNComputeService> listaComputeService = dc.startComputeService();
         ArrayList<QtdStatusProvider> listaStatusProvider = pic.listaQDTStatusProvider();
 
-        String dadosGrafico = "[";
+        String[] chartColours = new String[]{"#62aeef", "#d8605f", "#72c380", "#6f7a8a", "#f7cb38", "#5a8022", "#2c7282"};
 
+        //Gera a quantidade total
+        int qtdTotalInstancias = 0;
         for (QtdStatusProvider sp : listaStatusProvider) {
-            dadosGrafico += "{label: \"" + sp.getProvider().getNome() + "\", data: " + sp.getQuantidade() + ", color: chartColours[0]},";
+            qtdTotalInstancias += sp.getQuantidade();
         }
-        dadosGrafico += "]";
+
+        String dadosGrafico = "";
+        for (int i = 0; i < listaStatusProvider.size(); i++) {
+            QtdStatusProvider sp = listaStatusProvider.get(i);
+            
+            //Calculo de percentual
+            //int qtdProvider = sp.getQuantidade();
+            //int percentual = (qtdProvider / qtdTotalInstancias) * 100;
+            
+            dadosGrafico += "{label: \"" + sp.getProvider().getNome() + "\", data: " + sp.getQuantidade() + ", color : \"" + chartColours[i] + "\"}";
+            if (i < listaStatusProvider.size() - 1) {
+                dadosGrafico += ";";
+            }
+        }
 
         //Instancia a sessão para manipular as variáveis de sessao
         HttpSession session = request.getSession(true);
