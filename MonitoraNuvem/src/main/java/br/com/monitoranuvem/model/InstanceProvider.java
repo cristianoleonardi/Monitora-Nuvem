@@ -5,23 +5,28 @@
  */
 package br.com.monitoranuvem.model;
 
+import java.util.Date;
+
 /**
  *
  * @author Marcio
  */
 public class InstanceProvider {
     
-    private int idInstance;
+    private int idInstanceProvider;
     private String instanceProvider;
     private Provider provider;
     private String status;
+    private String idInstance;
+    private Date dataCreate;
+    private Date dataUpdate;
 
-    public int getIdInstance() {
-        return idInstance;
+    public int getIdInstanceProvider() {
+        return idInstanceProvider;
     }
 
-    public void setIdInstance(int idInstance) {
-        this.idInstance = idInstance;
+    public void setIdInstanceProvider(int idInstanceProvider) {
+        this.idInstanceProvider = idInstanceProvider;
     }
 
     public String getInstanceProvider() {
@@ -46,6 +51,30 @@ public class InstanceProvider {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getIdInstance() {
+        return idInstance;
+    }
+
+    public void setIdInstance(String idInstance) {
+        this.idInstance = idInstance;
+    }
+
+    public Date getDataCreate() {
+        return dataCreate;
+    }
+
+    public void setDataCreate(Date dataCreate) {
+        this.dataCreate = dataCreate;
+    }
+
+    public Date getDataUpdate() {
+        return dataUpdate;
+    }
+
+    public void setDataUpdate(Date dataUpdate) {
+        this.dataUpdate = dataUpdate;
     }
 
 }

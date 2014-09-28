@@ -9,6 +9,7 @@ import br.com.monitoranuvem.model.InstanceProvider;
 import br.com.monitoranuvem.model.InstanceProviderBD;
 import br.com.monitoranuvem.model.QtdStatusProvider;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +17,22 @@ import java.util.ArrayList;
  * @author Marcio
  */
 public class ProviderInstanceControl {
+
+    public boolean criarAtualizarInstancia(InstanceProvider inst) throws ClassNotFoundException, SQLException, ParseException {
+        int num = new InstanceProviderBD().existeInstancia(inst);
+         if (num>0){
+             new InstanceProviderBD().atualizaIntancia(inst);
+             new InstanceProviderBD().criarHistorico(inst);
+        }else{
+           new InstanceProviderBD().criarInstancia(inst);
+             new InstanceProviderBD().criarHistorico(inst);
+        }
+        return true;
+    }
+
+    public InstanceProvider buscaInstanceProvider(String idInstance) throws ClassNotFoundException, SQLException, ParseException {
+        return new InstanceProviderBD().buscaInstanceProvider(idInstance);
+    }
 
     public ArrayList<QtdStatusProvider> listaQDTStatusProvider() throws ClassNotFoundException, SQLException {
         return new InstanceProviderBD().listaQDTStatusProvider();
