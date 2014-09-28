@@ -49,6 +49,65 @@ public class InstanceProviderBD {
         return false;
     }
 
+    public boolean criarHistorico(InstanceProvider inst) throws ClassNotFoundException, SQLException, ParseException {
+        InstanceProvider instol = buscaInstanceProvider(inst.getIdInstance());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date data = new Date();
+        String dateForMySql = "";
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "INSERT INTO HISTORICOPROVIDER (IDINSTANCEPROVIDER,STATUSPROVIDER, DATAATUALIZACAO) "
+                + " VALUES (?,?,?)"
+        );
+        stmt.setInt(1, instol.getIdInstanceProvider());
+        stmt.setString(2, inst.getStatus());
+        dateForMySql = sdf.format(data);
+        stmt.setString(3, dateForMySql);
+        int ret = stmt.executeUpdate();
+        conn.close();
+        if (ret > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public int existeInstancia(InstanceProvider inst) throws ClassNotFoundException, SQLException {
+        int num=0;
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT COUNT(*) AS QUANTIDADE \n"
+                + "FROM INSTANCEPROVIDER	\n"
+                + "WHERE IDINSTANCE=?");
+        stmt.setString(1, inst.getIdInstance());
+        ResultSet resultado = stmt.executeQuery();
+        while (resultado.next()) {
+            num=resultado.getInt("QUANTIDADE");
+        }
+        conn.close();
+        return num;
+    }
+
+    public boolean atualizaIntancia(InstanceProvider inst) throws ClassNotFoundException, SQLException {
+        conn = new ConnectionMySql().getConnection();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateForMySql = "";
+        PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, DATEUPDATE=? "
+                + "WHERE IDINSTANCE=?"
+        );
+        stmt.setString(1, inst.getStatus());
+        dateForMySql = sdf.format(inst.getDataUpdate());
+        stmt.setString(2, dateForMySql);
+        stmt.setString(3, inst.getIdInstance());
+        int ret = stmt.executeUpdate();
+        conn.close();
+        if (ret > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public InstanceProvider buscaInstanceProvider(String idInstance) throws ClassNotFoundException, SQLException, ParseException {
         InstanceProvider instance = null;
         String date_s;

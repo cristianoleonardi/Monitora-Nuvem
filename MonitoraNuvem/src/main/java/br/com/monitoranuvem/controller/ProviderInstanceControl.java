@@ -18,8 +18,16 @@ import java.util.ArrayList;
  */
 public class ProviderInstanceControl {
 
-    public boolean criarInstancia(InstanceProvider inst) throws ClassNotFoundException, SQLException {
-        return new InstanceProviderBD().criarInstancia(inst);
+    public boolean criarAtualizarInstancia(InstanceProvider inst) throws ClassNotFoundException, SQLException, ParseException {
+        int num = new InstanceProviderBD().existeInstancia(inst);
+         if (num>0){
+             new InstanceProviderBD().atualizaIntancia(inst);
+             new InstanceProviderBD().criarHistorico(inst);
+        }else{
+           new InstanceProviderBD().criarInstancia(inst);
+             new InstanceProviderBD().criarHistorico(inst);
+        }
+        return true;//new InstanceProviderBD().criarInstancia(inst);
     }
 
     public InstanceProvider buscaInstanceProvider(String idInstance) throws ClassNotFoundException, SQLException, ParseException {

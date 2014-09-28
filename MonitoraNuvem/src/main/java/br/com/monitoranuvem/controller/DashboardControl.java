@@ -7,6 +7,7 @@ import br.com.monitoranuvem.model.ProviderBD;
 import br.com.monitoranuvem.model.ProviderService;
 import br.com.monitoranuvem.model.ProviderServiceBD;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -102,7 +103,7 @@ public class DashboardControl {
         return instancias;
     }
 
-    public boolean monitoraNuvem() throws ClassNotFoundException, SQLException {
+    public boolean monitoraNuvemOpenStack() throws ClassNotFoundException, SQLException, ParseException {
         ps = new ProviderServiceBD().buscaProviderService(3);
         novaApi = pdc.getListServiceOStack(ps);
         zones = novaApi.getConfiguredZones();
@@ -123,7 +124,7 @@ public class DashboardControl {
                         inst.setStatus(metadata.getStatus().name());                     
                     }
                 }
-                pic.criarInstancia(inst);
+                pic.criarAtualizarInstancia(inst);
             }
         }
         return true;
