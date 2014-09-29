@@ -1,13 +1,11 @@
 package br.com.monitoranuvem.view;
 
-import br.com.monitoranuvem.controller.DashboardControl;
 import br.com.monitoranuvem.controller.ProviderInstanceControl;
-import br.com.monitoranuvem.model.MNComputeService;
 import br.com.monitoranuvem.model.QtdStatusProvider;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -39,7 +37,7 @@ public class DashboardView extends HttpServlet {
         ProviderInstanceControl pic = new ProviderInstanceControl();
 
         //ArrayList<MNComputeService> listaComputeService = dc.startComputeService();
-        ArrayList<QtdStatusProvider> listaStatusProvider = pic.listaQDTStatusProvider();
+        ArrayList<QtdStatusProvider> listaStatusProvider = pic.listaQDTStatusProvider("RUNNING");
 
         String[] chartColours = new String[]{"#62aeef", "#d8605f", "#72c380", "#6f7a8a", "#f7cb38", "#5a8022", "#2c7282"};
 
@@ -52,12 +50,14 @@ public class DashboardView extends HttpServlet {
         String dadosGrafico = "";
         for (int i = 0; i < listaStatusProvider.size(); i++) {
             QtdStatusProvider sp = listaStatusProvider.get(i);
-            
+
             //Calculo de percentual
-            //int qtdProvider = sp.getQuantidade();
-            //int percentual = (qtdProvider / qtdTotalInstancias) * 100;
-            
-            dadosGrafico += "{label: \"" + sp.getProvider().getNome() + "\", data: " + sp.getQuantidade() + ", color : \"" + chartColours[i] + "\"}";
+            int qtdProvider = sp.getQuantidade();
+
+            double percentual = (qtdProvider * 100.00 / qtdTotalInstancias * 100.00) / 100.00;
+            percentual = Math.round(percentual*100.0)/100.0;
+
+            dadosGrafico += "{label: \"" + sp.getProvider().getNome() + "\", data: " + percentual + ", color : \"" + chartColours[i] + "\"}";
             if (i < listaStatusProvider.size() - 1) {
                 dadosGrafico += ";";
             }
