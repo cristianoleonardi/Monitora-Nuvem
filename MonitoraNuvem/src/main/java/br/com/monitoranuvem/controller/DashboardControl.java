@@ -125,6 +125,7 @@ public class DashboardControl {
                     }
                 }
                 pic.criarAtualizarInstancia(inst);
+                
             }
         }
         return true;
