@@ -4,8 +4,9 @@ import br.com.monitoranuvem.controller.ProviderInstanceControl;
 import br.com.monitoranuvem.model.QtdStatusProvider;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -33,41 +34,86 @@ public class DashboardView extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
 
-        //DashboardControl dc = new DashboardControl();
+        //Instancia a sessão para manipular as variáveis de sessao
+        HttpSession session = request.getSession(true);
+
+        //Lista de cores para utilização nos gráficos
+        String[] chartColours = new String[]{"#62aeef", "#d8605f", "#72c380", "#6f7a8a", "#f7cb38", "#5a8022", "#2c7282"};
+
+        //Acessa o controlador de instâncias
         ProviderInstanceControl pic = new ProviderInstanceControl();
 
-        //ArrayList<MNComputeService> listaComputeService = dc.startComputeService();
-        ArrayList<QtdStatusProvider> listaStatusProvider = pic.listaQDTStatusProvider("RUNNING");
-
-        String[] chartColours = new String[]{"#62aeef", "#d8605f", "#72c380", "#6f7a8a", "#f7cb38", "#5a8022", "#2c7282"};
+        //Solicita a quantidade de instancias ativas (RUNNING) por provedor
+        ArrayList<QtdStatusProvider> listaActiveInstanceProvider = pic.listaQDTStatusProvider("RUNNING");
 
         //Gera a quantidade total
         int qtdTotalInstancias = 0;
-        for (QtdStatusProvider sp : listaStatusProvider) {
+        for (QtdStatusProvider sp : listaActiveInstanceProvider) {
             qtdTotalInstancias += sp.getQuantidade();
         }
 
         String dadosGrafico = "";
-        for (int i = 0; i < listaStatusProvider.size(); i++) {
-            QtdStatusProvider sp = listaStatusProvider.get(i);
+        for (int i = 0; i < listaActiveInstanceProvider.size(); i++) {
+            QtdStatusProvider sp = listaActiveInstanceProvider.get(i);
 
             //Calculo de percentual
             int qtdProvider = sp.getQuantidade();
-
             double percentual = (qtdProvider * 100.00 / qtdTotalInstancias * 100.00) / 100.00;
-            percentual = Math.round(percentual*100.0)/100.0;
+            percentual = Math.round(percentual * 100.0) / 100.0;
 
+            //Monta dados para grágico (Instâncias Ativas por Provedor)
             dadosGrafico += "{label: \"" + sp.getProvider().getNome() + "\", data: " + percentual + ", color : \"" + chartColours[i] + "\"}";
-            if (i < listaStatusProvider.size() - 1) {
+            if (i < listaActiveInstanceProvider.size() - 1) {
                 dadosGrafico += ";";
             }
         }
+        //Envia dados para grágico (Instâncias Ativas por Provedor)
+        session.setAttribute("listaActiveInstanceProvider", dadosGrafico);
 
-        //Instancia a sessão para manipular as variáveis de sessao
-        HttpSession session = request.getSession(true);
+        //Solicita a quantidade de instancias por provedor
+        ArrayList<QtdStatusProvider> listaStatusProvider = pic.listaQDTStatusProvider();
 
-        //session.setAttribute("listaComputeService", listaComputeService);
-        session.setAttribute("listaStatusProvider", dadosGrafico);
+        //Zera os dados da variavel dadosGrafico
+        dadosGrafico = "";
+
+        //Variavel que armazena nomes do gráfico de barras
+        Set label = new HashSet();
+        String labels = "";
+        labels += "[";
+
+        //Monta dados para grágico (Total de Instâncias por Provedor por Status)
+        Set<String> status = new HashSet<>();
+        for (QtdStatusProvider sp : listaStatusProvider) {
+            if (status.add(sp.getStatus())) {
+                //Solicita a quantidade de instancias ativas por provedor status
+                ArrayList<QtdStatusProvider> listaStatusInstanceProvider = pic.listaQDTStatusProvider(sp.getStatus());
+
+                dadosGrafico += "{label: \"" + sp.getStatus() + "\", data: [";
+
+                for (int i = 0; i < listaStatusInstanceProvider.size(); i++) {
+                    QtdStatusProvider spStatus = listaStatusInstanceProvider.get(i);
+
+                    //Define os labels
+                    if (label.add(spStatus.getProvider().getNome())) {
+                        if (label.size() > 1) labels += ",";
+                        labels += "[" + (label.size() - 1) + ", \"" + spStatus.getProvider().getNome() + "\"]";
+                    }
+
+                    //dadosGrafico += "\"" + spStatus.getProvider().getNome() + "\": " + spStatus.getQuantidade();
+                    dadosGrafico += "[" + i + ", " + spStatus.getQuantidade() + "]";
+
+                    if (i < listaStatusInstanceProvider.size() - 1) {
+                        dadosGrafico += ",";
+                    } else if (i == listaStatusInstanceProvider.size() - 1) {
+                        dadosGrafico += "]};";
+                    }
+                }
+            }
+        }
+        labels += "]";
+        //Envia dados para grágico (Total de Instâncias por Provedor por Status)
+        session.setAttribute("labels", labels);
+        session.setAttribute("listaStatusInstanceProvider", dadosGrafico);
 
         RequestDispatcher rd = request
                 .getRequestDispatcher("/dashboard.jsp");

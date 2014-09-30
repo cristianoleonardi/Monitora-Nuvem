@@ -34,33 +34,38 @@
                     <div class="page-header">
                         <h4><i class="icon10 i-screen-4"></i> Compute Service</h4>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="icon"><i class="icon20 i-pie-5"></i></div> 
-                                <h4>Instâncias Ativas por Provedor</h4>
+                                <h4>Percentual de Instâncias Ativas por Provedor</h4>
                                 <a href="#" class="minimize"></a>
                             </div>
 
                             <div class="panel-body">
-                                <input type="hidden" id="dadosgrafico" value='<% out.print(session.getAttribute("listaStatusProvider")); %>' />
-                                <div class="active-instance-by-provider" style="width: 100%; height:250px;"></div>
+                                <input type="hidden" id="dadosgrafico1" value='<% out.print(session.getAttribute("listaActiveInstanceProvider")); %>' />
+                                <div class="active-instance-by-provider" style="width: 100%; height:250px; margin-top:10px;"></div>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="icon"><i class="icon20 i-pie-5"></i></div> 
-                                <h4>Total de Instâncias</h4>
+                                <div class="icon"><i class="icon20 i-bars"></i></div> 
+                                <h4>Total de Instâncias por Provedor por Status</h4>
                                 <a href="#" class="minimize"></a>
                             </div>
 
                             <div class="panel-body">
-                                <div class="status-instance-by-provider" style="width: 100%; height:250px;"></div>
+                                <input type="hidden" id="dadosgrafico2" value='<% out.print(session.getAttribute("listaStatusInstanceProvider")); %>' />
+                                <input type="hidden" id="dadosgrafico3" value='<% out.print(session.getAttribute("labels")); %>' />
+                                <div class="chart-bars-stacked" style="width: 100%; height:250px; margin-top:10px;"></div>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="row">
