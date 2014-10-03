@@ -48,7 +48,7 @@ $(document).ready(function () {
             //Busca dados para o gráfico da página dashboard.jsp
             var dados = document.getElementById("dadosgrafico1").value;
 
-            //Transforma a string em um array
+            //Transforma a string em array
             var arrDados = [];
             arrDados = dados.split(";");
 
@@ -72,7 +72,7 @@ $(document).ready(function () {
             var dados = document.getElementById("dadosgrafico2").value;
             var labels = document.getElementById("dadosgrafico3").value;
 
-            //Transforma a string em um array
+            //Transforma a string em array
             var arrDados = [];
             arrDados = dados.split(";");
             var arrLabels = [];

@@ -17,12 +17,13 @@ import java.util.ArrayList;
  */
 public class ProviderServiceControl {
 
-    public boolean criarProviderService(int provider, String providerService, String accessKey, String secretAccessKey) throws ClassNotFoundException, SQLException {
+    public boolean criarProviderService(int provider, String endpoint, String providerService, String accessKey, String secretAccessKey) throws ClassNotFoundException, SQLException {
         ProviderControl pc = new ProviderControl();
         Provider p = pc.buscaProvider(provider);
         
         ProviderService ps = new ProviderService();
         ps.setProviderService(providerService);
+        ps.setEndPoint(endpoint);
         ps.setProvider(p);
         ps.setAcessKey(accessKey);
         ps.setSecretKey(secretAccessKey);
@@ -44,13 +45,14 @@ public class ProviderServiceControl {
         return new ProviderServiceBD().deletaProviderService(psc);
     }
 
-    public boolean atualizaProvider(int id, int provider, String providerService, String accessKey, String secretAccessKey) throws ClassNotFoundException, SQLException {
+    public boolean atualizaProvider(int id, int provider, String providerService, String endpoint, String accessKey, String secretAccessKey) throws ClassNotFoundException, SQLException {
         ProviderControl pc = new ProviderControl();
         Provider p = pc.buscaProvider(provider);
         
         ProviderService old = this.buscaProviderService(id);
         old.setProvider(p);
         old.setProviderService(providerService);
+        old.setEndPoint(endpoint);
         old.setAcessKey(accessKey);
         old.setSecretKey(secretAccessKey);
         

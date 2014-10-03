@@ -62,10 +62,11 @@ public class ProviderServiceView extends HttpServlet {
             //###CRIAR PROVIDER SERVICE###
             int provider = Integer.parseInt(request.getParameter("provider"));
             String providerService = request.getParameter("providerservice");
+            String endpoint = request.getParameter("endpoint");
             String accessKey = request.getParameter("accesskey");
             String secretAccessKey = request.getParameter("secretaccesskey");
 
-            if (psc.criarProviderService(provider, providerService, accessKey, secretAccessKey)) {
+            if (psc.criarProviderService(provider, providerService, endpoint, accessKey, secretAccessKey)) {
                 session.setAttribute("responseAction", "Ok");
                 session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Sua credencial foi cadastrada com sucesso.");
 
@@ -103,10 +104,11 @@ public class ProviderServiceView extends HttpServlet {
             int id = Integer.parseInt(request.getParameter("id"));
             int provider = Integer.parseInt(request.getParameter("provider"));
             String providerService = request.getParameter("providerservice");
+            String endpoint = request.getParameter("endpoint");
             String accessKey = request.getParameter("accesskey");
             String secretAccessKey = request.getParameter("secretaccesskey");
 
-            if (psc.atualizaProvider(id, provider, providerService, accessKey, secretAccessKey)) {
+            if (psc.atualizaProvider(id, provider, providerService, endpoint, accessKey, secretAccessKey)) {
                 session.setAttribute("responseAction", "Ok");
                 session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Sua credencial foi atualizada com sucesso.");
 

@@ -62,7 +62,7 @@ public class ProviderServiceBD {
         ProviderService ps = null;
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "SELECT PROVIDERSERVICE,ACESSKEY,SECRETKEY,ENDPOINT,IDPROVIDER FROM PROVIDERSERVICE WHERE IDPROVIDER=?"
+                "SELECT PROVIDERSERVICE,ACESSKEY,SECRETKEY,ENDPOINT,IDPROVIDER FROM PROVIDERSERVICE WHERE IDPROVIDERSERVICE=?"
         );
         stmt.setInt(1, id);
         ResultSet resultado = stmt.executeQuery();
@@ -123,8 +123,9 @@ public class ProviderServiceBD {
         stmt.setString(1, old.getProviderService());
         stmt.setString(2, old.getAcessKey());
         stmt.setString(3, old.getSecretKey());
-        stmt.setInt(4, old.getProvider().getId());
-        stmt.setInt(5, old.getIdProviderService());
+        stmt.setString(4, old.getEndPoint());
+        stmt.setInt(5, old.getProvider().getId());
+        stmt.setInt(6, old.getIdProviderService());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {

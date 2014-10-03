@@ -76,8 +76,9 @@
                                             <select name="provider" class="form-control">
                                                 <% ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores"); %>
                                                 <% for (Provider provedores : listaProvedores) { %>
-                                                <option value="<% out.print(provedores.getId()); %>" <% if (prvService != null && prvService.getProvider().getId() == provedores.getId()) {
-                                                    out.print("selected=\"selected\""); }%>><% out.print(provedores.getNome()); %></option>
+                                                    <option value="<% out.print(provedores.getId()); %>" <% if (prvService != null && prvService.getProvider().getId() == provedores.getId()) out.print("selected=\"selected\""); %>>
+                                                        <% out.print(provedores.getNome()); %>
+                                                    </option>
                                                 <% }%>
                                             </select>  
                                         </div>
@@ -87,7 +88,15 @@
                                         <div class="col-lg-5">
                                             <input class="form-control" type="text" name="providerservice" value="<% if (prvService != null) {
                                                     out.print(prvService.getProviderService());
-                                                } %>" required maxlength="45" /><br />
+                                                } %>" maxlength="45" /><br />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label" for="normal">Endpoint</label>
+                                        <div class="col-lg-5">
+                                            <input class="form-control" type="text" name="endpoint" value="<% if (prvService != null) {
+                                                    out.print(prvService.getEndPoint());
+                                                } %>" maxlength="45" /><br />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -166,14 +175,14 @@
                                             <td><% out.print(prvServices.getSecretKey()); %></td>
                                             <td class="center">
                                                 <form action="providerservice" method="POST">
-                                                    <input type="hidden" name="id" value="<% out.print(prvServices.getProvider().getId()); %>" />
+                                                    <input type="hidden" name="id" value="<% out.print(prvServices.getIdProviderService()); %>" />
                                                     <input type="hidden" name="action" value="buscarProviderService" />
                                                     <button type="submit" class="btn btn-primary btn-xs" title="Editar"><i class="icon10 i-pencil"> Editar</i></button>&nbsp;
                                                 </form>
                                             </td>
                                             <td class="center">
                                                 <form action="providerservice" method="POST">
-                                                    <input type="hidden" name="id" value="<% out.print(prvServices.getProvider().getId()); %>" />
+                                                    <input type="hidden" name="id" value="<% out.print(prvServices.getIdProviderService()); %>" />
                                                     <input type="hidden" name="action" value="deletarProviderService" />
                                                     <button type="submit" class="btn btn-danger btn-xs" title="Remover"><i class="icon10 i-close"> Remover</i></button>
                                                 </form>
