@@ -20,12 +20,12 @@ public class ProviderInstanceControl {
 
     public boolean criarAtualizarInstancia(InstanceProvider inst) throws ClassNotFoundException, SQLException, ParseException {
         int num = new InstanceProviderBD().existeInstancia(inst);
-         if (num>0){
-             new InstanceProviderBD().atualizaIntancia(inst);
-             new InstanceProviderBD().criarHistorico(inst);
-        }else{
-           new InstanceProviderBD().criarInstancia(inst);
-             new InstanceProviderBD().criarHistorico(inst);
+        if (num > 0) {
+            new InstanceProviderBD().atualizaIntancia(inst);
+            new InstanceProviderBD().criarHistorico(inst);
+        } else {
+            new InstanceProviderBD().criarInstancia(inst);
+            new InstanceProviderBD().criarHistorico(inst);
         }
         return true;
     }
