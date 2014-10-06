@@ -37,10 +37,20 @@ public class InstanceProviderBD {
         stmt.setString(2, inst.getStatus());
         stmt.setInt(3, inst.getProvider().getId());
         stmt.setString(4, inst.getIdInstance());
-        dateForMySql = sdf.format(inst.getDataCreate());
-        stmt.setString(5, dateForMySql);
-        dateForMySql = sdf.format(inst.getDataUpdate());
-        stmt.setString(6, dateForMySql);
+        if (inst.getDataCreate() != null) {
+            dateForMySql = sdf.format(inst.getDataCreate());
+            stmt.setString(5, dateForMySql);
+        } else {
+            stmt.setString(5, null);
+        }
+
+        if (inst.getDataUpdate() != null) {
+            dateForMySql = sdf.format(inst.getDataUpdate());
+            stmt.setString(6, dateForMySql);
+        } else {
+            stmt.setString(6, null);
+        }
+
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -72,7 +82,7 @@ public class InstanceProviderBD {
     }
 
     public int existeInstancia(InstanceProvider inst) throws ClassNotFoundException, SQLException {
-        int num=0;
+        int num = 0;
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT COUNT(*) AS QUANTIDADE \n"
@@ -81,7 +91,7 @@ public class InstanceProviderBD {
         stmt.setString(1, inst.getIdInstance());
         ResultSet resultado = stmt.executeQuery();
         while (resultado.next()) {
-            num=resultado.getInt("QUANTIDADE");
+            num = resultado.getInt("QUANTIDADE");
         }
         conn.close();
         return num;
@@ -96,8 +106,12 @@ public class InstanceProviderBD {
                 + "WHERE IDINSTANCE=?"
         );
         stmt.setString(1, inst.getStatus());
-        dateForMySql = sdf.format(inst.getDataUpdate());
-        stmt.setString(2, dateForMySql);
+        if (inst.getDataUpdate() != null) {
+            dateForMySql = sdf.format(inst.getDataUpdate());
+            stmt.setString(2, dateForMySql);
+        } else {
+            stmt.setString(2, null);
+        }
         stmt.setString(3, inst.getIdInstance());
         int ret = stmt.executeUpdate();
         conn.close();
@@ -129,13 +143,21 @@ public class InstanceProviderBD {
             instance.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
             instance.setIdInstance(resultado.getString("IDINSTANCE"));
             date_s = resultado.getString("DATECREATE");
-            dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            date = dt.parse(date_s);
-            instance.setDataCreate(date);
+            if (date_s != null) {
+                dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                date = dt.parse(date_s);
+                instance.setDataCreate(date);
+            } else {
+                instance.setDataCreate(null);
+            }
             date_s = resultado.getString("DATEUPDATE");
-            dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            date = dt.parse(date_s);
-            instance.setDataUpdate(date);
+            if (date_s != null) {
+                dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                date = dt.parse(date_s);
+                instance.setDataUpdate(date);
+            } else {
+                instance.setDataUpdate(null);
+            }
         }
         conn.close();
         return instance;

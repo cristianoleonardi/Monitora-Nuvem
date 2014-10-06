@@ -34,6 +34,10 @@ public class ProviderServiceControl {
     public ProviderService buscaProviderService(int id) throws ClassNotFoundException, SQLException {
         return new ProviderServiceBD().buscaProviderService(id);
     }
+    
+    public ArrayList<ProviderService> buscaProviderServiceProvider(int idProvider)throws ClassNotFoundException, SQLException{
+        return new ProviderServiceBD().buscaProviderServiceProvider(idProvider);
+    }
 
     public ArrayList<ProviderService> listaProviderService() throws ClassNotFoundException, SQLException {
         return new ProviderServiceBD().listaProviderService();

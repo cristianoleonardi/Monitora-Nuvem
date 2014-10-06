@@ -5,19 +5,20 @@ import br.com.monitoranuvem.model.MNComputeService;
 import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.ProviderBD;
 import br.com.monitoranuvem.model.ProviderService;
-import br.com.monitoranuvem.model.ProviderServiceBD;
+import br.com.monitoranuvem.model.ThreadAmazon;
+import br.com.monitoranuvem.model.ThreadOpenStack;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.domain.ComputeMetadata;
 import org.jclouds.compute.domain.NodeMetadata;
 import org.jclouds.openstack.nova.v2_0.NovaApi;
-import org.jclouds.openstack.nova.v2_0.domain.Server;
-import org.jclouds.openstack.nova.v2_0.features.ServerApi;
 
 /**
  *
@@ -103,31 +104,17 @@ public class DashboardControl {
         return instancias;
     }
 
-    public boolean monitoraNuvemOpenStack() throws ClassNotFoundException, SQLException, ParseException {
-        ps = new ProviderServiceBD().buscaProviderService(3);
-        novaApi = pdc.getListServiceOStack(ps);
-        zones = novaApi.getConfiguredZones();
-        ComputeService compute = pdc.getContextCSStack(ps);
-        for (String zone : zones) {
-            ServerApi serverApi = novaApi.getServerApiForZone(zone);
-            for (Server server : serverApi.listInDetail().concat()) {
-                inst = new InstanceProvider();
-                pic = new ProviderInstanceControl();
-                inst.setIdInstance(server.getId());
-                inst.setInstanceProvider(server.getName());
-                inst.setProvider(new ProviderBD().buscaProvider(3));
-                inst.setDataCreate(server.getCreated());
-                inst.setDataUpdate(server.getUpdated());                
-                for (ComputeMetadata node : compute.listNodes()) {
-                    if (node.getProviderId().equals(server.getId())) {
-                        NodeMetadata metadata = compute.getNodeMetadata(node.getId());
-                        inst.setStatus(metadata.getStatus().name());                     
-                    }
-                }
-                pic.criarAtualizarInstancia(inst);
-                
+    public void monitoraNuvem() throws ClassNotFoundException, SQLException, ParseException {
+        //       ArrayList<Provider> list = ;
+        ExecutorService executor = Executors.newFixedThreadPool(new ProviderBD().listaProvider().size());
+        for (Provider prov : new ProviderBD().listaProvider()) {
+            if (prov.getNome().equals("OpenStack")) {
+                System.out.println("openstak comentada, quando tiver provedor é so descomentar");
+//                executor.execute(new ThreadOpenStack(prov));
+            } else if (prov.getNome().equals("Amazon")) {
+                executor.execute(new ThreadAmazon(prov));
             }
         }
-        return true;
+        executor.shutdown();
     }
 }
