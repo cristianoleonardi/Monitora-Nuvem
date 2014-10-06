@@ -156,8 +156,8 @@ $(document).ready(function () {
             //    d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
             //}
 
-            var chartMinDate = "2014-09-15 18:20:02";//d1[0][0]; //first day
-            var chartMaxDate = "2014-09-24 19:10:37";//d1[31][0];//last day
+            var chartMinDate = 2066728912; //first day
+            var chartMaxDate = -1447603384;//d1[31][0];//last day
             var tickSize = [1, "day"];
             var tformat = "%d/%m/%y";
 

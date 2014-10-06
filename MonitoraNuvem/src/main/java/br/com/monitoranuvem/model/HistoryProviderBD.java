@@ -106,6 +106,29 @@ public class HistoryProviderBD {
         conn.close();
         return dates;
     }
+    
+    public ArrayList<Integer> listaLastThirtyDaysInt(String today) throws ClassNotFoundException, SQLException, ParseException {
+        String date_s;
+        SimpleDateFormat dt;
+        Date date;
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT DATAATUALIZACAO FROM HISTORICOPROVIDER WHERE DATAATUALIZACAO BETWEEN ? - 30 AND ? ORDER BY DATAATUALIZACAO"
+        );
+        stmt.setString(1, today);
+        stmt.setString(2, today);
+        ResultSet resultado = stmt.executeQuery();
+        ArrayList<Integer> dates = new ArrayList<>();
+        while (resultado.next()) {
+            date_s = resultado.getString("DATAATUALIZACAO");
+            dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            date = dt.parse(date_s);
+            //int i = (int) new Date().getTime();
+            dates.add((int)date.getTime());
+        }
+        conn.close();
+        return dates;
+    }
 
     public ArrayList<String> statusInPeriod(String today) throws ClassNotFoundException, SQLException, ParseException {
         conn = new ConnectionMySql().getConnection();
@@ -151,14 +174,17 @@ public class HistoryProviderBD {
         hltd += "{";
         String status = "";
         String dia = "";
+        int diaNumero;
         for (int i = 0; i < listaStatus.size(); i++) {
             status = listaStatus.get(i);
             hltd += "label: \"" + status + "\",";
             ArrayList<String> listaDatas = listaLastThirtyDays(Util.getDateTime());
+            ArrayList<Integer> listaDatasNumero = listaLastThirtyDaysInt(Util.getDateTime());
             hltd += "data: [";
             for (int j = 0; j < listaDatas.size(); j++) {
                 dia = listaDatas.get(j);
-                hltd += "[\"" + dia + "\"," + qtdStatusByDay(dia, status) + "]";
+                diaNumero = listaDatasNumero.get(j);
+                hltd += "[" + diaNumero + "," + qtdStatusByDay(dia, status) + "]";
                 if (j < listaDatas.size() - 1) {
                     hltd += ",";
                 }
