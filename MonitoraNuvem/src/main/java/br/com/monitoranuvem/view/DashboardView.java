@@ -1,5 +1,6 @@
 package br.com.monitoranuvem.view;
 
+import br.com.monitoranuvem.controller.DashboardControl;
 import br.com.monitoranuvem.controller.ProviderHistoryControl;
 import br.com.monitoranuvem.controller.ProviderInstanceControl;
 import br.com.monitoranuvem.model.QtdStatusProvider;
@@ -35,6 +36,10 @@ public class DashboardView extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException, ParseException {
+
+        //Inicia Monitoramento
+        DashboardControl dc = new DashboardControl();
+        dc.monitoraNuvem();
 
         //Instancia a sessão para manipular as variáveis de sessao
         HttpSession session = request.getSession(true);
