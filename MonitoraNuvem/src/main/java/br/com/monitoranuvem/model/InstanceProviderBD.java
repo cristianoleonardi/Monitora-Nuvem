@@ -140,6 +140,39 @@ public class InstanceProviderBD {
         conn.close();
         return instance;
     }
+    
+    public InstanceProvider buscaInstanceProvider(int id) throws ClassNotFoundException, SQLException, ParseException {
+        InstanceProvider instance = null;
+        String date_s;
+        SimpleDateFormat dt;
+        Date date;
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
+                + "IDINSTANCE,DATECREATE,DATEUPDATE "
+                + "FROM INSTANCEPROVIDER WHERE IDINSTANCEPROVIDER=?"
+        );
+        stmt.setInt(1, id);
+        ResultSet resultado = stmt.executeQuery();
+        if (resultado.next()) {
+            instance = new InstanceProvider();
+            instance.setIdInstanceProvider(resultado.getInt("IDINSTANCEPROVIDER"));
+            instance.setInstanceProvider(resultado.getString("INSTANCEPROVIDER"));
+            instance.setStatus(resultado.getString("STATUSPROVIDER"));
+            instance.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
+            instance.setIdInstance(resultado.getString("IDINSTANCE"));
+            date_s = resultado.getString("DATECREATE");
+            dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            date = dt.parse(date_s);
+            instance.setDataCreate(date);
+            date_s = resultado.getString("DATEUPDATE");
+            dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            date = dt.parse(date_s);
+            instance.setDataUpdate(date);
+        }
+        conn.close();
+        return instance;
+    }
 
     public ArrayList<QtdStatusProvider> listaQDTStatusProvider() throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();

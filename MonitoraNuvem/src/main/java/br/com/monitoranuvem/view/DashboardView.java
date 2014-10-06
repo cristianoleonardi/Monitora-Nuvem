@@ -1,9 +1,11 @@
 package br.com.monitoranuvem.view;
 
+import br.com.monitoranuvem.controller.ProviderHistoryControl;
 import br.com.monitoranuvem.controller.ProviderInstanceControl;
 import br.com.monitoranuvem.model.QtdStatusProvider;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,7 +34,7 @@ public class DashboardView extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, SQLException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException, ParseException {
 
         //Instancia a sessão para manipular as variáveis de sessao
         HttpSession session = request.getSession(true);
@@ -115,6 +117,11 @@ public class DashboardView extends HttpServlet {
         session.setAttribute("labels", labels);
         session.setAttribute("listaStatusInstanceProvider", dadosGrafico);
 
+        //Monta dados para grágico (Total de Instâncias por Provedor por Status)
+        ProviderHistoryControl phc = new ProviderHistoryControl();
+        String historyLastThirtyDays = phc.historyLastThirtyDays();
+        session.setAttribute("historyLastThirtyDays", historyLastThirtyDays);
+        
         RequestDispatcher rd = request
                 .getRequestDispatcher("/dashboard.jsp");
         rd.forward(request, response);
@@ -139,6 +146,8 @@ public class DashboardView extends HttpServlet {
             Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
+            Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -158,6 +167,8 @@ public class DashboardView extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
+            Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ParseException ex) {
             Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

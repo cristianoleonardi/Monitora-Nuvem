@@ -2,7 +2,7 @@
     <div class="side-options">
         <ul class="list-unstyled">
             <li>
-                <a href="#" id="collapse-nav" class="act act-primary tip" title="Fechar Menu">
+                <a href="#" id="collapse-nav" class="act act-primary tip" title="">
                     <i class="icon16 i-arrow-left-7"></i>
                 </a>
             </li>

@@ -61,7 +61,7 @@
                             <div class="panel-body">
                                 <input type="hidden" id="dadosgrafico2" value='<% out.print(session.getAttribute("listaStatusInstanceProvider")); %>' />
                                 <input type="hidden" id="dadosgrafico3" value='<% out.print(session.getAttribute("labels")); %>' />
-                                <div class="chart-bars-stacked" style="width: 100%; height:250px; margin-top:10px;"></div>
+                                <div class="instance-by-status" style="width: 100%; height:250px; margin-top:10px;"></div>
                             </div>
                         </div>
                     </div>
@@ -73,12 +73,13 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="icon"><i class="icon20 i-stats"></i></div>
-                                <h4>Histórico de Instâncias por Status</h4>
+                                <h4>Histórico de Instâncias por Data e Status - Últimos 30 Dias</h4>
                                 <a href="#" class="minimize"></a>
                             </div>
 
                             <div class="panel-body">
-                                <div class="history-of-instances" style="width: 100%; height:250px;margin-top:10px;"></div>
+                                <input type="hidden" id="dadosgrafico4" value='<% out.print(session.getAttribute("historyLastThirtyDays")); %>' />
+                                <div class="history-instances-by-status" style="width:100%; height:250px; margin-top:10px;"></div>
                             </div>
                         </div>
                     </div>
