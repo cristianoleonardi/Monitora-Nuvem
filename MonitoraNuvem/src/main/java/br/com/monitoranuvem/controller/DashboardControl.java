@@ -39,10 +39,7 @@ public class DashboardControl {
         executor.shutdown();
         try {
              if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
-                executor.shutdownNow(); // Cancel currently executing tasks
-                if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
-                    System.err.println("Pool did not terminate");
-                }
+                executor.shutdownNow();
             }
         } catch (InterruptedException ie) {
             executor.shutdownNow();
