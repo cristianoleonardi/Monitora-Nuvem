@@ -5,6 +5,7 @@
  */
 package br.com.monitoranuvem.controller;
 
+import br.com.monitoranuvem.model.HistoryProviderBD;
 import br.com.monitoranuvem.model.InstanceProvider;
 import br.com.monitoranuvem.model.InstanceProviderBD;
 import br.com.monitoranuvem.model.QtdStatusProvider;

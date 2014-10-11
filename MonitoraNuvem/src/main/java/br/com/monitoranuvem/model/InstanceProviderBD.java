@@ -98,6 +98,7 @@ public class InstanceProviderBD {
     }
 
     public boolean atualizaIntancia(InstanceProvider inst) throws ClassNotFoundException, SQLException {
+        allUpdateRunnig(inst);
         conn = new ConnectionMySql().getConnection();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateForMySql = "";
@@ -122,6 +123,24 @@ public class InstanceProviderBD {
         }
     }
 
+    public boolean allUpdateRunnig(InstanceProvider inst) throws ClassNotFoundException, SQLException {
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?"
+                + "WHERE STATUSPROVIDER=? AND IDPROVIDER=?"
+        );
+        stmt.setString(1, "TERMINATED");
+        stmt.setString(2, "RUNNING");
+        stmt.setInt(3, inst.getProvider().getId());
+        int ret = stmt.executeUpdate();
+        conn.close();
+        if (ret > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public InstanceProvider buscaInstanceProvider(String idInstance) throws ClassNotFoundException, SQLException, ParseException {
         InstanceProvider instance = null;
         String date_s;
