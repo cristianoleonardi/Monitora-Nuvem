@@ -125,7 +125,10 @@ public class DashboardView extends HttpServlet {
         //Monta dados para grágico (Total de Instâncias por Provedor por Status)
         ProviderHistoryControl phc = new ProviderHistoryControl();
         String historyLastThirtyDays = phc.historyLastThirtyDays();
+        long[] days = phc.getFirstLastDay();
         session.setAttribute("historyLastThirtyDays", historyLastThirtyDays);
+        session.setAttribute("firstDay", days[0]);
+        session.setAttribute("lastDay", days[1]);
         
         RequestDispatcher rd = request
                 .getRequestDispatcher("/dashboard.jsp");

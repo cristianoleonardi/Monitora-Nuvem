@@ -24,4 +24,8 @@ public class ProviderHistoryControl {
     public String historyLastThirtyDays() throws ClassNotFoundException, SQLException, ParseException{
         return new HistoryProviderBD().historyLastThirtyDays();
     }
+    
+    public long[] getFirstLastDay() throws ClassNotFoundException, SQLException, ParseException{
+        return new HistoryProviderBD().getFirstLastDays();
+    }
 }

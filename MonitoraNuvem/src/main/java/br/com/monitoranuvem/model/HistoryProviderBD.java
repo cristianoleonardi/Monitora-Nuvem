@@ -106,8 +106,8 @@ public class HistoryProviderBD {
         conn.close();
         return dates;
     }
-    
-    public ArrayList<Integer> listaLastThirtyDaysInt(String today) throws ClassNotFoundException, SQLException, ParseException {
+
+    public ArrayList<Long> listaLastThirtyDaysInt(String today) throws ClassNotFoundException, SQLException, ParseException {
         String date_s;
         SimpleDateFormat dt;
         Date date;
@@ -118,13 +118,13 @@ public class HistoryProviderBD {
         stmt.setString(1, today);
         stmt.setString(2, today);
         ResultSet resultado = stmt.executeQuery();
-        ArrayList<Integer> dates = new ArrayList<>();
+        ArrayList<Long> dates = new ArrayList<>();
         while (resultado.next()) {
             date_s = resultado.getString("DATAATUALIZACAO");
             dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             date = dt.parse(date_s);
-            //int i = (int) new Date().getTime();
-            dates.add((int)date.getTime());
+            //dates.add((int) date.getTime());
+            dates.add(date.getTime());
         }
         conn.close();
         return dates;
@@ -162,24 +162,27 @@ public class HistoryProviderBD {
         return quantidade;
     }
 
+    public long[] getFirstLastDays() throws ClassNotFoundException, SQLException, ParseException{
+        long[] dias = new long[2];
+        ArrayList<Long> listaDatasNumero = listaLastThirtyDaysInt(Util.getDateTime());
+        dias[0] = listaDatasNumero.get(0);
+        dias[1] = listaDatasNumero.get(listaDatasNumero.size()-1);
+        return dias;
+    }
+    
     public String historyLastThirtyDays() throws ClassNotFoundException, SQLException, ParseException {
         String hltd = "";
-        //Dados de exemplo para montar a String
-        //Cada variavel d é um status
-        //d1.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i]);
-        //d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
 
-        //Montagem da String
         ArrayList<String> listaStatus = statusInPeriod(Util.getDateTime());
         hltd += "{";
         String status = "";
         String dia = "";
-        int diaNumero;
+        long diaNumero;
         for (int i = 0; i < listaStatus.size(); i++) {
             status = listaStatus.get(i);
             hltd += "label: \"" + status + "\",";
             ArrayList<String> listaDatas = listaLastThirtyDays(Util.getDateTime());
-            ArrayList<Integer> listaDatasNumero = listaLastThirtyDaysInt(Util.getDateTime());
+            ArrayList<Long> listaDatasNumero = listaLastThirtyDaysInt(Util.getDateTime());
             hltd += "data: [";
             for (int j = 0; j < listaDatas.size(); j++) {
                 dia = listaDatas.get(j);
@@ -197,21 +200,6 @@ public class HistoryProviderBD {
                 hltd += ";{";
             }
         }
-        //hltd += "]";
-
-        //String final que é plotada no gráfico
-        //[{
-        //    label: "Visitors",
-        //    data: d1,
-        //    lines: {fillColor: "#f3faff"},
-        //    points: {fillColor: "#fff"}
-        //},
-        //{
-        //    label: "Unique Visits",
-        //    data: d2,
-        //    lines: {fillColor: "#fff8f7"},
-        //    points: {fillColor: "#fff"}
-        //}]
         return hltd;
     }
 }

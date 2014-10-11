@@ -79,6 +79,8 @@
 
                             <div class="panel-body">
                                 <input type="hidden" id="dadosgrafico4" value='<% out.print(session.getAttribute("historyLastThirtyDays")); %>' />
+                                <input type="hidden" id="dadosgrafico5" value='<% out.print(session.getAttribute("firstDay")); %>' />
+                                <input type="hidden" id="dadosgrafico6" value='<% out.print(session.getAttribute("lastDay")); %>' />
                                 <div class="history-instances-by-status" style="width:100%; height:250px; margin-top:10px;"></div>
                             </div>
                         </div>

@@ -156,8 +156,8 @@ $(document).ready(function () {
             //    d2.push([new Date(Date.today().add(i).days()).getTime(), randNum()]);
             //}
 
-            var chartMinDate = 2066728912; //first day
-            var chartMaxDate = -1447603384;//d1[31][0];//last day
+            var chartMinDate = document.getElementById("dadosgrafico5").value;//2066728912; //first day
+            var chartMaxDate = document.getElementById("dadosgrafico6").value;//-1447603384;//d1[31][0];//last day
             var tickSize = [1, "day"];
             var tformat = "%d/%m/%y";
 
@@ -240,18 +240,6 @@ $(document).ready(function () {
             }
             
             var plot = $.plot($(".history-instances-by-status"), data, options);
-//                    [{
-//                            label: "Visitors",
-//                            data: d1,
-//                            lines: {fillColor: "#f3faff"},
-//                            points: {fillColor: "#fff"}
-//                        },
-//                        {
-//                            label: "Unique Visits",
-//                            data: d2,
-//                            lines: {fillColor: "#fff8f7"},
-//                            points: {fillColor: "#fff"}
-//                        }], options);
         });
     }//End .chart if  
 
