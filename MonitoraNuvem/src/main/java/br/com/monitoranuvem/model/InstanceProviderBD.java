@@ -127,10 +127,10 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?"
-                + "WHERE STATUSPROVIDER=? AND IDPROVIDER=?"
+                + "WHERE STATUSPROVIDER!=? AND IDPROVIDER=?"
         );
         stmt.setString(1, "TERMINATED");
-        stmt.setString(2, "RUNNING");
+        stmt.setString(2, "TERMINATED");
         stmt.setInt(3, inst.getProvider().getId());
         int ret = stmt.executeUpdate();
         conn.close();
