@@ -38,7 +38,7 @@ public class DashboardControl {
     public void stopThread() {
         executor.shutdown();
         try {
-             if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+             if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException ie) {
