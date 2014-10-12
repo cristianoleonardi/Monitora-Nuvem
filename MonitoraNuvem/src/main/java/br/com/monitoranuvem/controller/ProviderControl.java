@@ -41,5 +41,4 @@ public class ProviderControl {
         Provider p = buscaProvider(id);
         return new ProviderBD().atualizaProvider(p, provider);
     }
-
 }
