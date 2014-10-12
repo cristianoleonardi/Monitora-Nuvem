@@ -33,13 +33,14 @@ public class ThreadOpenStack implements Runnable {
     private Set<String> zones;
     private InstanceProvider inst;
     private ProviderInstanceControl pic;
+    private volatile boolean running = true;
 
     public ThreadOpenStack(Provider pv) {
         pn = pv;
     }
 
     public void run() {
-        while (true) {
+        while (running) {
             try {
                 for (ProviderService ps : new ProviderServiceBD().buscaProviderServiceProvider(pn.getId())) {
                     novaApi = pdc.getListServiceOStack(ps);
@@ -68,8 +69,12 @@ public class ThreadOpenStack implements Runnable {
                 pic.atualizaIntanciaold(pn);
                 Thread.sleep(60000);
             } catch (ClassNotFoundException | SQLException | InterruptedException | ParseException ex) {
-                System.out.println(ex);     
+
             }
         }
+    }
+
+    public void terminate() {
+        running = false;
     }
 }
