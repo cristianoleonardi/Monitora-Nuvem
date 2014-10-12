@@ -42,12 +42,6 @@
                                 <span class="txt">Monitorações</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
-                                <span class="icon"><i class="icon20 i-bell-2"></i></span>
-                                <span class="txt">Alertas</span>
-                            </a>
-                        </li>
                     </ul>
                 </li>
                 <li>
@@ -55,6 +49,14 @@
                         <span class="icon"><i class="icon20 i-bell-2"></i></span>
                         <span class="txt">Alertas</span>
                     </a>
+                    <ul class="sub">
+                        <li>
+                            <a href="alertview">
+                                <span class="icon"><i class="icon20 i-direction"></i></span>
+                                <span class="txt">Instâncias por Status</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="#">

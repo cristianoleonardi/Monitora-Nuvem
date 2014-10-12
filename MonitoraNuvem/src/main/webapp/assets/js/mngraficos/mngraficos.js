@@ -192,7 +192,7 @@ $(document).ready(function () {
                     }
                 },
                 legend: {
-                    position: "ne",//Suporta: ne, nw, se, sw
+                    position: "ne", //Suporta: ne, nw, se, sw
                     margin: [0, -25],
                     noColumns: 0,
                     labelBoxBorderColor: null,
@@ -224,7 +224,7 @@ $(document).ready(function () {
                     max: chartMaxDate
                 }
             };
-            
+
             //Busca dados para o gráfico da página dashboard.jsp
             var dados = document.getElementById("dadosgrafico4").value;
 
@@ -238,7 +238,7 @@ $(document).ready(function () {
                 eval('var temp= ' + arrDados[i]);
                 data.push(temp);
             }
-            
+
             var plot = $.plot($(".history-instances-by-status"), data, options);
         });
     }//End .chart if  
