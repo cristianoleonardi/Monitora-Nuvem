@@ -33,7 +33,7 @@ public class DashboardControl {
                 executor.execute(new ThreadAmazon(prov));
             }
         }
-//        executor.shutdown();
+        executor.shutdown();
     }
 
     public void stopThread() {
