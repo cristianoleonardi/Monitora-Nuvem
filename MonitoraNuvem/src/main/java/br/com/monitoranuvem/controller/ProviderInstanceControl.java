@@ -8,6 +8,7 @@ package br.com.monitoranuvem.controller;
 import br.com.monitoranuvem.model.InstanceProvider;
 import br.com.monitoranuvem.model.InstanceProviderBD;
 import br.com.monitoranuvem.model.Provider;
+import br.com.monitoranuvem.model.ProviderBD;
 import br.com.monitoranuvem.model.QtdStatusProvider;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -38,7 +39,7 @@ public class ProviderInstanceControl {
                 p.setIsChecked(1);
                 new InstanceProviderBD().atualizaIntancia(p);
                 new InstanceProviderBD().criarHistorico(p);
-             }
+            }
         }
         return true;
     }
@@ -65,5 +66,9 @@ public class ProviderInstanceControl {
 
     public ArrayList<InstanceProvider> listaInstanceProvider(Provider prov) throws ClassNotFoundException, SQLException, ParseException {
         return new InstanceProviderBD().listaInstanceProvider(prov);
+    }
+
+    public ArrayList<InstanceProvider> listaInstanceProvider(String nprov) throws ClassNotFoundException, SQLException, ParseException {
+        return new InstanceProviderBD().listaInstanceProvider(new ProviderBD().buscaProvider(nprov));
     }
 }
