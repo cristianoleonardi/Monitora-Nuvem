@@ -95,7 +95,15 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
+                        <div class="page-header">
+                            <h4><i class="icon10 i-screen-4"></i> Detalhamento das instâncias NONONONONO</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-3">
                         <table class="table table-bordered">
                             <tbody>
                                 <tr>
@@ -118,10 +126,10 @@
                                     <th>Detalhes:</th>
                                     <td class="center">
                                         <div class="btn-group">
-                                            <a class="btn btn-xs"><i class="icon20 i-storage"></i> Storage</a>
-                                            <a class="btn btn-xs"><i class="icon20 i-cogs"></i> Hardware</a>
-                                            <a class="btn btn-xs"><i class="icon20 i-health"></i> Desempenho</a>
-                                            <a class="btn btn-xs"><i class="icon20 i-bell-2"></i> Alertas</a>
+                                            <a class="btn btn-xs" title="Storage"><i class="icon20 i-storage"></i></a>
+                                            <a class="btn btn-xs" title="Hardware"><i class="icon20 i-cogs"></i></a>
+                                            <a class="btn btn-xs" title="Desempenho"><i class="icon20 i-health"></i></a>
+                                            <a class="btn btn-xs" title="Alertas"><i class="icon20 i-bell-2"></i></a>
                                         </div>
                                     </td>
                                 </tr>
