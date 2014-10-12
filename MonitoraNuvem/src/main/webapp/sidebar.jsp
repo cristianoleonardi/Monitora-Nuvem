@@ -64,5 +64,21 @@
                 </li>
             </ul>
         </nav> <!-- End #mainnav -->
-    </div> <!-- End .sidebar-wrapper  -->
+
+        <div class="sidebar-widget center">
+            <h4 class="sidebar-widget-header"><i class="icon i-cogs"></i> Monitoração</h4>
+            <div class="spark-stats">
+                <form class="form-horizontal" name="formstartstop" action="monitoringstartstop" method="POST">
+                    <div class="form-group">
+                        <div class="switch" data-on="success" data-off="warning">
+                            <input class="toggle" type="checkbox" name="monitoring" onchange="document.forms.formstartstop.submit();" <% if (session.getAttribute("monitoringstatus") == "started") out.print("checked"); %> />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div><!-- End .spark-stats -->
+        
+    </div><!-- end .sidebar-widget -->
+
+</div> <!-- End .sidebar-wrapper  -->
 </aside><!-- End #sidebar  -->

@@ -34,7 +34,12 @@
         <link href="<% out.print(request.getContextPath()); %>/assets/css/icons.css" rel="stylesheet" />
 
         <!-- Plugins stylesheets -->
-        <link href="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/uniform/uniform.default.css" rel="stylesheet" />
+        <link href="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/uniform/uniform.default.css" rel="stylesheet" /> 
+        <link href="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/switch/bootstrapSwitch.css" rel="stylesheet" /> 
+        <link href="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/spectrum/spectrum.css" rel="stylesheet" /> 
+        <link href="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/datepicker/datepicker.css" rel="stylesheet" /> 
+        <link href="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/select2/select2.css" rel="stylesheet" />
+        <link href="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/multiselect/ui.multiselect.css" rel="stylesheet" />
 
         <!-- app stylesheets -->
         <link href="<% out.print(request.getContextPath()); %>/assets/css/app.css" rel="stylesheet" />
@@ -63,6 +68,7 @@
         ================================================== -->
         <!-- Important plugins put in all pages -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/bootstrap/bootstrap.js"></script>  
         <script src="<% out.print(request.getContextPath()); %>/assets/js/conditionizr.min.js"></script>  
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/core/nicescroll/jquery.nicescroll.min.js"></script>
@@ -78,15 +84,27 @@
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/jquery.flot.time.min.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/peity/jquery.peity.min.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/date.js"></script>
-        
+
         <!-- Form plugins -->
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/jquery.mousewheel.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/uniform/jquery.uniform.min.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/validation/jquery.validate.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/autosize/jquery.autosize-min.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/inputlimit/jquery.inputlimiter.1.3.min.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/mask/jquery.mask.min.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/switch/bootstrapSwitch.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/globalize/globalize.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/spectrum/spectrum.js"></script><!--  Color picker -->
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/datepicker/bootstrap-datepicker.js"></script> 
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/select2/select2.js"></script> 
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/multiselect/ui.multiselect.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/tinymce/tinymce.min.js"></script>
 
         <!-- Init plugins -->
         <script src="<% out.print(request.getContextPath()); %>/assets/js/app.js"></script><!-- Core js functions -->
         <script src="<% out.print(request.getContextPath());%>/assets/js/pages/login.js"></script><!-- Init plugins only for page -->
         <script src="<% out.print(request.getContextPath());%>/assets/js/mngraficos/mngraficos.js"></script><!-- Init plugins only for page -->
+        <script src="<% out.print(request.getContextPath());%>/assets/js/pages/form-elements.js"></script>
 
     </head>
     <body>

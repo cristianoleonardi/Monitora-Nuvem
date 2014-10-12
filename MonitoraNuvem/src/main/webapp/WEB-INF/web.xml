@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>MonitoringStart</servlet-name>
-        <servlet-class>br.com.monitoranuvem.view.MonitoringStart</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>provider</servlet-name>
         <servlet-class>br.com.monitoranuvem.view.ProviderView</servlet-class>
     </servlet>
@@ -16,10 +12,10 @@
         <servlet-name>dashboardview</servlet-name>
         <servlet-class>br.com.monitoranuvem.view.DashboardView</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>MonitoringStart</servlet-name>
-        <url-pattern>/MonitoringStart</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>monitoringstartstop</servlet-name>
+        <servlet-class>br.com.monitoranuvem.view.MonitoringStartStop</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>provider</servlet-name>
         <url-pattern>/provider</url-pattern>
@@ -31,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>dashboardview</servlet-name>
         <url-pattern>/dashboardview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>monitoringstartstop</servlet-name>
+        <url-pattern>/monitoringstartstop</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

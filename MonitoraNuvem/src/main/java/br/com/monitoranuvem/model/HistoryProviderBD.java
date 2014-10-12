@@ -162,17 +162,16 @@ public class HistoryProviderBD {
         return quantidade;
     }
 
-    public long[] getFirstLastDays() throws ClassNotFoundException, SQLException, ParseException{
+    public long[] getFirstLastDays() throws ClassNotFoundException, SQLException, ParseException {
         long[] dias = new long[2];
         ArrayList<Long> listaDatasNumero = listaLastThirtyDaysInt(Util.getDateTime());
         dias[0] = listaDatasNumero.get(0);
-        dias[1] = listaDatasNumero.get(listaDatasNumero.size()-1);
+        dias[1] = listaDatasNumero.get(listaDatasNumero.size() - 1);
         return dias;
     }
-    
+
     public String historyLastThirtyDays() throws ClassNotFoundException, SQLException, ParseException {
         String hltd = "";
-
         ArrayList<String> listaStatus = statusInPeriod(Util.getDateTime());
         hltd += "{";
         String status = "";
