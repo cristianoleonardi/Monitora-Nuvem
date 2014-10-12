@@ -30,7 +30,7 @@ $(document).ready(function () {
                     show: true,
                     labelFormatter: function (label, series) {
                         // series is the series object for the label
-                        return '<a href="#' + label + '">' + label + '</a>';
+                        return '<a href="dashboarddetailview?provider=' + label + '\">' + label + '</a>';
                     },
                     margin: 50,
                     width: 20,
