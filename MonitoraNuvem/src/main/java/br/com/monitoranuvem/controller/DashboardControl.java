@@ -29,7 +29,7 @@ public class DashboardControl {
             new InstanceProviderBD().atualizaChecked(prov);
             if (prov.getNome().equals("OpenStack")) {
                 System.out.println("openstak comentada, quando tiver provedor é so descomentar");
-//                executor.execute(new ThreadOpenStack(prov));
+                executor.execute(new ThreadOpenStack(prov));
             } else if (prov.getNome().equals("Amazon")) {
                 executor.execute(new ThreadAmazon(prov));
             }

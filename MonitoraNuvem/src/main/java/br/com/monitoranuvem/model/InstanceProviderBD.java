@@ -31,7 +31,7 @@ public class InstanceProviderBD {
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO INSTANCEPROVIDER (INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
                 + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED) "
-                + " VALUES (?,?,?,?,?,?)"
+                + " VALUES (?,?,?,?,?,?,?)"
         );
         stmt.setString(1, inst.getInstanceProvider());
         stmt.setString(2, inst.getStatus());
@@ -51,7 +51,7 @@ public class InstanceProviderBD {
             stmt.setString(6, null);
         }
 
-        stmt.setInt(7, 0);
+        stmt.setInt(7, 1);
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
