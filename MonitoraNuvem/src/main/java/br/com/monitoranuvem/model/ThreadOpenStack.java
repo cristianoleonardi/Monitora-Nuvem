@@ -5,12 +5,8 @@
  */
 package br.com.monitoranuvem.model;
 
-import br.com.monitoranuvem.controller.ProviderControl;
 import br.com.monitoranuvem.controller.ProviderDialogControl;
 import br.com.monitoranuvem.controller.ProviderInstanceControl;
-import br.com.monitoranuvem.controller.ProviderServiceControl;
-import java.sql.SQLException;
-import java.text.ParseException;
 import java.util.Set;
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.domain.ComputeMetadata;
@@ -25,23 +21,23 @@ import org.jclouds.openstack.nova.v2_0.features.ServerApi;
  */
 public class ThreadOpenStack implements Runnable {
 
-    Provider pn;
-    ProviderControl pnc = new ProviderControl();
-    ProviderServiceControl psc = new ProviderServiceControl();
-    ProviderDialogControl pdc = new ProviderDialogControl();
+    private Provider pn;
+    private int delay;
     private NovaApi novaApi;
     private Set<String> zones;
     private InstanceProvider inst;
     private ProviderInstanceControl pic;
-    private volatile boolean running = true;
+    ProviderDialogControl pdc = new ProviderDialogControl();
 
-    public ThreadOpenStack(Provider pv) {
-        pn = pv;
+    public ThreadOpenStack(Provider prov, int tempoDelay) {
+        pn = prov;
+        delay = tempoDelay;
     }
 
+    @Override
     public void run() {
-        while (running) {
-            try {
+        try {
+            for (;;) {
                 for (ProviderService ps : new ProviderServiceBD().buscaProviderServiceProvider(pn.getId())) {
                     novaApi = pdc.getListServiceOStack(ps);
                     zones = novaApi.getConfiguredZones();
@@ -67,14 +63,12 @@ public class ThreadOpenStack implements Runnable {
                     }
                 }
                 pic.atualizaIntanciaold(pn);
-                Thread.sleep(60000);
-            } catch (ClassNotFoundException | SQLException | InterruptedException | ParseException ex) {
-
+                Thread.sleep(delay);
             }
+        } catch (Exception e) {
+            return;
         }
+
     }
 
-    public void terminate() {
-        running = false;
-    }
 }

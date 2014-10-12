@@ -7,8 +7,6 @@ package br.com.monitoranuvem.model;
 
 import br.com.monitoranuvem.controller.ProviderDialogControl;
 import br.com.monitoranuvem.controller.ProviderInstanceControl;
-import java.sql.SQLException;
-import java.text.ParseException;
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.domain.ComputeMetadata;
 import org.jclouds.compute.domain.NodeMetadata;
@@ -19,19 +17,21 @@ import org.jclouds.compute.domain.NodeMetadata;
  */
 public class ThreadAmazon implements Runnable {
 
-    Provider pn;
-    ProviderDialogControl pdc = new ProviderDialogControl();
+    private Provider pn;
+    private int delay;
     private InstanceProvider inst;
     private ProviderInstanceControl pic;
-    private volatile boolean running = true;
+    ProviderDialogControl pdc = new ProviderDialogControl();
 
-    public ThreadAmazon(Provider pv) {
-        pn = pv;
+    public ThreadAmazon(Provider prov, int tempoDelay) {
+        pn = prov;
+        delay = tempoDelay;
     }
 
+    @Override
     public void run() {
-        while (running) {
-            try {
+        try {
+            for (;;) {
                 for (ProviderService ps : new ProviderServiceBD().buscaProviderServiceProvider(pn.getId())) {
                     if (ps.getProviderService().equals("aws-ec2")) {
                         ComputeService compute = pdc.getListCServ(ps);
@@ -50,15 +50,11 @@ public class ThreadAmazon implements Runnable {
                     }
                 }
                 pic.atualizaIntanciaold(pn);
-                Thread.sleep(60000);
-            } catch (InterruptedException | ClassNotFoundException | SQLException | ParseException ex) {
-
+                Thread.sleep(delay);
             }
+        } catch (Exception e) {
+            return;
         }
-    }
-
-    public void terminate() {
-        running = false;
     }
 
 }
