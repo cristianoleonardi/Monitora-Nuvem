@@ -33,7 +33,7 @@ public class ProviderInstanceControl {
 
     public boolean atualizaIntanciaold(Provider prov) throws ClassNotFoundException, SQLException, ParseException {
         for (InstanceProvider p : listaInstanceProvider(prov)) {
-            if (p.getStatus().equals("RUNNING") && p.getIsChecked() == 0) {
+            if (p.getIsChecked() == 0) {
                 p.setStatus("TERMINATED");
                 p.setIsChecked(1);
                 new InstanceProviderBD().atualizaIntancia(p);
