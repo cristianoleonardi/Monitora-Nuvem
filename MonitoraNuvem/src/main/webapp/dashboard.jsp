@@ -1,7 +1,6 @@
 <%-- Imports --%>
 
 <%@page import="br.com.monitoranuvem.model.QtdStatusProvider"%>
-<%@page import="br.com.monitoranuvem.model.MNComputeService"%>
 <%@page import="java.util.ArrayList"%>
 <%-- Inclusão do cabeçalho da página --%>
 <jsp:include page="header.jsp" />
