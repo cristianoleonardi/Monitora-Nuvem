@@ -13,6 +13,10 @@
     <jsp:include page="sidebar.jsp" />
 
     <%-- Sessão do conteúdo da página --%>
+    <%
+        //Captura dados
+        String provider = request.getParameter("provider");
+    %>
     <section id="content">
         <div class="wrapper">
             <div class="crumb">
@@ -24,9 +28,109 @@
 
             <div class="container-fluid">
                 <div id="heading" class="page-header">
-                    <h1><i class="icon20 i-cloud"></i> Nonono</h1>
+                    <h1><i class="icon20 i-cloud"></i> Instâncias (<% out.print(provider); %>)</h1>
                 </div>
-                
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="page-header">
+                            <h4><i class="icon10 i-screen-4"></i> Compute Service - Lista de Instâncias por Status</h4>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="center" bgcolor="#CAFF70">Running</th>
+                                    <th class="center" bgcolor="#E9967A">Error</th>
+                                    <th class="center" bgcolor="#FFFACD">Pending</th>
+                                    <th class="center" bgcolor="#EEE5DE">Suspended</th>
+                                    <th class="center" bgcolor="#EEE9BF">Terminated</th>
+                                    <th class="center" bgcolor="#FFFFF0">Unrecognized</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% // ArrayList<MNComputeService> listaComputeService = (ArrayList<MNComputeService>) session.getAttribute("listaComputeService"); %>
+                                <% // for (MNComputeService cs : listaComputeService) { %>
+                                <tr>
+                                    <td class="center" bgcolor="#CAFF70">
+                                        <% // if (cs.getStatus().equalsIgnoreCase("RUNNING")) { %>
+                                        <% // out.print(cs.getProvedor()); %><br />
+                                        <% // out.print(cs.getId()); %>
+                                        <% // } %>
+                                    </td>
+                                    <td class="center" bgcolor="#E9967A">
+                                        <% // if (cs.getStatus().equalsIgnoreCase("ERROR")) { %>
+                                        <% // out.print(cs.getProvedor()); %><br />
+                                        <% // out.print(cs.getId()); %>
+                                        <% // } %>
+                                    </td>
+                                    <td class="center" bgcolor="#FFFACD">
+                                        <% // if (cs.getStatus().equalsIgnoreCase("PENDING")) { %>
+                                        <% // out.print(cs.getProvedor()); %><br />
+                                        <% // out.print(cs.getId()); %>
+                                        <% // } %>
+                                    </td>
+                                    <td class="center" bgcolor="#EEE5DE">
+                                        <% // if (cs.getStatus().equalsIgnoreCase("SUSPENDED")) { %>
+                                        <% // out.print(cs.getProvedor()); %><br />
+                                        <% // out.print(cs.getId()); %>
+                                        <% // } %>
+                                    </td>
+                                    <td class="center" bgcolor="#EEE9BF">
+                                        <% // if (cs.getStatus().equalsIgnoreCase("TERMINATED")) { %>
+                                        <% // out.print(cs.getProvedor()); %><br />
+                                        <% // out.print(cs.getId()); %>
+                                        <% // } %>
+                                    </td>
+                                    <td class="center" bgcolor="#FFFFF0">
+                                        <% // if (cs.getStatus().equalsIgnoreCase("UNRECOGNIZED")) { %>
+                                        <% // out.print(cs.getProvedor()); %><br />
+                                        <% // out.print(cs.getId()); %>
+                                        <% // } %>
+                                    </td>
+                                </tr>
+                                <% // }%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <th>ID:</th>
+                                    <td class="center"><% out.print(provider); %></td>
+                                </tr>
+                                <tr>
+                                    <th>Nome:</th>
+                                    <td class="center"></td>
+                                </tr>
+                                <tr>
+                                    <th>Status:</th>
+                                    <td class="center"></td>
+                                </tr>
+                                <tr>
+                                    <th>Alertas:</th>
+                                    <td class="center"></td>
+                                </tr>
+                                <tr>
+                                    <th>Detalhes:</th>
+                                    <td class="center">
+                                        <div class="btn-group">
+                                            <a class="btn btn-xs"><i class="icon20 i-storage"></i> Storage</a>
+                                            <a class="btn btn-xs"><i class="icon20 i-cogs"></i> Hardware</a>
+                                            <a class="btn btn-xs"><i class="icon20 i-health"></i> Desempenho</a>
+                                            <a class="btn btn-xs"><i class="icon20 i-bell-2"></i> Alertas</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <%%>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

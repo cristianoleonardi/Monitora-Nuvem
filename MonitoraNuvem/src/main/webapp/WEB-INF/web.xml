@@ -16,6 +16,10 @@
         <servlet-name>monitoringstartstop</servlet-name>
         <servlet-class>br.com.monitoranuvem.view.MonitoringStartStop</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>dashboarddetailview</servlet-name>
+        <servlet-class>br.com.monitoranuvem.view.DashboardDetailView</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>provider</servlet-name>
         <url-pattern>/provider</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>monitoringstartstop</servlet-name>
         <url-pattern>/monitoringstartstop</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>dashboarddetailview</servlet-name>
+        <url-pattern>/dashboarddetailview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

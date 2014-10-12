@@ -1,6 +1,5 @@
 package br.com.monitoranuvem.view;
 
-import br.com.monitoranuvem.controller.DashboardControl;
 import br.com.monitoranuvem.controller.ProviderHistoryControl;
 import br.com.monitoranuvem.controller.ProviderInstanceControl;
 import br.com.monitoranuvem.model.QtdStatusProvider;
@@ -114,18 +113,22 @@ public class DashboardView extends HttpServlet {
             }
         }
         labels += "]";
+        
         //Envia dados para grágico (Total de Instâncias por Provedor por Status)
         session.setAttribute("labels", labels);
         session.setAttribute("listaStatusInstanceProvider", dadosGrafico);
 
-        //Monta dados para grágico (Total de Instâncias por Provedor por Status)
+        //Monta dados para grágico (Histórico de Instâncias por Data e Status - Últimos 30 Dias)
         ProviderHistoryControl phc = new ProviderHistoryControl();
         String historyLastThirtyDays = phc.historyLastThirtyDays();
         long[] days = phc.getFirstLastDay();
+        
+        //Envia dados para grágico (Histórico de Instâncias por Data e Status - Últimos 30 Dias)
         session.setAttribute("historyLastThirtyDays", historyLastThirtyDays);
         session.setAttribute("firstDay", days[0]);
         session.setAttribute("lastDay", days[1]);
         
+        //Redireciona para a view específica
         RequestDispatcher rd = request
                 .getRequestDispatcher("/dashboard.jsp");
         rd.forward(request, response);
