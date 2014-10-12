@@ -50,5 +50,4 @@ public class ProviderAlerts {
         alert.setValueMetrics(valueMetrics);
         return new AlertsBD().atualizaAlerts(alert, idAlerts);
     }
-
 }
