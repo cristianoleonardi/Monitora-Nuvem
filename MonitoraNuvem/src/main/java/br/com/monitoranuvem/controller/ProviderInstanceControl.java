@@ -5,7 +5,6 @@
  */
 package br.com.monitoranuvem.controller;
 
-import br.com.monitoranuvem.model.HistoryProviderBD;
 import br.com.monitoranuvem.model.InstanceProvider;
 import br.com.monitoranuvem.model.InstanceProviderBD;
 import br.com.monitoranuvem.model.QtdStatusProvider;
@@ -30,7 +29,7 @@ public class ProviderInstanceControl {
         }
         return true;
     }
-
+    
     public InstanceProvider buscaInstanceProvider(String idInstance) throws ClassNotFoundException, SQLException, ParseException {
         return new InstanceProviderBD().buscaInstanceProvider(idInstance);
     }
