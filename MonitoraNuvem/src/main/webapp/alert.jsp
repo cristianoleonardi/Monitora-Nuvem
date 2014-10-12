@@ -1,4 +1,6 @@
 <%-- Imports --%>
+<%@page import="br.com.monitoranuvem.model.Provider"%>
+<%@page import="java.util.ArrayList"%>
 
 <%-- Inclusão do cabeçalho da página --%>
 <jsp:include page="header.jsp" />
@@ -62,14 +64,14 @@
                                         <label class="col-lg-2 control-label" for="normal">Provedor</label>
                                         <div class="col-lg-5">
                                             <select name="provider" class="form-control">
-                                                <% //ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores"); %>
-                                                <% //for (Provider provedores : listaProvedores) { %>
-                                                <option value="<% //out.print(provedores.getId()); %>" <% //if (prvService != null && prvService.getProvider().getId() == provedores.getId()) {
+                                                <% ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores"); %>
+                                                <% for (Provider provedores : listaProvedores) { %>
+                                                <option value="<% out.print(provedores.getId()); %>" <% //if (prvService != null && prvService.getProvider().getId() == provedores.getId()) {
                                                     //out.print("selected=\"selected\"");
                                                     //} %>>
-                                                    <% //out.print(provedores.getNome()); %>
+                                                    <% out.print(provedores.getNome()); %>
                                                 </option>
-                                                <% //}%>
+                                                <% }%>
                                             </select>  
                                         </div>
                                     </div>

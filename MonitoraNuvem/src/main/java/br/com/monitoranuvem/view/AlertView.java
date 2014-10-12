@@ -5,12 +5,19 @@
  */
 package br.com.monitoranuvem.view;
 
+import br.com.monitoranuvem.controller.ProviderControl;
+import br.com.monitoranuvem.model.Provider;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -28,7 +35,18 @@ public class AlertView extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
+        
+        //Instancia do controller do provider
+        ProviderControl pc = new ProviderControl();
+        
+        //Instancia a sessão para manipular as variáveis de sessao
+        HttpSession session = request.getSession(true);
+        
+        //Monta array de provedores
+        ArrayList<Provider> listaProvedores = pc.listaProvider();
+        
+        session.setAttribute("listaProvedores", listaProvedores);
         
         //Redireciona para a view específica
         RequestDispatcher rd = request
@@ -48,7 +66,13 @@ public class AlertView extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AlertView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AlertView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -62,7 +86,13 @@ public class AlertView extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AlertView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(AlertView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
