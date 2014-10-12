@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -18,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 public class DashboardControl {
 
     private ExecutorService executor;
+    private ThreadOpenStack threadOpen;
+    private ThreadAmazon threadAmazon;
 
     public DashboardControl() throws ClassNotFoundException, SQLException {
 
@@ -28,23 +29,18 @@ public class DashboardControl {
         for (Provider prov : new ProviderBD().listaProvider()) {
             new InstanceProviderBD().atualizaChecked(prov);
             if (prov.getNome().equals("OpenStack")) {
-                executor.execute(new ThreadOpenStack(prov));
+                threadOpen = new ThreadOpenStack(prov);
+                executor.execute(threadOpen);
             } else if (prov.getNome().equals("Amazon")) {
-                executor.execute(new ThreadAmazon(prov));
+                threadAmazon = new ThreadAmazon(prov);
+                executor.execute(threadAmazon);
             }
         }
-//        executor.shutdown();
-    }    
+        executor.shutdown();
+    }
 
     public void stopThread() {
-        executor.shutdown();
-        try {
-            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
-                executor.shutdownNow();
-            }
-        } catch (InterruptedException ie) {
-            executor.shutdownNow();
-            Thread.currentThread().interrupt();
-        }
+        threadOpen.terminate();
+        threadAmazon.terminate();
     }
 }

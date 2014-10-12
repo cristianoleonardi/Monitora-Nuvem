@@ -23,13 +23,14 @@ public class ThreadAmazon implements Runnable {
     ProviderDialogControl pdc = new ProviderDialogControl();
     private InstanceProvider inst;
     private ProviderInstanceControl pic;
+    private volatile boolean running = true;
 
     public ThreadAmazon(Provider pv) {
         pn = pv;
     }
 
     public void run() {
-        while (true) {
+        while (running) {
             try {
                 for (ProviderService ps : new ProviderServiceBD().buscaProviderServiceProvider(pn.getId())) {
                     if (ps.getProviderService().equals("aws-ec2")) {
@@ -51,8 +52,13 @@ public class ThreadAmazon implements Runnable {
                 pic.atualizaIntanciaold(pn);
                 Thread.sleep(60000);
             } catch (InterruptedException | ClassNotFoundException | SQLException | ParseException ex) {
-                System.out.println(ex);
+
             }
         }
     }
+
+    public void terminate() {
+        running = false;
+    }
+
 }
