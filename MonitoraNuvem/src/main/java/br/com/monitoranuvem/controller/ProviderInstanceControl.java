@@ -38,7 +38,7 @@ public class ProviderInstanceControl {
                 p.setIsChecked(1);
                 new InstanceProviderBD().atualizaIntancia(p);
                 new InstanceProviderBD().criarHistorico(p);
-            }
+             }
         }
         return true;
     }
