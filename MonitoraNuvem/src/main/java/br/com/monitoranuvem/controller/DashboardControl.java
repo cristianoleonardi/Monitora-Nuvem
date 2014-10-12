@@ -1,5 +1,6 @@
 package br.com.monitoranuvem.controller;
 
+import br.com.monitoranuvem.model.InstanceProviderBD;
 import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.ProviderBD;
 import br.com.monitoranuvem.model.ThreadAmazon;
@@ -25,6 +26,7 @@ public class DashboardControl {
     public void monitoraNuvem() throws ClassNotFoundException, SQLException, ParseException {
         executor = Executors.newFixedThreadPool(new ProviderBD().listaProvider().size());
         for (Provider prov : new ProviderBD().listaProvider()) {
+            new InstanceProviderBD().atualizaChecked(prov);
             if (prov.getNome().equals("OpenStack")) {
                 System.out.println("openstak comentada, quando tiver provedor é so descomentar");
 //                executor.execute(new ThreadOpenStack(prov));
@@ -38,7 +40,7 @@ public class DashboardControl {
     public void stopThread() {
         executor.shutdown();
         try {
-             if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException ie) {

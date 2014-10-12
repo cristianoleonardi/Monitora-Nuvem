@@ -7,6 +7,7 @@ package br.com.monitoranuvem.controller;
 
 import br.com.monitoranuvem.model.InstanceProvider;
 import br.com.monitoranuvem.model.InstanceProviderBD;
+import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.QtdStatusProvider;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -29,7 +30,19 @@ public class ProviderInstanceControl {
         }
         return true;
     }
-    
+
+    public boolean atualizaIntanciaold(Provider prov) throws ClassNotFoundException, SQLException, ParseException {
+        for (InstanceProvider p : listaInstanceProvider(prov)) {
+            if (p.getStatus().equals("RUNNING") && p.getIsChecked() == 0) {
+                p.setStatus("TERMINATED");
+                p.setIsChecked(1);
+                new InstanceProviderBD().atualizaIntancia(p);
+                new InstanceProviderBD().criarHistorico(p);
+            }
+        }
+        return true;
+    }
+
     public InstanceProvider buscaInstanceProvider(String idInstance) throws ClassNotFoundException, SQLException, ParseException {
         return new InstanceProviderBD().buscaInstanceProvider(idInstance);
     }
@@ -48,5 +61,9 @@ public class ProviderInstanceControl {
 
     public ArrayList<InstanceProvider> listaStatusProvider(String status) throws ClassNotFoundException, SQLException {
         return new InstanceProviderBD().listaStatusProvider(status);
+    }
+
+    public ArrayList<InstanceProvider> listaInstanceProvider(Provider prov) throws ClassNotFoundException, SQLException, ParseException {
+        return new InstanceProviderBD().listaInstanceProvider(prov);
     }
 }

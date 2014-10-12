@@ -65,6 +65,7 @@ public class ThreadOpenStack implements Runnable {
                         }
                     }
                 }
+                pic.atualizaIntanciaold(pn);
                 Thread.sleep(60000);
             } catch (ClassNotFoundException | SQLException | InterruptedException | ParseException ex) {
                 System.out.println(ex);     

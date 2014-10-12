@@ -30,7 +30,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO INSTANCEPROVIDER (INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE) "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED) "
                 + " VALUES (?,?,?,?,?,?)"
         );
         stmt.setString(1, inst.getInstanceProvider());
@@ -51,6 +51,7 @@ public class InstanceProviderBD {
             stmt.setString(6, null);
         }
 
+        stmt.setInt(7, 0);
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -98,12 +99,11 @@ public class InstanceProviderBD {
     }
 
     public boolean atualizaIntancia(InstanceProvider inst) throws ClassNotFoundException, SQLException {
-        allUpdateRunnig(inst);
         conn = new ConnectionMySql().getConnection();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateForMySql = "";
         PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, DATEUPDATE=? "
+                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, DATEUPDATE=?,ISCHECKED=? "
                 + "WHERE IDINSTANCE=?"
         );
         stmt.setString(1, inst.getStatus());
@@ -113,7 +113,8 @@ public class InstanceProviderBD {
         } else {
             stmt.setString(2, null);
         }
-        stmt.setString(3, inst.getIdInstance());
+        stmt.setInt(3, 1);
+        stmt.setString(4, inst.getIdInstance());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -123,15 +124,15 @@ public class InstanceProviderBD {
         }
     }
 
-    public boolean allUpdateRunnig(InstanceProvider inst) throws ClassNotFoundException, SQLException {
+    public boolean atualizaChecked(Provider prov) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?"
-                + "WHERE STATUSPROVIDER!=? AND IDPROVIDER=?"
+                "UPDATE INSTANCEPROVIDER SET ISCHECKED=? "
+                + "WHERE IDPROVIDER=? AND STATUSPROVIDER!=?"
         );
-        stmt.setString(1, "TERMINATED");
-        stmt.setString(2, "TERMINATED");
-        stmt.setInt(3, inst.getProvider().getId());
+        stmt.setInt(1, 0);
+        stmt.setInt(2, prov.getId());
+        stmt.setString(3, "TERMINATED");
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -140,7 +141,7 @@ public class InstanceProviderBD {
             return false;
         }
     }
-    
+
     public InstanceProvider buscaInstanceProvider(String idInstance) throws ClassNotFoundException, SQLException, ParseException {
         InstanceProvider instance = null;
         String date_s;
@@ -149,7 +150,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED "
                 + "FROM INSTANCEPROVIDER WHERE IDINSTANCE=?"
         );
         stmt.setString(1, idInstance);
@@ -177,11 +178,12 @@ public class InstanceProviderBD {
             } else {
                 instance.setDataUpdate(null);
             }
+            instance.setIsChecked(resultado.getInt("ISCHECKED"));
         }
         conn.close();
         return instance;
     }
-    
+
     public InstanceProvider buscaInstanceProvider(int id) throws ClassNotFoundException, SQLException, ParseException {
         InstanceProvider instance = null;
         String date_s;
@@ -291,6 +293,49 @@ public class InstanceProviderBD {
             instanceProvider.setInstanceProvider(resultado.getString("INSTANCEPROVIDER"));
             instanceProvider.setStatus(resultado.getString("STATUSPROVIDER"));
             instanceProvider.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
+            lista.add(instanceProvider);
+        }
+        conn.close();
+        return lista;
+    }
+
+    public ArrayList<InstanceProvider> listaInstanceProvider(Provider prov) throws ClassNotFoundException, SQLException, ParseException {
+        String date_s;
+        SimpleDateFormat dt;
+        Date date;
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(""
+                + "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER, "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED "
+                + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? ");
+        stmt.setInt(1, prov.getId());
+        ResultSet resultado = stmt.executeQuery();
+        ArrayList<InstanceProvider> lista = new ArrayList<>();
+        InstanceProvider instanceProvider;
+        while (resultado.next()) {
+            instanceProvider = new InstanceProvider();
+            instanceProvider.setIdInstanceProvider(resultado.getInt("IDINSTANCEPROVIDER"));
+            instanceProvider.setInstanceProvider(resultado.getString("INSTANCEPROVIDER"));
+            instanceProvider.setStatus(resultado.getString("STATUSPROVIDER"));
+            instanceProvider.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
+            instanceProvider.setIdInstance(resultado.getString("IDINSTANCE"));
+            date_s = resultado.getString("DATECREATE");
+            if (date_s != null) {
+                dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                date = dt.parse(date_s);
+                instanceProvider.setDataCreate(date);
+            } else {
+                instanceProvider.setDataCreate(null);
+            }
+            date_s = resultado.getString("DATEUPDATE");
+            if (date_s != null) {
+                dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                date = dt.parse(date_s);
+                instanceProvider.setDataUpdate(date);
+            } else {
+                instanceProvider.setDataUpdate(null);
+            }
+            instanceProvider.setIsChecked(resultado.getInt("ISCHECKED"));
             lista.add(instanceProvider);
         }
         conn.close();

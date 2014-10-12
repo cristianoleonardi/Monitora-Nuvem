@@ -48,6 +48,7 @@ public class ThreadAmazon implements Runnable {
                         }
                     }
                 }
+                pic.atualizaIntanciaold(pn);
                 Thread.sleep(60000);
             } catch (InterruptedException | ClassNotFoundException | SQLException | ParseException ex) {
                 System.out.println(ex);

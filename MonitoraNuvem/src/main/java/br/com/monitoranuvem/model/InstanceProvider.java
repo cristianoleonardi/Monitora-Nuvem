@@ -20,6 +20,7 @@ public class InstanceProvider {
     private String idInstance;
     private Date dataCreate;
     private Date dataUpdate;
+    private int isChecked;
 
     public int getIdInstanceProvider() {
         return idInstanceProvider;
@@ -77,4 +78,11 @@ public class InstanceProvider {
         this.dataUpdate = dataUpdate;
     }
 
+    public int getIsChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(int isChecked) {
+        this.isChecked = isChecked;
+    }
 }
