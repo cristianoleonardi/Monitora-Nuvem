@@ -19,7 +19,7 @@ public class ConnectionMySql {
     final private String mydatabase = "tcc";
     final private String url = "jdbc:mysql://" + serverName + "/" + mydatabase;
     final private String usuario = "root";
-    final private String senha = "marcio";
+    final private String senha = "";
     private Connection conexao=null;
 
     public Connection getConnection() throws ClassNotFoundException, SQLException{
