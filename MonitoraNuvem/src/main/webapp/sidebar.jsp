@@ -56,6 +56,12 @@
                                 <span class="txt">Instâncias por Status</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="">
+                                <span class="icon"><i class="icon20 i-coins"></i></span>
+                                <span class="txt">Custo das Instâncias</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li>
