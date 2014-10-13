@@ -66,7 +66,7 @@
                                         <div class="col-lg-2">
                                             <input class="form-control" type="text" name="id" value="<% if (prvService != null) {
                                                     out.print(prvService.getIdProviderService());
-                                                } %>" required readonly /><br />
+                                                } %>" required readonly />
                                         </div>
                                     </div>
                                     <% } %>
@@ -88,7 +88,7 @@
                                         <div class="col-lg-5">
                                             <input class="form-control" type="text" name="providerservice" value="<% if (prvService != null) {
                                                     out.print(prvService.getProviderService());
-                                                } %>" maxlength="45" /><br />
+                                                } %>" maxlength="45" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -96,7 +96,7 @@
                                         <div class="col-lg-5">
                                             <input class="form-control" type="text" name="endpoint" value="<% if (prvService != null) {
                                                     out.print(prvService.getEndPoint());
-                                                } %>" maxlength="45" /><br />
+                                                } %>" maxlength="45" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -104,7 +104,7 @@
                                         <div class="col-lg-5">
                                             <input class="form-control" type="text" name="accesskey" value="<% if (prvService != null) {
                                                     out.print(prvService.getAcessKey());
-                                                } %>" required maxlength="45" /><br />
+                                                } %>" required maxlength="255" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -112,7 +112,7 @@
                                         <div class="col-lg-5">
                                             <input class="form-control" type="text" name="secretaccesskey" value="<% if (prvService != null) {
                                                     out.print(prvService.getSecretKey());
-                                                } %>" required maxlength="45" /><br />
+                                                } %>" required maxlength="45" />
                                         </div>
                                     </div>
                                     <% session.removeAttribute("prvService"); %>

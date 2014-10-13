@@ -8,6 +8,8 @@ $(document).ready(function () {
         return (Math.floor(Math.random() * (1 + 40 - 20))) + 20;
     }
 
+
+    //GRAFICO 1
     //Percentual de Instâncias Ativas por Provedor##############################
     if ($(".active-instance-by-provider").length) {
         $(function () {
@@ -18,7 +20,7 @@ $(document).ready(function () {
                         highlight: {
                             opacity: 0.1
                         },
-                        radius: 1,
+                        radius: 9/10,
                         stroke: {
                             width: 2
                         },
@@ -70,6 +72,8 @@ $(document).ready(function () {
 
     }//End of Percentual de Instâncias Ativas por Provedor######################
 
+
+    //GRAFICO 2
     //Total de Instâncias por Provedor por Status###############################
     if ($(".instance-by-status").length) {
         $(function () {
@@ -78,19 +82,21 @@ $(document).ready(function () {
             var labels = document.getElementById("dadosgrafico3").value;
 
             //Transforma a string em array
-            var arrDados = [];
-            arrDados = dados.split(";");
+            var data = [];
+            //arrDados = dados.split(";");
+            eval('var temp= ' + dados);
+            data = temp;
             var arrLabels = [];
             eval('var temp= ' + labels);
             arrLabels = temp;
 
             //Converte os dados do array arrDados em Objetos e insere no array data
-            var data = [];
-            for (i = 0; i < arrDados.length - 1; i++) {
-                eval('var temp= ' + arrDados[i]);
+            //var data = [];
+            //for (i = 0; i < arrDados.length - 1; i++) {
+            //    eval('var temp= ' + arrDados[i]);
 
-                data.push(temp);
-            }
+            //    data.push(temp);
+            //}
 
             var stack = 0, bars = true, lines = false, steps = false;
 
@@ -144,7 +150,9 @@ $(document).ready(function () {
 
     }//End of Total de Instâncias por Provedor por Status#######################
 
-    //check if element exist and draw chart
+
+    //GRAFICO 3
+    //Histórico de Instâncias por Status########################################
     if ($(".history-instances-by-status").length) {
         $(function () {
             //var d1 = [];
@@ -241,6 +249,6 @@ $(document).ready(function () {
 
             var plot = $.plot($(".history-instances-by-status"), data, options);
         });
-    }//End .chart if  
+    }//End of Histórico de Instâncias por Status################################
 
 });

@@ -11,7 +11,7 @@ package br.com.monitoranuvem.model;
  */
 public class Alerts {
     
-    private int idalerts;
+    private int idAlerts;
     private String nameAlerts;
     private Provider prov;
     private String statusProvider;
@@ -19,12 +19,12 @@ public class Alerts {
     private String operation;
     private String valueMetrics;
 
-    public int getIdalerts() {
-        return idalerts;
+    public int getIdAlerts() {
+        return idAlerts;
     }
 
-    public void setIdalerts(int idalerts) {
-        this.idalerts = idalerts;
+    public void setIdAlerts(int idalerts) {
+        this.idAlerts = idalerts;
     }
 
     public String getNameAlerts() {

@@ -1,4 +1,5 @@
 <%-- Imports --%>
+<%@page import="br.com.monitoranuvem.model.Alerts"%>
 <%@page import="br.com.monitoranuvem.model.Provider"%>
 <%@page import="java.util.ArrayList"%>
 
@@ -29,6 +30,23 @@
                     <h1><i class="icon20 i-bell-2"></i> Cadastro de Alertas</h1>
                 </div>
 
+                <%-- Alertas de cadastro --%>
+                <% if (session.getAttribute("responseAction") == "Ok") { %>
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <% out.print(session.getAttribute("responseMsg")); %>
+                </div>
+                <% session.removeAttribute("responseAction"); %>
+                <% session.removeAttribute("responseMsg"); %>
+                <% } else if (session.getAttribute("responseAction") == "Erro") { %>
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <% out.print(session.getAttribute("responseMsg")); %>
+                </div>
+                <% session.removeAttribute("responseAction"); %>
+                <% session.removeAttribute("responseMsg"); %>
+                <% } %>
+
                 <div class="row">
 
                     <div class="col-lg-12">
@@ -40,24 +58,24 @@
                             </div>
 
                             <div class="panel-body">
-                                <form class="form-horizontal" action="providerservice" method="POST">
-                                    <% //ProviderService prvService = (ProviderService) session.getAttribute("prvService"); %>
-                                    <% //if (session.getAttribute("action") == "atualizarProviderService") { %>
+                                <form class="form-horizontal" action="alertview" method="POST">
+                                    <% Alerts alerts = (Alerts) session.getAttribute("alert"); %>
+                                    <% if (session.getAttribute("action") == "atualizarAlerts") { %>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">ID</label>
                                         <div class="col-lg-2">
-                                            <input class="form-control" type="text" name="id" value="<% //if (prvService != null) {
-                                                //out.print(prvService.getIdProviderService());
-                                                //} %>" required readonly /><br />
+                                            <input class="form-control" type="text" name="id" value="<% if (alerts != null) {
+                                                    out.print(alerts.getIdAlerts());
+                                                } %>" required readonly />
                                         </div>
                                     </div>
-                                    <% //} %>
+                                    <% } %>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">Nome do Alerta</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control" type="text" name="alertname" value="<% //if (prvService != null) {
-                                                //out.print(prvService.getProviderService());
-                                                //} %>" maxlength="45" /><br />
+                                            <input class="form-control" type="text" name="alertname" value="<% if (alerts != null) {
+                                                    out.print(alerts.getNameAlerts());
+                                                } %>" maxlength="45" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -66,9 +84,9 @@
                                             <select name="provider" class="form-control">
                                                 <% ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores"); %>
                                                 <% for (Provider provedores : listaProvedores) { %>
-                                                <option value="<% out.print(provedores.getId()); %>" <% //if (prvService != null && prvService.getProvider().getId() == provedores.getId()) {
-                                                    //out.print("selected=\"selected\"");
-                                                    //} %>>
+                                                <option value="<% out.print(provedores.getId()); %>" <% if (alerts != null && alerts.getProv().getId() == provedores.getId()) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
                                                     <% out.print(provedores.getNome()); %>
                                                 </option>
                                                 <% }%>
@@ -79,14 +97,36 @@
                                         <label class="col-lg-2 control-label" for="normal">Status da Instância</label>
                                         <div class="col-lg-5">
                                             <select name="status" class="form-control">
-                                                <% //ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores"); %>
-                                                <% //for (Provider provedores : listaProvedores) { %>
-                                                <option value="<% //out.print(provedores.getId()); %>" <% //if (prvService != null && prvService.getProvider().getId() == provedores.getId()) {
-                                                    //out.print("selected=\"selected\"");
-                                                    //} %>>
-                                                    <% //out.print(provedores.getNome()); %>
+                                                <option value="RUNNING" <% if (alerts != null && alerts.getStatusProvider().equalsIgnoreCase("RUNNING")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Running
                                                 </option>
-                                                <% //}%>
+                                                <option value="ERROR" <% if (alerts != null && alerts.getStatusProvider().equalsIgnoreCase("ERROR")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Error
+                                                </option>
+                                                <option value="PENDING" <% if (alerts != null && alerts.getStatusProvider().equalsIgnoreCase("PENDING")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Pending
+                                                </option>
+                                                <option value="SUSPENDED" <% if (alerts != null && alerts.getStatusProvider().equalsIgnoreCase("SUSPENDED")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Suspended
+                                                </option>
+                                                <option value="TERMINATED" <% if (alerts != null && alerts.getStatusProvider().equalsIgnoreCase("TERMINATED")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Terminated
+                                                </option>
+                                                <option value="UNRECOGNIZED" <% if (alerts != null && alerts.getStatusProvider().equalsIgnoreCase("UNRECOGNIZED")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Unrecognized
+                                                </option>
                                             </select>  
                                         </div>
                                     </div>
@@ -94,17 +134,16 @@
                                         <label class="col-lg-2 control-label" for="normal">Métrica</label>
                                         <div class="col-lg-5">
                                             <select name="metric" class="form-control">
-                                                <option value="quantidade" <% //if (prvService != null && prvService.getProvider().getId() == provedores.getId()) {
-                                                    //out.print("selected=\"selected\"");
-                                                    //} %>>
-                                                    Quantidade (N)
+                                                <option value="quantidade" <% if (alerts != null && alerts.getMetrics().equalsIgnoreCase("quantidade")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Quantidade ( n )
                                                 </option>
-                                                <option value="percentual" <% //if (prvService != null && prvService.getProvider().getId() == provedores.getId()) {
-                                                    //out.print("selected=\"selected\"");
-                                                    //} %>>
-                                                    Percentual (%)
+                                                <option value="percentual" <% if (alerts != null && alerts.getMetrics().equalsIgnoreCase("percentual")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Percentual ( % )
                                                 </option>
-                                                <% //}%>
                                             </select>  
                                         </div>
                                     </div>
@@ -112,49 +151,48 @@
                                         <label class="col-lg-2 control-label" for="normal">Operação</label>
                                         <div class="col-lg-5">
                                             <select name="operation" class="form-control">
-                                                <option value="igual" <% //if (prvService != null && prvService.getProvider().getId() == provedores.getId()) {
-                                                    //out.print("selected=\"selected\"");
-                                                    //} %>>
-                                                    Igual (=)
+                                                <option value="igual" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase("igual")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Igual ( = )
                                                 </option>
-                                                <option value="maior" <% //if (prvService != null && prvService.getProvider().getId() == provedores.getId()) {
-                                                    //out.print("selected=\"selected\"");
-                                                    //} %>>
-                                                    Maior (&gt;)
+                                                <option value="maior que" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase("maior")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Maior que ( &gt; )
                                                 </option>
-                                                <option value="menor" <% //if (prvService != null && prvService.getProvider().getId() == provedores.getId()) {
-                                                    //out.print("selected=\"selected\"");
-                                                    //} %>>
-                                                    Menor (&lt;)
+                                                <option value="menor que" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase("menor")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Menor que ( &lt; )
                                                 </option>
-                                                <% //}%>
                                             </select>  
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">Valor da Métrica</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control" type="text" name="metricvalue" value="<% //if (prvService != null) {
-                                                //out.print(prvService.getEndPoint());
-                                                //} %>" maxlength="45" /><br />
+                                            <input class="form-control" type="text" name="metricvalue" value="<% if (alerts != null) {
+                                                    out.print(alerts.getValueMetrics());
+                                                } %>" maxlength="45" /><br />
                                         </div>
                                     </div>
-                                    <% //session.removeAttribute("prvService"); %>
+                                    <% session.removeAttribute("alert"); %>
                                     <div class="form-group">
                                         <div class="col-lg-offset-2">
                                             <div class="pad-left15">
-                                                <% //if (session.getAttribute("action") == "atualizarProviderService") { %>
-                                                <input type="hidden" name="action" value="atualizarProviderService" />
-                                                <% //} else { %>
-                                                <input type="hidden" name="action" value="criarProviderService" />
-                                                <% //} %>
-                                                <button type="submit" class="btn btn-success btn-xs"><i class="icon10 i-database"> <% //if (session.getAttribute("action") == "atualizarProviderService") {
-                                                    //out.print("Atualizar");
-                                                    //} else {
-                                                    //out.print("Cadastrar");
-                                                    //} %></i></button>
-                                                <a href="providerservice" class="btn btn-danger btn-xs"><i class="icon10 i-close"> Cancelar</i></a>
-                                                <% //session.removeAttribute("action"); %>
+                                                <% if (session.getAttribute("action") == "atualizarAlerts") { %>
+                                                <input type="hidden" name="action" value="atualizarAlerts" />
+                                                <% } else { %>
+                                                <input type="hidden" name="action" value="criarAlerts" />
+                                                <% } %>
+                                                <button type="submit" class="btn btn-success btn-xs"><i class="icon10 i-database"> <% if (session.getAttribute("action") == "atualizarAlerts") {
+                                                        out.print("Atualizar");
+                                                    } else {
+                                                        out.print("Cadastrar");
+                                                    } %></i></button>
+                                                <a href="alertview" class="btn btn-danger btn-xs"><i class="icon10 i-close"> Cancelar</i></a>
+                                                <% session.removeAttribute("action"); %>
                                             </div>
                                         </div>
                                     </div>
@@ -179,40 +217,44 @@
                                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="dataTable">
                                     <thead>
                                         <tr>
-                                            <th>XX</th>
-                                            <th>XX</th>
-                                            <th>XX</th>
-                                            <th>XX</th>
-                                            <th>XX</th>
+                                            <th>ID</th>
+                                            <th>Nome do Alerta</th>
+                                            <th>Provedor</th>
+                                            <th>Status</th>
+                                            <th>Métrica</th>
+                                            <th>Operação</th>
+                                            <th>Valor</th>
                                             <th>Editar</th>
                                             <th>Remover</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% //ArrayList<ProviderService> listaPrvServices = (ArrayList<ProviderService>) session.getAttribute("listaPrvServices"); %>
-                                        <% //for (ProviderService prvServices : listaPrvServices) { %>
+                                        <% ArrayList<Alerts> listaAlerts = (ArrayList<Alerts>) session.getAttribute("listaAlerts"); %>
+                                        <% for (Alerts alert : listaAlerts) { %>
                                         <tr class="gradeA">
-                                            <td class="center"><% //out.print(prvServices.getIdProviderService()); %></td>
-                                            <td><% //out.print(prvServices.getProvider().getNome()); %></td>
-                                            <td><% //out.print(prvServices.getProviderService()); %></td>
-                                            <td><% //out.print(prvServices.getAcessKey()); %></td>
-                                            <td><% //out.print(prvServices.getSecretKey()); %></td>
+                                            <td class="center"><% out.print(alert.getIdAlerts()); %></td>
+                                            <td><% out.print(alert.getNameAlerts()); %></td>
+                                            <td><% out.print(alert.getProv().getNome()); %></td>
+                                            <td><% out.print(alert.getStatusProvider()); %></td>
+                                            <td><% out.print(alert.getMetrics()); %></td>
+                                            <td><% out.print(alert.getOperation()); %></td>
+                                            <td><% out.print(alert.getValueMetrics()); %></td>
                                             <td class="center">
-                                                <form action="providerservice" method="POST">
-                                                    <input type="hidden" name="id" value="<% //out.print(prvServices.getIdProviderService()); %>" />
-                                                    <input type="hidden" name="action" value="buscarProviderService" />
+                                                <form action="alertview" method="POST">
+                                                    <input type="hidden" name="id" value="<% out.print(alert.getIdAlerts()); %>" />
+                                                    <input type="hidden" name="action" value="buscarAlerts" />
                                                     <button type="submit" class="btn btn-primary btn-xs" title="Editar"><i class="icon10 i-pencil"> Editar</i></button>&nbsp;
                                                 </form>
                                             </td>
                                             <td class="center">
-                                                <form action="providerservice" method="POST">
-                                                    <input type="hidden" name="id" value="<% //out.print(prvServices.getIdProviderService()); %>" />
-                                                    <input type="hidden" name="action" value="deletarProviderService" />
+                                                <form action="alertview" method="POST">
+                                                    <input type="hidden" name="id" value="<% out.print(alert.getIdAlerts()); %>" />
+                                                    <input type="hidden" name="action" value="deletarAlerts" />
                                                     <button type="submit" class="btn btn-danger btn-xs" title="Remover"><i class="icon10 i-close"> Remover</i></button>
                                                 </form>
                                             </td>
                                         </tr>
-                                        <% //}%>
+                                        <% }%>
                                     </tbody>
                                 </table>
                             </div>

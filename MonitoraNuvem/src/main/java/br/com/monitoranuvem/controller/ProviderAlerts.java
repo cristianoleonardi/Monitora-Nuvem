@@ -17,10 +17,10 @@ import java.util.ArrayList;
  */
 public class ProviderAlerts {
 
-    public boolean criarAlerts(String nameAlerts, String nameProvider, String statusProvider, String metrics, String operation, String valueMetrics) throws ClassNotFoundException, SQLException {
+    public boolean criarAlerts(String nameAlerts, int idProvider, String statusProvider, String metrics, String operation, String valueMetrics) throws ClassNotFoundException, SQLException {
         Alerts alert = new Alerts();
         alert.setNameAlerts(nameAlerts);
-        alert.setProv(new ProviderBD().buscaProvider(nameProvider));
+        alert.setProv(new ProviderBD().buscaProvider(idProvider));
         alert.setStatusProvider(statusProvider);
         alert.setMetrics(metrics);
         alert.setOperation(operation);
@@ -40,10 +40,10 @@ public class ProviderAlerts {
         return new AlertsBD().deletaAlerts(idAlerts);
     }
 
-    public boolean atualizaAlerts(String nameAlerts, String nameProvider, String statusProvider, String metrics, String operation, String valueMetrics, int idAlerts) throws ClassNotFoundException, SQLException {
+    public boolean atualizaAlerts(String nameAlerts, int idProvider, String statusProvider, String metrics, String operation, String valueMetrics, int idAlerts) throws ClassNotFoundException, SQLException {
         Alerts alert = new Alerts();
         alert.setNameAlerts(nameAlerts);
-        alert.setProv(new ProviderBD().buscaProvider(nameProvider));
+        alert.setProv(new ProviderBD().buscaProvider(idProvider));
         alert.setStatusProvider(statusProvider);
         alert.setMetrics(metrics);
         alert.setOperation(operation);

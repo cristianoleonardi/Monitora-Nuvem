@@ -69,6 +69,7 @@ public class DashboardView extends HttpServlet {
                 dadosGrafico += ";";
             }
         }
+
         //Envia dados para grágico (Instâncias Ativas por Provedor)
         session.setAttribute("listaActiveInstanceProvider", dadosGrafico);
 
@@ -82,10 +83,12 @@ public class DashboardView extends HttpServlet {
         Set label = new HashSet();
         String labels = "";
         labels += "[";
+        dadosGrafico = "[";
 
         //Monta dados para grágico (Total de Instâncias por Provedor por Status)
         Set<String> status = new HashSet<>();
-        for (QtdStatusProvider sp : listaStatusProvider) {
+        for (int j = 0; j < listaStatusProvider.size(); j++) {
+            QtdStatusProvider sp = listaStatusProvider.get(j);
             if (status.add(sp.getStatus())) {
                 //Solicita a quantidade de instancias ativas por provedor status
                 ArrayList<QtdStatusProvider> listaStatusInstanceProvider = pic.listaQDTStatusProvider(sp.getStatus());
@@ -97,23 +100,30 @@ public class DashboardView extends HttpServlet {
 
                     //Define os labels
                     if (label.add(spStatus.getProvider().getNome())) {
-                        if (label.size() > 1) labels += ",";
+                        if (label.size() > 1) {
+                            labels += ",";
+                        }
                         labels += "[" + (label.size() - 1) + ", \"" + spStatus.getProvider().getNome() + "\"]";
                     }
 
                     //dadosGrafico += "\"" + spStatus.getProvider().getNome() + "\": " + spStatus.getQuantidade();
-                    dadosGrafico += "[" + i + ", " + spStatus.getQuantidade() + "]";
+                    dadosGrafico += "[" + i + "," + spStatus.getQuantidade() + "]";
 
                     if (i < listaStatusInstanceProvider.size() - 1) {
                         dadosGrafico += ",";
-                    } else if (i == listaStatusInstanceProvider.size() - 1) {
-                        dadosGrafico += "]};";
                     }
+
+                }
+                if (j < listaStatusProvider.size() - 1) {
+                    dadosGrafico += "]},";
+                } else {
+                    dadosGrafico += "]}";
                 }
             }
         }
         labels += "]";
-        
+        dadosGrafico += "]";
+
         //Envia dados para grágico (Total de Instâncias por Provedor por Status)
         session.setAttribute("labels", labels);
         session.setAttribute("listaStatusInstanceProvider", dadosGrafico);
@@ -122,12 +132,12 @@ public class DashboardView extends HttpServlet {
         ProviderHistoryControl phc = new ProviderHistoryControl();
         String historyLastThirtyDays = phc.historyLastThirtyDays();
         long[] days = phc.getFirstLastDay();
-        
+
         //Envia dados para grágico (Histórico de Instâncias por Data e Status - Últimos 30 Dias)
         session.setAttribute("historyLastThirtyDays", historyLastThirtyDays);
         session.setAttribute("firstDay", days[0]);
         session.setAttribute("lastDay", days[1]);
-        
+
         //Redireciona para a view específica
         RequestDispatcher rd = request
                 .getRequestDispatcher("/dashboard.jsp");

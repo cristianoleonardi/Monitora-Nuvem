@@ -1,12 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.monitoranuvem.view;
 
+import br.com.monitoranuvem.controller.ProviderAlerts;
 import br.com.monitoranuvem.controller.ProviderControl;
+import br.com.monitoranuvem.model.Alerts;
 import br.com.monitoranuvem.model.Provider;
+import br.com.monitoranuvem.model.ProviderService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -36,22 +34,113 @@ public class AlertView extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
-        
-        //Instancia do controller do provider
+
+        //Instancia do controller do alerts
         ProviderControl pc = new ProviderControl();
-        
+
+        //Instancia do controller do provider
+        ProviderAlerts pa = new ProviderAlerts();
+
         //Instancia a sessão para manipular as variáveis de sessao
         HttpSession session = request.getSession(true);
-        
-        //Monta array de provedores
-        ArrayList<Provider> listaProvedores = pc.listaProvider();
-        
-        session.setAttribute("listaProvedores", listaProvedores);
-        
-        //Redireciona para a view específica
-        RequestDispatcher rd = request
-                .getRequestDispatcher("/alert.jsp");
-        rd.forward(request, response);
+
+        //Ação que determina o que será executado pelo Controller.
+        String action = request.getParameter("action");
+
+        if (action == null || action.equalsIgnoreCase("") || action.equalsIgnoreCase("listarAlerts")) {
+            //###LISTAR ALERTS###
+            ArrayList<Alerts> listaAlerts = pa.listaAlerts();
+
+            ArrayList<Provider> listaProvedores = pc.listaProvider();
+
+            session.setAttribute("listaAlerts", listaAlerts);
+            session.setAttribute("listaProvedores", listaProvedores);
+
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("/alert.jsp");
+            rd.forward(request, response);
+
+        } else if (action.equalsIgnoreCase("criarAlerts")) {
+            //###CRIAR ALERTS###
+            String alertName = request.getParameter("alertname");
+            int idProvider = Integer.parseInt(request.getParameter("provider"));
+            String status = request.getParameter("status");
+            String metric = request.getParameter("metric");
+            String operation = request.getParameter("operation");
+            String metricValue = request.getParameter("metricvalue");
+
+            if (pa.criarAlerts(alertName, idProvider, status, metric, operation, metricValue)) {
+                session.setAttribute("responseAction", "Ok");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Seu alerta foi cadastrado com sucesso.");
+
+                ArrayList<Alerts> listaAlerts = pa.listaAlerts();
+                session.setAttribute("listaAlerts", listaAlerts);
+            } else {
+                session.setAttribute("responseAction", "Erro");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível cadastrar este alerta.");
+            }
+
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("/alert.jsp");
+            rd.forward(request, response);
+
+        } else if (action.equalsIgnoreCase("buscarAlerts")) {
+            //###BUSCAR ALERTS PARA ATUALIZAR O MESMO###
+            int id = Integer.parseInt(request.getParameter("id"));
+
+            Alerts alert = new Alerts();
+            alert = pa.buscaAlerts(id);
+
+            session.setAttribute("alert", alert);
+            session.setAttribute("action", "atualizarAlerts");
+
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("/alert.jsp");
+            rd.forward(request, response);
+
+        } else if (action.equalsIgnoreCase("atualizarAlerts")) {
+            //###ALTERAR ALERTS###
+            int id = Integer.parseInt(request.getParameter("id"));
+            String alertName = request.getParameter("alertname");
+            int idProvider = Integer.parseInt(request.getParameter("provider"));
+            String status = request.getParameter("status");
+            String metric = request.getParameter("metric");
+            String operation = request.getParameter("operation");
+            String metricValue = request.getParameter("metricvalue");
+
+            if (pa.atualizaAlerts(alertName, idProvider, status, metric, operation, metricValue, id)) {
+                session.setAttribute("responseAction", "Ok");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Seu alerta foi atualizado com sucesso.");
+
+                ArrayList<Alerts> listaAlerts = pa.listaAlerts();
+                session.setAttribute("listaAlerts", listaAlerts);
+            } else {
+                session.setAttribute("responseAction", "Erro");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível atualizar este alerta.");
+            }
+
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("/alert.jsp");
+            rd.forward(request, response);
+
+        } else if (action.equalsIgnoreCase("deletarAlerts")) {
+            //###DELETAR ALERTS###
+            int id = Integer.parseInt(request.getParameter("id"));
+            if (pa.deletaAlerts(id)) {
+                session.setAttribute("responseAction", "Ok");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Seu alerta foi removido com sucesso.");
+
+                ArrayList<Alerts> listaAlerts = pa.listaAlerts();
+                session.setAttribute("listaAlerts", listaAlerts);
+            } else {
+                session.setAttribute("responseAction", "Erro");
+                session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível remover este alerta.");
+            }
+
+            RequestDispatcher rd = request
+                    .getRequestDispatcher("/alert.jsp");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

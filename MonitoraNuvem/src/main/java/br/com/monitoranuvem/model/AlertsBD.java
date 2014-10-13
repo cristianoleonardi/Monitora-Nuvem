@@ -31,7 +31,7 @@ public class AlertsBD {
         stmt.setInt(2, alert.getProv().getId());
         stmt.setString(3, alert.getStatusProvider());
         stmt.setString(4, alert.getMetrics());
-        stmt.setString(5, alert.getMetrics());
+        stmt.setString(5, alert.getOperation());
         stmt.setString(6, alert.getValueMetrics());
         int ret = stmt.executeUpdate();
         conn.close();
@@ -48,7 +48,7 @@ public class AlertsBD {
         );
         ResultSet resultado = stmt.executeQuery();
         if (resultado.next()) {
-            alert.setIdalerts(resultado.getInt("IDALERTS"));
+            alert.setIdAlerts(resultado.getInt("IDALERTS"));
         }
         conn.close();
         return true;
@@ -64,7 +64,7 @@ public class AlertsBD {
         stmt.setInt(1, idAlert);
         ResultSet resultado = stmt.executeQuery();
         if (resultado.next()) {
-            alert.setIdalerts(resultado.getInt("IDALERTS"));
+            alert.setIdAlerts(resultado.getInt("IDALERTS"));
             alert.setNameAlerts(resultado.getString("NAMEALERTS"));
             alert.setProv(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
             alert.setStatusProvider(resultado.getString("STATUSPROVIDER"));
@@ -84,7 +84,7 @@ public class AlertsBD {
         Alerts alert = null;
         while (resultado.next()) {
             alert = new Alerts();
-            alert.setIdalerts(resultado.getInt("IDALERTS"));
+            alert.setIdAlerts(resultado.getInt("IDALERTS"));
             alert.setNameAlerts(resultado.getString("NAMEALERTS"));
             alert.setProv(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
             alert.setStatusProvider(resultado.getString("STATUSPROVIDER"));
