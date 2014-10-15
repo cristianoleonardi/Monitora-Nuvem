@@ -1,7 +1,16 @@
 package br.com.monitoranuvem.view;
 
+import br.com.monitoranuvem.controller.ProviderControl;
 import br.com.monitoranuvem.controller.ProviderInstanceControl;
+import br.com.monitoranuvem.model.Provider;
+import br.com.monitoranuvem.model.QtdStatusProvider;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +20,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Cristiano Leonardi, Márcio Bolzan
+ * @author Cristiano Leonardi, MÃ¡rcio Bolzan
  */
 public class DashboardDetailView extends HttpServlet {
 
@@ -25,15 +34,31 @@ public class DashboardDetailView extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
         
-        //Instancia a sessão para manipular as variáveis de sessao
+        //Instancia a sessao para manipular as variaveis de sessao
         HttpSession session = request.getSession(true);
         
-        //Acessa o controlador de instâncias
-        ProviderInstanceControl pic = new ProviderInstanceControl();
+        //Recupera o nome do provedor enviado na view
+        String providerName = request.getParameter("provider");
         
-        //Redireciona para a view específica
+        //Recupera o id do provider
+        ProviderControl pc = new ProviderControl();
+        Provider p = pc.buscaProvider(providerName);
+        
+        //Acessa o controlador de instancias
+        ProviderInstanceControl pic = new ProviderInstanceControl();
+        ArrayList<QtdStatusProvider> listaQtdStatusProvider = pic.listaQDTStatusProvider(p.getId());
+        
+        Map<String, Integer> mapQtdStatusProvider = new HashMap<String, Integer>();
+        for (QtdStatusProvider qtdSP : listaQtdStatusProvider){
+            mapQtdStatusProvider.put(qtdSP.getStatus() , qtdSP.getQuantidade());
+        }
+        
+        session.setAttribute("provider", p);
+        session.setAttribute("mapQtdStatusProvider", mapQtdStatusProvider);
+        
+        //Redireciona para a view especifica
         RequestDispatcher rd = request
                 .getRequestDispatcher("/dashboarddetail.jsp");
         rd.forward(request, response);
@@ -52,7 +77,13 @@ public class DashboardDetailView extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DashboardDetailView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardDetailView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -66,7 +97,13 @@ public class DashboardDetailView extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DashboardDetailView.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DashboardDetailView.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

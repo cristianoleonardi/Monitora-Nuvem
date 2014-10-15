@@ -20,7 +20,7 @@ $(document).ready(function () {
                         highlight: {
                             opacity: 0.1
                         },
-                        radius: 9/10,
+                        radius: 9 / 10,
                         stroke: {
                             width: 2
                         },
@@ -75,7 +75,7 @@ $(document).ready(function () {
 
     //GRAFICO 2
     //Total de Instâncias por Provedor por Status###############################
-    if ($(".instance-by-status").length) {
+    if ($(".old").length) {
         $(function () {
             //Busca dados para o gráfico da página dashboard.jsp
             var dados = document.getElementById("dadosgrafico2").value;
@@ -135,6 +135,106 @@ $(document).ready(function () {
                 },
                 colors: chartColours,
                 shadowSize: 1,
+                tooltip: true, //activate tooltip
+                tooltipOpts: {
+                    content: "%s : %y.0",
+                    shifts: {
+                        x: -30,
+                        y: -50
+                    }
+                }
+            };
+
+            $.plot($(".old"), data, options);
+        });
+
+    }//End of Total de Instâncias por Provedor por Status#######################
+
+    //GRAFICO 2 NOVO
+    //Total de Instâncias por Provedor por Status###############################
+    if ($(".instance-by-status").length) {
+        $(function () {
+            
+            //Busca dados para o gráfico da página dashboard.jsp
+            var dados = document.getElementById("dadosgrafico2").value;
+            var labels = document.getElementById("dadosgrafico3").value;
+            
+            //Monta array de dados
+            var data = [];
+            //arrDados = dados.split(";");
+            eval('var temp= ' + dados);
+            data = temp;
+            
+            //Monta array de labels
+            var arrLabels = [];
+            eval('var temp= ' + labels);
+            arrLabels = temp;
+            
+            //generate some data
+            //var d1 = [];
+            //for (var i = 0; i <= 10; i += 1)
+            //    d1.push([i, parseInt(Math.random() * 30)]);
+
+            //var d2 = [];
+            //for (var i = 0; i <= 10; i += 1)
+            //    d2.push([i, parseInt(Math.random() * 30)]);
+
+            //var d3 = [];
+            //for (var i = 0; i <= 10; i += 1)
+            //    d3.push([i, parseInt(Math.random() * 30)]);
+
+            //var data = new Array();
+
+            //data.push({
+            //    label: "Data One",
+            //    data: d1,
+            //    bars: {order: 1}
+            //});
+            //data.push({
+            //    label: "Data Two",
+            //    data: d2,
+            //    bars: {order: 2}
+            //});
+            //data.push({
+            //    label: "Data Three",
+            //    data: d3,
+            //    bars: {order: 3}
+            //});
+
+            var options = {
+                bars: {
+                    show: true,
+                    barWidth: 0.2,
+                    fill: 1
+                },
+                grid: {
+                    show: true,
+                    aboveData: false,
+                    color: "#3f3f3f",
+                    labelMargin: 5,
+                    axisMargin: 0,
+                    borderWidth: 0,
+                    borderColor: null,
+                    minBorderMargin: 5,
+                    clickable: true,
+                    hoverable: true,
+                    autoHighlight: false,
+                    mouseActiveRadius: 20
+                },
+                xaxis: {ticks: arrLabels, tickDecimals: 0},
+                legend: {
+                    position: "ne",
+                    margin: [0, -25],
+                    noColumns: 0,
+                    labelBoxBorderColor: null,
+                    labelFormatter: function (label, series) {
+                        // just add some space to labes
+                        return label + '&nbsp;&nbsp;';
+                    },
+                    width: 40,
+                    height: 1
+                },
+                colors: chartColours,
                 tooltip: true, //activate tooltip
                 tooltipOpts: {
                     content: "%s : %y.0",

@@ -39,8 +39,9 @@ public class DashboardView extends HttpServlet {
         //Instancia a sessão para manipular as variáveis de sessao
         HttpSession session = request.getSession(true);
 
+        //GRÁFICO 1 ############################################################
         //Lista de cores para utilização nos gráficos
-        String[] chartColours = new String[]{"#62aeef", "#d8605f", "#72c380", "#6f7a8a", "#f7cb38", "#5a8022", "#2c7282"};
+        String[] chartColoursActive = new String[]{"#32CD32", "#228B22", "#008000", "#006400", "#2E8B57", "#3CB371", "#8FBC8F", "#90EE90", "#98FB98"};
 
         //Acessa o controlador de instâncias
         ProviderInstanceControl pic = new ProviderInstanceControl();
@@ -64,7 +65,7 @@ public class DashboardView extends HttpServlet {
             percentual = Math.round(percentual * 100.0) / 100.0;
 
             //Monta dados para grágico (Instâncias Ativas por Provedor)
-            dadosGrafico += "{label: \"" + sp.getProvider().getNome() + "\", data: " + percentual + ", color : \"" + chartColours[i] + "\"}";
+            dadosGrafico += "{label: \"" + sp.getProvider().getNome() + "\", data: " + percentual + ", color : \"" + chartColoursActive[i] + "\"}";
             if (i < listaActiveInstanceProvider.size() - 1) {
                 dadosGrafico += ";";
             }
@@ -73,6 +74,7 @@ public class DashboardView extends HttpServlet {
         //Envia dados para grágico (Instâncias Ativas por Provedor)
         session.setAttribute("listaActiveInstanceProvider", dadosGrafico);
 
+        //GRÁFICO 2 ############################################################
         //Solicita a quantidade de instancias por provedor
         ArrayList<QtdStatusProvider> listaStatusProvider = pic.listaQDTStatusProvider();
 
@@ -115,7 +117,7 @@ public class DashboardView extends HttpServlet {
 
                 }
                 if (j < listaStatusProvider.size() - 1) {
-                    dadosGrafico += "]},";
+                    dadosGrafico += "], bars: {order: " + (j+1) + "}},";
                 } else {
                     dadosGrafico += "]}";
                 }
@@ -128,16 +130,18 @@ public class DashboardView extends HttpServlet {
         session.setAttribute("labels", labels);
         session.setAttribute("listaStatusInstanceProvider", dadosGrafico);
 
+        //GRÁFICO 3 ############################################################
         //Monta dados para grágico (Histórico de Instâncias por Data e Status - Últimos 30 Dias)
-        ProviderHistoryControl phc = new ProviderHistoryControl();
-        String historyLastThirtyDays = phc.historyLastThirtyDays();
-        long[] days = phc.getFirstLastDay();
+        //ProviderHistoryControl phc = new ProviderHistoryControl();
+        //String historyLastThirtyDays = phc.historyLastThirtyDays();
+        //long[] days = phc.getFirstLastDay();
 
         //Envia dados para grágico (Histórico de Instâncias por Data e Status - Últimos 30 Dias)
-        session.setAttribute("historyLastThirtyDays", historyLastThirtyDays);
-        session.setAttribute("firstDay", days[0]);
-        session.setAttribute("lastDay", days[1]);
+        //session.setAttribute("historyLastThirtyDays", historyLastThirtyDays);
+        //session.setAttribute("firstDay", days[0]);
+        //session.setAttribute("lastDay", days[1]);
 
+        //######################################################################
         //Redireciona para a view específica
         RequestDispatcher rd = request
                 .getRequestDispatcher("/dashboard.jsp");

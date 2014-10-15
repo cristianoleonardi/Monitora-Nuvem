@@ -55,6 +55,10 @@ public class ProviderInstanceControl {
     public ArrayList<QtdStatusProvider> listaQDTStatusProvider(String status) throws ClassNotFoundException, SQLException {
         return new InstanceProviderBD().listaQDTStatusProvider(status);
     }
+    
+    public ArrayList<QtdStatusProvider> listaQDTStatusProvider(int idProvider) throws ClassNotFoundException, SQLException {
+        return new InstanceProviderBD().listaQDTStatusProvider(idProvider);
+    }
 
     public ArrayList<InstanceProvider> listaStatusProvider() throws ClassNotFoundException, SQLException {
         return new InstanceProviderBD().listaStatusProvider();

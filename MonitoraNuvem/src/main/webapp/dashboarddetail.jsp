@@ -1,5 +1,9 @@
 <%-- Imports --%>
 
+<%@page import="br.com.monitoranuvem.model.Provider"%>
+<%@page import="br.com.monitoranuvem.model.QtdStatusProvider"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.ArrayList"%>
 <%-- Inclusão do cabeçalho da página --%>
 <jsp:include page="header.jsp" />
 
@@ -15,7 +19,7 @@
     <%-- Sessão do conteúdo da página --%>
     <%
         //Captura dados
-        String provider = request.getParameter("provider");
+        Provider p = (Provider)session.getAttribute("provider");
     %>
     <section id="content">
         <div class="wrapper">
@@ -28,7 +32,7 @@
 
             <div class="container-fluid">
                 <div id="heading" class="page-header">
-                    <h1><i class="icon20 i-cloud"></i> Instâncias (<% out.print(provider); %>)</h1>
+                    <h1><i class="icon20 i-cloud"></i> Instâncias do Provedor: <% out.print(p.getNome()); %></h1>
                 </div>
 
                 <div class="row">
@@ -48,47 +52,62 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% // ArrayList<MNComputeService> listaComputeService = (ArrayList<MNComputeService>) session.getAttribute("listaComputeService"); %>
-                                <% // for (MNComputeService cs : listaComputeService) { %>
                                 <tr>
+                                    <% Map<String, Integer> mapQtdStatusProvider = (Map<String, Integer>) session.getAttribute("mapQtdStatusProvider"); %>
                                     <td class="center" bgcolor="#CAFF70">
-                                        <% // if (cs.getStatus().equalsIgnoreCase("RUNNING")) { %>
-                                        <% // out.print(cs.getProvedor()); %><br />
-                                        <% // out.print(cs.getId()); %>
-                                        <% // } %>
+                                        <% if (mapQtdStatusProvider.containsKey("RUNNING")) {
+                                                out.print(mapQtdStatusProvider.get("RUNNING"));
+                                            } else {
+                                                out.print("0");
+                                            }
+                                        %>
                                     </td>
+
                                     <td class="center" bgcolor="#E9967A">
-                                        <% // if (cs.getStatus().equalsIgnoreCase("ERROR")) { %>
-                                        <% // out.print(cs.getProvedor()); %><br />
-                                        <% // out.print(cs.getId()); %>
-                                        <% // } %>
+                                        <% if (mapQtdStatusProvider.containsKey("ERROR")) {
+                                                out.print(mapQtdStatusProvider.get("ERROR"));
+                                            } else {
+                                                out.print("0");
+                                            }
+                                        %>
                                     </td>
+
                                     <td class="center" bgcolor="#FFFACD">
-                                        <% // if (cs.getStatus().equalsIgnoreCase("PENDING")) { %>
-                                        <% // out.print(cs.getProvedor()); %><br />
-                                        <% // out.print(cs.getId()); %>
-                                        <% // } %>
+                                        <% if (mapQtdStatusProvider.containsKey("PENDING")) {
+                                                out.print(mapQtdStatusProvider.get("PENDING"));
+                                            } else {
+                                                out.print("0");
+                                            }
+                                        %>
                                     </td>
+
                                     <td class="center" bgcolor="#EEE5DE">
-                                        <% // if (cs.getStatus().equalsIgnoreCase("SUSPENDED")) { %>
-                                        <% // out.print(cs.getProvedor()); %><br />
-                                        <% // out.print(cs.getId()); %>
-                                        <% // } %>
+                                        <% if (mapQtdStatusProvider.containsKey("SUSPENDED")) {
+                                                out.print(mapQtdStatusProvider.get("SUSPENDED"));
+                                            } else {
+                                                out.print("0");
+                                            }
+                                        %>
                                     </td>
+
                                     <td class="center" bgcolor="#EEE9BF">
-                                        <% // if (cs.getStatus().equalsIgnoreCase("TERMINATED")) { %>
-                                        <% // out.print(cs.getProvedor()); %><br />
-                                        <% // out.print(cs.getId()); %>
-                                        <% // } %>
+                                        <% if (mapQtdStatusProvider.containsKey("TERMINATED")) {
+                                                out.print(mapQtdStatusProvider.get("TERMINATED"));
+                                            } else {
+                                                out.print("0");
+                                            }
+                                        %>
                                     </td>
+
                                     <td class="center" bgcolor="#FFFFF0">
-                                        <% // if (cs.getStatus().equalsIgnoreCase("UNRECOGNIZED")) { %>
-                                        <% // out.print(cs.getProvedor()); %><br />
-                                        <% // out.print(cs.getId()); %>
-                                        <% // } %>
+                                        <% if (mapQtdStatusProvider.containsKey("UNRECOGNIZED")) {
+                                                out.print(mapQtdStatusProvider.get("UNRECOGNIZED"));
+                                            } else {
+                                                out.print("0");
+                                            }
+                                        %>
                                     </td>
                                 </tr>
-                                <% // }%>
                             </tbody>
                         </table>
                     </div>
@@ -108,7 +127,7 @@
                             <tbody>
                                 <tr>
                                     <th>ID:</th>
-                                    <td class="center"><% out.print(provider); %></td>
+                                    <td class="center"></td>
                                 </tr>
                                 <tr>
                                     <th>Nome:</th>

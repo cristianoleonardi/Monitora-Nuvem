@@ -260,6 +260,29 @@ public class InstanceProviderBD {
         conn.close();
         return lista;
     }
+    
+    public ArrayList<QtdStatusProvider> listaQDTStatusProvider(int idProvider) throws ClassNotFoundException, SQLException {
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT IDPROVIDER, STATUSPROVIDER, COUNT(*) AS QUANTIDADE \n"
+                + "FROM INSTANCEPROVIDER	\n"
+                + "WHERE IDPROVIDER=?	\n"
+                + "GROUP BY IDPROVIDER, STATUSPROVIDER \n"
+                + "ORDER BY IDPROVIDER");
+        stmt.setInt(1, idProvider);
+        ResultSet resultado = stmt.executeQuery();
+        ArrayList<QtdStatusProvider> lista = new ArrayList<>();
+        QtdStatusProvider qtdStatus;
+        while (resultado.next()) {
+            qtdStatus = new QtdStatusProvider();
+            qtdStatus.setQuantidade(resultado.getInt("QUANTIDADE"));
+            qtdStatus.setStatus(resultado.getString("STATUSPROVIDER"));
+            qtdStatus.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
+            lista.add(qtdStatus);
+        }
+        conn.close();
+        return lista;
+    }
 
     public ArrayList<InstanceProvider> listaStatusProvider(String status) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
