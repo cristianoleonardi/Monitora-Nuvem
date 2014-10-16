@@ -21,6 +21,7 @@ public class InstanceProvider {
     private Date dataCreate;
     private Date dataUpdate;
     private int isChecked;
+    private Date dateChecked;
 
     public int getIdInstanceProvider() {
         return idInstanceProvider;
@@ -84,5 +85,13 @@ public class InstanceProvider {
 
     public void setIsChecked(int isChecked) {
         this.isChecked = isChecked;
+    }
+
+    public Date getDateChecked() {
+        return dateChecked;
+    }
+
+    public void setDateChecked(Date dateChecked) {
+        this.dateChecked = dateChecked;
     }
 }
