@@ -412,6 +412,7 @@ public class InstanceProviderBD {
         ArrayList<String> linha = new ArrayList<>();
         int count = 0;
         int count1 = 0;
+        int count2 = 0;
         String dadosGrafico = "[";
         String labels = "[";
         Map<String, String> providerQtd = new HashMap<String, String>();
@@ -436,8 +437,13 @@ public class InstanceProviderBD {
             count1++;
         }
         for (String prov : providerQtd.keySet()) {
+            if (count2 > 0) {
+                labels += ",";
+            }
             labels += "[" + prov + ", \"" + providerQtd.get(prov) + "\"]";
+            count2++;
         }
+
         labels += "]";
         dadosGrafico += "]";
         linha.add(dadosGrafico);
