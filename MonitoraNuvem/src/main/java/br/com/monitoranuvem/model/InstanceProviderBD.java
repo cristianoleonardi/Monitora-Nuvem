@@ -420,9 +420,15 @@ public class InstanceProviderBD {
         for (String key : statusProvider.keySet()) {
             count = 0;
             dadosGrafico += "{label: \"" + key + "\", data: [";
+//            System.out.println(" Status ======== " + key);
             for (String keyprovider : provider.keySet()) {
+//                System.out.println("Provider========" + keyprovider);
                 for (QtdStatusProvider qtd : list) {
+//                    System.out.println(qtd.getProvider().getNome() +" "+ qtd.getStatus()+" "+ qtd.getQuantidade());
                     if (key.equals(qtd.getStatus()) && keyprovider.equals(qtd.getProvider().getNome())) {
+                        if (count > 0) {
+                            dadosGrafico += ",";
+                        }
                         dadosGrafico += "[" + count + "," + qtd.getQuantidade() + "]";
                         providerQtd.put(String.valueOf(count), qtd.getProvider().getNome());
                         count++;
