@@ -15,6 +15,9 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -239,12 +242,14 @@ public class InstanceProviderBD {
         return instance;
     }
 
-    public ArrayList<QtdStatusProvider> listaQDTStatusProvider() throws ClassNotFoundException, SQLException {
+    public ArrayList<String> listaQDTStatusProviderDay() throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dateForMySql = "";
         Date data = new Date();
         dateForMySql = sdf.format(data);
+        Map<String, String> statusProvider = new HashMap<String, String>();
+        Map<String, String> provider = new HashMap<String, String>();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDPROVIDER, STATUSPROVIDER, COUNT(*) AS QUANTIDADE \n"
                 + "FROM INSTANCEPROVIDER	\n"
@@ -256,15 +261,18 @@ public class InstanceProviderBD {
         ResultSet resultado = stmt.executeQuery();
         ArrayList<QtdStatusProvider> lista = new ArrayList<>();
         QtdStatusProvider qtdStatus;
+        int count = 0;
         while (resultado.next()) {
             qtdStatus = new QtdStatusProvider();
             qtdStatus.setQuantidade(resultado.getInt("QUANTIDADE"));
             qtdStatus.setStatus(resultado.getString("STATUSPROVIDER"));
             qtdStatus.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
+            statusProvider.put(resultado.getString("STATUSPROVIDER"), "");
+            provider.put(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")).getNome(), "");
             lista.add(qtdStatus);
         }
         conn.close();
-        return lista;
+        return montaGrafico(lista, statusProvider, provider);
     }
 
     public ArrayList<QtdStatusProvider> listaQDTStatusProvider(String status) throws ClassNotFoundException, SQLException {
@@ -367,6 +375,87 @@ public class InstanceProviderBD {
                 + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? ");
         stmt.setInt(1, prov.getId());
+        ResultSet resultado = stmt.executeQuery();
+        ArrayList<InstanceProvider> lista = new ArrayList<>();
+        InstanceProvider instanceProvider;
+        while (resultado.next()) {
+            instanceProvider = new InstanceProvider();
+            instanceProvider.setIdInstanceProvider(resultado.getInt("IDINSTANCEPROVIDER"));
+            instanceProvider.setInstanceProvider(resultado.getString("INSTANCEPROVIDER"));
+            instanceProvider.setStatus(resultado.getString("STATUSPROVIDER"));
+            instanceProvider.setProvider(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
+            instanceProvider.setIdInstance(resultado.getString("IDINSTANCE"));
+            date_s = resultado.getString("DATECREATE");
+            if (date_s != null) {
+                dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                date = dt.parse(date_s);
+                instanceProvider.setDataCreate(date);
+            } else {
+                instanceProvider.setDataCreate(null);
+            }
+            date_s = resultado.getString("DATEUPDATE");
+            if (date_s != null) {
+                dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                date = dt.parse(date_s);
+                instanceProvider.setDataUpdate(date);
+            } else {
+                instanceProvider.setDataUpdate(null);
+            }
+            instanceProvider.setIsChecked(resultado.getInt("ISCHECKED"));
+            lista.add(instanceProvider);
+        }
+        conn.close();
+        return lista;
+    }
+
+    private ArrayList<String> montaGrafico(ArrayList<QtdStatusProvider> list, Map<String, String> statusProvider, Map<String, String> provider) {
+        ArrayList<String> linha = new ArrayList<>();
+        int count = 0;
+        int count1 = 0;
+        String dadosGrafico = "[";
+        String labels = "[";
+        Map<String, String> providerQtd = new HashMap<String, String>();
+
+        for (String key : statusProvider.keySet()) {
+            count = 0;
+            dadosGrafico += "{label: \"" + key + "\", data: [";
+            for (String keyprovider : provider.keySet()) {
+                for (QtdStatusProvider qtd : list) {
+                    if (key.equals(qtd.getStatus()) && keyprovider.equals(qtd.getProvider().getNome())) {
+                        dadosGrafico += "[" + count + "," + qtd.getQuantidade() + "]";
+                        providerQtd.put(String.valueOf(count), qtd.getProvider().getNome());
+                        count++;
+                    }
+                }
+            }
+            if (count1 < statusProvider.size() - 1) {
+                dadosGrafico += "], bars: {order: " + (count1 + 1) + "}},";
+            } else {
+                dadosGrafico += "], bars: {order: " + (count1 + 1) + "}}";
+            }
+            count1++;
+        }
+        for (String prov : providerQtd.keySet()) {
+            labels += "[" + prov + ", \"" + providerQtd.get(prov) + "\"]";
+        }
+        labels += "]";
+        dadosGrafico += "]";
+        linha.add(dadosGrafico);
+        linha.add(labels);
+        return linha;
+    }
+
+    public ArrayList<InstanceProvider> listaInstanceProvider(Provider prov, String status) throws ClassNotFoundException, SQLException, ParseException {
+        String date_s;
+        SimpleDateFormat dt;
+        Date date;
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(""
+                + "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER, "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED "
+                + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? AND STATUSPROVIDER=? ");
+        stmt.setInt(1, prov.getId());
+        stmt.setString(2, status);
         ResultSet resultado = stmt.executeQuery();
         ArrayList<InstanceProvider> lista = new ArrayList<>();
         InstanceProvider instanceProvider;
