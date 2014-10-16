@@ -278,8 +278,7 @@ public class HistoryProviderBD {
         grafico.add(String.valueOf(date.getTime()));
         date = dt.parse(arDatas.get(0) + " 00:00:00");
         grafico.add(String.valueOf(date.getTime()));
-        grafico.add(hltd);
-        
+        grafico.add(hltd);        
         return grafico;
     }
 
