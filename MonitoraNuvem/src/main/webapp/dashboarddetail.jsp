@@ -19,7 +19,7 @@
     <%-- Sessão do conteúdo da página --%>
     <%
         //Captura dados
-        Provider p = (Provider)session.getAttribute("provider");
+        Provider p = (Provider) session.getAttribute("provider");
     %>
     <section id="content">
         <div class="wrapper">
@@ -53,10 +53,18 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <% Map<String, Integer> mapQtdStatusProvider = (Map<String, Integer>) session.getAttribute("mapQtdStatusProvider"); %>
+                                    <%
+                                        Map<String, Integer> mapQtdStatusProvider = (Map<String, Integer>) session.getAttribute("mapQtdStatusProvider");
+                                        String status = "";
+                                    %>
+
+
                                     <td class="center" bgcolor="#CAFF70">
-                                        <% if (mapQtdStatusProvider.containsKey("RUNNING")) {
-                                                out.print(mapQtdStatusProvider.get("RUNNING"));
+
+                                        <%
+                                            status = "RUNNING";
+                                            if (mapQtdStatusProvider.containsKey(status))  {
+                                                out.print("<a href=dashboarddetailview?idprovider=" + p.getId() + "&status=" + status + "\" title=\"Visualizar\">" + mapQtdStatusProvider.get(status) + " <i class=\"icon10 i-eye\"></i></a>");
                                             } else {
                                                 out.print("0");
                                             }
@@ -116,7 +124,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="page-header">
-                            <h4><i class="icon10 i-screen-4"></i> Detalhamento das instâncias NONONONONO</h4>
+                            <h4><i class="icon10 i-screen-4"></i> Detalhamento das instâncias do provedor: <% out.print(p.getNome());%></h4>
                         </div>
                     </div>
                 </div>

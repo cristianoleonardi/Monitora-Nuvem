@@ -24,12 +24,4 @@ public class ProviderHistoryControl {
     public ArrayList<String> montaHistorico(int numDias) throws ClassNotFoundException, SQLException, ParseException{
         return new HistoryProviderBD().montaHistorico(numDias);
     }
-    
-//    public String historyLastThirtyDays() throws ClassNotFoundException, SQLException, ParseException{
-//        return new HistoryProviderBD().historyLastThirtyDays();
-//    }
-//    
-//    public long[] getFirstLastDay() throws ClassNotFoundException, SQLException, ParseException{
-//        return new HistoryProviderBD().getFirstLastDays();
-//    }
 }

@@ -132,14 +132,13 @@ public class DashboardView extends HttpServlet {
 
         //GRÁFICO 3 ############################################################
         //Monta dados para grágico (Histórico de Instâncias por Data e Status - Últimos 30 Dias)
-        //ProviderHistoryControl phc = new ProviderHistoryControl();
-        //String historyLastThirtyDays = phc.historyLastThirtyDays();
-        //long[] days = phc.getFirstLastDay();
+        ProviderHistoryControl phc = new ProviderHistoryControl();
+        ArrayList<String> history = phc.montaHistorico(30);
 
         //Envia dados para grágico (Histórico de Instâncias por Data e Status - Últimos 30 Dias)
-        //session.setAttribute("historyLastThirtyDays", historyLastThirtyDays);
-        //session.setAttribute("firstDay", days[0]);
-        //session.setAttribute("lastDay", days[1]);
+        session.setAttribute("historyLastThirtyDays", history.get(2));
+        session.setAttribute("firstDay", history.get(0));
+        session.setAttribute("lastDay", history.get(1));
 
         //######################################################################
         //Redireciona para a view específica
