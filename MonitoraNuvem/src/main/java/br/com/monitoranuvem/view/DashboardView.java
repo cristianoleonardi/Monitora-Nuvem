@@ -75,60 +75,9 @@ public class DashboardView extends HttpServlet {
         session.setAttribute("listaActiveInstanceProvider", dadosGrafico);
 
         //GRÁFICO 2 ############################################################
-        //Solicita a quantidade de instancias por provedor
-        ArrayList<QtdStatusProvider> listaStatusProvider = pic.listaQDTStatusProvider();
-
-        //Zera os dados da variavel dadosGrafico
-        dadosGrafico = "";
-
-        //Variavel que armazena nomes do gráfico de barras
-        Set label = new HashSet();
-        String labels = "";
-        labels += "[";
-        dadosGrafico = "[";
-
-        //Monta dados para grágico (Total de Instâncias por Provedor por Status)
-        Set<String> status = new HashSet<>();
-        for (int j = 0; j < listaStatusProvider.size(); j++) {
-            QtdStatusProvider sp = listaStatusProvider.get(j);
-            if (status.add(sp.getStatus())) {
-                //Solicita a quantidade de instancias ativas por provedor status
-                ArrayList<QtdStatusProvider> listaStatusInstanceProvider = pic.listaQDTStatusProvider(sp.getStatus());
-
-                dadosGrafico += "{label: \"" + sp.getStatus() + "\", data: [";
-
-                for (int i = 0; i < listaStatusInstanceProvider.size(); i++) {
-                    QtdStatusProvider spStatus = listaStatusInstanceProvider.get(i);
-
-                    //Define os labels
-                    if (label.add(spStatus.getProvider().getNome())) {
-                        if (label.size() > 1) {
-                            labels += ",";
-                        }
-                        labels += "[" + (label.size() - 1) + ", \"" + spStatus.getProvider().getNome() + "\"]";
-                    }
-
-                    //dadosGrafico += "\"" + spStatus.getProvider().getNome() + "\": " + spStatus.getQuantidade();
-                    dadosGrafico += "[" + i + "," + spStatus.getQuantidade() + "]";
-
-                    if (i < listaStatusInstanceProvider.size() - 1) {
-                        dadosGrafico += ",";
-                    }
-
-                }
-                if (j < listaStatusProvider.size() - 1) {
-                    dadosGrafico += "], bars: {order: " + (j+1) + "}},";
-                } else {
-                    dadosGrafico += "], bars: {order: " + (j+1) + "}}";
-                }
-            }
-        }
-        labels += "]";
-        dadosGrafico += "]";
-
         //Envia dados para grágico (Total de Instâncias por Provedor por Status)
-        session.setAttribute("labels", labels);
-        session.setAttribute("listaStatusInstanceProvider", dadosGrafico);
+        session.setAttribute("labels", pic.listaQDTStatusProviderDay().get(1));
+        session.setAttribute("listaStatusInstanceProvider", pic.listaQDTStatusProviderDay().get(0));
 
         //GRÁFICO 3 ############################################################
         //Monta dados para grágico (Histórico de Instâncias por Data e Status - Últimos 30 Dias)
