@@ -1,5 +1,6 @@
 <%-- Imports --%>
 
+<%@page import="br.com.monitoranuvem.model.InstanceProvider"%>
 <%@page import="br.com.monitoranuvem.model.Provider"%>
 <%@page import="br.com.monitoranuvem.model.QtdStatusProvider"%>
 <%@page import="java.util.Map"%>
@@ -63,8 +64,8 @@
 
                                         <%
                                             status = "RUNNING";
-                                            if (mapQtdStatusProvider.containsKey(status))  {
-                                                out.print("<a href=dashboarddetailview?idprovider=" + p.getId() + "&status=" + status + "\" title=\"Visualizar\">" + mapQtdStatusProvider.get(status) + " <i class=\"icon10 i-eye\"></i></a>");
+                                            if (mapQtdStatusProvider.containsKey(status)) {
+                                                out.print("<a href=\"dashboarddetailview?action=listarInstanceByStatus&provider=" + p.getNome() + "&status=" + status + "\" title=\"Visualizar\">" + mapQtdStatusProvider.get(status) + " <i class=\"icon10 i-eye\"></i></a>");
                                             } else {
                                                 out.print("0");
                                             }
@@ -72,8 +73,10 @@
                                     </td>
 
                                     <td class="center" bgcolor="#E9967A">
-                                        <% if (mapQtdStatusProvider.containsKey("ERROR")) {
-                                                out.print(mapQtdStatusProvider.get("ERROR"));
+                                        <%
+                                            status = "ERROR";
+                                            if (mapQtdStatusProvider.containsKey(status)) {
+                                                out.print("<a href=\"dashboarddetailview?action=listarInstanceByStatus&provider=" + p.getNome() + "&status=" + status + "\" title=\"Visualizar\">" + mapQtdStatusProvider.get(status) + " <i class=\"icon10 i-eye\"></i></a>");
                                             } else {
                                                 out.print("0");
                                             }
@@ -81,8 +84,10 @@
                                     </td>
 
                                     <td class="center" bgcolor="#FFFACD">
-                                        <% if (mapQtdStatusProvider.containsKey("PENDING")) {
-                                                out.print(mapQtdStatusProvider.get("PENDING"));
+                                        <%
+                                            status = "PENDING";
+                                            if (mapQtdStatusProvider.containsKey(status)) {
+                                                out.print("<a href=\"dashboarddetailview?action=listarInstanceByStatus&provider=" + p.getNome() + "&status=" + status + "\" title=\"Visualizar\">" + mapQtdStatusProvider.get(status) + " <i class=\"icon10 i-eye\"></i></a>");
                                             } else {
                                                 out.print("0");
                                             }
@@ -90,8 +95,10 @@
                                     </td>
 
                                     <td class="center" bgcolor="#EEE5DE">
-                                        <% if (mapQtdStatusProvider.containsKey("SUSPENDED")) {
-                                                out.print(mapQtdStatusProvider.get("SUSPENDED"));
+                                        <%
+                                            status = "SUSPENDED";
+                                            if (mapQtdStatusProvider.containsKey(status)) {
+                                                out.print("<a href=\"dashboarddetailview?action=listarInstanceByStatus&provider=" + p.getNome() + "&status=" + status + "\" title=\"Visualizar\">" + mapQtdStatusProvider.get(status) + " <i class=\"icon10 i-eye\"></i></a>");
                                             } else {
                                                 out.print("0");
                                             }
@@ -99,8 +106,10 @@
                                     </td>
 
                                     <td class="center" bgcolor="#EEE9BF">
-                                        <% if (mapQtdStatusProvider.containsKey("TERMINATED")) {
-                                                out.print(mapQtdStatusProvider.get("TERMINATED"));
+                                        <%
+                                            status = "TERMINATED";
+                                            if (mapQtdStatusProvider.containsKey(status)) {
+                                                out.print("<a href=\"dashboarddetailview?action=listarInstanceByStatus&provider=" + p.getNome() + "&status=" + status + "\" title=\"Visualizar\">" + mapQtdStatusProvider.get(status) + " <i class=\"icon10 i-eye\"></i></a>");
                                             } else {
                                                 out.print("0");
                                             }
@@ -108,8 +117,10 @@
                                     </td>
 
                                     <td class="center" bgcolor="#FFFFF0">
-                                        <% if (mapQtdStatusProvider.containsKey("UNRECOGNIZED")) {
-                                                out.print(mapQtdStatusProvider.get("UNRECOGNIZED"));
+                                        <%
+                                            status = "UNRECOGNIZED";
+                                            if (mapQtdStatusProvider.containsKey(status)) {
+                                                out.print("<a href=\"dashboarddetailview?action=listarInstanceByStatus&provider=" + p.getNome() + "&status=" + status + "\" title=\"Visualizar\">" + mapQtdStatusProvider.get(status) + " <i class=\"icon10 i-eye\"></i></a>");
                                             } else {
                                                 out.print("0");
                                             }
@@ -123,19 +134,30 @@
 
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="page-header">
-                            <h4><i class="icon10 i-screen-4"></i> Detalhamento das instâncias do provedor: <% out.print(p.getNome());%></h4>
+                        <div class="page-header" id="cabecalho">
+                            
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-3">
+                <div class="row" id="instancias">
+                    <%
+                        if (session.getAttribute("listaInstanceProvider") != null) {
+                            ArrayList<InstanceProvider> listaInstanceProvider = (ArrayList<InstanceProvider>) session.getAttribute("listaInstanceProvider");
+                            session.removeAttribute("listaInstanceProvider");
+                    %>
+                    
+                    <script>
+                        document.getElementById("cabecalho").innerHTML = "<h4><i class=\"icon10 i-screen-4\"></i> Detalhamento das instâncias do provedor:" + <% out.print(p.getNome());%> + "</h4>";
+                    </script>
+                    
+                    <% for (InstanceProvider ip : listaInstanceProvider) { %>
+                    <div class="col-lg-4">
                         <table class="table table-bordered">
                             <tbody>
                                 <tr>
                                     <th>ID:</th>
-                                    <td class="center"></td>
+                                    <td class="center"><% out.print(ip.getIdInstance()); %></td>
                                 </tr>
                                 <tr>
                                     <th>Nome:</th>
@@ -143,7 +165,7 @@
                                 </tr>
                                 <tr>
                                     <th>Status:</th>
-                                    <td class="center"></td>
+                                    <td class="center"><% out.print(ip.getStatus()); %></td>
                                 </tr>
                                 <tr>
                                     <th>Alertas:</th>
@@ -160,10 +182,19 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <%%>
+
                             </tbody>
                         </table>
                     </div>
+                    <%
+                        }
+                    } else {
+                    %>
+                    <script>
+                        document.getElementById("cabecalho").innerHTML = "";
+                        document.getElementById("instancias").innerHTML = "";
+                    </script>
+                    <% }%>
                 </div>
 
             </div>

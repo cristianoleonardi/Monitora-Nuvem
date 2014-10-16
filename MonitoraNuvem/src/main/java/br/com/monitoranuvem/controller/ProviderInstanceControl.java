@@ -75,4 +75,8 @@ public class ProviderInstanceControl {
     public ArrayList<InstanceProvider> listaInstanceProvider(String nprov) throws ClassNotFoundException, SQLException, ParseException {
         return new InstanceProviderBD().listaInstanceProvider(new ProviderBD().buscaProvider(nprov));
     }
+    
+    public ArrayList<InstanceProvider> listaInstanceProvider(String nprov, String status) throws ClassNotFoundException, SQLException, ParseException {
+        return new InstanceProviderBD().listaInstanceProvider(new ProviderBD().buscaProvider(nprov), status);
+    }
 }

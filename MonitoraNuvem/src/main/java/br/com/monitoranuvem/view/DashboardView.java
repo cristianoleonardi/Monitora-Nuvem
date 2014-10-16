@@ -119,7 +119,7 @@ public class DashboardView extends HttpServlet {
                 if (j < listaStatusProvider.size() - 1) {
                     dadosGrafico += "], bars: {order: " + (j+1) + "}},";
                 } else {
-                    dadosGrafico += "]}";
+                    dadosGrafico += "], bars: {order: " + (j+1) + "}}";
                 }
             }
         }
