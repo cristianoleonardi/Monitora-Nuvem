@@ -248,7 +248,7 @@ public class InstanceProviderBD {
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDPROVIDER, STATUSPROVIDER, COUNT(*) AS QUANTIDADE \n"
                 + "FROM INSTANCEPROVIDER	\n"
-                + "WHERE DATE(DATECHECKED) = ?"
+                + "WHERE DATE(DATECHECKED) = ? "
                 + "GROUP BY IDPROVIDER, STATUSPROVIDER \n"
                 + "ORDER BY IDPROVIDER");
 
@@ -268,14 +268,20 @@ public class InstanceProviderBD {
     }
 
     public ArrayList<QtdStatusProvider> listaQDTStatusProvider(String status) throws ClassNotFoundException, SQLException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateForMySql = "";
+        Date data = new Date();
+        dateForMySql = sdf.format(data);
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDPROVIDER, STATUSPROVIDER, COUNT(*) AS QUANTIDADE \n"
                 + "FROM INSTANCEPROVIDER	\n"
-                + "WHERE STATUSPROVIDER=?"
+                + "WHERE STATUSPROVIDER=? "
+                + "AND DATE(DATECHECKED) = ?"
                 + "GROUP BY IDPROVIDER, STATUSPROVIDER \n"
                 + "ORDER BY IDPROVIDER");
         stmt.setString(1, status);
+        stmt.setString(2, dateForMySql);
         ResultSet resultado = stmt.executeQuery();
         ArrayList<QtdStatusProvider> lista = new ArrayList<>();
         QtdStatusProvider qtdStatus;
