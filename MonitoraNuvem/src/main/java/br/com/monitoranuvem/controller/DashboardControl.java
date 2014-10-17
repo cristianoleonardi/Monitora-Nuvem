@@ -34,7 +34,7 @@ public class DashboardControl {
         }
     }
 
-    public void stopThread() {        
+    public void stopThread() {
 //        threadOpen.terminate();
 //        threadAmazon.terminate();
     }

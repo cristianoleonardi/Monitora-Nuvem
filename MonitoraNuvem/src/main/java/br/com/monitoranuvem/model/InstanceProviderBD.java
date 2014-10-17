@@ -412,27 +412,33 @@ public class InstanceProviderBD {
         ArrayList<String> linha = new ArrayList<>();
         int count = 0;
         int count1 = 0;
-        int count2 = 0;
         String dadosGrafico = "[";
         String labels = "[";
-        Map<String, String> providerQtd = new HashMap<String, String>();
+        Map<String, String> providerAux = new HashMap<String, String>();
+        boolean passei;
 
+        for (String keyprovider : provider.keySet()) {
+            providerAux.put(keyprovider, String.valueOf(count));
+            count++;
+        }
         for (String key : statusProvider.keySet()) {
-            count = 0;
             dadosGrafico += "{label: \"" + key + "\", data: [";
-//            System.out.println(" Status ======== " + key);
-            for (String keyprovider : provider.keySet()) {
-//                System.out.println("Provider========" + keyprovider);
+            for (String keyprovider : providerAux.keySet()) {
+                passei = false;
                 for (QtdStatusProvider qtd : list) {
-//                    System.out.println(qtd.getProvider().getNome() +" "+ qtd.getStatus()+" "+ qtd.getQuantidade());
                     if (key.equals(qtd.getStatus()) && keyprovider.equals(qtd.getProvider().getNome())) {
-                        if (count > 0) {
+                        if (Integer.parseInt(providerAux.get(keyprovider)) > 0) {
                             dadosGrafico += ",";
                         }
-                        dadosGrafico += "[" + count + "," + qtd.getQuantidade() + "]";
-                        providerQtd.put(String.valueOf(count), qtd.getProvider().getNome());
-                        count++;
+                        dadosGrafico += "[" + providerAux.get(keyprovider) + "," + qtd.getQuantidade() + "]";
+                        passei = true;
                     }
+                }
+                if (passei == false) {
+                    if (Integer.parseInt(providerAux.get(keyprovider)) > 0) {
+                        dadosGrafico += ",";
+                    }
+                    dadosGrafico += "[" + providerAux.get(keyprovider) + "," + 0 + "]";
                 }
             }
             if (count1 < statusProvider.size() - 1) {
@@ -442,12 +448,11 @@ public class InstanceProviderBD {
             }
             count1++;
         }
-        for (String prov : providerQtd.keySet()) {
-            if (count2 > 0) {
+        for (String prov : providerAux.keySet()) {
+            if (Integer.parseInt(providerAux.get(prov)) > 0) {
                 labels += ",";
             }
-            labels += "[" + prov + ", \"" + providerQtd.get(prov) + "\"]";
-            count2++;
+            labels += "[" + providerAux.get(prov) + ", \"" + prov + "\"]";
         }
 
         labels += "]";
