@@ -76,8 +76,9 @@ public class DashboardView extends HttpServlet {
 
         //GRÁFICO 2 ############################################################
         //Envia dados para grágico (Total de Instâncias por Provedor por Status)
-        session.setAttribute("labels", pic.listaQDTStatusProviderDay().get(1));
-        session.setAttribute("listaStatusInstanceProvider", pic.listaQDTStatusProviderDay().get(0));
+        ArrayList<String> grafico2 = pic.listaQDTStatusProviderDay();
+        session.setAttribute("labels", grafico2.get(1));
+        session.setAttribute("listaStatusInstanceProvider", grafico2.get(0));
 
         //GRÁFICO 3 ############################################################
         //Monta dados para grágico (Histórico de Instâncias por Data e Status - Últimos 30 Dias)
