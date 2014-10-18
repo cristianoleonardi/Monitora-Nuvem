@@ -53,8 +53,18 @@ public class MonitoringStartStop extends HttpServlet {
         } else if (monitoring.trim().equalsIgnoreCase("on")) {
             //Inicia Monitoramento
             session.setAttribute("monitoringstatus", "started");
-            dc.monitoraNuvem();
+            dc.startThread();
         }
+        
+        //Status Monitoramento
+            String statusAmazon = dc.statusThreadAmazon();
+            String statusOpen = dc.statusThreadOpen();
+            String statusAlerts = dc.statusThreadAlerts();
+            
+            //Insere status na sessão
+            session.setAttribute("statusamazon", statusAmazon);
+            session.setAttribute("statusopen", statusOpen);
+            session.setAttribute("statusalerts", statusAlerts);
 
         RequestDispatcher rd = request
                 .getRequestDispatcher("/");

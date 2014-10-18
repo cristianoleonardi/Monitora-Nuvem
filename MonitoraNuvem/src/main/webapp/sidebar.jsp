@@ -83,6 +83,7 @@
                         </div>
                     </div>
                 </form>
+                        <% out.print(session.getAttribute("statusamazon")); %>
             </div>
         </div><!-- End .spark-stats -->
         

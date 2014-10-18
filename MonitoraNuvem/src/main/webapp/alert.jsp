@@ -59,7 +59,11 @@
 
                             <div class="panel-body">
                                 <form class="form-horizontal" action="alertview" method="POST">
-                                    <% Alerts alerts = (Alerts) session.getAttribute("alert"); %>
+                                    <%
+                                        Alerts alerts = (Alerts) session.getAttribute("alert");
+                                        session.removeAttribute("alert");
+                                    %>
+
                                     <% if (session.getAttribute("action") == "atualizarAlerts") { %>
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">ID</label>
@@ -261,7 +265,7 @@
                                                 %>
                                             </td>
                                             <td>
-                                                <%
+                                                <%    
                                                     switch (alert.getOperation()) {
                                                         case "=":
                                                             out.print("Igual ( = )");
