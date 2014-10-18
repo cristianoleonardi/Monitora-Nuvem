@@ -27,18 +27,18 @@ public class DashboardControl {
     }
 
     public void startThread() throws ClassNotFoundException, SQLException, ParseException {
-//        for (Provider prov : new ProviderBD().listaProvider()) {
-//            new InstanceProviderBD().atualizaChecked(prov);
-//            if (prov.getNome().equals("OpenStack")) {
-//                threadOpen = new ThreadOpenStack(prov, 60000);
-//                thrOpen = new Thread(threadOpen);
-//                thrOpen.start();
-//            } else if (prov.getNome().equals("Amazon")) {
-//                threadAmazon = new ThreadAmazon(prov, 60000);
-//                thrAmazon = new Thread(threadAmazon);
-//                thrAmazon.start();
-//            }
-//        }
+        for (Provider prov : new ProviderBD().listaProvider()) {
+            new InstanceProviderBD().atualizaChecked(prov);
+            if (prov.getNome().equals("OpenStack")) {
+                threadOpen = new ThreadOpenStack(prov, 60000);
+                thrOpen = new Thread(threadOpen);
+                thrOpen.start();
+            } else if (prov.getNome().equals("Amazon")) {
+                threadAmazon = new ThreadAmazon(prov, 60000);
+                thrAmazon = new Thread(threadAmazon);
+                thrAmazon.start();
+            }
+        }
         threadAlert = new ThreadAlerts(6000);
         thrAlert = new Thread(threadAlert);
         thrAlert.start();
