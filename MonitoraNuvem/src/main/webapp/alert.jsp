@@ -134,12 +134,12 @@
                                         <label class="col-lg-2 control-label" for="normal">Métrica</label>
                                         <div class="col-lg-5">
                                             <select name="metric" class="form-control">
-                                                <option value="quantidade" <% if (alerts != null && alerts.getMetrics().equalsIgnoreCase("quantidade")) {
+                                                <option value="N" <% if (alerts != null && alerts.getMetrics().equalsIgnoreCase("N")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
                                                     Quantidade ( n )
                                                 </option>
-                                                <option value="percentual" <% if (alerts != null && alerts.getMetrics().equalsIgnoreCase("percentual")) {
+                                                <option value="%" <% if (alerts != null && alerts.getMetrics().equalsIgnoreCase("%")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
                                                     Percentual ( % )
@@ -151,20 +151,30 @@
                                         <label class="col-lg-2 control-label" for="normal">Operação</label>
                                         <div class="col-lg-5">
                                             <select name="operation" class="form-control">
-                                                <option value="igual" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase("igual")) {
+                                                <option value="=" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase("=")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
                                                     Igual ( = )
                                                 </option>
-                                                <option value="maior que" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase("maior")) {
+                                                <option value=">" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase(">")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
                                                     Maior que ( &gt; )
                                                 </option>
-                                                <option value="menor que" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase("menor")) {
+                                                <option value=">=" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase(">=")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Menor igual ( &ge; )
+                                                </option>
+                                                <option value="<" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase("<")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
                                                     Menor que ( &lt; )
+                                                </option>
+                                                <option value="<=" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase("<=")) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Menor igual ( &le; )
                                                 </option>
                                             </select>  
                                         </div>
