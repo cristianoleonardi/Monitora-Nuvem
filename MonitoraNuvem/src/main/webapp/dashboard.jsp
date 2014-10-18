@@ -26,7 +26,7 @@
 
             <div class="container-fluid">
                 <div id="heading" class="page-header">
-                    <h1><i class="icon20 i-dashboard"></i> Dashboard</h1>
+                    <h1><i class="icon20 i-dashboard"></i> Dashboards</h1>
                 </div>
 
                 <div class="row">

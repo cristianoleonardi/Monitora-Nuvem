@@ -61,7 +61,7 @@ $(document).ready(function () {
 
             //Converte os dados do array arrDados em Objetos e insere no array data
             var data = [];
-            for (i = 0; i < arrDados.length; i++) {
+            for (var i = 0; i < arrDados.length; i++) {
                 eval('var temp= ' + arrDados[i]);
                 data.push(temp);
             }
