@@ -434,12 +434,12 @@ public class InstanceProviderBD {
                         passei = true;
                     }
                 }
-                if (passei == false) {
-                    if (Integer.parseInt(providerAux.get(keyprovider)) > 0) {
-                        dadosGrafico += ",";
-                    }
-                    dadosGrafico += "[" + providerAux.get(keyprovider) + "," + 0 + "]";
-                }
+//                if (passei == false) {
+//                    if (Integer.parseInt(providerAux.get(keyprovider)) > 0) {
+//                        dadosGrafico += ",";
+//                    }
+//                    dadosGrafico += "[" + providerAux.get(keyprovider) + "," + 0 + "]";
+//                }
             }
             if (count1 < statusProvider.size() - 1) {
                 dadosGrafico += "], bars: {order: " + (count1 + 1) + "}},";
