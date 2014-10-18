@@ -12,7 +12,8 @@ import java.util.ArrayList;
  *
  * @author Marcio
  */
-public class ThreadAlerts implements Runnable{
+public class ThreadAlerts implements Runnable {
+
     private int delay;
 
     public ThreadAlerts(int tempoDelay) {
@@ -23,11 +24,12 @@ public class ThreadAlerts implements Runnable{
     public void run() {
         try {
             for (;;) {
-              ArrayList<Alerts> alert = new ProviderAlerts().listaAlerts();
-                for (Alerts a : alert){
-                    
- //                   System.out.println(a.getIdAlerts() + "   "+ a.getNameAlerts());
-                    
+                ArrayList<Alerts> alert = new ProviderAlerts().listaAlerts();
+                ArrayList<InstanceProvider> listInstance = new InstanceProviderBD().listaQDTStatusProviderDay(delay);
+                for (Alerts a : alert) {
+
+//                    System.out.println(a.getIdAlerts() + "   " + a.getNameAlerts());
+
                 }
 //                for (ProviderService ps : new ProviderServiceBD().buscaProviderServiceProvider(pn.getId())) {
 //                    novaApi = pdc.getListServiceOStack(ps);

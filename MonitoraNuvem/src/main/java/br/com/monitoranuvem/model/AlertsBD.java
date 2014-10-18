@@ -79,7 +79,7 @@ public class AlertsBD {
     public ArrayList<Alerts> listaAlerts() throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         Statement stmt = conn.createStatement();
-        ResultSet resultado = stmt.executeQuery("SELECT * FROM ALERTS ");
+        ResultSet resultado = stmt.executeQuery("SELECT * FROM ALERTS ORDER BY IDPROVIDER ");
         ArrayList<Alerts> lista = new ArrayList<>();
         Alerts alert = null;
         while (resultado.next()) {
