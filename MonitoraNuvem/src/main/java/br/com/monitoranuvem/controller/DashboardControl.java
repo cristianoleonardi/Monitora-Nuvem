@@ -26,7 +26,7 @@ public class DashboardControl {
 
     }
 
-    public void monitoraNuvem() throws ClassNotFoundException, SQLException, ParseException {
+    public void startThread() throws ClassNotFoundException, SQLException, ParseException {
         for (Provider prov : new ProviderBD().listaProvider()) {
             new InstanceProviderBD().atualizaChecked(prov);
             if (prov.getNome().equals("OpenStack")) {
@@ -39,7 +39,7 @@ public class DashboardControl {
                 thrAmazon.start();
             }
         }
-        threadAlert = new ThreadAlerts(60000);
+        threadAlert = new ThreadAlerts(6000);
         thrAlert = new Thread(threadAlert);
         thrAlert.start();
     }

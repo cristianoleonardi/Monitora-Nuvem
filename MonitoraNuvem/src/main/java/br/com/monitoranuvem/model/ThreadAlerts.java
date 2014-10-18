@@ -26,7 +26,7 @@ public class ThreadAlerts implements Runnable{
               ArrayList<Alerts> alert = new ProviderAlerts().listaAlerts();
                 for (Alerts a : alert){
                     
-//                    System.out.println(a.getIdAlerts() + "   "+ a.getNameAlerts());
+                    System.out.println(a.getIdAlerts() + "   "+ a.getNameAlerts());
                     
                 }
 //                for (ProviderService ps : new ProviderServiceBD().buscaProviderServiceProvider(pn.getId())) {
