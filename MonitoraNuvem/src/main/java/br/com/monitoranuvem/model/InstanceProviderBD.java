@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  *
@@ -439,7 +438,7 @@ public class InstanceProviderBD {
                     if (Integer.parseInt(providerAux.get(keyprovider)) > 0) {
                         dadosGrafico += ",";
                     }
-                    dadosGrafico += "[" + providerAux.get(keyprovider) + "," + 0 + "]";
+                    dadosGrafico += "[" + providerAux.get(keyprovider) + "," + 0.1 + "]";
                 }
             }
             if (count1 < statusProvider.size() - 1) {
