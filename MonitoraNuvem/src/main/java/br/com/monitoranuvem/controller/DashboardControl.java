@@ -45,20 +45,37 @@ public class DashboardControl {
     }
 
     public void stopThread() {
-        thrAlert.interrupt();
-        thrOpen.interrupt();
-        thrAmazon.interrupt();
+        if (statusThreadAlerts() != null) {
+            thrAlert.interrupt();
+        }
+
+        if (statusThreadOpen() != null) {
+            thrOpen.interrupt();
+        }
+
+        if (statusThreadAmazon() != null) {
+            thrAmazon.interrupt();
+        }
     }
-    
-    public String statusThreadAlerts(){
-        return thrAlert.getState().toString();
+
+    public String statusThreadAlerts() {
+        if (thrAlert != null) {
+            return thrAlert.getState().toString();
+        }
+        return null;
     }
-    
-    public String statusThreadAmazon(){
-        return thrAmazon.getState().toString();
+
+    public String statusThreadAmazon() {
+        if (thrAmazon != null) {
+            return thrAmazon.getState().toString();
+        }
+        return null;
     }
-    
-    public String statusThreadOpen(){
-        return thrOpen.getState().toString();
+
+    public String statusThreadOpen() {
+        if (thrOpen != null) {
+            return thrOpen.getState().toString();
+        }
+        return null;
     }
 }
