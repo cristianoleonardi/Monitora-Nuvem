@@ -110,7 +110,7 @@ public class InstanceProviderBD {
         Date data = new Date();
         String dateForMySql = "";
         PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, DATEUPDATE=?,ISCHECKED=?, DATECHECKED=? "
+                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, DATEUPDATE=?,ISCHECKED=?, DATECHECKED=?, INSTANCEPROVIDER=? "
                 + "WHERE IDINSTANCE=?"
         );
         stmt.setString(1, inst.getStatus());
@@ -123,7 +123,8 @@ public class InstanceProviderBD {
         stmt.setInt(3, 1);
         dateForMySql = sdf.format(data);
         stmt.setString(4, dateForMySql);
-        stmt.setString(5, inst.getIdInstance());
+        stmt.setString(5, inst.getInstanceProvider());
+        stmt.setString(6, inst.getIdInstance());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
