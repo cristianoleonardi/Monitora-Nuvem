@@ -134,7 +134,7 @@
                                         <label class="col-lg-2 control-label" for="normal">Métrica</label>
                                         <div class="col-lg-5">
                                             <select name="metric" class="form-control">
-                                                <option value="N" <% if (alerts != null && alerts.getMetrics().equalsIgnoreCase("N")) {
+                                                <option value="n" <% if (alerts != null && alerts.getMetrics().equalsIgnoreCase("n")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
                                                     Quantidade ( n )
@@ -164,7 +164,7 @@
                                                 <option value=">=" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase(">=")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
-                                                    Menor igual ( &ge; )
+                                                    Maior igual ( &ge; )
                                                 </option>
                                                 <option value="<" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase("<")) {
                                                         out.print("selected=\"selected\"");
@@ -246,8 +246,43 @@
                                             <td><% out.print(alert.getNameAlerts()); %></td>
                                             <td><% out.print(alert.getProv().getNome()); %></td>
                                             <td><% out.print(alert.getStatusProvider()); %></td>
-                                            <td><% out.print(alert.getMetrics()); %></td>
-                                            <td><% out.print(alert.getOperation()); %></td>
+                                            <td>
+                                                <%
+                                                    switch (alert.getMetrics()) {
+                                                        case "n":
+                                                            out.print("Quantidade ( n )");
+                                                            break;
+                                                        case "%":
+                                                            out.print("Percentual ( % )");
+                                                            break;
+                                                        default:
+                                                            out.print("Não Selecinada");
+                                                    }
+                                                %>
+                                            </td>
+                                            <td>
+                                                <%
+                                                    switch (alert.getOperation()) {
+                                                        case "=":
+                                                            out.print("Igual ( = )");
+                                                            break;
+                                                        case ">":
+                                                            out.print("Maior ( > )");
+                                                            break;
+                                                        case ">=":
+                                                            out.print("Maior igual ( >= )");
+                                                            break;
+                                                        case "<":
+                                                            out.print("Menor ( < )");
+                                                            break;
+                                                        case "<=":
+                                                            out.print("Menor Igual ( <= )");
+                                                            break;
+                                                        default:
+                                                            out.print("Não Selecinada");
+                                                    }
+                                                %>
+                                            </td>
                                             <td><% out.print(alert.getValueMetrics()); %></td>
                                             <td class="center">
                                                 <form action="alertview" method="POST">
