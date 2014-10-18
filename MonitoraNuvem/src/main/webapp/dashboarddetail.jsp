@@ -161,7 +161,7 @@
                                 </tr>
                                 <tr>
                                     <th>Nome:</th>
-                                    <td class="center"></td>
+                                    <td class="center"><% out.print(ip.getInstanceProvider()); %></td>
                                 </tr>
                                 <tr>
                                     <th>Status:</th>
