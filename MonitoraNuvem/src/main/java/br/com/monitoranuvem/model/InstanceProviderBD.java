@@ -438,7 +438,7 @@ public class InstanceProviderBD {
                     if (Integer.parseInt(providerAux.get(keyprovider)) > 0) {
                         dadosGrafico += ",";
                     }
-                    dadosGrafico += "[" + providerAux.get(keyprovider) + "," + 0.1 + "]";
+                    dadosGrafico += "[" + providerAux.get(keyprovider) + "," + 0.2 + "]";
                 }
             }
             if (count1 < statusProvider.size() - 1) {
