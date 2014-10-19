@@ -10,7 +10,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -93,8 +95,9 @@ public class SendAlertsBD {
         conn.close();
         return num;
     }
+
     public int buscaSendAlert(int idAlerts) throws ClassNotFoundException, SQLException {
-        int idSendAlert=0;
+        int idSendAlert = 0;
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDSENDALERTS FROM SENDALERTS WHERE IDALERTS=? AND SEND =?"
@@ -103,10 +106,40 @@ public class SendAlertsBD {
         stmt.setInt(2, 0);
         ResultSet resultado = stmt.executeQuery();
         if (resultado.next()) {
-           idSendAlert = resultado.getInt("IDSENDALERTS");
+            idSendAlert = resultado.getInt("IDSENDALERTS");
         }
         conn.close();
         return idSendAlert;
     }
 
+    public ArrayList<SendAlerts> listaSendAlerts() throws ClassNotFoundException, SQLException, ParseException {
+        SendAlerts send;
+        String date_s;
+        SimpleDateFormat dt;
+        Date date;
+        ArrayList<SendAlerts> list = new ArrayList<>();
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT IDSENDALERTS,IDALERTS,DATESENDALERTS,SEND "
+                + "FROM SENDALERTS WHERE IDALERTS=? AND SEND =?"
+        );
+        ResultSet resultado = stmt.executeQuery();
+        if (resultado.next()) {
+            send = new SendAlerts();
+            send.setIdSendAlerts(resultado.getInt("IDSENDALERTS"));
+            send.setIdAlerts(resultado.getInt("IDALERTS"));
+            date_s = resultado.getString("DATESENDALERTS");
+            if (date_s != null) {
+                dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                date = dt.parse(date_s);
+                send.setDateSendAlerts(date);
+            } else {
+                send.setDateSendAlerts(null);
+            }
+            send.setSend(resultado.getInt("SEND"));
+            list.add(send);
+        }
+        conn.close();
+        return list;                
+    }
 }
