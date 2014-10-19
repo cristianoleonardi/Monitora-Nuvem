@@ -21,9 +21,14 @@ public class DashboardControl {
     private Thread thrAlert;
     private Thread thrOpen;
     private Thread thrAmazon;
+    private static DashboardControl dc=null;
 
-    public DashboardControl() throws ClassNotFoundException, SQLException {
-
+   
+    public static DashboardControl getDashboardControl() throws ClassNotFoundException, SQLException {
+        if (dc==null){
+            dc = new DashboardControl();
+        }
+        return dc;
     }
 
     public void startThread() throws ClassNotFoundException, SQLException, ParseException {
