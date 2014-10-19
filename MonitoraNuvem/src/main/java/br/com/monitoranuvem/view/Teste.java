@@ -5,7 +5,8 @@
  */
 package br.com.monitoranuvem.view;
 
-import br.com.monitoranuvem.controller.DashboardControl;
+import br.com.monitoranuvem.controller.SendAlertsControl;
+import br.com.monitoranuvem.model.SendAlerts;
 import java.sql.SQLException;
 import java.text.ParseException;
 
@@ -16,19 +17,22 @@ import java.text.ParseException;
 public class Teste {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException, InterruptedException {
-        DashboardControl d = DashboardControl.getDashboardControl();
-        System.out.println(d);
-        d.startThread();
-        System.out.println(d.statusThreadAlerts());
-        System.out.println(d.statusThreadAmazon());
-        System.out.println(d.statusThreadOpen());
-        d.stopThread();
-        Thread.sleep(70000);
-        System.out.println(d.statusThreadAlerts());
-        System.out.println(d.statusThreadAmazon());
-        System.out.println(d.statusThreadOpen());
+//        DashboardControl d = DashboardControl.getInstance();
+//        d.startThread();
+//        System.out.println(d.statusThreadAlerts());
+//        System.out.println(d.statusThreadAmazon());
+//        System.out.println(d.statusThreadOpen());
+//        d.stopThread();
+//        Thread.sleep(70000);
+//        System.out.println(d.statusThreadAlerts());
+//        System.out.println(d.statusThreadAmazon());
+//        System.out.println(d.statusThreadOpen());
 //        System.out.println(new InstanceProviderBD().totalInstaceProvider(1));
 //        System.out.println(new InstanceProviderBD().totalInstaceProvider(3));
+        SendAlertsControl send = new SendAlertsControl();
+        for (SendAlerts s:send.listaSendAlerts()){
+            System.out.println(s.getAlerts().getNameAlerts() +"  " + s.getIdSendAlerts());
+        }
     }
 
 }
