@@ -23,7 +23,8 @@ import javax.servlet.http.HttpSession;
 public class ProviderServiceView extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -32,10 +33,10 @@ public class ProviderServiceView extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
-        
+
         //Instancia do controller do provider
         ProviderControl pc = new ProviderControl();
-        
+
         //Instancia do controller do provider
         ProviderServiceControl psc = new ProviderServiceControl();
 
@@ -48,7 +49,7 @@ public class ProviderServiceView extends HttpServlet {
         if (action == null || action.equalsIgnoreCase("") || action.equalsIgnoreCase("listarProviderService")) {
             //###LISTAR PROVIDER SERVICE###
             ArrayList<ProviderService> listaPrvServices = psc.listaProviderService();
-            
+
             ArrayList<Provider> listaProvedores = pc.listaProvider();
 
             session.setAttribute("listaPrvServices", listaPrvServices);
@@ -73,6 +74,9 @@ public class ProviderServiceView extends HttpServlet {
                 ArrayList<ProviderService> listaPrvServices = psc.listaProviderService();
                 session.setAttribute("listaPrvServices", listaPrvServices);
 
+                ArrayList<Provider> listaProvedores = pc.listaProvider();
+                session.setAttribute("listaProvedores", listaProvedores);
+
                 RequestDispatcher rd = request
                         .getRequestDispatcher("/providerservice.jsp");
                 rd.forward(request, response);
@@ -95,6 +99,12 @@ public class ProviderServiceView extends HttpServlet {
             session.setAttribute("prvService", prvService);
             session.setAttribute("action", "atualizarProviderService");
 
+            ArrayList<ProviderService> listaPrvServices = psc.listaProviderService();
+            session.setAttribute("listaPrvServices", listaPrvServices);
+
+            ArrayList<Provider> listaProvedores = pc.listaProvider();
+            session.setAttribute("listaProvedores", listaProvedores);
+
             RequestDispatcher rd = request
                     .getRequestDispatcher("/providerservice.jsp");
             rd.forward(request, response);
@@ -114,7 +124,10 @@ public class ProviderServiceView extends HttpServlet {
 
                 ArrayList<ProviderService> listaPrvServices = psc.listaProviderService();
                 session.setAttribute("listaPrvServices", listaPrvServices);
-                
+
+                ArrayList<Provider> listaProvedores = pc.listaProvider();
+                session.setAttribute("listaProvedores", listaProvedores);
+
                 RequestDispatcher rd = request
                         .getRequestDispatcher("/providerservice.jsp");
                 rd.forward(request, response);
@@ -141,6 +154,9 @@ public class ProviderServiceView extends HttpServlet {
                 ArrayList<ProviderService> listaPrvServices = psc.listaProviderService();
                 session.setAttribute("listaPrvServices", listaPrvServices);
                 
+                ArrayList<Provider> listaProvedores = pc.listaProvider();
+                session.setAttribute("listaProvedores", listaProvedores);
+
                 RequestDispatcher rd = request
                         .getRequestDispatcher("/providerservice.jsp");
                 rd.forward(request, response);

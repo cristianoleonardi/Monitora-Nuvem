@@ -21,7 +21,8 @@ import javax.servlet.http.HttpSession;
 public class ProviderView extends HttpServlet {
 
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -30,7 +31,7 @@ public class ProviderView extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
-        
+
         //Instancia do controller do provider
         ProviderControl pc = new ProviderControl();
 
@@ -83,6 +84,9 @@ public class ProviderView extends HttpServlet {
             session.setAttribute("provedor", provedor);
             session.setAttribute("action", "atualizarProvider");
 
+            ArrayList<Provider> listaProvedores = pc.listaProvider();
+            session.setAttribute("listaProvedores", listaProvedores);
+
             RequestDispatcher rd = request
                     .getRequestDispatcher("/provider.jsp");
             rd.forward(request, response);
@@ -98,7 +102,7 @@ public class ProviderView extends HttpServlet {
 
                 ArrayList<Provider> listaProvedores = pc.listaProvider();
                 session.setAttribute("listaProvedores", listaProvedores);
-                
+
                 RequestDispatcher rd = request
                         .getRequestDispatcher("/provider.jsp");
                 rd.forward(request, response);
@@ -124,7 +128,7 @@ public class ProviderView extends HttpServlet {
 
                 ArrayList<Provider> listaProvedores = pc.listaProvider();
                 session.setAttribute("listaProvedores", listaProvedores);
-                
+
                 RequestDispatcher rd = request
                         .getRequestDispatcher("/provider.jsp");
                 rd.forward(request, response);

@@ -75,6 +75,9 @@ public class AlertView extends HttpServlet {
 
                 ArrayList<Alerts> listaAlerts = pa.listaAlerts();
                 session.setAttribute("listaAlerts", listaAlerts);
+                
+                ArrayList<Provider> listaProvedores = pc.listaProvider();
+                session.setAttribute("listaProvedores", listaProvedores);
             } else {
                 session.setAttribute("responseAction", "Erro");
                 session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível cadastrar este alerta.");
@@ -120,6 +123,9 @@ public class AlertView extends HttpServlet {
 
                 ArrayList<Alerts> listaAlerts = pa.listaAlerts();
                 session.setAttribute("listaAlerts", listaAlerts);
+                
+                ArrayList<Provider> listaProvedores = pc.listaProvider();
+                session.setAttribute("listaProvedores", listaProvedores);
             } else {
                 session.setAttribute("responseAction", "Erro");
                 session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível atualizar este alerta.");
@@ -138,6 +144,9 @@ public class AlertView extends HttpServlet {
 
                 ArrayList<Alerts> listaAlerts = pa.listaAlerts();
                 session.setAttribute("listaAlerts", listaAlerts);
+                
+                ArrayList<Provider> listaProvedores = pc.listaProvider();
+                session.setAttribute("listaProvedores", listaProvedores);
             } else {
                 session.setAttribute("responseAction", "Erro");
                 session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível remover este alerta.");

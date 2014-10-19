@@ -82,8 +82,12 @@
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/jquery.flot.tooltip.min.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/jquery.flot.orderBars.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/jquery.flot.time.min.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/sparklines/jquery.sparkline.min.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/peity/jquery.peity.min.js"></script>
-        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/date.js"></script>
+        <!-- <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/date.js"></script> -->
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/pie-chart/jquery.easy-pie-chart.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/gauge/justgage.1.0.1.min.js"></script>
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/gauge/raphael.2.1.0.min.js"></script>
 
         <!-- Form plugins -->
         <script src="<% out.print(request.getContextPath()); %>/assets/js/jquery.mousewheel.js"></script>
@@ -104,7 +108,8 @@
         <script src="<% out.print(request.getContextPath()); %>/assets/js/app.js"></script><!-- Core js functions -->
         <script src="<% out.print(request.getContextPath());%>/assets/js/pages/login.js"></script><!-- Init plugins only for page -->
         <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mngraficos.js"></script><!-- Init plugins only for page -->
+        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mntimer.js"></script><!-- Init plugins only for page -->
         <script src="<% out.print(request.getContextPath());%>/assets/js/pages/form-elements.js"></script>
 
     </head>
-    <body>
+    <body onload="timer();">

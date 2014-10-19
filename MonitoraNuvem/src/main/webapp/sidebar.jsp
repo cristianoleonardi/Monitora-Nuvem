@@ -71,7 +71,7 @@
                     </a>
                 </li>
             </ul>
-        </nav> <!-- End #mainnav -->
+        </nav>
 
         <div class="sidebar-widget center">
             <h4 class="sidebar-widget-header"><i class="icon i-cogs"></i> Monitoração</h4>
@@ -90,9 +90,14 @@
                 <p>OpenStack: <% out.print(session.getAttribute("statusopen")); %></p>
                 <p>Alertas: <% out.print(session.getAttribute("statusalerts"));%></p>
             </div>
-        </div><!-- End .spark-stats -->
+        </div>
 
-    </div><!-- end .sidebar-widget -->
+        <div class="sidebar-widget center">
+            <h4 class="sidebar-widget-header"><i class="icon i-clock"></i> Próxima Atualização</h4>
+            <h3 id="cronometro">10 segundos</h3>
+        </div>
 
-</div> <!-- End .sidebar-wrapper  -->
-</aside><!-- End #sidebar  -->
+    </div>
+
+</div>
+</aside>
