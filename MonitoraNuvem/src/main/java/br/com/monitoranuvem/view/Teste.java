@@ -14,9 +14,21 @@ import java.text.ParseException;
  * @author Cristiano
  */
 public class Teste {
-    public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException {
-        DashboardControl d = new DashboardControl();
-        d.monitoraNuvem();
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException, InterruptedException {
+        DashboardControl d = DashboardControl.getDashboardControl();
+        System.out.println(d);
+        d.startThread();
+        System.out.println(d.statusThreadAlerts());
+        System.out.println(d.statusThreadAmazon());
+        System.out.println(d.statusThreadOpen());
+        d.stopThread();
+        Thread.sleep(70000);
+        System.out.println(d.statusThreadAlerts());
+        System.out.println(d.statusThreadAmazon());
+        System.out.println(d.statusThreadOpen());
+//        System.out.println(new InstanceProviderBD().totalInstaceProvider(1));
+//        System.out.println(new InstanceProviderBD().totalInstaceProvider(3));
     }
-   
+
 }
