@@ -124,7 +124,7 @@ public class SendAlertsBD {
                 + "FROM SENDALERTS"
         );
         ResultSet resultado = stmt.executeQuery();
-        if (resultado.next()) {
+        while (resultado.next()) {
             send = new SendAlerts();
             send.setIdSendAlerts(resultado.getInt("IDSENDALERTS"));
             send.setAlerts(new AlertsBD().buscaAlerts(resultado.getInt("IDALERTS")));
