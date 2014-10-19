@@ -169,11 +169,15 @@ $(document).ready(function () {
                     mouseActiveRadius: 100
                 },
                 series: {
+                    stack: true,
                     lines: {
                         show: true,
                         fill: true,
                         lineWidth: 2,
                         steps: false
+                    },
+                    highlight: {
+                        opacity: 0.1
                     },
                     points: {
                         show: true,

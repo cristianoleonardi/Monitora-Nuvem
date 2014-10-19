@@ -28,6 +28,9 @@ public class DashboardView extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
+     * @throws java.text.ParseException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException, ParseException {

@@ -120,6 +120,7 @@ public class HistoryProviderBD {
     }
 
     private ArrayList<String> montaGrafico(Map<String, String> status, ArrayList<HistoricoInterna> hist, int numDias) throws ParseException {
+        String[] chartColours = new String[]{"#B5DDFF", "#FFBDBD", "#E2FFE7", "#CDE1FF", "#FFE386", "#D2FF90", "#A3EEFF"};
         int count = 0;
         ArrayList<String> grafico = new ArrayList<>();
         String hltd = "";
@@ -149,7 +150,7 @@ public class HistoryProviderBD {
                 }
             }
             hltd += "],";
-            hltd += "lines: {fillColor: \"#f3faff\"},";
+            hltd += "lines: {fillColor: \"" + chartColours[count] + "\"},";
             hltd += "points: {fillColor: \"#fff\"}";
             hltd += "}";
             if (count < status.size() - 1) {
