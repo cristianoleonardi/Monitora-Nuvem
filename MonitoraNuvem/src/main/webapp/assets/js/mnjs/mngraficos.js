@@ -77,21 +77,21 @@ $(document).ready(function () {
     //Total de Instâncias por Provedor por Status###############################
     if ($(".instance-by-status").length) {
         $(function () {
-            
+
             //Busca dados para o gráfico da página dashboard.jsp
             var dados = document.getElementById("dadosgrafico2").value;
             var labels = document.getElementById("dadosgrafico3").value;
-            
+
             //Monta array de dados
             var data = [];
             eval('var temp= ' + dados);
             data = temp;
-            
+
             //Monta array de labels
             var arrLabels = [];
             eval('var temp= ' + labels);
             arrLabels = temp;
-            
+
             var options = {
                 bars: {
                     show: true,
@@ -141,12 +141,94 @@ $(document).ready(function () {
 
     }//End of Total de Instâncias por Provedor por Status#######################
 
+    //check if element exist and draw chart ordered bars
+    if ($(".teste").length) {
+        $(function () {
+            //generate some data
+            var d1 = [];
+            for (var i = 0; i <= 10; i += 1)
+                d1.push([i, parseInt(Math.random() * 30)]);
+
+            var d2 = [];
+            for (var i = 0; i <= 10; i += 1)
+                d2.push([i, parseInt(Math.random() * 30)]);
+
+            var d3 = [];
+            for (var i = 0; i <= 10; i += 1)
+                d3.push([i, parseInt(Math.random() * 30)]);
+
+            var data = new Array();
+
+            data.push({
+                label: "Data One",
+                data: d1,
+                bars: {order: 1}
+            });
+            data.push({
+                label: "Data Two",
+                data: d2,
+                bars: {order: 2}
+            });
+            data.push({
+                label: "Data Three",
+                data: d3,
+                bars: {order: 3}
+            });
+
+            var options = {
+                bars: {
+                    show: true,
+                    barWidth: 0.2,
+                    fill: 1
+                },
+                grid: {
+                    show: true,
+                    aboveData: false,
+                    color: "#3f3f3f",
+                    labelMargin: 5,
+                    axisMargin: 0,
+                    borderWidth: 0,
+                    borderColor: null,
+                    minBorderMargin: 5,
+                    clickable: true,
+                    hoverable: true,
+                    autoHighlight: false,
+                    mouseActiveRadius: 20
+                },
+                legend: {
+                    position: "ne",
+                    margin: [0, -25],
+                    noColumns: 0,
+                    labelBoxBorderColor: null,
+                    labelFormatter: function (label, series) {
+                        // just add some space to labes
+                        return label + '&nbsp;&nbsp;';
+                    },
+                    width: 40,
+                    height: 1
+                },
+                colors: chartColours,
+                tooltip: true, //activate tooltip
+                tooltipOpts: {
+                    content: "%s : %y.0",
+                    shifts: {
+                        x: -30,
+                        y: -50
+                    }
+                }
+            };
+
+            $.plot($(".teste"), data, options);
+        });
+
+    }//End of .cart-bars-ordered
+
 
     //GRAFICO 3
     //Histórico de Instâncias por Status########################################
     if ($(".history-instances-by-status").length) {
         $(function () {
-            
+
             //Busca dados para o gráfico da página dashboard.jsp
             var chartMinDate = document.getElementById("dadosgrafico5").value;
             var chartMaxDate = document.getElementById("dadosgrafico6").value;
