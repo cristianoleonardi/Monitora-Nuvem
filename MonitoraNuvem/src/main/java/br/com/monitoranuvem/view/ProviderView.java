@@ -133,6 +133,10 @@ public class ProviderView extends HttpServlet {
                         .getRequestDispatcher("/provider.jsp");
                 rd.forward(request, response);
             } else {
+                
+                ArrayList<Provider> listaProvedores = pc.listaProvider();
+                session.setAttribute("listaProvedores", listaProvedores);
+                
                 session.setAttribute("responseAction", "Erro");
                 session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível remover este provedor.");
 

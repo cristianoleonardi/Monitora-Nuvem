@@ -53,4 +53,20 @@
             30
         </session-timeout>
     </session-config>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/erro.html</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.sql.SQLException</exception-type>
+        <location>/erro.html</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.ClassNotFoundException</exception-type>
+        <location>/erro.html</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/erro.html</location>
+    </error-page>
 </web-app>

@@ -61,9 +61,7 @@
                                 <form class="form-horizontal" action="alertview" method="POST">
                                     <%
                                         Alerts alerts = (Alerts) session.getAttribute("alert");
-                                        if (alerts != null) {
-                                            session.removeAttribute("alert");
-                                        }
+                                        session.removeAttribute("alert");
                                     %>
 
                                     <% if (session.getAttribute("action") == "atualizarAlerts") { %>
@@ -87,7 +85,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">Provedor</label>
                                         <div class="col-lg-5">
-                                            <select name="provider" class="form-control">
+                                            <select name="provider" class="form-control" <% if (alerts != null) out.print(" disabled"); %>>
                                                 <%
                                                     ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores");
                                                     session.removeAttribute("listaProvedores");
@@ -105,7 +103,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">Status da Instância</label>
                                         <div class="col-lg-5">
-                                            <select name="status" class="form-control">
+                                            <select name="status" class="form-control" <% if (alerts != null) out.print(" disabled"); %>>
                                                 <option value="RUNNING" <% if (alerts != null && alerts.getStatusProvider().equalsIgnoreCase("RUNNING")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
@@ -142,7 +140,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">Métrica</label>
                                         <div class="col-lg-5">
-                                            <select name="metric" class="form-control">
+                                            <select name="metric" class="form-control" <% if (alerts != null) out.print(" disabled"); %>>
                                                 <option value="n" <% if (alerts != null && alerts.getMetrics().equalsIgnoreCase("n")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
@@ -159,7 +157,7 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">Operação</label>
                                         <div class="col-lg-5">
-                                            <select name="operation" class="form-control">
+                                            <select name="operation" class="form-control" <% if (alerts != null) out.print(" disabled"); %>>
                                                 <option value="=" <% if (alerts != null && alerts.getOperation().equalsIgnoreCase("=")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
