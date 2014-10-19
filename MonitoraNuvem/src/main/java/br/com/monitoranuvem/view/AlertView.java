@@ -94,6 +94,12 @@ public class AlertView extends HttpServlet {
             session.setAttribute("alert", alert);
             session.setAttribute("action", "atualizarAlerts");
 
+            ArrayList<Provider> listaProvedores = pc.listaProvider();
+            session.setAttribute("listaProvedores", listaProvedores);
+
+            ArrayList<Alerts> listaAlerts = pa.listaAlerts();
+            session.setAttribute("listaAlerts", listaAlerts);
+
             RequestDispatcher rd = request
                     .getRequestDispatcher("/alert.jsp");
             rd.forward(request, response);
