@@ -121,7 +121,7 @@ public class SendAlertsBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDSENDALERTS,IDALERTS,DATESENDALERTS,SEND "
-                + "FROM SENDALERTS WHERE IDALERTS=? AND SEND =?"
+                + "FROM SENDALERTS"
         );
         ResultSet resultado = stmt.executeQuery();
         if (resultado.next()) {
