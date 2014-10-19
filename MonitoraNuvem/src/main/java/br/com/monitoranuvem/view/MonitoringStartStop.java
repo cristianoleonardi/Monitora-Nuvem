@@ -48,32 +48,38 @@ public class MonitoringStartStop extends HttpServlet {
         //Instancia a sessão para manipular as variáveis de sessao
         HttpSession session = request.getSession(true);
 
-        //Iniciar o Parar monitoramento.
+        //Recuperar parametro enviados da view
         String monitoring = request.getParameter("monitoring");
+        String action = request.getParameter("action");
 
-        if (monitoring == null) {
-            //Para Monitoramento
-            session.setAttribute("monitoringstatus", "stoped");
-            dc.stopThread();
-        } else if (monitoring.trim().equalsIgnoreCase("on")) {
-            //Inicia Monitoramento
-            session.setAttribute("monitoringstatus", "started");
-            dc.startThread();
+        if (action != null && action.equalsIgnoreCase("stopStartThread")) {
+            if (monitoring == null) {
+                //Para Monitoramento
+                session.setAttribute("monitoringstatus", "stoped");
+                dc.stopThread();
+            } else if (monitoring.trim().equalsIgnoreCase("on")) {
+                //Inicia Monitoramento
+                session.setAttribute("monitoringstatus", "started");
+                dc.startThread();
+            }
         }
+        
+        if (action != null && action.equalsIgnoreCase("stopStartThread") || action != null && action.equalsIgnoreCase("updateStatus")) {
+            //Aguarda 5 segundos
+            Thread.sleep(5000);
 
-        //Aguarda parar as threads
-        Thread.sleep(5000);
+            //Status Monitoramento
+            String statusAmazon = dc.statusThreadAmazon();
+            String statusOpen = dc.statusThreadOpen();
+            String statusAlerts = dc.statusThreadAlerts();
 
-        //Status Monitoramento
-        String statusAmazon = dc.statusThreadAmazon();
-        String statusOpen = dc.statusThreadOpen();
-        String statusAlerts = dc.statusThreadAlerts();
-
-        //Insere status na sessão
-        session.setAttribute("statusamazon", statusAmazon);
-        session.setAttribute("statusopen", statusOpen);
-        session.setAttribute("statusalerts", statusAlerts);
-
+            //Insere status na sessão
+            session.setAttribute("statusamazon", statusAmazon);
+            session.setAttribute("statusopen", statusOpen);
+            session.setAttribute("statusalerts", statusAlerts);
+        }
+        
+        //Atualiza a página atual
         RequestDispatcher rd = request
                 .getRequestDispatcher("/");
         rd.forward(request, response);

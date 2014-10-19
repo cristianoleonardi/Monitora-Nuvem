@@ -85,6 +85,7 @@
                 <form class="form-horizontal" name="formstartstop" action="monitoringstartstop" method="POST">
                     <div class="form-group">
                         <div class="switch" data-on="success" data-off="warning">
+                            <input type="hidden" name="action" value="stopStartThread" />
                             <input class="toggle" type="checkbox" name="monitoring" onchange="document.forms.formstartstop.submit();" <% if (session.getAttribute("monitoringstatus") == "started") {
                                     out.print("checked");
                                 } %> />
@@ -105,7 +106,7 @@
 
         <div class="sidebar-widget center">
             <h4 class="sidebar-widget-header"><i class="icon i-clock"></i> Próxima Atualização</h4>
-            <h3 id="cronometro">XX segundos</h3>
+            <h3 id="cronometro">60 segundos</h3>
         </div>
 
     </div>

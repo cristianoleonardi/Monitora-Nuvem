@@ -107,9 +107,13 @@
         <!-- Init plugins -->
         <script src="<% out.print(request.getContextPath()); %>/assets/js/app.js"></script><!-- Core js functions -->
         <script src="<% out.print(request.getContextPath());%>/assets/js/pages/login.js"></script><!-- Init plugins only for page -->
-        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mngraficos.js"></script><!-- Init plugins only for page -->
-        <!--<script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mntimer.js"></script> Init plugins only for page -->
-        <script src="<% out.print(request.getContextPath());%>/assets/js/pages/form-elements.js"></script>
+        <script src="<% out.print(request.getContextPath());%>/assets/js/pages/form-elements.js"></script><!-- Init plugins only for page -->
+        
+        <!-- Scripts Monitora Nuvem-->
+        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mngraficos.js"></script>
+        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mntimer.js"></script>
+        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mnAjaxLib.js"></script>
+        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mnAjaxProcess.js"></script>
 
     </head>
     <body>
