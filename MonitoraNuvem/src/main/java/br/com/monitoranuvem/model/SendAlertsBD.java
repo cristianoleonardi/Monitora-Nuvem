@@ -32,7 +32,7 @@ public class SendAlertsBD {
                 "INSERT INTO SENDALERTS (IDALERTS,DATESENDALERTS,SEND) "
                 + "VALUES (?,?,?)"
         );
-        stmt.setInt(1, sendAlert.getIdAlerts());
+        stmt.setInt(1, sendAlert.getAlerts().getIdAlerts());
         dateForMySql = sdf.format(data);
         stmt.setString(2, dateForMySql);
         stmt.setInt(3, 0);
@@ -127,7 +127,7 @@ public class SendAlertsBD {
         if (resultado.next()) {
             send = new SendAlerts();
             send.setIdSendAlerts(resultado.getInt("IDSENDALERTS"));
-            send.setIdAlerts(resultado.getInt("IDALERTS"));
+            send.setAlerts(new AlertsBD().buscaAlerts(resultado.getInt("IDALERTS")));
             date_s = resultado.getString("DATESENDALERTS");
             if (date_s != null) {
                 dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

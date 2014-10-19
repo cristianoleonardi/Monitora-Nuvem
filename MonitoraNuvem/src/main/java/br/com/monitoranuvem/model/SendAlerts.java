@@ -7,15 +7,14 @@ package br.com.monitoranuvem.model;
 
 import java.util.Date;
 
- 
- 
 /**
  *
  * @author Marcio
  */
 public class SendAlerts {
+
     private int idSendAlerts;
-    private int idAlerts;
+    private Alerts alerts;
     private Date dateSendAlerts;
     private int send;
 
@@ -27,12 +26,12 @@ public class SendAlerts {
         this.idSendAlerts = idSendAlerts;
     }
 
-    public int getIdAlerts() {
-        return idAlerts;
+    public Alerts getAlerts() {
+        return alerts;
     }
 
-    public void setIdAlerts(int idAlerts) {
-        this.idAlerts = idAlerts;
+    public void setAlerts(Alerts alerts) {
+        this.alerts = alerts;
     }
 
     public Date getDateSendAlerts() {
