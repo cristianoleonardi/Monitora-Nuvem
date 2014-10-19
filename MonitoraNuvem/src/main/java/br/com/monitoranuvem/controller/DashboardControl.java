@@ -23,7 +23,7 @@ public class DashboardControl {
     private Thread thrAmazon;
     private static DashboardControl dc = null;
 
-    public static DashboardControl getDashboardControl() throws ClassNotFoundException, SQLException {
+    public static synchronized DashboardControl getInstance() throws ClassNotFoundException, SQLException {
         if (dc == null) {
             dc = new DashboardControl();
         }
