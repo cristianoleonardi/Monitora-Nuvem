@@ -21,11 +21,10 @@ public class DashboardControl {
     private Thread thrAlert;
     private Thread thrOpen;
     private Thread thrAmazon;
-    private static DashboardControl dc=null;
+    private static DashboardControl dc = null;
 
-   
     public static DashboardControl getDashboardControl() throws ClassNotFoundException, SQLException {
-        if (dc==null){
+        if (dc == null) {
             dc = new DashboardControl();
         }
         return dc;
