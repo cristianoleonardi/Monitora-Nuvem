@@ -5,11 +5,13 @@
  */
 package br.com.monitoranuvem.view;
 
-import br.com.monitoranuvem.controller.DashboardControl;
+import br.com.monitoranuvem.controller.ProviderControl;
+import br.com.monitoranuvem.controller.SendAlertsControl;
+import br.com.monitoranuvem.model.SendAlerts;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -23,9 +25,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Cristiano
  */
-public class MonitoringStartStop extends HttpServlet {
-
-    DashboardControl dc;
+public class sendAlertView extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,48 +35,24 @@ public class MonitoringStartStop extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
-     * @throws java.lang.ClassNotFoundException
-     * @throws java.sql.SQLException
-     * @throws java.text.ParseException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, SQLException, ParseException, InterruptedException {
-
-        //Controlador de Threads
-        dc = DashboardControl.getInstance();
-
+            throws ServletException, IOException, ClassNotFoundException, SQLException, ParseException {
+        
+        SendAlertsControl sac = new SendAlertsControl();
+        ArrayList<SendAlerts> listaSendAlerts = sac.listaSendAlerts();
+                
         //Instancia a sessão para manipular as variáveis de sessao
         HttpSession session = request.getSession(true);
-
-        //Iniciar o Parar monitoramento.
-        String monitoring = request.getParameter("monitoring");
-
-        if (monitoring == null) {
-            //Para Monitoramento
-            session.setAttribute("monitoringstatus", "stoped");
-            dc.stopThread();
-        } else if (monitoring.trim().equalsIgnoreCase("on")) {
-            //Inicia Monitoramento
-            session.setAttribute("monitoringstatus", "started");
-            dc.startThread();
-        }
-
-        //Aguarda parar as threads
-        Thread.sleep(5000);
-
-        //Status Monitoramento
-        String statusAmazon = dc.statusThreadAmazon();
-        String statusOpen = dc.statusThreadOpen();
-        String statusAlerts = dc.statusThreadAlerts();
-
-        //Insere status na sessão
-        session.setAttribute("statusamazon", statusAmazon);
-        session.setAttribute("statusopen", statusOpen);
-        session.setAttribute("statusalerts", statusAlerts);
-
+        
+        
+        
+        session.setAttribute("listaSendAlerts", listaSendAlerts);
+        
         RequestDispatcher rd = request
-                .getRequestDispatcher("/");
-        rd.forward(request, response);
+                    .getRequestDispatcher("/");
+            rd.forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -94,13 +70,11 @@ public class MonitoringStartStop extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(sendAlertView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(sendAlertView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(sendAlertView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -118,13 +92,11 @@ public class MonitoringStartStop extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(sendAlertView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(sendAlertView.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ParseException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(sendAlertView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

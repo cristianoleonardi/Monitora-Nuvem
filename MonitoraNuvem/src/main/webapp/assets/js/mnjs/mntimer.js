@@ -1,14 +1,11 @@
-function timer() {
-    
-}
-var i = 10; // segundos
- 
-function contagemRegressiva() {
-   
-    if (i == 0) {
-        document.getElementById('cronometro').innerHTML = 'O tempo acabou!!';
-    } else {
+var i = 60; // segundos
+function contagemRegressiva(){
+if(i == 0){
+        //document.getElementById('cronometro').innerHTML = 'O tempo acabou!!';
+        location.reload();
+}else{
         i--;
         document.getElementById('cronometro').innerHTML = i + ' segundos';
-    }
 }
+}
+setInterval("contagemRegressiva()", 1000);

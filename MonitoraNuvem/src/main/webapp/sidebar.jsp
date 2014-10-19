@@ -86,9 +86,14 @@
                     </div>
                 </form>
                 <p>Status das Threads</p>        
-                <p>Amazon: <% out.print(session.getAttribute("statusamazon")); %></p>
-                <p>OpenStack: <% out.print(session.getAttribute("statusopen")); %></p>
-                <p>Alertas: <% out.print(session.getAttribute("statusalerts"));%></p>
+                <p>Amazon: <% if(session.getAttribute("statusamazon") != null) out.print(session.getAttribute("statusamazon")); %></p>
+                <p>OpenStack: <% if(session.getAttribute("statusopen") != null) out.print(session.getAttribute("statusopen")); %></p>
+                <p>Alertas: <% if(session.getAttribute("statusalerts") != null) out.print(session.getAttribute("statusalerts"));%></p>
+                <%
+                session.removeAttribute("statusamazon");
+                session.removeAttribute("statusopen");
+                session.removeAttribute("statusalerts");
+                %>
             </div>
         </div>
 
