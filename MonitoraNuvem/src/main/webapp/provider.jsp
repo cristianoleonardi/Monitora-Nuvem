@@ -120,7 +120,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores"); %>
+                                        <%
+                                                ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores");
+                                                session.removeAttribute("listaProvedores");
+                                        %>
                                         <% for (Provider provedores : listaProvedores) { %>
                                         <tr class="gradeA">
                                             <td class="center"><% out.print(provedores.getId()); %></td>

@@ -74,11 +74,16 @@
                                         <label class="col-lg-2 control-label" for="normal">Provedor</label>
                                         <div class="col-lg-5">
                                             <select name="provider" class="form-control">
-                                                <% ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores"); %>
+                                                <%
+                                                    ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores");
+                                                    session.removeAttribute("listaProvedores");
+                                                %>
                                                 <% for (Provider provedores : listaProvedores) { %>
-                                                    <option value="<% out.print(provedores.getId()); %>" <% if (prvService != null && prvService.getProvider().getId() == provedores.getId()) out.print("selected=\"selected\""); %>>
-                                                        <% out.print(provedores.getNome()); %>
-                                                    </option>
+                                                <option value="<% out.print(provedores.getId()); %>" <% if (prvService != null && prvService.getProvider().getId() == provedores.getId()) {
+                                                            out.print("selected=\"selected\"");
+                                                        } %>>
+                                                    <% out.print(provedores.getNome()); %>
+                                                </option>
                                                 <% }%>
                                             </select>  
                                         </div>
@@ -165,7 +170,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% ArrayList<ProviderService> listaPrvServices = (ArrayList<ProviderService>) session.getAttribute("listaPrvServices"); %>
+                                        <%
+                                                ArrayList<ProviderService> listaPrvServices = (ArrayList<ProviderService>) session.getAttribute("listaPrvServices");
+                                                session.removeAttribute("listaPrvServices");
+                                        %>
                                         <% for (ProviderService prvServices : listaPrvServices) { %>
                                         <tr class="gradeA">
                                             <td class="center"><% out.print(prvServices.getIdProviderService()); %></td>

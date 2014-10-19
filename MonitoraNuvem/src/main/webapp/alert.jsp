@@ -86,7 +86,10 @@
                                         <label class="col-lg-2 control-label" for="normal">Provedor</label>
                                         <div class="col-lg-5">
                                             <select name="provider" class="form-control">
-                                                <% ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores"); %>
+                                                <%
+                                                    ArrayList<Provider> listaProvedores = (ArrayList<Provider>) session.getAttribute("listaProvedores");
+                                                    session.removeAttribute("listaProvedores");
+                                                %>
                                                 <% for (Provider provedores : listaProvedores) { %>
                                                 <option value="<% out.print(provedores.getId()); %>" <% if (alerts != null && alerts.getProv().getId() == provedores.getId()) {
                                                         out.print("selected=\"selected\"");
@@ -243,7 +246,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% ArrayList<Alerts> listaAlerts = (ArrayList<Alerts>) session.getAttribute("listaAlerts"); %>
+                                        <%
+                                            ArrayList<Alerts> listaAlerts = (ArrayList<Alerts>) session.getAttribute("listaAlerts");
+                                            session.removeAttribute("listaAlerts");
+                                        %>
                                         <% for (Alerts alert : listaAlerts) { %>
                                         <tr class="gradeA">
                                             <td class="center"><% out.print(alert.getIdAlerts()); %></td>
