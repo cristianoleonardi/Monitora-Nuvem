@@ -6,6 +6,7 @@
 package br.com.monitoranuvem.model;
 
 import br.com.monitoranuvem.controller.ProviderAlerts;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -25,41 +26,77 @@ public class ThreadAlerts implements Runnable {
         try {
             for (;;) {
                 ArrayList<Alerts> alert = new ProviderAlerts().listaAlerts();
-                ArrayList<InstanceProvider> listInstance = new InstanceProviderBD().listaQDTStatusProviderDay(delay);
+                int totalInstance = 0;
+                double vPerc = 0;
+
                 for (Alerts a : alert) {
-
-//                    System.out.println(a.getIdAlerts() + "   " + a.getNameAlerts());
-
+                    ArrayList<InstanceProvider> listInstance = new InstanceProviderBD().listaQDTStatusProviderDay(a.getProv().getId(), a.getStatusProvider().toUpperCase().trim());
+                    switch (a.getMetrics().toUpperCase()) {
+                        case "N":
+                            switch (a.getOperation()) {
+                                case "=":
+                                    if (listInstance.size() == Integer.valueOf(a.getValueMetrics())) {
+                                        atualizaSendAlert(a.getIdAlerts());
+                                    }   break;
+                                case ">":
+                                    if (listInstance.size() > Integer.valueOf(a.getValueMetrics())) {
+                                        atualizaSendAlert(a.getIdAlerts());
+                                    }   break;
+                                case ">=":
+                                    if (listInstance.size() >= Integer.valueOf(a.getValueMetrics())) {
+                                        atualizaSendAlert(a.getIdAlerts());
+                                    }   break;
+                                case "<":
+                                    if (listInstance.size() < Integer.valueOf(a.getValueMetrics())) {
+                                        atualizaSendAlert(a.getIdAlerts());
+                                    }   break;
+                                case "<=":
+                                    if (listInstance.size() <= Integer.valueOf(a.getValueMetrics())) {
+                                        atualizaSendAlert(a.getIdAlerts());
+                                    }   break;
+                            }   break;
+                        case "%":
+                            totalInstance = new InstanceProviderBD().totalInstaceProvider(a.getProv().getId());
+                            vPerc = listInstance.size() * 100.0 / totalInstance;
+                            switch (a.getOperation()) {
+                                case "=":
+                                    if (vPerc == Double.parseDouble(a.getValueMetrics())) {
+                                        atualizaSendAlert(a.getIdAlerts());
+                                    }   break;
+                                case ">":
+                                    if (vPerc > Double.parseDouble(a.getValueMetrics())) {
+                                        atualizaSendAlert(a.getIdAlerts());
+                                    }   break;
+                                case ">=":
+                                    if (vPerc >= Double.parseDouble(a.getValueMetrics())) {
+                                        atualizaSendAlert(a.getIdAlerts());
+                                    }   break;
+                                case "<":
+                                    if (vPerc < Double.parseDouble(a.getValueMetrics())) {
+                                        atualizaSendAlert(a.getIdAlerts());
+                                    }   break;
+                                case "<=":
+                                    if (vPerc <= Double.parseDouble(a.getValueMetrics())) {
+                                        atualizaSendAlert(a.getIdAlerts());
+                            }   break;
+                        }   break;
+                    }
                 }
-//                for (ProviderService ps : new ProviderServiceBD().buscaProviderServiceProvider(pn.getId())) {
-//                    novaApi = pdc.getListServiceOStack(ps);
-//                    zones = novaApi.getConfiguredZones();
-//                    ComputeService compute = pdc.getContextCSStack(ps);
-//                    for (String zone : zones) {
-//                        ServerApi serverApi = novaApi.getServerApiForZone(zone);
-//                        for (Server server : serverApi.listInDetail().concat()) {
-//                            inst = new InstanceProvider();
-//                            pic = new ProviderInstanceControl();
-//                            inst.setIdInstance(server.getId());
-//                            inst.setInstanceProvider(server.getName());
-//                            inst.setProvider(new ProviderBD().buscaProvider(pn.getId()));
-//                            inst.setDataCreate(server.getCreated());
-//                            inst.setDataUpdate(server.getUpdated());
-//                            for (ComputeMetadata node : compute.listNodes()) {
-//                                if (node.getProviderId().equals(server.getId())) {
-//                                    NodeMetadata metadata = compute.getNodeMetadata(node.getId());
-//                                    inst.setStatus(metadata.getStatus().name());
-//                                }
-//                            }
-//                            pic.criarAtualizarInstancia(inst);
-//                        }
-//                    }
-//                }
-//                pic.atualizaIntanciaold(pn);
                 Thread.sleep(delay);
             }
         } catch (Exception e) {
             return;
         }
+    }
+
+    private void atualizaSendAlert(int idAlert) throws ClassNotFoundException, SQLException {
+        int num = new SendAlertsBD().existeAlert(idAlert);
+        int idSend;
+        if (num > 0) {
+            idSend = new SendAlertsBD().buscaSendAlert(idAlert);
+        } else {
+            idSend = new SendAlertsBD().criarAlerts(idAlert);
+        }
+        new HistorySendAlertsBD().criarAlerts(idSend);
     }
 }

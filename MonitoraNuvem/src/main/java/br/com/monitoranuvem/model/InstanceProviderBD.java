@@ -327,13 +327,19 @@ public class InstanceProviderBD {
         return lista;
     }
 
-    public ArrayList<InstanceProvider> listaQDTStatusProviderDay(int idProvider) throws ClassNotFoundException, SQLException, ParseException {
+    public ArrayList<InstanceProvider> listaQDTStatusProviderDay(int idProvider, String status) throws ClassNotFoundException, SQLException, ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateForMySql = "";
+        Date data = new Date();
+        dateForMySql = sdf.format(data);
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
+                "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
                 + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED "
-                + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=?");
+                + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? AND DATE(DATECHECKED) = ? AND STATUSPROVIDER=?");
         stmt.setInt(1, idProvider);
+        stmt.setString(2, dateForMySql);
+        stmt.setString(3, status);
         ResultSet resultado = stmt.executeQuery();
         ArrayList<InstanceProvider> lista = new ArrayList<>();
         InstanceProvider instance;
@@ -377,7 +383,7 @@ public class InstanceProviderBD {
         conn.close();
         return lista;
     }
-    
+
     public ArrayList<InstanceProvider> listaStatusProvider(String status) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(""
@@ -555,5 +561,25 @@ public class InstanceProviderBD {
         }
         conn.close();
         return lista;
+    }
+
+    public int totalInstaceProvider(int IdProvider) throws ClassNotFoundException, SQLException {
+        int contador = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateForMySql = "";
+        Date data = new Date();
+        dateForMySql = sdf.format(data);
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT COUNT(*) AS CONTADOR "
+                + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? AND DATE(DATECHECKED) = ? ");
+        stmt.setInt(1, IdProvider);
+        stmt.setString(2, dateForMySql);
+        ResultSet resultado = stmt.executeQuery();
+        while (resultado.next()) {
+            contador = resultado.getInt("CONTADOR");
+        }
+        conn.close();
+        return contador;
     }
 }

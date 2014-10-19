@@ -20,7 +20,7 @@ public class HistorySendAlertsBD {
 
     private Connection conn;
 
-    public boolean criarAlerts(SendAlerts sendAlert) throws ClassNotFoundException, SQLException {
+    public boolean criarAlerts(int idSendAlerts) throws ClassNotFoundException, SQLException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateForMySql = "";
         Date data = new Date();
@@ -29,7 +29,7 @@ public class HistorySendAlertsBD {
                 "INSERT INTO HISTORICOSENDALERTS (IDSENDALERTS,DATE) "
                 + "VALUES (?,?)"
         );
-        stmt.setInt(1, sendAlert.getIdSendAlerts());
+        stmt.setInt(1, idSendAlerts);
         dateForMySql = sdf.format(data);
         stmt.setString(2, dateForMySql);
         int ret = stmt.executeUpdate();

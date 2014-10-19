@@ -39,7 +39,7 @@ public class DashboardControl {
                 thrAmazon.start();
             }
         }
-        threadAlert = new ThreadAlerts(6000);
+        threadAlert = new ThreadAlerts(60000);
         thrAlert = new Thread(threadAlert);
         thrAlert.start();
     }
