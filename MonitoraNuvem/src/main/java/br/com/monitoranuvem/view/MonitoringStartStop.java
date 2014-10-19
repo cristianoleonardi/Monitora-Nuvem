@@ -74,7 +74,7 @@ public class MonitoringStartStop extends HttpServlet {
         
         //Atualiza a página atual
         RequestDispatcher rd = request
-                .getRequestDispatcher("#");
+                .getRequestDispatcher("/");
         rd.forward(request, response);
     }
 

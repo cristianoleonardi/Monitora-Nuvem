@@ -85,7 +85,7 @@
                 <form class="form-horizontal" name="formstartstop" action="monitoringstartstop" method="POST">
                     <div class="form-group">
                         <div class="switch" data-on="success" data-off="warning">
-                            <input type="hidden" name="action" value="updateStatus" />
+                            <input type="hidden" name="action" value="stopStartThread" />
                             <input class="toggle" type="checkbox" name="monitoring" onchange="document.forms.formstartstop.submit();" <% if (session.getAttribute("monitoringstatus") == "started") {
                                     out.print("checked");
                                 } %> />
