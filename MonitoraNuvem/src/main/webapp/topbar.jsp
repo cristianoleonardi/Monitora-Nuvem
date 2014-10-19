@@ -20,9 +20,15 @@
                     %>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <i class="icon24 i-bell-2"></i>
-                        <span class="notification red"><% if (listaSendAlerts.size() > 0) {
-                                out.print(listaSendAlerts.size());
-                            } %></span>
+                        <span class="notification red">
+                            <%
+                                if (listaSendAlerts.size() > 0) {
+                                    out.print(listaSendAlerts.size());
+                                } else {
+                                    out.print("0");
+                                }
+                            %>
+                        </span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <%
@@ -30,11 +36,17 @@
                                 for (SendAlerts sendAlerts : listaSendAlerts) { %>
                         <li role="presentation">
                             <a href="#" class="">
-                                <i class="icon16 i-info"></i><% out.print(sendAlerts.getAlerts().getNameAlerts() + " Status: " + sendAlerts.getAlerts().getStatusProvider() + ". Provedor: " + sendAlerts.getAlerts().getProv().getNome()); %>
+                                <i class="icon16 i-warning"></i><% out.print(sendAlerts.getAlerts().getNameAlerts() + " Status: " + sendAlerts.getAlerts().getStatusProvider() + ". Provedor: " + sendAlerts.getAlerts().getProv().getNome()); %>
                             </a>
                         </li>
                         <% }
-                            }%>
+                        } else { %>
+                        <li role="presentation">
+                            <a href="#" class="">
+                                <i class="icon16 i-info"></i>Sem registro de alertas.
+                            </a>
+                        </li>
+                        <% }%>
                     </ul>
                 </li>
                 <li class="divider-vertical"></li>

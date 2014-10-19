@@ -70,6 +70,12 @@
                         <span class="txt">Histórico</span>
                     </a>
                 </li>
+                <li>
+                    <a href="about.jsp">
+                        <span class="icon"><i class="icon20  i-question-5"></i></span>
+                        <span class="txt">Sobre</span>
+                    </a>
+                </li>
             </ul>
         </nav>
 
@@ -99,7 +105,7 @@
 
         <div class="sidebar-widget center">
             <h4 class="sidebar-widget-header"><i class="icon i-clock"></i> Próxima Atualização</h4>
-            <h3 id="cronometro">10 segundos</h3>
+            <h3 id="cronometro">XX segundos</h3>
         </div>
 
     </div>

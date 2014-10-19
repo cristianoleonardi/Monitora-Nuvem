@@ -30,53 +30,6 @@
 
                     </div>
                 </div>
-                <br />
-                <br />
-                <br />
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <h2 class="center">Créditos</h2>
-                                <div class="page-header">
-                                    <h4>Trabalho de Conclusão de Curso</h4>
-                                </div>
-                                <ul class="list-unstyled">
-                                    <li><i class="icon16 i-arrow-right-3"></i>Pontifícia Universidade Católica do Rio Grande do Sul</li>
-                                    <li><i class="icon16 i-arrow-right-3"></i>Faculdade de Informática</li>
-                                    <li><i class="icon16 i-arrow-right-3"></i>Bacharelado em Sistemas de Informação</li>
-                                    <li><i class="icon16 i-arrow-right-3"></i>Uma ferramenta para monitoração integrada de múltiplas nuvens computacionais</li>
-                                    <li><i class="icon16 i-arrow-right-3"></i>Porto Alegre - 2014</li>
-                                </ul>
-                                <br />
-                                <div class="page-header">
-                                    <h4>Alunos:</h4>
-                                </div>
-                                <ul class="list-unstyled">
-                                    <li><i class="icon16 i-arrow-right-3"></i>Cristiano Lopes Leonardi</li>
-                                    <li><i class="icon16 i-arrow-right-3"></i>Márcio Sonza Bolzan</li>
-                                </ul>
-                                <br />
-                                <div class="page-header">
-                                    <h4>Orientador:</h4>
-                                </div>
-                                <ul class="list-unstyled">
-                                    <li><i class="icon16 i-arrow-right-3"></i>Prof. Dr. Tiago Ferreto</li>
-                                </ul>
-                                <br />
-                                <div class="page-header">
-                                    <h4>Avaliadores:</h4>
-                                </div>
-                                <ul class="list-unstyled">
-                                    <li><i class="icon16 i-arrow-right-3"></i>1º Avaliador</li>
-                                    <li><i class="icon16 i-arrow-right-3"></i>2º Avaliador</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </section>
 
