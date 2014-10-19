@@ -7,8 +7,6 @@ import br.com.monitoranuvem.model.ProviderService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -186,9 +184,9 @@ public class ProviderServiceView extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ProviderView.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("ClassNotFoundException", ex);
         } catch (SQLException ex) {
-            Logger.getLogger(ProviderView.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("SQLException", ex);
         }
 
     }
@@ -207,9 +205,9 @@ public class ProviderServiceView extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ProviderView.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("ClassNotFoundException", ex);
         } catch (SQLException ex) {
-            Logger.getLogger(ProviderView.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("SQLException", ex);
         }
     }
 

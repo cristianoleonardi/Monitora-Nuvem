@@ -1,17 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.monitoranuvem.view;
 
 import br.com.monitoranuvem.controller.DashboardControl;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,6 +30,7 @@ public class MonitoringStartStop extends HttpServlet {
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      * @throws java.text.ParseException
+     * @throws java.lang.InterruptedException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException, ParseException, InterruptedException {
@@ -81,7 +74,7 @@ public class MonitoringStartStop extends HttpServlet {
         
         //Atualiza a página atual
         RequestDispatcher rd = request
-                .getRequestDispatcher("/");
+                .getRequestDispatcher("#");
         rd.forward(request, response);
     }
 
@@ -100,13 +93,13 @@ public class MonitoringStartStop extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("ClassNotFoundException", ex);
         } catch (SQLException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+           throw new ServletException("SQLException", ex);
         } catch (ParseException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("ParseException", ex);
         } catch (InterruptedException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("InterruptedException", ex);
         }
     }
 
@@ -124,13 +117,13 @@ public class MonitoringStartStop extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("ClassNotFoundException", ex);
         } catch (SQLException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("SQLException", ex);
         } catch (ParseException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("ParseException", ex);
         } catch (InterruptedException ex) {
-            Logger.getLogger(MonitoringStartStop.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("InterruptedException", ex);
         }
     }
 

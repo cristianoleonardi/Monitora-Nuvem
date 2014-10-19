@@ -7,10 +7,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -113,11 +109,11 @@ public class DashboardView extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("ClassNotFoundException", ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("SQLException", ex);
         } catch (ParseException ex) {
-            Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("ParseException", ex);
         }
     }
 
@@ -135,11 +131,11 @@ public class DashboardView extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("ClassNotFoundException", ex);
         } catch (SQLException ex) {
-            Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("SQLException", ex);
         } catch (ParseException ex) {
-            Logger.getLogger(DashboardView.class.getName()).log(Level.SEVERE, null, ex);
+            throw new ServletException("ParseException", ex);
         }
     }
 

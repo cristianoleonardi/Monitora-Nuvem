@@ -108,6 +108,7 @@
         <script src="<% out.print(request.getContextPath()); %>/assets/js/app.js"></script><!-- Core js functions -->
         <script src="<% out.print(request.getContextPath());%>/assets/js/pages/login.js"></script><!-- Init plugins only for page -->
         <script src="<% out.print(request.getContextPath());%>/assets/js/pages/form-elements.js"></script><!-- Init plugins only for page -->
+        <script src="<% out.print(request.getContextPath());%>/assets/js/pages/error-pages.js"></script><!-- Init plugins only for page -->
         
         <!-- Scripts Monitora Nuvem-->
         <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mngraficos.js"></script>
