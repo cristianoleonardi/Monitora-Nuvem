@@ -111,10 +111,8 @@
         <script src="<% out.print(request.getContextPath());%>/assets/js/pages/error-pages.js"></script><!-- Init plugins only for page -->
         
         <!-- Scripts Monitora Nuvem-->
+        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mnajax.js"></script>
         <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mngraficos.js"></script>
-        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mntimer.js"></script>
-        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mnAjaxLib.js"></script>
-        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mnAjaxProcess.js"></script>
 
     </head>
-    <body>
+    <body onload="init()">

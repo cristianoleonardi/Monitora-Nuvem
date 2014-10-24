@@ -6,18 +6,25 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Cristiano
  */
 public class sendAlertView extends HttpServlet {
+
+    private ServletContext context;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        this.context = config.getServletContext();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,21 +41,33 @@ public class sendAlertView extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException, ParseException {
 
+        //Montar string XML retorno
+        StringBuilder sb = new StringBuilder();
+
         SendAlertsControl sac = new SendAlertsControl();
         ArrayList<SendAlerts> listaSendAlerts = sac.listaSendAlerts();
 
-        //Instancia a sessão para manipular as variáveis de sessao
-        HttpSession session = request.getSession(true);
+        boolean sendAlertsAdded = false;
+        for (SendAlerts sendAlerts : listaSendAlerts) {
+            sendAlertsAdded = true;
+            sb.append("<alert>");
+            sb.append("<name>").append(sendAlerts.getAlerts().getNameAlerts()).append("</name>");
+            sb.append("<status>").append(sendAlerts.getAlerts().getStatusProvider()).append("</status>");
+            sb.append("<provider>").append(sendAlerts.getAlerts().getProv().getNome()).append("</provider>");
+            sb.append("</alert>");
+        }
 
-        session.setAttribute("listaSendAlerts", listaSendAlerts);
-
-        RequestDispatcher rd = request
-                .getRequestDispatcher("/");
-        rd.forward(request, response);
-
+        if (sendAlertsAdded) {
+            response.setContentType("text/xml");
+            response.setHeader("Cache-Control", "no-cache");
+            response.getWriter().write("<sendAlerts>" + sb.toString() + "</sendAlerts>");
+        } else {
+            //Nothing to show
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

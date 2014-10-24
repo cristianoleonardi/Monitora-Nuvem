@@ -63,34 +63,34 @@
     </session-config>
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
-        <location>/erro.jsp?description=JavaException</location>
+        <location>/errors/erro.jsp?description=JavaException</location>
     </error-page>
     <error-page>
         <exception-type>java.sql.SQLException</exception-type>
-        <location>/erro.jsp?description=SQLException</location>
+        <location>/errors/erro.jsp?description=SQLException</location>
     </error-page>
     <error-page>
         <exception-type>javax.servlet.ServletException</exception-type>
-        <location>/erro.jsp?description=ServletException</location>
+        <location>/errors/erro.jsp?description=ServletException</location>
     </error-page>
     <error-page>
         <error-code>403</error-code>
-        <location>/erro403.jsp</location>
+        <location>/errors/erro403.jsp</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/erro404.jsp</location>
+        <location>/errors/erro404.jsp</location>
     </error-page>
     <error-page>
         <error-code>405</error-code>
-        <location>/erro405.jsp</location>
+        <location>/errors/erro405.jsp</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/erro500.jsp</location>
+        <location>/errors/erro500.jsp</location>
     </error-page>
     <error-page>
         <error-code>503</error-code>
-        <location>/erro503.jsp</location>
+        <location>/errors/erro503.jsp</location>
     </error-page>
 </web-app>

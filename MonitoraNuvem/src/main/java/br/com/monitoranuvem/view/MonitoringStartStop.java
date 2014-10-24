@@ -4,7 +4,8 @@ import br.com.monitoranuvem.controller.DashboardControl;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
-import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +18,13 @@ import javax.servlet.http.HttpSession;
  */
 public class MonitoringStartStop extends HttpServlet {
 
+    private ServletContext context;
     DashboardControl dc;
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        this.context = config.getServletContext();
+    }
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,47 +45,85 @@ public class MonitoringStartStop extends HttpServlet {
         //Controlador de Threads
         dc = DashboardControl.getInstance();
 
-        //Instancia a sessão para manipular as variáveis de sessao
+        //Montar string XML retorno
+        StringBuilder sb = new StringBuilder();
+
+        //Instancia a sessÃ£o para manipular as variÃ¡veis de sessao
         HttpSession session = request.getSession(true);
 
         //Recuperar parametro enviados da view
-        String monitoring = request.getParameter("monitoring");
+        String btnMonitoring = request.getParameter("btnmonitoring");
         String action = request.getParameter("action");
 
-        if (action != null && action.equalsIgnoreCase("stopStartThread")) {
-            if (monitoring == null) {
-                //Para Monitoramento
+        if (action != null && action.equalsIgnoreCase("startstopthread")) {
+            boolean statusThread = false;
+            if (btnMonitoring.trim().equalsIgnoreCase("false")) {
+                //Parar Monitoramento
                 session.setAttribute("monitoringstatus", "stoped");
+                sb.append("<statusThread>");
+                sb.append("<thread>");
+                sb.append("<status>stoped</status>");
+                sb.append("</thread>");
+                sb.append("</statusThread>");
+
                 dc.stopThread();
-            } else if (monitoring.trim().equalsIgnoreCase("on")) {
-                //Inicia Monitoramento
+            } else if (btnMonitoring.trim().equalsIgnoreCase("true")) {
+                //Iniciar Monitoramento
                 session.setAttribute("monitoringstatus", "started");
+                statusThread = true;
+                sb.append("<statusThread>");
+                sb.append("<thread>");
+                sb.append("<status>started</status>");
+                sb.append("</thread>");
+                sb.append("</statusThread>");
+
                 dc.startThread();
             }
-        }
-        
-        if (action != null && action.equalsIgnoreCase("stopStartThread") || action != null && action.equalsIgnoreCase("updateStatus")) {
-            //Aguarda 5 segundos
-            Thread.sleep(5000);
 
-            //Status Monitoramento
-            String statusAmazon = dc.statusThreadAmazon();
-            String statusOpen = dc.statusThreadOpen();
-            String statusAlerts = dc.statusThreadAlerts();
-
-            //Insere status na sessão
-            session.setAttribute("statusamazon", statusAmazon);
-            session.setAttribute("statusopen", statusOpen);
-            session.setAttribute("statusalerts", statusAlerts);
+            if (statusThread) {
+                response.setContentType("text/xml");
+                response.setHeader("Cache-Control", "no-cache");
+                response.getWriter().write(sb.toString());
+            } else {
+                //Nothing to show
+                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            }
         }
-        
-        //Atualiza a página atual
-        RequestDispatcher rd = request
-                .getRequestDispatcher("/");
-        rd.forward(request, response);
+
+        if (action != null && action.equalsIgnoreCase("updatestatus")) {
+            boolean statusAdded = false;
+            if (dc != null) {
+                sb.append("<statusThread>");
+                sb.append("<thread>");
+                sb.append("<name>Amazon</name>");
+                sb.append("<status>").append(dc.statusThreadAmazon()).append("</status>");
+                sb.append("</thread>");
+                sb.append("<thread>");
+                sb.append("<name>OpenStack</name>");
+                sb.append("<status>").append(dc.statusThreadOpen()).append("</status>");
+                sb.append("</thread>");
+                sb.append("<thread>");
+                sb.append("<name>Alertas</name>");
+                sb.append("<status>").append(dc.statusThreadAlerts()).append("</status>");
+                sb.append("</thread>");
+                sb.append("</statusThread>");
+
+                statusAdded = true;
+            }
+
+            if (statusAdded) {
+                response.setContentType("text/xml");
+                response.setHeader("Cache-Control", "no-cache");
+                response.getWriter().write(sb.toString());
+            } else {
+                //Nothing to show
+                response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+            }
+        }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+//}
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -95,7 +140,7 @@ public class MonitoringStartStop extends HttpServlet {
         } catch (ClassNotFoundException ex) {
             throw new ServletException("ClassNotFoundException", ex);
         } catch (SQLException ex) {
-           throw new ServletException("SQLException", ex);
+            throw new ServletException("SQLException", ex);
         } catch (ParseException ex) {
             throw new ServletException("ParseException", ex);
         } catch (InterruptedException ex) {

@@ -82,31 +82,33 @@
         <div class="sidebar-widget center">
             <h4 class="sidebar-widget-header"><i class="icon i-cogs"></i> Monitoração</h4>
             <div class="spark-stats">
-                <form class="form-horizontal" name="formstartstop" action="monitoringstartstop" method="POST">
+                <form class="form-horizontal" name="formstartstop">
                     <div class="form-group">
                         <div class="switch" data-on="success" data-off="warning">
-                            <input type="hidden" name="action" value="stopStartThread" />
-                            <input class="toggle" type="checkbox" name="monitoring" onchange="document.forms.formstartstop.submit();" <% if (session.getAttribute("monitoringstatus") == "started") {
+                            <!--<input type="hidden" name="action" value="stopstartthread" />-->
+                            <input class="toggle" type="checkbox" name="btnmonitoring" id="btnmonitoring" onchange="doStartStopThread();" <% if (session.getAttribute("monitoringstatus") == "started") {
                                     out.print("checked");
-                                } %> />
+                                }%> />
                         </div>
                     </div>
                 </form>
-                <p>Status das Threads</p>        
-                <p>Amazon: <% if(session.getAttribute("statusamazon") != null) out.print(session.getAttribute("statusamazon")); %></p>
-                <p>OpenStack: <% if(session.getAttribute("statusopen") != null) out.print(session.getAttribute("statusopen")); %></p>
-                <p>Alertas: <% if(session.getAttribute("statusalerts") != null) out.print(session.getAttribute("statusalerts"));%></p>
-                <%
-                session.removeAttribute("statusamazon");
-                session.removeAttribute("statusopen");
-                session.removeAttribute("statusalerts");
-                %>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Provedor</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="auto-row">
+                        
+                    </tbody>
+                </table>
             </div>
         </div>
 
         <div class="sidebar-widget center">
             <h4 class="sidebar-widget-header"><i class="icon i-clock"></i> Próxima Atualização</h4>
-            <h3 id="cronometro">60 segundos</h3>
+            <h3 id="cronometro">Iniciando Contador...</h3>
         </div>
 
     </div>
