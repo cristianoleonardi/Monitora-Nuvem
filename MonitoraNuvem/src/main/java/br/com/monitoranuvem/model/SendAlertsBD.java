@@ -134,8 +134,9 @@ public class SendAlertsBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDSENDALERTS,IDALERTS,DATESENDALERTS,SEND,STATUS "
-                + "FROM SENDALERTS"
+                + "FROM SENDALERTS WHERE STATUS=?"
         );
+        stmt.setInt(1, 0);
         ResultSet resultado = stmt.executeQuery();
         while (resultado.next()) {
             send = new SendAlerts();
