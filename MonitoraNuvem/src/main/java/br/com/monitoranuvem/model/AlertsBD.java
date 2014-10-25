@@ -25,7 +25,7 @@ public class AlertsBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO ALERTS (NAMEALERTS,IDPROVIDER,STATUSPROVIDER,METRICS,"
-                + "OPERATION,VALUEMETRICS) VALUES (?,?,?,?,?,?)"
+                + "OPERATION,VALUEMETRICS,MAIL) VALUES (?,?,?,?,?,?,?)"
         );
         stmt.setString(1, alert.getNameAlerts());
         stmt.setInt(2, alert.getProv().getId());
@@ -33,6 +33,7 @@ public class AlertsBD {
         stmt.setString(4, alert.getMetrics());
         stmt.setString(5, alert.getOperation());
         stmt.setString(6, alert.getValueMetrics());
+        stmt.setString(7, alert.getMail());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -59,7 +60,7 @@ public class AlertsBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDALERTS,NAMEALERTS,IDPROVIDER,STATUSPROVIDER,METRICS,"
-                + "OPERATION,VALUEMETRICS FROM ALERTS WHERE IDALERTS=?"
+                + "OPERATION,VALUEMETRICS,MAIL FROM ALERTS WHERE IDALERTS=?"
         );
         stmt.setInt(1, idAlert);
         ResultSet resultado = stmt.executeQuery();
@@ -71,6 +72,7 @@ public class AlertsBD {
             alert.setMetrics(resultado.getString("METRICS"));
             alert.setOperation(resultado.getString("OPERATION"));
             alert.setValueMetrics(resultado.getString("VALUEMETRICS"));
+            alert.setMail(resultado.getString("MAIL"));
         }
         conn.close();
         return alert;
@@ -91,6 +93,7 @@ public class AlertsBD {
             alert.setMetrics(resultado.getString("METRICS"));
             alert.setOperation(resultado.getString("OPERATION"));
             alert.setValueMetrics(resultado.getString("VALUEMETRICS"));
+            alert.setMail(resultado.getString("MAIL"));
             lista.add(alert);
         }
         conn.close();
@@ -116,7 +119,7 @@ public class AlertsBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "UPDATE ALERTS SET NAMEALERTS=?,IDPROVIDER=?,"
-                        + "STATUSPROVIDER=?,METRICS=?,OPERATION=?,VALUEMETRICS=? WHERE IDALERTS=?"
+                        + "STATUSPROVIDER=?,METRICS=?,OPERATION=?,VALUEMETRICS=?, MAIL=? WHERE IDALERTS=?"
         );
         stmt.setString(1, alert.getNameAlerts());
         stmt.setInt(2, alert.getProv().getId());
@@ -124,7 +127,8 @@ public class AlertsBD {
         stmt.setString(4, alert.getMetrics());
         stmt.setString(5, alert.getOperation());
         stmt.setString(6, alert.getValueMetrics());
-        stmt.setInt(7, idAlerts);
+        stmt.setString(7, alert.getMail());
+        stmt.setInt(8, idAlerts);
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {

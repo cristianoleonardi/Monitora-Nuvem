@@ -18,6 +18,7 @@ public class Alerts {
     private String metrics;
     private String operation;
     private String valueMetrics;
+    private String mail;
 
     public int getIdAlerts() {
         return idAlerts;
@@ -74,5 +75,12 @@ public class Alerts {
     public void setValueMetrics(String valueMetrics) {
         this.valueMetrics = valueMetrics;
     }
-        
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }       
 }

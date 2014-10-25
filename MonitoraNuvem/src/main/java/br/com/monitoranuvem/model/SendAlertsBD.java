@@ -29,13 +29,14 @@ public class SendAlertsBD {
         Date data = new Date();
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO SENDALERTS (IDALERTS,DATESENDALERTS,SEND) "
-                + "VALUES (?,?,?)"
+                "INSERT INTO SENDALERTS (IDALERTS,DATESENDALERTS,SEND,STATUS) "
+                + "VALUES (?,?,?,?)"
         );
         stmt.setInt(1, sendAlert.getAlerts().getIdAlerts());
         dateForMySql = sdf.format(data);
         stmt.setString(2, dateForMySql);
         stmt.setInt(3, 0);
+        stmt.setInt(4, 0);
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -50,13 +51,14 @@ public class SendAlertsBD {
         Date data = new Date();
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO SENDALERTS (IDALERTS,DATESENDALERTS,SEND) "
-                + "VALUES (?,?,?)"
+                "INSERT INTO SENDALERTS (IDALERTS,DATESENDALERTS,SEND,STATUS) "
+                + "VALUES (?,?,?,?)"
         );
         stmt.setInt(1, idAlerts);
         dateForMySql = sdf.format(data);
         stmt.setString(2, dateForMySql);
         stmt.setInt(3, 0);
+        stmt.setInt(4, 0);
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -120,7 +122,7 @@ public class SendAlertsBD {
         ArrayList<SendAlerts> list = new ArrayList<>();
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "SELECT IDSENDALERTS,IDALERTS,DATESENDALERTS,SEND "
+                "SELECT IDSENDALERTS,IDALERTS,DATESENDALERTS,SEND,STATUS "
                 + "FROM SENDALERTS"
         );
         ResultSet resultado = stmt.executeQuery();
@@ -137,6 +139,7 @@ public class SendAlertsBD {
                 send.setDateSendAlerts(null);
             }
             send.setSend(resultado.getInt("SEND"));
+            send.setStatus(resultado.getInt("STATUS"));
             list.add(send);
         }
         conn.close();

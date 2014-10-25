@@ -17,6 +17,7 @@ public class SendAlerts {
     private Alerts alerts;
     private Date dateSendAlerts;
     private int send;
+    private int status;
 
     public int getIdSendAlerts() {
         return idSendAlerts;
@@ -49,4 +50,12 @@ public class SendAlerts {
     public void setSend(int send) {
         this.send = send;
     }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }    
 }
