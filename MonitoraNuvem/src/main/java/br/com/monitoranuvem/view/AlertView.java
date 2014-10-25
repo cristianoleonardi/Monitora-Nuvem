@@ -65,8 +65,9 @@ public class AlertView extends HttpServlet {
             String metric = request.getParameter("metric");
             String operation = request.getParameter("operation");
             String metricValue = request.getParameter("metricvalue");
+            String emailDestino = request.getParameter("emaildestino");
 
-            if (pa.criarAlerts(alertName, idProvider, status, metric, operation, metricValue)) {
+            if (pa.criarAlerts(alertName, idProvider, status, metric, operation, metricValue, emailDestino)) {
                 session.setAttribute("responseAction", "Ok");
                 session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Seu alerta foi cadastrado com sucesso.");
 
@@ -113,8 +114,9 @@ public class AlertView extends HttpServlet {
             String metric = request.getParameter("metric");
             String operation = request.getParameter("operation");
             String metricValue = request.getParameter("metricvalue");
+            String emailDestino = request.getParameter("emaildestino");
 
-            if (pa.atualizaAlerts(alertName, idProvider, status, metric, operation, metricValue, id)) {
+            if (pa.atualizaAlerts(alertName, idProvider, status, metric, operation, metricValue, id, emailDestino)) {
                 session.setAttribute("responseAction", "Ok");
                 session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-checkmark-circle\"></i> Parabéns!</strong> Seu alerta foi atualizado com sucesso.");
 
