@@ -87,7 +87,7 @@ public class SendAlertsBD {
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT COUNT(*) AS QUANTIDADE \n"
                 + "FROM SENDALERTS	\n"
-                + "WHERE IDALERTS=? AND SEND =?");
+                + "WHERE IDALERTS=? AND STATUS =?");
         stmt.setInt(1, idAlert);
         stmt.setInt(2, 0);
         ResultSet resultado = stmt.executeQuery();
@@ -102,7 +102,7 @@ public class SendAlertsBD {
         int idSendAlert = 0;
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "SELECT IDSENDALERTS FROM SENDALERTS WHERE IDALERTS=? AND SEND =?"
+                "SELECT IDSENDALERTS FROM SENDALERTS WHERE IDALERTS=? AND STATUS =?"
         );
         stmt.setInt(1, idAlerts);
         stmt.setInt(2, 0);
