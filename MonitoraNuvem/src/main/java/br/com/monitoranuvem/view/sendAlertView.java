@@ -1,11 +1,16 @@
 package br.com.monitoranuvem.view;
 
+import br.com.monitoranuvem.controller.JavaMailSendControl;
+import br.com.monitoranuvem.controller.ProviderSendAlerts;
 import br.com.monitoranuvem.controller.SendAlertsControl;
 import br.com.monitoranuvem.model.SendAlerts;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -39,16 +44,33 @@ public class sendAlertView extends HttpServlet {
      * @throws java.text.ParseException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, ClassNotFoundException, SQLException, ParseException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException, ParseException, MessagingException {
 
         //Montar string XML retorno
         StringBuilder sb = new StringBuilder();
-
+        
+        //Controlador de envio de email
+        JavaMailSendControl jmsc = new JavaMailSendControl();
+        
+        ProviderSendAlerts psa = new ProviderSendAlerts();
+        
         SendAlertsControl sac = new SendAlertsControl();
         ArrayList<SendAlerts> listaSendAlerts = sac.listaSendAlerts();
 
         boolean sendAlertsAdded = false;
+        String[] destino;
+        String mensagem = "";
         for (SendAlerts sendAlerts : listaSendAlerts) {
+            destino = sendAlerts.getAlerts().getMail().split(",");
+            mensagem = sendAlerts.getAlerts().getNameAlerts() + " (Status - " + sendAlerts.getAlerts().getStatusProvider() + "; Provedor - " + sendAlerts.getAlerts().getProv().getNome() + ")";
+            
+            //Envio de email
+            if(sendAlerts.getSend() == 0){
+                if(jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)){
+                    psa.atualizaStatusMail(sendAlerts.getIdSendAlerts());
+                }
+            }
+            
             sendAlertsAdded = true;
             sb.append("<alert>");
             sb.append("<name>").append(sendAlerts.getAlerts().getNameAlerts()).append("</name>");
@@ -87,6 +109,8 @@ public class sendAlertView extends HttpServlet {
             throw new ServletException("SQLException", ex);
         } catch (ParseException ex) {
             throw new ServletException("ParseException", ex);
+        } catch (MessagingException ex) {
+            throw new ServletException("ParseException", ex);
         }
     }
 
@@ -109,6 +133,8 @@ public class sendAlertView extends HttpServlet {
             throw new ServletException("SQLException", ex);
         } catch (ParseException ex) {
             throw new ServletException("ParseException", ex);
+        } catch (MessagingException ex) {
+            throw new ServletException("ClassNotFoundException", ex);
         }
     }
 

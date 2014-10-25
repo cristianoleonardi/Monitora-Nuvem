@@ -20,17 +20,12 @@
             </div>
 
             <div class="container-fluid">
-                <br />
-                <br />
-                <br />
                 <div class="row-fluid">
                     <div class="col-lg-12">
-
                         <img class="img-responsive center-block" src="assets/images/logo_g.png" />
-
                     </div>
                 </div>
-        </div>
+            </div>
     </section>
 
 </div>

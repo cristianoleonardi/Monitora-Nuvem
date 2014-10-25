@@ -47,7 +47,9 @@
         <!-- Custom stylesheets ( Put your own changes here ) -->
         <link href="<% out.print(request.getContextPath()); %>/assets/css/custom.css" rel="stylesheet" />
 
-        <!--[if IE 8]><link href="<% out.print(request.getContextPath()); %>/assets/css/ie8.css" rel="stylesheet" type="text/css" /><![endif]-->
+        <!--[if IE 8]>
+        <link href="<% out.print(request.getContextPath()); %>/assets/css/ie8.css" rel="stylesheet" type="text/css" />
+        <![endif]-->
 
         <!-- Force IE9 to render in normal mode -->
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -64,8 +66,6 @@
         <link rel="apple-touch-icon-precomposed" href="<% out.print(request.getContextPath()); %>/assets/images/ico/apple-touch-icon-57-precomposed.png">
         <link rel="shortcut icon" href="<% out.print(request.getContextPath()); %>/assets/images/ico/favicon.png">
 
-        <!-- Le javascript
-        ================================================== -->
         <!-- Important plugins put in all pages -->
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
@@ -84,7 +84,6 @@
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/jquery.flot.time.min.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/sparklines/jquery.sparkline.min.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/peity/jquery.peity.min.js"></script>
-        <!-- <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/flot/date.js"></script> -->
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/pie-chart/jquery.easy-pie-chart.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/gauge/justgage.1.0.1.min.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/charts/gauge/raphael.2.1.0.min.js"></script>
@@ -105,14 +104,14 @@
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/tinymce/tinymce.min.js"></script>
 
         <!-- Init plugins -->
-        <script src="<% out.print(request.getContextPath()); %>/assets/js/app.js"></script><!-- Core js functions -->
-        <script src="<% out.print(request.getContextPath());%>/assets/js/pages/login.js"></script><!-- Init plugins only for page -->
-        <script src="<% out.print(request.getContextPath());%>/assets/js/pages/form-elements.js"></script><!-- Init plugins only for page -->
-        <script src="<% out.print(request.getContextPath());%>/assets/js/pages/error-pages.js"></script><!-- Init plugins only for page -->
-        
+        <script src="<% out.print(request.getContextPath()); %>/assets/js/app.js"></script>
+        <script src="<% out.print(request.getContextPath());%>/assets/js/pages/login.js"></script>
+        <script src="<% out.print(request.getContextPath());%>/assets/js/pages/form-elements.js"></script>
+        <script src="<% out.print(request.getContextPath());%>/assets/js/pages/error-pages.js"></script>
+
         <!-- Scripts Monitora Nuvem-->
         <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mnajax.js"></script>
         <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mngraficos.js"></script>
 
     </head>
-    <body onload="init()">
+<body onload="init()">

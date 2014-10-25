@@ -100,7 +100,7 @@
                         </tr>
                     </thead>
                     <tbody id="auto-row">
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -112,6 +112,4 @@
         </div>
 
     </div>
-
-</div>
 </aside>
