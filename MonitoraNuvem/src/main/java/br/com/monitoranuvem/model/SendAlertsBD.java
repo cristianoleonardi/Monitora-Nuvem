@@ -92,6 +92,17 @@ public class SendAlertsBD {
         conn.close();
     }
     
+    public void atualizaStatusMail(int idSendAlerts) throws ClassNotFoundException, SQLException {
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "UPDATE SENDALERTS SET SEND=? WHERE IDSENDALERTS=?"
+        );
+        stmt.setInt(1, 1);
+        stmt.setInt(2, idSendAlerts);
+        stmt.executeUpdate();
+        conn.close();
+    }
+    
     public int existeAlert(int idAlert) throws ClassNotFoundException, SQLException {
         int num = 0;
         conn = new ConnectionMySql().getConnection();
