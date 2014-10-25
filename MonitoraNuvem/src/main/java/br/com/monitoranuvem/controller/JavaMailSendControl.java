@@ -14,7 +14,7 @@ import javax.mail.MessagingException;
  */
 public class JavaMailSendControl {
 
-    public boolean sendEmail(String destino,String assunto, String mensagem) throws MessagingException{
+    public boolean sendEmail(String[] destino,String assunto, String mensagem) throws MessagingException{
         return new JavaMailSend().sendMail(destino, assunto, mensagem);
     }
 }

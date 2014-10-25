@@ -38,7 +38,7 @@ public class JavaMailSend {
         this.mailSMTPServerPort = mailSMTPServerPort;
     }
 
-    public boolean sendMail(String to, String subject, String message) throws AddressException, MessagingException {
+    public boolean sendMail(String[] to, String subject, String message) throws AddressException, MessagingException {
 
         Properties props = new Properties();
 
@@ -67,7 +67,14 @@ public class JavaMailSend {
         //Objeto que contém a mensagem  
         Message msg = new MimeMessage(session);
         //Setando o destinatário  
-        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+        for (int i = 0; i < to.length; i++) {
+            msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to[i]));
+        }
+
+//        //Setando o destinatário quando for 1 destinatario 
+//        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
         //Setando a origem do email  
         msg.setFrom(new InternetAddress(from));
         //Setando o assunto  
