@@ -5,6 +5,7 @@
  */
 package br.com.monitoranuvem.view;
 
+import br.com.monitoranuvem.controller.DashboardControl;
 import br.com.monitoranuvem.controller.SendAlertsControl;
 import br.com.monitoranuvem.model.SendAlerts;
 import java.sql.SQLException;
@@ -17,8 +18,8 @@ import java.text.ParseException;
 public class Teste {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException, ParseException, InterruptedException {
-//        DashboardControl d = DashboardControl.getInstance();
-//        d.startThread();
+        DashboardControl d = DashboardControl.getInstance();
+        d.startThread();
 //        System.out.println(d.statusThreadAlerts());
 //        System.out.println(d.statusThreadAmazon());
 //        System.out.println(d.statusThreadOpen());
