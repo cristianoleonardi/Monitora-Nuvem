@@ -20,7 +20,7 @@ public class HistorySendAlertsBD {
 
     private Connection conn;
 
-    public boolean criarAlerts(int idSendAlerts) throws ClassNotFoundException, SQLException {
+    public boolean criarHistoricoAlerts(int idSendAlerts) throws ClassNotFoundException, SQLException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateForMySql = "";
         Date data = new Date();

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class ThreadAlerts implements Runnable {
 
     private int delay;
+    private int count;
 
     public ThreadAlerts(int tempoDelay) {
         delay = tempoDelay;
@@ -30,6 +31,7 @@ public class ThreadAlerts implements Runnable {
                 double vPerc = 0;
 
                 for (Alerts a : alert) {
+                    count = 0;
                     ArrayList<InstanceProvider> listInstance = new InstanceProviderBD().listaQDTStatusProviderDay(a.getProv().getId(), a.getStatusProvider().toUpperCase().trim());
                     switch (a.getMetrics().toUpperCase()) {
                         case "N":
@@ -37,24 +39,35 @@ public class ThreadAlerts implements Runnable {
                                 case "=":
                                     if (listInstance.size() == Integer.valueOf(a.getValueMetrics())) {
                                         atualizaSendAlert(a.getIdAlerts());
-                                    }   break;
+                                        count = 1;
+                                    }
+                                    break;
                                 case ">":
                                     if (listInstance.size() > Integer.valueOf(a.getValueMetrics())) {
                                         atualizaSendAlert(a.getIdAlerts());
-                                    }   break;
+                                        count = 1;
+                                    }
+                                    break;
                                 case ">=":
                                     if (listInstance.size() >= Integer.valueOf(a.getValueMetrics())) {
                                         atualizaSendAlert(a.getIdAlerts());
-                                    }   break;
+                                        count = 1;
+                                    }
+                                    break;
                                 case "<":
                                     if (listInstance.size() < Integer.valueOf(a.getValueMetrics())) {
                                         atualizaSendAlert(a.getIdAlerts());
-                                    }   break;
+                                        count = 1;
+                                    }
+                                    break;
                                 case "<=":
                                     if (listInstance.size() <= Integer.valueOf(a.getValueMetrics())) {
                                         atualizaSendAlert(a.getIdAlerts());
-                                    }   break;
-                            }   break;
+                                        count = 1;
+                                    }
+                                    break;
+                            }
+                            break;
                         case "%":
                             totalInstance = new InstanceProviderBD().totalInstaceProvider(a.getProv().getId());
                             vPerc = listInstance.size() * 100.0 / totalInstance;
@@ -62,24 +75,38 @@ public class ThreadAlerts implements Runnable {
                                 case "=":
                                     if (vPerc == Double.parseDouble(a.getValueMetrics())) {
                                         atualizaSendAlert(a.getIdAlerts());
-                                    }   break;
+                                        count = 1;
+                                    }
+                                    break;
                                 case ">":
                                     if (vPerc > Double.parseDouble(a.getValueMetrics())) {
                                         atualizaSendAlert(a.getIdAlerts());
-                                    }   break;
+                                        count = 1;
+                                    }
+                                    break;
                                 case ">=":
                                     if (vPerc >= Double.parseDouble(a.getValueMetrics())) {
                                         atualizaSendAlert(a.getIdAlerts());
-                                    }   break;
+                                        count = 1;
+                                    }
+                                    break;
                                 case "<":
                                     if (vPerc < Double.parseDouble(a.getValueMetrics())) {
                                         atualizaSendAlert(a.getIdAlerts());
-                                    }   break;
+                                        count = 1;
+                                    }
+                                    break;
                                 case "<=":
                                     if (vPerc <= Double.parseDouble(a.getValueMetrics())) {
                                         atualizaSendAlert(a.getIdAlerts());
-                            }   break;
-                        }   break;
+                                        count = 1;
+                                    }
+                                    break;
+                            }
+                            break;
+                    }
+                    if (count == 0) {
+                        atualizaSendAlert(a.getIdAlerts());
                     }
                 }
                 Thread.sleep(delay);
@@ -94,9 +121,15 @@ public class ThreadAlerts implements Runnable {
         int idSend;
         if (num > 0) {
             idSend = new SendAlertsBD().buscaSendAlert(idAlert);
+            if (count == 0) {
+                new SendAlertsBD().atualizaSendAlert(idSend);
+            }
+            new HistorySendAlertsBD().criarHistoricoAlerts(idSend);
         } else {
-            idSend = new SendAlertsBD().criarAlerts(idAlert);
+            if (count > 0) {
+                idSend = new SendAlertsBD().criarAlerts(idAlert);
+                new HistorySendAlertsBD().criarHistoricoAlerts(idSend);
+            }
         }
-        new HistorySendAlertsBD().criarAlerts(idSend);
     }
 }
