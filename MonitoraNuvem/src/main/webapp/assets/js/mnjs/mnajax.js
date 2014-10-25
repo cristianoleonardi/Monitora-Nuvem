@@ -6,7 +6,7 @@ var completeField;
 var completeTable;
 var statusTable;
 var autoRow;
-var timeToRefresh = 60;
+var timeToRefresh = 15;
 var countToRefresh = timeToRefresh;
 var btnStartStopThread;
 var notificationArea;
