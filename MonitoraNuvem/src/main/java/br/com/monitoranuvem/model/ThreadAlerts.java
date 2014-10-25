@@ -38,32 +38,32 @@ public class ThreadAlerts implements Runnable {
                             switch (a.getOperation()) {
                                 case "=":
                                     if (listInstance.size() == Integer.valueOf(a.getValueMetrics())) {
-                                        atualizaSendAlert(a.getIdAlerts());
                                         count = 1;
+                                        atualizaSendAlert(a.getIdAlerts());
                                     }
                                     break;
                                 case ">":
                                     if (listInstance.size() > Integer.valueOf(a.getValueMetrics())) {
-                                        atualizaSendAlert(a.getIdAlerts());
                                         count = 1;
+                                        atualizaSendAlert(a.getIdAlerts());
                                     }
                                     break;
                                 case ">=":
                                     if (listInstance.size() >= Integer.valueOf(a.getValueMetrics())) {
-                                        atualizaSendAlert(a.getIdAlerts());
                                         count = 1;
+                                        atualizaSendAlert(a.getIdAlerts());
                                     }
                                     break;
                                 case "<":
                                     if (listInstance.size() < Integer.valueOf(a.getValueMetrics())) {
-                                        atualizaSendAlert(a.getIdAlerts());
                                         count = 1;
+                                        atualizaSendAlert(a.getIdAlerts());
                                     }
                                     break;
                                 case "<=":
                                     if (listInstance.size() <= Integer.valueOf(a.getValueMetrics())) {
-                                        atualizaSendAlert(a.getIdAlerts());
                                         count = 1;
+                                        atualizaSendAlert(a.getIdAlerts());
                                     }
                                     break;
                             }
@@ -74,32 +74,32 @@ public class ThreadAlerts implements Runnable {
                             switch (a.getOperation()) {
                                 case "=":
                                     if (vPerc == Double.parseDouble(a.getValueMetrics())) {
-                                        atualizaSendAlert(a.getIdAlerts());
                                         count = 1;
+                                        atualizaSendAlert(a.getIdAlerts());
                                     }
                                     break;
                                 case ">":
                                     if (vPerc > Double.parseDouble(a.getValueMetrics())) {
-                                        atualizaSendAlert(a.getIdAlerts());
                                         count = 1;
+                                        atualizaSendAlert(a.getIdAlerts());
                                     }
                                     break;
                                 case ">=":
                                     if (vPerc >= Double.parseDouble(a.getValueMetrics())) {
-                                        atualizaSendAlert(a.getIdAlerts());
                                         count = 1;
+                                        atualizaSendAlert(a.getIdAlerts());
                                     }
                                     break;
                                 case "<":
                                     if (vPerc < Double.parseDouble(a.getValueMetrics())) {
-                                        atualizaSendAlert(a.getIdAlerts());
                                         count = 1;
+                                        atualizaSendAlert(a.getIdAlerts());
                                     }
                                     break;
                                 case "<=":
                                     if (vPerc <= Double.parseDouble(a.getValueMetrics())) {
-                                        atualizaSendAlert(a.getIdAlerts());
                                         count = 1;
+                                        atualizaSendAlert(a.getIdAlerts());
                                     }
                                     break;
                             }
@@ -116,12 +116,12 @@ public class ThreadAlerts implements Runnable {
         }
     }
 
-    private void atualizaSendAlert(int idAlert) throws ClassNotFoundException, SQLException {
+    public void atualizaSendAlert(int idAlert) throws ClassNotFoundException, SQLException {
         int num = new SendAlertsBD().existeAlert(idAlert);
         int idSend;
         if (num > 0) {
             idSend = new SendAlertsBD().buscaSendAlert(idAlert);
-            if (count == 0) {
+             if (count == 0) {
                 new SendAlertsBD().atualizaSendAlert(idSend);
             }
             new HistorySendAlertsBD().criarHistoricoAlerts(idSend);

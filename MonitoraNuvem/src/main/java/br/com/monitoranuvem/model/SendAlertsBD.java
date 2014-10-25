@@ -82,13 +82,13 @@ public class SendAlertsBD {
     }
 
     public void atualizaSendAlert(int idSendAlerts) throws ClassNotFoundException, SQLException {
-        int num = 0;
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE SENDALERTS SET STATUS=? WHERE IDSENDALERTS=?");
-        stmt.setInt(0, 1);
-        stmt.setInt(1, idSendAlerts);
-        ResultSet resultado = stmt.executeQuery();
+                "UPDATE SENDALERTS SET STATUS=? WHERE IDSENDALERTS=?"
+        );
+        stmt.setInt(1, 1);
+        stmt.setInt(2, idSendAlerts);
+        stmt.executeUpdate();
         conn.close();
     }
     
