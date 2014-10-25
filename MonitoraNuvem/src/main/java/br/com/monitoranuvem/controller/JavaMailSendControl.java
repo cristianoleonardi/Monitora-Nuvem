@@ -6,6 +6,7 @@
 package br.com.monitoranuvem.controller;
 
 import br.com.monitoranuvem.model.JavaMailSend;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -13,17 +14,7 @@ import br.com.monitoranuvem.model.JavaMailSend;
  */
 public class JavaMailSendControl {
 
-    private JavaMailSend jms;
-    
-    public JavaMailSendControl() {
-        jms = new JavaMailSend("tccmonitoranuvem@gmail.com", "899ec9084d82eccd00603e2881eab984");
+    public boolean sendEmail(String destino,String assunto, String mensagem) throws MessagingException{
+        return new JavaMailSend().sendMail(destino, assunto, mensagem);
     }
-    
-    public boolean sendEmail(String assunto, String mensagem, String destino) throws Exception{
-        if(jms.sendEmail(assunto, mensagem, destino)){
-            return true;
-        }
-        return false;
-    }
-    
 }

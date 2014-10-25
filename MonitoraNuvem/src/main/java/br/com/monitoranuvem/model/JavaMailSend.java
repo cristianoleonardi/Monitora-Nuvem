@@ -6,12 +6,13 @@
 package br.com.monitoranuvem.model;
 
 import java.util.Properties;
-import javax.mail.Address;
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -21,56 +22,88 @@ import javax.mail.internet.MimeMessage;
  */
 public class JavaMailSend {
 
-    private String email;
-    private Session session;
+    private String mailSMTPServer;
+    private String mailSMTPServerPort;
+    private final String from = "tccmonitoranuvem@gmail.com";
+    private final String user = "tccmonitoranuvem";
+    private final String password = "899ec9084d82eccd00603e2881eab984";
 
-    public JavaMailSend(String email, String password) {
-        this.email = email;
-
-        //Cria sessao autenticada para envie de email
-        //Necessário usuário e senha do provedor SMTP ex.: Gmail
-        this.session = Session.getDefaultInstance(getProperties(), new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(email, password);
-            }
-        });
-
-        //Ativa Debug para session
-        session.setDebug(true);
+    public JavaMailSend() { //Para o GMAIL   
+        mailSMTPServer = "smtp.gmail.com";
+        mailSMTPServerPort = "465";
     }
 
-    private Properties getProperties() {
+    public JavaMailSend(String mailSMTPServer, String mailSMTPServerPort) { //Para outro Servidor  
+        this.mailSMTPServer = mailSMTPServer;
+        this.mailSMTPServerPort = mailSMTPServerPort;
+    }
+
+    public boolean sendMail(String to, String subject, String message) throws AddressException, MessagingException {
+
         Properties props = new Properties();
 
-        //Servidor SMTP
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        //Porta Servidor
-        props.put("mail.smtp.socketFactory.port", "465");
-        //Habilitar Seguranca SSL
-        props.put("nail.smtp.socketFactory.class", "javax.net.SSLSocketFactory");
-        //Requer Autenticação
-        props.put("mail.smtp.auth", "true");
-        //Porta SMTP
-        props.put("mail.smtp.port", "587");
+        props.put("mail.transport.protocol", "smtp"); //define protocolo de envio como SMTP  
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", mailSMTPServer); //server SMTP do GMAIL  
+        props.put("mail.smtp.auth", "true"); //ativa autenticacao  
+        props.put("mail.smtp.user", from); //usuario ou seja, a conta que esta enviando o email (tem que ser do GMAIL)  
+        props.put("mail.debug", "false");
+        props.put("mail.smtp.port", mailSMTPServerPort); //porta  
+        props.put("mail.smtp.socketFactory.port", mailSMTPServerPort); //mesma porta para o socket  
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.socketFactory.fallback", "false");
 
-        return props;
+        //Cria um autenticador que sera usado a seguir  
+        SimpleAuth auth = null;
+        auth = new SimpleAuth(user, password);
+
+        //Session - objeto que ira realizar a conexão com o servidor  
+        /*Como há necessidade de autenticação é criada uma autenticacao que 
+         * é responsavel por solicitar e retornar o usuário e senha para  
+         * autenticação */
+        Session session = Session.getDefaultInstance(props, auth);
+        session.setDebug(false); //Habilita o LOG das ações executadas durante o envio do email  
+
+        //Objeto que contém a mensagem  
+        Message msg = new MimeMessage(session);
+        //Setando o destinatário  
+        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
+        //Setando a origem do email  
+        msg.setFrom(new InternetAddress(from));
+        //Setando o assunto  
+        msg.setSubject(subject);
+        //Setando o conteúdo/corpo do email  
+        msg.setContent(message, "text/plain");
+
+        //Objeto encarregado de enviar os dados para o email  
+        Transport tr;
+        tr = session.getTransport("smtp"); //define smtp para transporte  
+            /* 
+         *  1 - define o servidor smtp 
+         *  2 - seu nome de usuario do gmail 
+         *  3 - sua senha do gmail 
+         */
+        tr.connect(mailSMTPServer, user, password);
+        msg.saveChanges(); // don't forget this  
+        //envio da mensagem  
+        tr.sendMessage(msg, msg.getAllRecipients());
+        tr.close();
+        return true;
+    }
+}
+
+//clase que retorna uma autenticacao para ser enviada e verificada pelo servidor smtp  
+class SimpleAuth extends Authenticator {
+
+    public String username = null;
+    public String password = null;
+
+    public SimpleAuth(String user, String pwd) {
+        username = user;
+        password = pwd;
     }
 
-    public boolean sendEmail(String assunto, String mensagem, String emailDestino) throws MessagingException {
-        Message message = new MimeMessage(session);
-        //Remetente
-        message.setFrom(new InternetAddress(this.email));
-
-        //Destinatario(s), separe varios destinatarios por virgula na string emailDestino
-        Address[] toUser = InternetAddress.parse(emailDestino);
-
-        //Monta e-mail
-        message.setRecipients(Message.RecipientType.TO, toUser);
-        message.setSubject(assunto);
-        message.setText(mensagem);
-
-        //Enviar mensagem
-        Transport.send(message);
-        return true;
+    protected PasswordAuthentication getPasswordAuthentication() {
+        return new PasswordAuthentication(username, password);
     }
 }
