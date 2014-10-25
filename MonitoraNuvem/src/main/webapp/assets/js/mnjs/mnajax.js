@@ -251,8 +251,8 @@ function appendSendAlertView(name, status, provider, qtdSendAlerts) {
         linkElement.appendChild(document.createTextNode(name + " (Status - " + status + "; Provedor - " + provider + ")"));
         li.appendChild(linkElement);
     } else {
-        //notificationArea.className = "notification blue";
-        //notificationArea.innerHTML = "0";
+        notificationArea.className = "";
+        notificationArea.innerHTML = "";
 
         i = document.createElement("i");
         i.className = "icon16 i-info";
@@ -279,5 +279,7 @@ function clearListAlerts() {
         for (loop = listAlerts.childNodes.length - 1; loop >= 0; loop--) {
             listAlerts.removeChild(listAlerts.childNodes[loop]);
         }
+        notificationArea.className = "";
+        notificationArea.innerHTML = "";
     }
 }

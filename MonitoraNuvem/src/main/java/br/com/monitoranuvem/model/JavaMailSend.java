@@ -56,26 +56,21 @@ public class JavaMailSend {
         return props;
     }
 
-    public boolean sendEmail(String assunto, String mensagem, String emailDestino) throws Exception {
-        try {
-            Message message = new MimeMessage(session);
-            //Remetente
-            message.setFrom(new InternetAddress(this.email));
+    public boolean sendEmail(String assunto, String mensagem, String emailDestino) throws MessagingException {
+        Message message = new MimeMessage(session);
+        //Remetente
+        message.setFrom(new InternetAddress(this.email));
 
-            //Destinatario(s), separe varios destinatarios por virgula na string emailDestino
-            Address[] toUser = InternetAddress.parse(emailDestino);
+        //Destinatario(s), separe varios destinatarios por virgula na string emailDestino
+        Address[] toUser = InternetAddress.parse(emailDestino);
 
-            //Monta e-mail
-            message.setRecipients(Message.RecipientType.TO, toUser);
-            message.setSubject(assunto);
-            message.setText(mensagem);
+        //Monta e-mail
+        message.setRecipients(Message.RecipientType.TO, toUser);
+        message.setSubject(assunto);
+        message.setText(mensagem);
 
-            //Enviar mensagem
-            Transport.send(message);
-
-            return true;
-        } catch (MessagingException e) {
-            throw new Exception(e);
-        }
+        //Enviar mensagem
+        Transport.send(message);
+        return true;
     }
 }
