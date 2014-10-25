@@ -166,6 +166,9 @@ function appendUpdate(name, status) {
     var cell0;
     var cell1;
     var linkElement;
+    var statusPrint;
+    var srcIcon;
+    var img;
 
     if (isIE) {
         //statusTable.style.display = "block";
@@ -182,14 +185,24 @@ function appendUpdate(name, status) {
     }
     if(status == "null"){
         row.className = "error";
+        statusPrint = "Thread Parada";
+        srcIcon = "assets/images/icons/bullet_red.png";
     }else if(status == "NEW"){
         row.className = "info";
+        statusPrint = "Thread Iniciando";
+        srcIcon = "assets/images/icons/bullet_blue.png";
     } else if(status == "TIMED_WAITING" || status == "WAITING" || status == "RUNNABLE") {
         row.className = "success";
+        statusPrint = "Thread em Execução";
+        srcIcon = "assets/images/icons/bullet_green.png";
     } else if(status == "BLOCKED") {
         row.className = "warning";
+        statusPrint = "Thread com Possível Falha";
+        srcIcon = "assets/images/icons/bullet_orange.png";
     } else if(status == "TERMINATED") {
         row.className = "error";
+        statusPrint = "Thread com Erro";
+        srcIcon = "assets/images/icons/bullet_red.png";
     }
 
     linkElement = document.createElement("a");
@@ -198,7 +211,13 @@ function appendUpdate(name, status) {
     linkElement.appendChild(document.createTextNode(name));
     cell0.appendChild(linkElement);
     
-    cell1.appendChild(document.createTextNode(status));
+    //cell1.appendChild(document.createTextNode(statusPrint));
+    
+    img = document.createElement("img");
+    img.setAttribute("src", srcIcon);
+    img.setAttribute("title", statusPrint);
+    
+    cell1.appendChild(img);
 }
 
 function appendStartStopThread(status) {
@@ -233,7 +252,7 @@ function appendSendAlertView(name, status, provider, qtdSendAlerts) {
         li.appendChild(linkElement);
     } else {
         //notificationArea.className = "notification blue";
-        notificationArea.innerHTML = "0";
+        //notificationArea.innerHTML = "0";
 
         i = document.createElement("i");
         i.className = "icon16 i-info";

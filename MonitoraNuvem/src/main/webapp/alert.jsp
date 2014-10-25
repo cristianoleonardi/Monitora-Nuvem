@@ -79,7 +79,7 @@
                                         <div class="col-lg-5">
                                             <input class="form-control" type="text" name="alertname" value="<% if (alerts != null) {
                                                     out.print(alerts.getNameAlerts());
-                                                } %>" maxlength="45" />
+                                                } %>" maxlength="45" required />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -191,7 +191,7 @@
                                         <div class="col-lg-5">
                                             <input class="form-control" type="text" name="metricvalue" value="<% if (alerts != null) {
                                                     out.print(alerts.getValueMetrics());
-                                                } %>" maxlength="45" />
+                                                } %>" maxlength="45" required />
                                         </div>
                                     </div>
                                         <div class="form-group">
