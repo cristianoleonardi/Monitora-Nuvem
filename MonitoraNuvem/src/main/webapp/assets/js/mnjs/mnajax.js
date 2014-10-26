@@ -183,25 +183,25 @@ function appendUpdate(name, status) {
         row.appendChild(cell1);
         autoRow.appendChild(row);
     }
-    if(status == "null"){
+    if (status == "null") {
         row.className = "error";
-        statusPrint = "Thread Parada";
+        statusPrint = "Thread parada.";
         srcIcon = "assets/images/icons/bullet_red.png";
-    }else if(status == "NEW"){
+    } else if (status == "NEW") {
         row.className = "info";
-        statusPrint = "Thread Iniciando";
+        statusPrint = "Thread iniciando.";
         srcIcon = "assets/images/icons/bullet_blue.png";
-    } else if(status == "TIMED_WAITING" || status == "WAITING" || status == "RUNNABLE") {
+    } else if (status == "TIMED_WAITING" || status == "WAITING" || status == "RUNNABLE") {
         row.className = "success";
-        statusPrint = "Thread em Execução";
+        statusPrint = "Thread executando.";
         srcIcon = "assets/images/icons/bullet_green.png";
-    } else if(status == "BLOCKED") {
+    } else if (status == "BLOCKED") {
         row.className = "warning";
-        statusPrint = "Thread com Possível Falha";
+        statusPrint = "Thread verificando.";
         srcIcon = "assets/images/icons/bullet_orange.png";
-    } else if(status == "TERMINATED") {
+    } else if (status == "TERMINATED") {
         row.className = "error";
-        statusPrint = "Thread com Erro";
+        statusPrint = "Thread parada.";
         srcIcon = "assets/images/icons/bullet_red.png";
     }
 
@@ -210,13 +210,13 @@ function appendUpdate(name, status) {
     linkElement.setAttribute("href", "#");
     linkElement.appendChild(document.createTextNode(name));
     cell0.appendChild(linkElement);
-    
+
     //cell1.appendChild(document.createTextNode(statusPrint));
-    
+
     img = document.createElement("img");
     img.setAttribute("src", srcIcon);
     img.setAttribute("title", statusPrint);
-    
+
     cell1.appendChild(img);
 }
 

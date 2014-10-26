@@ -7,8 +7,8 @@ $(document).ready(function() {
 		"bJQueryUI": false,
 		"bAutoWidth": false,
 		"oLanguage": {
-			"sSearch": "<span>Filter:</span> _INPUT_",
-			"sLengthMenu": "<span>_MENU_ entries</span>",
+			"sSearch": "<span>Filtro:</span> _INPUT_",
+			"sLengthMenu": "<span>_MENU_ entradas</span>",
 			"oPaginate": { "sFirst": "First", "sLast": "Last" }
 		}
 	});
