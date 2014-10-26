@@ -32,6 +32,7 @@ public class ThreadAmazon implements Runnable {
     public void run() {
         try {
             for (;;) {
+                new InstanceProviderBD().atualizaChecked(pn);
                 for (ProviderService ps : new ProviderServiceBD().buscaProviderServiceProvider(pn.getId())) {
                     if (ps.getProviderService().equals("aws-ec2")) {
                         ComputeService compute = pdc.getListCServ(ps);

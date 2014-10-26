@@ -38,6 +38,7 @@ public class ThreadOpenStack implements Runnable {
     public void run() {
         try {
             for (;;) {
+                new InstanceProviderBD().atualizaChecked(pn);
                 for (ProviderService ps : new ProviderServiceBD().buscaProviderServiceProvider(pn.getId())) {
                     novaApi = pdc.getListServiceOStack(ps);
                     zones = novaApi.getConfiguredZones();
@@ -56,7 +57,7 @@ public class ThreadOpenStack implements Runnable {
                                 if (node.getProviderId().equals(server.getId())) {
                                     NodeMetadata metadata = compute.getNodeMetadata(node.getId());
                                     inst.setStatus(metadata.getStatus().name());
-//                                    inst.setTypeinstance(metadata.getHardware().getName().toString());
+                                    inst.setTypeinstance(metadata.getHardware().getName().toString());
                                 }
                             }
                             pic.criarAtualizarInstancia(inst);
