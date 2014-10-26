@@ -61,7 +61,7 @@ public class sendAlertView extends HttpServlet {
         for (SendAlerts sendAlerts : listaSendAlerts) {
             destino = sendAlerts.getAlerts().getMail().split(",");
             mensagem = "<!DOCTYPE html><html><head><title></title></head><body>";
-            mensagem += "<h1>Alerta Monitora Nuvem<h1>";
+            mensagem += "<h1>Alerta Monitora Nuvem</h1>";
             mensagem
                     += "<strong>Nome do Alerta: </strong>" + sendAlerts.getAlerts().getNameAlerts() + "<br />"
                     + "<strong>Provedor: </strong>" + sendAlerts.getAlerts().getProv().getNome() + "<br />"
@@ -80,9 +80,9 @@ public class sendAlertView extends HttpServlet {
 
             //Envio de email
             if (sendAlerts.getSend() == 0) {
-                if(jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)){
-                    psa.atualizaStatusMail(sendAlerts.getIdSendAlerts());
-                }
+//                if(jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)){
+//                    psa.atualizaStatusMail(sendAlerts.getIdSendAlerts());
+//                }
             }
 
             sendAlertsAdded = true;
