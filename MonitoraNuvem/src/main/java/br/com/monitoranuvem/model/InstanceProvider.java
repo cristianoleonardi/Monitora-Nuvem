@@ -22,6 +22,7 @@ public class InstanceProvider {
     private Date dataUpdate;
     private int isChecked;
     private Date dateChecked;
+    private String typeinstance;
 
     public int getIdInstanceProvider() {
         return idInstanceProvider;
@@ -94,4 +95,12 @@ public class InstanceProvider {
     public void setDateChecked(Date dateChecked) {
         this.dateChecked = dateChecked;
     }
+
+    public String getTypeinstance() {
+        return typeinstance;
+    }
+
+    public void setTypeinstance(String typeinstance) {
+        this.typeinstance = typeinstance;
+    }    
 }
