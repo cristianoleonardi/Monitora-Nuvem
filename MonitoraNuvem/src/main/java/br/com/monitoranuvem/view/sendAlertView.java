@@ -46,12 +46,12 @@ public class sendAlertView extends HttpServlet {
 
         //Montar string XML retorno
         StringBuilder sb = new StringBuilder();
-        
+
         //Controlador de envio de email
         JavaMailSendControl jmsc = new JavaMailSendControl();
-        
+
         ProviderSendAlerts psa = new ProviderSendAlerts();
-        
+
         SendAlertsControl sac = new SendAlertsControl();
         ArrayList<SendAlerts> listaSendAlerts = sac.listaSendAlerts();
 
@@ -60,31 +60,31 @@ public class sendAlertView extends HttpServlet {
         String mensagem = "";
         for (SendAlerts sendAlerts : listaSendAlerts) {
             destino = sendAlerts.getAlerts().getMail().split(",");
-            mensagem = "<h1>Alerta Monitora Nuvem<h1>";
-            mensagem +=
-                    "<strong>Nome do Alerta: </strong>" + sendAlerts.getAlerts().getNameAlerts() + "<br />"
+            mensagem = "<!DOCTYPE html><html><head><title></title></head><body>";
+            mensagem += "<h1>Alerta Monitora Nuvem<h1>";
+            mensagem
+                    += "<strong>Nome do Alerta: </strong>" + sendAlerts.getAlerts().getNameAlerts() + "<br />"
                     + "<strong>Provedor: </strong>" + sendAlerts.getAlerts().getProv().getNome() + "<br />"
                     + "<strong>Status da Instância: </strong>" + sendAlerts.getAlerts().getStatusProvider() + "<br />"
                     //+ "<strong>Alerta Gerado: </strong>" + sendAlerts.getDateSendAlerts().toString() + "<br />"
                     + "<h2>Métrica Atingida</h2>"
-                    
                     + "<br /><br />"
-                    
-                    +" (Status da Instância: "
+                    + " (Status da Instância: "
                     + sendAlerts.getAlerts().getStatusProvider()
                     + " é "
                     + sendAlerts.getAlerts().getOperation()
                     + " "
                     + sendAlerts.getAlerts().getValueMetrics()
-                    +")";
-            
+                    + ")";
+            mensagem += "</body></html>";
+
             //Envio de email
-            if(sendAlerts.getSend() == 0){
+            if (sendAlerts.getSend() == 0) {
                 if(jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)){
                     psa.atualizaStatusMail(sendAlerts.getIdSendAlerts());
                 }
             }
-            
+
             sendAlertsAdded = true;
             sb.append("<alert>");
             sb.append("<name>").append(sendAlerts.getAlerts().getNameAlerts()).append("</name>");
