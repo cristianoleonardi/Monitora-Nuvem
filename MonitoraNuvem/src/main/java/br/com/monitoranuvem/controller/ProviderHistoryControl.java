@@ -7,9 +7,9 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class ProviderHistoryControl {
-    
+
     public boolean criarHistorico(HistoryProvider hist) throws ClassNotFoundException, SQLException, ParseException {
-             new HistoryProviderBD().criarHistorico(hist);
+        new HistoryProviderBD().criarHistorico(hist);
         return true;
     }
 
@@ -20,8 +20,12 @@ public class ProviderHistoryControl {
     public ArrayList<HistoryProvider> listaHistoryProvider() throws ClassNotFoundException, SQLException, ParseException {
         return new HistoryProviderBD().listaHistoryProvider();
     }
-    
-    public ArrayList<String> montaHistorico(int numDias) throws ClassNotFoundException, SQLException, ParseException{
+
+    public ArrayList<HistoryProvider> listaHistoryProvider(int initial, int fim) throws ClassNotFoundException, SQLException, ParseException {
+        return new HistoryProviderBD().listaHistoryProvider(initial, fim);
+    }
+
+    public ArrayList<String> montaHistorico(int numDias) throws ClassNotFoundException, SQLException, ParseException {
         return new HistoryProviderBD().montaHistorico(numDias);
     }
 }

@@ -88,7 +88,33 @@ public class HistoryProviderBD {
         return lista;
     }
 
-
+    public ArrayList<HistoryProvider> listaHistoryProvider(int initial, int fim) throws ClassNotFoundException, SQLException, ParseException {
+        conn = new ConnectionMySql().getConnection();
+        ArrayList<HistoryProvider> lista = new ArrayList<>();
+        HistoryProvider hist;
+        String date_s;
+        SimpleDateFormat dt;
+        Date date;
+        PreparedStatement stmt = conn.prepareStatement(""
+                + "SELECT * FROM HISTORICOPROVIDER ORDER BY IDHISTORICOPROVIDER LIMIT ?,?");
+        stmt.setInt(1, initial);
+        stmt.setInt(2, fim);        
+        ResultSet resultado = stmt.executeQuery();
+        while (resultado.next()) {
+            hist = new HistoryProvider();
+            hist.setIdHistoryProvider(resultado.getInt("IDHISTORICOPROVIDER"));
+            hist.setInstanceProvider(new InstanceProviderBD().buscaInstanceProvider(resultado.getInt("IDINSTANCEPROVIDER")));
+            hist.setStatus(resultado.getString("STATUSPROVIDER"));
+            date_s = resultado.getString("DATAATUALIZACAO");
+            dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            date = dt.parse(date_s);
+            hist.setDataUpdate(date);
+            lista.add(hist);
+        }
+        conn.close();
+        return lista;
+    }
+    
     public ArrayList<String> montaHistorico(int numDias) throws ClassNotFoundException, SQLException, ParseException {
         Map<String, String> statusProvider = new HashMap<String, String>();
         ArrayList<HistoricoInterna> historico = new ArrayList<>();
