@@ -62,7 +62,7 @@ public class sendAlertView extends HttpServlet {
         String mensagem = "";
         for (SendAlerts sendAlerts : listaSendAlerts) {
             destino = sendAlerts.getAlerts().getMail().split(",");
-            mensagem = sendAlerts.getAlerts().getNameAlerts() + " (Status - " + sendAlerts.getAlerts().getStatusProvider() + "; Provedor - " + sendAlerts.getAlerts().getProv().getNome() + ")";
+            mensagem = sendAlerts.getAlerts().getNameAlerts() + " (Status - " + sendAlerts.getAlerts().getStatusProvider() + "; Provedor - " + sendAlerts.getAlerts().getProv().getNome() + ").";
             
             //Envio de email
             if(sendAlerts.getSend() == 0){

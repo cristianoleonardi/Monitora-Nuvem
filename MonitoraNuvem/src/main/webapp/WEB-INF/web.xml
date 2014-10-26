@@ -28,6 +28,10 @@
         <servlet-name>sendalertview</servlet-name>
         <servlet-class>br.com.monitoranuvem.view.sendAlertView</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>providerhistoryview</servlet-name>
+        <servlet-class>br.com.monitoranuvem.view.ProviderHistoryView</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>provider</servlet-name>
         <url-pattern>/provider</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>sendalertview</servlet-name>
         <url-pattern>/sendalertview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>providerhistoryview</servlet-name>
+        <url-pattern>/providerhistoryview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

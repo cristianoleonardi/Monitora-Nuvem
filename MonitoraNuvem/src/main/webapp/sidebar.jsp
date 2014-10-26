@@ -52,20 +52,14 @@
                     <ul class="sub">
                         <li>
                             <a href="alertview">
-                                <span class="icon"><i class="icon20 i-direction"></i></span>
-                                <span class="txt">Instâncias por Status</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <span class="icon"><i class="icon20 i-coins"></i></span>
-                                <span class="txt">Custo das Instâncias</span>
+                                <span class="icon"><i class="icon20 i-alarm-plus"></i></span>
+                                <span class="txt">Cadastrar Alertas</span>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="providerhistoryview">
                         <span class="icon"><i class="icon20 i-archive"></i></span>
                         <span class="txt">Histórico</span>
                     </a>

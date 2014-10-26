@@ -83,6 +83,23 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-lg-2 control-label" for="normal">Tipo de Alerta</label>
+                                        <div class="col-lg-5">
+                                            <select name="alerttype" class="form-control" <% if (alerts != null) out.print(""); %>>
+                                                <option value="Custo" <% if (alerts != null && alerts.getMail() == "Custo") {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Custo das Instâncias
+                                                </option>
+                                                <option value="Status" <% if (alerts != null && alerts.getMail() == "Status") {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    Status das Instâncias
+                                                </option>
+                                            </select>  
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">Provedor</label>
                                         <div class="col-lg-5">
                                             <select name="provider" class="form-control" <% if (alerts != null) out.print(""); %>>

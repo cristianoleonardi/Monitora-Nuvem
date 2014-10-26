@@ -40,6 +40,7 @@
         <link href="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/datepicker/datepicker.css" rel="stylesheet" /> 
         <link href="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/select2/select2.css" rel="stylesheet" />
         <link href="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/multiselect/ui.multiselect.css" rel="stylesheet" />
+        <link href="<% out.print(request.getContextPath()); %>/assets/js/plugins/tables/datatables/jquery.dataTables.css" rel="stylesheet" /> 
 
         <!-- app stylesheets -->
         <link href="<% out.print(request.getContextPath()); %>/assets/css/app.css" rel="stylesheet" />
@@ -103,15 +104,19 @@
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/multiselect/ui.multiselect.js"></script>
         <script src="<% out.print(request.getContextPath()); %>/assets/js/plugins/forms/tinymce/tinymce.min.js"></script>
 
+        <!-- Tables plugins -->
+        <script src = "<% out.print(request.getContextPath());%>/assets/js/plugins/tables/datatables/jquery.dataTables.min.js" ></script>
+        
         <!-- Init plugins -->
         <script src="<% out.print(request.getContextPath()); %>/assets/js/app.js"></script>
         <script src="<% out.print(request.getContextPath());%>/assets/js/pages/login.js"></script>
         <script src="<% out.print(request.getContextPath());%>/assets/js/pages/form-elements.js"></script>
         <script src="<% out.print(request.getContextPath());%>/assets/js/pages/error-pages.js"></script>
+        <script src="<% out.print(request.getContextPath());%>/assets/js/pages/data-tables.js"></script>
 
         <!-- Scripts Monitora Nuvem-->
         <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mnajax.js"></script>
         <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mngraficos.js"></script>
 
     </head>
-<body onload="init()">
+    <body onload="init()">
