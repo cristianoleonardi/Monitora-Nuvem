@@ -33,8 +33,8 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO INSTANCEPROVIDER (INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,DATECHECKED) "
-                + " VALUES (?,?,?,?,?,?,?,?)"
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,DATECHECKED,TYPEINSTANCE) "
+                + " VALUES (?,?,?,?,?,?,?,?,?)"
         );
         stmt.setString(1, inst.getInstanceProvider());
         stmt.setString(2, inst.getStatus());
@@ -57,6 +57,11 @@ public class InstanceProviderBD {
         stmt.setInt(7, 1);
         dateForMySql = sdf.format(data);
         stmt.setString(8, dateForMySql);
+        if (inst.getTypeinstance() != null) {
+            stmt.setString(9, inst.getTypeinstance());
+        } else {
+            stmt.setString(9, null);
+        }
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -109,7 +114,7 @@ public class InstanceProviderBD {
         Date data = new Date();
         String dateForMySql = "";
         PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, DATEUPDATE=?,ISCHECKED=?, DATECHECKED=?, INSTANCEPROVIDER=? "
+                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, DATEUPDATE=?,ISCHECKED=?, DATECHECKED=?, INSTANCEPROVIDER=?, TYPEINSTANCE=? "
                 + "WHERE IDINSTANCE=?"
         );
         stmt.setString(1, inst.getStatus());
@@ -123,7 +128,12 @@ public class InstanceProviderBD {
         dateForMySql = sdf.format(data);
         stmt.setString(4, dateForMySql);
         stmt.setString(5, inst.getInstanceProvider());
-        stmt.setString(6, inst.getIdInstance());
+        if (inst.getTypeinstance() != null) {
+            stmt.setString(6, inst.getTypeinstance());
+        } else {
+            stmt.setString(6, null);
+        }
+        stmt.setString(7, inst.getIdInstance());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -159,7 +169,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED, TYPEINSTANCE "
                 + "FROM INSTANCEPROVIDER WHERE IDINSTANCE=?"
         );
         stmt.setString(1, idInstance);
@@ -196,6 +206,7 @@ public class InstanceProviderBD {
             } else {
                 instance.setDateChecked(null);
             }
+            instance.setTypeinstance(resultado.getString("TYPEINSTANCE"));
         }
         conn.close();
         return instance;
@@ -209,7 +220,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, TYPEINSTANCE "
                 + "FROM INSTANCEPROVIDER WHERE IDINSTANCEPROVIDER=?"
         );
         stmt.setInt(1, id);
@@ -237,6 +248,7 @@ public class InstanceProviderBD {
             } else {
                 instance.setDataUpdate(null);
             }
+            instance.setTypeinstance(resultado.getString("TYPEINSTANCE"));
         }
         conn.close();
         return instance;
@@ -335,7 +347,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED,TYPEINSTANCE "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? AND DATE(DATECHECKED) = ? AND STATUSPROVIDER=?");
         stmt.setInt(1, idProvider);
         stmt.setString(2, dateForMySql);
@@ -377,6 +389,11 @@ public class InstanceProviderBD {
                 instance.setDateChecked(date);
             } else {
                 instance.setDateChecked(null);
+            }
+            if (resultado.getString("TYPEINSTANCE") != null) {
+                instance.setTypeinstance(resultado.getString("TYPEINSTANCE"));
+            } else {
+                instance.setTypeinstance(null);
             }
             lista.add(instance);
         }
@@ -429,7 +446,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(""
                 + "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER, "
-                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,TYPEINSTANCE "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? ");
         stmt.setInt(1, prov.getId());
         ResultSet resultado = stmt.executeQuery();
@@ -459,6 +476,11 @@ public class InstanceProviderBD {
                 instanceProvider.setDataUpdate(null);
             }
             instanceProvider.setIsChecked(resultado.getInt("ISCHECKED"));
+            if (resultado.getString("TYPEINSTANCE") != null) {
+                instanceProvider.setTypeinstance(resultado.getString("TYPEINSTANCE"));
+            }else{
+                instanceProvider.setTypeinstance(null);
+            }
             lista.add(instanceProvider);
         }
         conn.close();
@@ -526,7 +548,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(""
                 + "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER, "
-                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,TYPEINSTANCE "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? AND STATUSPROVIDER=? ");
         stmt.setInt(1, prov.getId());
         stmt.setString(2, status);
@@ -557,6 +579,7 @@ public class InstanceProviderBD {
                 instanceProvider.setDataUpdate(null);
             }
             instanceProvider.setIsChecked(resultado.getInt("ISCHECKED"));
+            instanceProvider.setTypeinstance(resultado.getString("TYPEINSTANCE"));
             lista.add(instanceProvider);
         }
         conn.close();

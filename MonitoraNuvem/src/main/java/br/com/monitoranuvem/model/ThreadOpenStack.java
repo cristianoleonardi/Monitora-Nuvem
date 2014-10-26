@@ -56,6 +56,7 @@ public class ThreadOpenStack implements Runnable {
                                 if (node.getProviderId().equals(server.getId())) {
                                     NodeMetadata metadata = compute.getNodeMetadata(node.getId());
                                     inst.setStatus(metadata.getStatus().name());
+//                                    inst.setTypeinstance(metadata.getHardware().getName().toString());
                                 }
                             }
                             pic.criarAtualizarInstancia(inst);
