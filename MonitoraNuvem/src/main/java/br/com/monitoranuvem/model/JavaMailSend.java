@@ -80,7 +80,7 @@ public class JavaMailSend {
         //Setando o assunto  
         msg.setSubject(subject);
         //Setando o conteúdo/corpo do email  
-        msg.setContent(message, "text/plain");
+        msg.setContent(message, "text/html");
 
         //Objeto encarregado de enviar os dados para o email  
         Transport tr;
