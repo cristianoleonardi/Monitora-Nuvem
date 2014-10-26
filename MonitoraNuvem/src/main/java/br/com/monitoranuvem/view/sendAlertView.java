@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.mail.MessagingException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -62,13 +60,29 @@ public class sendAlertView extends HttpServlet {
         String mensagem = "";
         for (SendAlerts sendAlerts : listaSendAlerts) {
             destino = sendAlerts.getAlerts().getMail().split(",");
-            mensagem = sendAlerts.getAlerts().getNameAlerts() + " (Status - " + sendAlerts.getAlerts().getStatusProvider() + "; Provedor - " + sendAlerts.getAlerts().getProv().getNome() + ").";
+            mensagem = "<h1>Alerta Monitora Nuvem<h1>";
+            mensagem +=
+                    "<strong>Nome do Alerta: </strong>" + sendAlerts.getAlerts().getNameAlerts() + "<br />"
+                    + "<strong>Provedor: </strong>" + sendAlerts.getAlerts().getProv().getNome() + "<br />"
+                    + "<strong>Status da Instância: </strong>" + sendAlerts.getAlerts().getStatusProvider() + "<br />"
+                    //+ "<strong>Alerta Gerado: </strong>" + sendAlerts.getDateSendAlerts().toString() + "<br />"
+                    + "<h2>Métrica Atingida</h2>"
+                    
+                    + "<br /><br />"
+                    
+                    +" (Status da Instância: "
+                    + sendAlerts.getAlerts().getStatusProvider()
+                    + " é "
+                    + sendAlerts.getAlerts().getOperation()
+                    + " "
+                    + sendAlerts.getAlerts().getValueMetrics()
+                    +")";
             
             //Envio de email
             if(sendAlerts.getSend() == 0){
-                if(jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)){
-                    psa.atualizaStatusMail(sendAlerts.getIdSendAlerts());
-                }
+                //if(jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)){
+                //    psa.atualizaStatusMail(sendAlerts.getIdSendAlerts());
+                //}
             }
             
             sendAlertsAdded = true;
@@ -76,6 +90,7 @@ public class sendAlertView extends HttpServlet {
             sb.append("<name>").append(sendAlerts.getAlerts().getNameAlerts()).append("</name>");
             sb.append("<status>").append(sendAlerts.getAlerts().getStatusProvider()).append("</status>");
             sb.append("<provider>").append(sendAlerts.getAlerts().getProv().getNome()).append("</provider>");
+            sb.append("<email>").append(sendAlerts.getSend()).append("</email>");
             sb.append("</alert>");
         }
 

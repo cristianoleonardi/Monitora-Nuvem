@@ -27,7 +27,7 @@
 
             <div class="container-fluid">
                 <div id="heading" class="page-header">
-                    <h1><i class="icon20 i-cloud"></i> Cadastro de Preço dos Serviços</h1>
+                    <h1><i class="icon20 i-coins"></i> Cadastro de Preço dos Serviços</h1>
                 </div>
 
                 <%-- Alertas de cadastro --%>
@@ -52,7 +52,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="icon"><i class="icon20 i-direction"></i></div>
+                                <div class="icon"><i class="icon20 i-coins"></i></div>
                                 <h4>Cadastro de Preço dos Serviços</h4>
                                 <a href="#" class="minimize"></a>
                             </div>
