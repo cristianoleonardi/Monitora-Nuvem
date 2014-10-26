@@ -37,9 +37,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <span class="icon"><i class="icon20 i-stack-checkmark"></i></span>
-                                <span class="txt">Monitorações</span>
+                            <a href="providerpriceview">
+                                <span class="icon"><i class="icon20 i-coins"></i></span>
+                                <span class="txt">Cadastrar Preços</span>
                             </a>
                         </li>
                     </ul>

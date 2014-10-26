@@ -20,7 +20,7 @@
             <div class="crumb">
                 <ul class="breadcrumb">
                     <li><a href="/monitoranuvem"><i class="icon16 i-home-4"></i>Home</a></li>
-                    <li class="active"></li>
+                    <li class="active">Histórico</li>
                 </ul>
             </div>
 
@@ -45,7 +45,7 @@
                                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="dataTable">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>ID Instância</th>
                                             <th>Instância</th>
                                             <th>Status</th>
                                             <th>Data Monitoração</th>
@@ -58,7 +58,7 @@
                                         %>
                                         <% for (HistoryProvider historico : listaHistoryProvider) { %>
                                         <tr class="gradeA">
-                                            <td><% out.print(historico.getIdHistoryProvider()); %></td>
+                                            <td><% out.print(historico.getInstanceProvider().getIdInstance()); %></td>
                                             <td><% out.print(historico.getInstanceProvider().getInstanceProvider()); %></td>
                                             <td><% out.print(historico.getStatus()); %></td>
                                             <td class="center"><% out.print(historico.getDataUpdate()); %></td>
@@ -67,7 +67,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>ID</th>
+                                            <th>ID Instância</th>
                                             <th>Instância</th>
                                             <th>Status</th>
                                             <th>Data Monitoração</th>

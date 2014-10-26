@@ -150,11 +150,13 @@ function parseSendAlertView(responseXML) {
                 var name = alert.getElementsByTagName("name")[0];
                 var status = alert.getElementsByTagName("status")[0];
                 var provider = alert.getElementsByTagName("provider")[0];
+                var email = alert.getElementsByTagName("email")[0];
                 appendSendAlertView(
                         name.childNodes[0].nodeValue,
                         status.childNodes[0].nodeValue,
                         provider.childNodes[0].nodeValue,
-                        qtdSendAlerts
+                        qtdSendAlerts,
+                        email.childNodes[0].nodeValue
                         );
             }
         }
@@ -165,7 +167,7 @@ function appendUpdate(name, status) {
     var row;
     var cell0;
     var cell1;
-    var linkElement;
+    var strong;
     var statusPrint;
     var srcIcon;
     var img;
@@ -205,18 +207,14 @@ function appendUpdate(name, status) {
         srcIcon = "assets/images/icons/bullet_red.png";
     }
 
-    linkElement = document.createElement("a");
-    linkElement.className = "statusItem";
-    linkElement.setAttribute("href", "#");
-    linkElement.appendChild(document.createTextNode(name));
-    cell0.appendChild(linkElement);
-
-    //cell1.appendChild(document.createTextNode(statusPrint));
+    strong = document.createElement("strong");
+    strong.className = "statusItem";
+    strong.appendChild(document.createTextNode(name));
+    cell0.appendChild(strong);
 
     img = document.createElement("img");
     img.setAttribute("src", srcIcon);
     img.setAttribute("title", statusPrint);
-
     cell1.appendChild(img);
 }
 
@@ -228,10 +226,12 @@ function appendStartStopThread(status) {
     }
 }
 
-function appendSendAlertView(name, status, provider, qtdSendAlerts) {
+function appendSendAlertView(name, status, provider, qtdSendAlerts, email) {
     var li;
     var linkElement;
     var i;
+    var txtEmail;
+    var strong;
 
     li = document.createElement("li");
     li.setAttribute("role", "presentation");
@@ -243,12 +243,22 @@ function appendSendAlertView(name, status, provider, qtdSendAlerts) {
 
         i = document.createElement("i");
         i.className = "icon16 i-warning";
+        
+        span = document.createElement("span");
+        if(email === "1"){
+            txtEmail = document.createTextNode("Email: enviado.");
+        } else if (email === "0"){
+            txtEmail = document.createTextNode("Email: Aguardando envio.");
+        }
+        strong = document.createElement("strong");
+        strong.appendChild(txtEmail);
 
         linkElement = document.createElement("a");
         linkElement.className = "";
         linkElement.setAttribute("href", "#");
         linkElement.appendChild(i);
-        linkElement.appendChild(document.createTextNode(name + " (Status - " + status + "; Provedor - " + provider + ")"));
+        linkElement.appendChild(document.createTextNode(name + " (Status - " + status + "; Provedor - " + provider + ") "));
+        linkElement.appendChild(strong);
         li.appendChild(linkElement);
     } else {
         notificationArea.className = "";
