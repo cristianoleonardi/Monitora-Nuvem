@@ -80,9 +80,9 @@ public class sendAlertView extends HttpServlet {
             
             //Envio de email
             if(sendAlerts.getSend() == 0){
-                //if(jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)){
-                //    psa.atualizaStatusMail(sendAlerts.getIdSendAlerts());
-                //}
+                if(jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)){
+                    psa.atualizaStatusMail(sendAlerts.getIdSendAlerts());
+                }
             }
             
             sendAlertsAdded = true;
