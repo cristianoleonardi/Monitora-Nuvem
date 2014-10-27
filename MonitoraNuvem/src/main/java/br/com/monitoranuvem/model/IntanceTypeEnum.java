@@ -20,7 +20,7 @@ public enum IntanceTypeEnum {
     I28XLARGE("i2.8xlarge"), HS18XLARGE("hs1.8xlarge"), T1MICRO("t1.micro"),
     M1SMALL("m1.small"), M1MEDIUM("m1.medium"), M1LARGE("m1.large");
 
-    private String nameType;
+    private final String nameType;
 
     private IntanceTypeEnum(String name) {
         this.nameType = name;
