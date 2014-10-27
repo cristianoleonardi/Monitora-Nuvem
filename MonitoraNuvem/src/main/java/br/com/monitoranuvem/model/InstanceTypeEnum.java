@@ -9,7 +9,7 @@ package br.com.monitoranuvem.model;
  *
  * @author Marcio
  */
-public enum IntanceTypeEnum {
+public enum InstanceTypeEnum {
 
     M3MEDIUM("m3.medium"), M3LARGE("m3.large"), M3XLARGE("m3.xlarge"),
     M32XLARGE("m3.2xlarge"), C3LARGE("c3.large"), C3XLARGE("c3.xlarge"),
@@ -22,7 +22,7 @@ public enum IntanceTypeEnum {
 
     private final String nameType;
 
-    private IntanceTypeEnum(String name) {
+    private InstanceTypeEnum(String name) {
         this.nameType = name;
     }
 
