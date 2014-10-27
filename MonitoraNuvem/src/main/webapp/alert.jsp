@@ -53,7 +53,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="icon"><i class="icon20 i-direction"></i></div>
-                                <h4>Instâncias por Status</h4>
+                                <h4>Cadastro de Alertas</h4>
                                 <a href="#" class="minimize"></a>
                             </div>
 

@@ -2,6 +2,7 @@ package br.com.monitoranuvem.view;
 
 import br.com.monitoranuvem.controller.ProviderControl;
 import br.com.monitoranuvem.controller.ProviderPriceControl;
+import br.com.monitoranuvem.model.InstanceType;
 import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.ProviderPrice;
 import java.io.IOException;
@@ -55,6 +56,9 @@ public class ProviderPriceView extends HttpServlet {
             ArrayList<Provider> listaProvider = pc.listaProvider();
             session.setAttribute("listaProvider", listaProvider);
 
+            ArrayList<String> listaInstanceType = new InstanceType().listaTypeInstance();
+            session.setAttribute("listaInstanceType", listaInstanceType);
+
         } else if (action.equalsIgnoreCase("criarProviderPrice")) {
             //###CRIAR PROVIDERPRICE###
             String instanceType = request.getParameter("instancetype");
@@ -70,6 +74,9 @@ public class ProviderPriceView extends HttpServlet {
 
                 ArrayList<Provider> listaProvider = pc.listaProvider();
                 session.setAttribute("listaProvider", listaProvider);
+
+                ArrayList<String> listaInstanceType = new InstanceType().listaTypeInstance();
+                session.setAttribute("listaInstanceType", listaInstanceType);
             } else {
                 session.setAttribute("responseAction", "Erro");
                 session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível cadastrar este preço.");
@@ -90,6 +97,9 @@ public class ProviderPriceView extends HttpServlet {
             ArrayList<Provider> listaProvider = pc.listaProvider();
             session.setAttribute("listaProvider", listaProvider);
 
+            ArrayList<String> listaInstanceType = new InstanceType().listaTypeInstance();
+            session.setAttribute("listaInstanceType", listaInstanceType);
+
         } else if (action.equalsIgnoreCase("atualizarProviderPrice")) {
             //###ALTERAR PROVIDERPRICE###
             int id = Integer.parseInt(request.getParameter("id"));
@@ -106,6 +116,9 @@ public class ProviderPriceView extends HttpServlet {
 
                 ArrayList<Provider> listaProvider = pc.listaProvider();
                 session.setAttribute("listaProvider", listaProvider);
+
+                ArrayList<String> listaInstanceType = new InstanceType().listaTypeInstance();
+                session.setAttribute("listaInstanceType", listaInstanceType);
             } else {
                 session.setAttribute("responseAction", "Erro");
                 session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível atualizar este preço.");
@@ -124,6 +137,9 @@ public class ProviderPriceView extends HttpServlet {
 
                 ArrayList<Provider> listaProvider = pc.listaProvider();
                 session.setAttribute("listaProvider", listaProvider);
+
+                ArrayList<String> listaInstanceType = new InstanceType().listaTypeInstance();
+                session.setAttribute("listaInstanceType", listaInstanceType);
             } else {
 
                 ArrayList<ProviderPrice> listaProviderPrice = ppc.listaProviderPrice();
@@ -131,6 +147,9 @@ public class ProviderPriceView extends HttpServlet {
 
                 ArrayList<Provider> listaProvider = pc.listaProvider();
                 session.setAttribute("listaProvider", listaProvider);
+
+                ArrayList<String> listaInstanceType = new InstanceType().listaTypeInstance();
+                session.setAttribute("listaInstanceType", listaInstanceType);
 
                 session.setAttribute("responseAction", "Erro");
                 session.setAttribute("responseMsg", "<strong><i class=\"icon24 i-close-4\"></i> Erro!</strong> Não foi possível remover este preço.");

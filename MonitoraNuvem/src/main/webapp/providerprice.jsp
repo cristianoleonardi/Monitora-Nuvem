@@ -77,9 +77,21 @@
                                     <div class="form-group">
                                         <label class="col-lg-2 control-label" for="normal">Tipo de Instância</label>
                                         <div class="col-lg-5">
-                                            <input class="form-control" type="text" name="instancetype" value="<% if (providerPrice != null) {
-                                                    out.print(providerPrice.getInstanceType());
-                                                } %>" maxlength="45" required />
+                                            <select name="instancetype" class="form-control" <% if (providerPrice != null) {
+                                                    out.print("");
+                                                } %>>
+                                                <%
+                                                    ArrayList<String> listaInstanceType = (ArrayList<String>) session.getAttribute("listaInstanceType");
+                                                    session.removeAttribute("listaInstanceType");
+                                                %>
+                                                <% for (String instanceType : listaInstanceType) { %>
+                                                <option value="<% out.print(instanceType); %>" <% if (providerPrice != null && providerPrice.getInstanceType().equalsIgnoreCase(instanceType)) {
+                                                        out.print("selected=\"selected\"");
+                                                    } %>>
+                                                    <% out.print(instanceType); %>
+                                                </option>
+                                                <% }%>
+                                            </select>  
                                         </div>
                                     </div>
                                     <div class="form-group">

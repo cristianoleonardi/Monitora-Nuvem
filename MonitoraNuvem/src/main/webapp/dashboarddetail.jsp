@@ -168,8 +168,8 @@
                                     <td class="center"><% out.print(ip.getStatus()); %></td>
                                 </tr>
                                 <tr>
-                                    <th>Alertas:</th>
-                                    <td class="center"></td>
+                                    <th>Tipo:</th>
+                                    <td class="center"><% out.print(ip.getTypeinstance()); %></td>
                                 </tr>
                                 <tr>
                                     <th>Detalhes:</th>
@@ -177,8 +177,6 @@
                                         <div class="btn-group">
                                             <a href="#modalStorage" class="btn btn-xs gap-right20" data-toggle="modal" title="Storage"><i class="icon20 i-storage"></i></a>
                                             <a href="#modalHardware" class="btn btn-xs gap-right20" data-toggle="modal" title="Hardware"><i class="icon20 i-cogs"></i></a>
-                                            <a href="#modalDesempenho" class="btn btn-xs gap-right20" data-toggle="modal" title="Desempenho"><i class="icon20 i-health"></i></a>
-                                            <a href="#modalAlertas" class="btn btn-xs gap-right20" data-toggle="modal" title="Alertas"><i class="icon20 i-bell-2"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -210,40 +208,6 @@
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                         <h4 class="modal-title"><i class="icon20 i-cogs"></i> Detalhes do Hardware</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="modal fade" id="modalDesempenho" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title"><i class="icon20 i-health"></i> Detalhes de Desempenho</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="modal fade" id="modalAlertas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title"><i class="icon20 i-bell-2"></i> Detalhes dos Alertas</h4>
                                     </div>
                                     <div class="modal-body">
                                         
