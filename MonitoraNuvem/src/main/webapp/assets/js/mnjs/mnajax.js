@@ -1,6 +1,9 @@
 var req1;
 var req2;
 var req3;
+var req4;
+var req5;
+var req6;
 var isIE;
 var completeField;
 var completeTable;
@@ -24,6 +27,15 @@ function init() {
     //Atualiza Alerts
     doSendAlertView();
 
+    //Monta grafico activeInstanceByProvider
+    doActiveInstanceByProvider();
+    
+    //Monta grafico InstanceByStatus
+    doInstanceByStatus();
+    
+    //Monta grafico InstanceByStatus
+    doHistoryInstancesByStatus();
+
     //Dispara relogio de atualizações
     setInterval("timerRefresh()", 1000);
 }
@@ -33,6 +45,9 @@ function timerRefresh() {
         document.getElementById('cronometro').innerHTML = 'Atualizando...';
         doUpdate();
         doSendAlertView();
+        doActiveInstanceByProvider();
+        doInstanceByStatus();
+        doHistoryInstancesByStatus();
         countToRefresh = timeToRefresh;
     } else {
         countToRefresh--;
@@ -77,6 +92,30 @@ function doSendAlertView() {
     req3.send(null);
 }
 
+function doActiveInstanceByProvider() {
+    var url = "dashboardview?graph=activeinstancebyprovider";
+    req4 = initRequest();
+    req4.open("GET", url, true);
+    req4.onreadystatechange = callbackActiveInstanceByProvider;
+    req4.send(null);
+}
+
+function doInstanceByStatus() {
+    var url = "dashboardview?graph=instancebystatus";
+    req5 = initRequest();
+    req5.open("GET", url, true);
+    req5.onreadystatechange = callbackInstanceByStatus;
+    req5.send(null);
+}
+
+function doHistoryInstancesByStatus() {
+    var url = "dashboardview?graph=historyinstancesbystatus";
+    req6 = initRequest();
+    req6.open("GET", url, true);
+    req6.onreadystatechange = callbackHistoryInstancesByStatus;
+    req6.send(null);
+}
+
 function callbackUpdate() {
 
     clearTableUpdate();
@@ -103,6 +142,30 @@ function callbackSendAlertView() {
     if (req3.readyState == 4) {
         if (req3.status == 200) {
             parseSendAlertView(req3.responseXML);
+        }
+    }
+}
+
+function callbackActiveInstanceByProvider() {
+    if (req4.readyState == 4) {
+        if (req4.status == 200) {
+            parseActiveInstanceByProvider(req4.responseXML);
+        }
+    }
+}
+
+function callbackInstanceByStatus() {
+    if (req5.readyState == 4) {
+        if (req5.status == 200) {
+            parseInstanceByStatus(req5.responseXML);
+        }
+    }
+}
+
+function callbackHistoryInstancesByStatus() {
+    if (req6.readyState == 4) {
+        if (req6.status == 200) {
+            parseHistoryInstancesByStatus(req6.responseXML);
         }
     }
 }
@@ -157,6 +220,58 @@ function parseSendAlertView(responseXML) {
                         provider.childNodes[0].nodeValue,
                         qtdSendAlerts,
                         email.childNodes[0].nodeValue
+                        );
+            }
+        }
+    }
+}
+
+function parseActiveInstanceByProvider(responseXML) {
+    if (responseXML == null) {
+        return false;
+    } else {
+        var dataGraphs = responseXML.getElementsByTagName("dataGraphs")[0];
+        if (dataGraphs.childNodes.length > 0) {
+            var dataGraph = dataGraphs.childNodes[0];
+            plotActiveInstanceByProvider(dataGraph.childNodes[0].nodeValue);
+        }
+    }
+}
+
+function parseInstanceByStatus(responseXML) {
+    if (responseXML == null) {
+        return false;
+    } else {
+        var dataGraphs = responseXML.getElementsByTagName("dataGraphs")[0];
+        if (dataGraphs.childNodes.length > 0) {
+            for (loop = 0; loop < dataGraphs.childNodes.length; loop++) {
+                var dg = dataGraphs.childNodes[loop];
+                var dataInfo = dg.getElementsByTagName("dataInfo")[0];
+                var dataLabel = dg.getElementsByTagName("dataLabel")[0];
+                plotInstanceByStatus(
+                        dataInfo.childNodes[0].nodeValue,
+                        dataLabel.childNodes[0].nodeValue
+                        );
+            }
+        }
+    }
+}
+
+function parseHistoryInstancesByStatus(responseXML) {
+    if (responseXML == null) {
+        return false;
+    } else {
+        var dataGraphs = responseXML.getElementsByTagName("dataGraphs")[0];
+        if (dataGraphs.childNodes.length > 0) {
+            for (loop = 0; loop < dataGraphs.childNodes.length; loop++) {
+                var dg = dataGraphs.childNodes[loop];
+                var firstDay = dg.getElementsByTagName("firstDay")[0];
+                var lastDay = dg.getElementsByTagName("lastDay")[0];
+                var history = dg.getElementsByTagName("history")[0];
+                plotHistoryInstancesByStatus(
+                        firstDay.childNodes[0].nodeValue,
+                        lastDay.childNodes[0].nodeValue,
+                        history.childNodes[0].nodeValue
                         );
             }
         }
@@ -243,11 +358,11 @@ function appendSendAlertView(name, status, provider, qtdSendAlerts, email) {
 
         i = document.createElement("i");
         i.className = "icon16 i-warning";
-        
+
         span = document.createElement("span");
-        if(email === "1"){
+        if (email === "1") {
             txtEmail = document.createTextNode("Email: enviado.");
-        } else if (email === "0"){
+        } else if (email === "0") {
             txtEmail = document.createTextNode("Email: Aguardando envio.");
         }
         strong = document.createElement("strong");

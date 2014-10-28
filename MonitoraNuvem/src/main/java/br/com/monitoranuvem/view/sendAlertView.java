@@ -67,9 +67,8 @@ public class sendAlertView extends HttpServlet {
                     + "<strong>Provedor: </strong>" + sendAlerts.getAlerts().getProv().getNome() + "<br />"
                     + "<strong>Status da Instância: </strong>" + sendAlerts.getAlerts().getStatusProvider() + "<br />"
                     //+ "<strong>Alerta Gerado: </strong>" + sendAlerts.getDateSendAlerts().toString() + "<br />"
-                    + "<h2>Métrica Atingida</h2>"
-                    + "<br /><br />"
-                    + " (Status da Instância: "
+                    + "<h3>Métrica Atingida: </h3>"
+                        + " (Status da Instância: "
                     + sendAlerts.getAlerts().getStatusProvider()
                     + " é "
                     + sendAlerts.getAlerts().getOperation()
@@ -80,9 +79,9 @@ public class sendAlertView extends HttpServlet {
 
             //Envio de email
             if (sendAlerts.getSend() == 0) {
-                if(jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)){
-                    psa.atualizaStatusMail(sendAlerts.getIdSendAlerts());
-                }
+                //if(jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)){
+                //    psa.atualizaStatusMail(sendAlerts.getIdSendAlerts());
+                //}
             }
 
             sendAlertsAdded = true;

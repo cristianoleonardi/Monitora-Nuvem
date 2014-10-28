@@ -13,7 +13,7 @@
         <nav id="mainnav">
             <ul class="nav nav-list">
                 <li>
-                    <a href="dashboardview">
+                    <a href="dashboard.jsp">
                         <span class="icon"><i class="icon20 i-dashboard"></i></span>
                         <span class="txt">Dashboard</span>
                     </a>
@@ -21,7 +21,7 @@
                 <li>
                     <a href="#">
                         <span class="icon"><i class="icon20 i-cloud"></i></span>
-                        <span class="txt">Cadastros</span>
+                        <span class="txt">Gestão de Provedores</span>
                     </a>
                     <ul class="sub">
                         <li>
@@ -39,7 +39,7 @@
                         <li>
                             <a href="providerpriceview">
                                 <span class="icon"><i class="icon20 i-coins"></i></span>
-                                <span class="txt">Cadastrar Preços</span>
+                                <span class="txt">Preços</span>
                             </a>
                         </li>
                     </ul>
@@ -47,13 +47,13 @@
                 <li>
                     <a href="#">
                         <span class="icon"><i class="icon20 i-bell-2"></i></span>
-                        <span class="txt">Alertas</span>
+                        <span class="txt">Gestão de Alertas</span>
                     </a>
                     <ul class="sub">
                         <li>
                             <a href="alertview">
                                 <span class="icon"><i class="icon20 i-alarm-plus"></i></span>
-                                <span class="txt">Cadastrar Alertas</span>
+                                <span class="txt">Alertas</span>
                             </a>
                         </li>
                     </ul>
@@ -61,7 +61,7 @@
                 <li>
                     <a href="providerhistoryview">
                         <span class="icon"><i class="icon20 i-archive"></i></span>
-                        <span class="txt">Histórico</span>
+                        <span class="txt">Dados Históricos</span>
                     </a>
                 </li>
                 <li>

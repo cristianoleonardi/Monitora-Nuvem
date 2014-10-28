@@ -116,7 +116,7 @@
 
         <!-- Scripts Monitora Nuvem-->
         <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mnajax.js"></script>
-        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mngraficos.js"></script>
+        <script src="<% out.print(request.getContextPath());%>/assets/js/mnjs/mngraph.js"></script>
 
     </head>
     <body onload="init()">

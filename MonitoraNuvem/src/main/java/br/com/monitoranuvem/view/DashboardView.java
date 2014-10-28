@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,63 +37,81 @@ public class DashboardView extends HttpServlet {
         //Instancia a sessão para manipular as variáveis de sessao
         HttpSession session = request.getSession(true);
 
-        //GRÁFICO 1 ############################################################
-        //Lista de cores para utilização nos gráficos
-        String[] chartColoursActive = new String[]{"#32CD32", "#228B22", "#008000", "#006400", "#2E8B57", "#3CB371", "#8FBC8F", "#90EE90", "#98FB98"};
+        //Montar string XML retorno
+        StringBuilder sb = new StringBuilder();
+
+        //Ação que determina o que será executado pelo Controller.
+        String graph = request.getParameter("graph");
 
         //Acessa o controlador de instâncias
         ProviderInstanceControl pic = new ProviderInstanceControl();
 
-        //Solicita a quantidade de instancias ativas (RUNNING) por provedor
-        ArrayList<QtdStatusProvider> listaActiveInstanceProvider = pic.listaQDTStatusProvider("RUNNING");
+        boolean dataGraphAdded = false;
 
-        //Gera a quantidade total
-        int qtdTotalInstancias = 0;
-        for (QtdStatusProvider sp : listaActiveInstanceProvider) {
-            qtdTotalInstancias += sp.getQuantidade();
-        }
+        if (graph.equalsIgnoreCase("activeinstancebyprovider")) {
+            dataGraphAdded = false;
+            //Lista de cores para utilização nos gráficos
+            String[] chartColoursActive = new String[]{"#32CD32", "#228B22", "#008000", "#006400", "#2E8B57", "#3CB371", "#8FBC8F", "#90EE90", "#98FB98"};
 
-        String dadosGrafico = "";
-        for (int i = 0; i < listaActiveInstanceProvider.size(); i++) {
-            QtdStatusProvider sp = listaActiveInstanceProvider.get(i);
+            //Solicita a quantidade de instancias ativas (RUNNING) por provedor
+            ArrayList<QtdStatusProvider> listaActiveInstanceProvider = pic.listaQDTStatusProvider("RUNNING");
 
-            //Calculo de percentual
-            int qtdProvider = sp.getQuantidade();
-            double percentual = (qtdProvider * 100.00 / qtdTotalInstancias * 100.00) / 100.00;
-            percentual = Math.round(percentual * 100.0) / 100.0;
-
-            //Monta dados para grágico (Instâncias Ativas por Provedor)
-            dadosGrafico += "{label: \"" + sp.getProvider().getNome() + "\", data: " + percentual + ", color : \"" + chartColoursActive[i] + "\"}";
-            if (i < listaActiveInstanceProvider.size() - 1) {
-                dadosGrafico += ";";
+            //Gera a quantidade total
+            int qtdTotalInstancias = 0;
+            for (QtdStatusProvider sp : listaActiveInstanceProvider) {
+                qtdTotalInstancias += sp.getQuantidade();
             }
+
+            String dadosGrafico = "";
+            for (int i = 0; i < listaActiveInstanceProvider.size(); i++) {
+                QtdStatusProvider sp = listaActiveInstanceProvider.get(i);
+
+                //Calculo de percentual
+                int qtdProvider = sp.getQuantidade();
+                double percentual = (qtdProvider * 100.00 / qtdTotalInstancias * 100.00) / 100.00;
+                percentual = Math.round(percentual * 100.0) / 100.0;
+
+                //Monta dados para grágico (Instâncias Ativas por Provedor)
+                dadosGrafico += "{label: \"" + sp.getProvider().getNome() + "\", data: " + percentual + ", color : \"" + chartColoursActive[i] + "\"}";
+                if (i < listaActiveInstanceProvider.size() - 1) {
+                    dadosGrafico += ";";
+                }
+            }
+            dataGraphAdded = true;
+            sb.append("<dataGraph>").append(dadosGrafico).append("</dataGraph>");
         }
 
-        //Envia dados para grágico (Instâncias Ativas por Provedor)
-        session.setAttribute("listaActiveInstanceProvider", dadosGrafico);
+        if (graph.equalsIgnoreCase("instancebystatus")) {
+            dataGraphAdded = false;
+            ArrayList<String> grafico2 = pic.listaQDTStatusProviderDay();
 
-        //GRÁFICO 2 ############################################################
-        //Envia dados para grágico (Total de Instâncias por Provedor por Status)
-        ArrayList<String> grafico2 = pic.listaQDTStatusProviderDay();
-        session.setAttribute("labels", grafico2.get(1));
-        session.setAttribute("listaStatusInstanceProvider", grafico2.get(0));
+            dataGraphAdded = true;
+            sb.append("<dataGraph>");
+            sb.append("<dataInfo>").append(grafico2.get(0)).append("</dataInfo>");
+            sb.append("<dataLabel>").append(grafico2.get(1)).append("</dataLabel>");
+            sb.append("</dataGraph>");
+        }
 
-        //GRÁFICO 3 ############################################################
-        //Monta dados para grágico (Histórico de Instâncias por Data e Status - Últimos 30 Dias)
-        ProviderHistoryControl phc = new ProviderHistoryControl();
-        ArrayList<String> history = phc.montaHistorico(30);
+        if (graph.equalsIgnoreCase("historyinstancesbystatus")) {
+            dataGraphAdded = false;
+            ProviderHistoryControl phc = new ProviderHistoryControl();
+            ArrayList<String> grafico3 = phc.montaHistorico(30);
 
-        //Envia dados para grágico (Histórico de Instâncias por Data e Status - Últimos 30 Dias)
-        session.setAttribute("historyLastThirtyDays", history.get(2));
-        session.setAttribute("firstDay", history.get(0));
-        session.setAttribute("lastDay", history.get(1));
+            dataGraphAdded = true;
+            sb.append("<dataGraph>");
+            sb.append("<firstDay>").append(grafico3.get(0)).append("</firstDay>");
+            sb.append("<lastDay>").append(grafico3.get(1)).append("</lastDay>");
+            sb.append("<history>").append(grafico3.get(2)).append("</history>");
+            sb.append("</dataGraph>");
+        }
 
-        //######################################################################
-        //Redireciona para a view específica
-        RequestDispatcher rd = request
-                .getRequestDispatcher("/dashboard.jsp");
-        rd.forward(request, response);
-
+        if (dataGraphAdded) {
+            response.setContentType("text/xml");
+            response.setHeader("Cache-Control", "no-cache");
+            response.getWriter().write("<dataGraphs>" + sb.toString() + "</dataGraphs>");
+        } else {
+            response.setStatus(HttpServletResponse.SC_NO_CONTENT);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,7 +1,5 @@
 <%-- Imports --%>
 
-<%@page import="br.com.monitoranuvem.model.QtdStatusProvider"%>
-<%@page import="java.util.ArrayList"%>
 <%-- Inclusão do cabeçalho da página --%>
 <jsp:include page="header.jsp" />
 
@@ -26,7 +24,7 @@
 
             <div class="container-fluid">
                 <div id="heading" class="page-header">
-                    <h1><i class="icon20 i-dashboard"></i> Dashboards</h1>
+                    <h1><i class="icon20 i-dashboard"></i> Dashboard</h1>
                 </div>
 
                 <div class="row">
@@ -37,13 +35,12 @@
                     <div class="col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="icon"><i class="icon20 i-pie-5"></i></div> 
+                                <div class="icon"><i class="icon20 i-pie-5"></i></div>
                                 <h4>Percentual de Instâncias Ativas por Provedor</h4>
                                 <a href="#" class="minimize"></a>
                             </div>
 
                             <div class="panel-body">
-                                <input type="hidden" id="dadosgrafico1" value='<% out.print(session.getAttribute("listaActiveInstanceProvider")); %>' />
                                 <div class="active-instance-by-provider" style="width: 100%; height:250px; margin-top:10px;"></div>
                             </div>
                         </div>
@@ -58,8 +55,6 @@
                             </div>
 
                             <div class="panel-body">
-                                <input type="hidden" id="dadosgrafico2" value='<% out.print(session.getAttribute("listaStatusInstanceProvider")); %>' />
-                                <input type="hidden" id="dadosgrafico3" value='<% out.print(session.getAttribute("labels")); %>' />
                                 <div class="instance-by-status" style="width: 100%; height:250px; margin-top:10px;"></div>
                             </div>
                         </div>
@@ -77,9 +72,9 @@
                             </div>
 
                             <div class="panel-body">
-                                <input type="hidden" id="dadosgrafico4" value='<% out.print(session.getAttribute("historyLastThirtyDays")); %>' />
-                                <input type="hidden" id="dadosgrafico5" value='<% out.print(session.getAttribute("firstDay")); %>' />
-                                <input type="hidden" id="dadosgrafico6" value='<% out.print(session.getAttribute("lastDay")); %>' />
+                                <input type="hidden" id="dadosgrafico4" value='<% //out.print(session.getAttribute("historyLastThirtyDays")); %>' />
+                                <input type="hidden" id="dadosgrafico5" value='<% //out.print(session.getAttribute("firstDay")); %>' />
+                                <input type="hidden" id="dadosgrafico6" value='<% //out.print(session.getAttribute("lastDay")); %>' />
                                 <div class="history-instances-by-status" style="width:100%; height:250px; margin-top:10px;"></div>
                             </div>
                         </div>
