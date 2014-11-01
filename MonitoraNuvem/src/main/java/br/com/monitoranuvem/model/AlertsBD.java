@@ -122,7 +122,7 @@ public class AlertsBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "UPDATE ALERTS SET NAMEALERTS=?,IDPROVIDER=?,"
-                        + "STATUSPROVIDER=?,METRICS=?,OPERATION=?,VALUEMETRICS=?, MAIL=? WHERE IDALERTS=?"
+                        + "STATUSPROVIDER=?,METRICS=?,OPERATION=?,VALUEMETRICS=?, MAIL=?, TYPEALERT=? WHERE IDALERTS=?"
         );
         stmt.setString(1, alert.getNameAlerts());
         stmt.setInt(2, alert.getProv().getId());
@@ -131,7 +131,8 @@ public class AlertsBD {
         stmt.setString(5, alert.getOperation());
         stmt.setString(6, alert.getValueMetrics());
         stmt.setString(7, alert.getMail());
-        stmt.setInt(8, idAlerts);
+        stmt.setString(8, alert.getTypeAlert());
+        stmt.setInt(9, idAlerts);
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
