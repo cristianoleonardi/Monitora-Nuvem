@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class ProviderAlerts {
 
-    public boolean criarAlerts(String nameAlerts, int idProvider, String statusProvider, String metrics, String operation, String valueMetrics, String mail) throws ClassNotFoundException, SQLException {
+    public boolean criarAlerts(String nameAlerts, int idProvider, String statusProvider, String metrics, String operation, String valueMetrics, String mail, String typeAlert) throws ClassNotFoundException, SQLException {
         Alerts alert = new Alerts();
         alert.setNameAlerts(nameAlerts);
         alert.setProv(new ProviderBD().buscaProvider(idProvider));
@@ -26,6 +26,7 @@ public class ProviderAlerts {
         alert.setOperation(operation);
         alert.setValueMetrics(valueMetrics);
         alert.setMail(mail);
+        alert.setTypeAlert(typeAlert);
         return new AlertsBD().criarAlerts(alert);
     }
 
@@ -41,7 +42,7 @@ public class ProviderAlerts {
         return new AlertsBD().deletaAlerts(idAlerts);
     }
 
-    public boolean atualizaAlerts(String nameAlerts, int idProvider, String statusProvider, String metrics, String operation, String valueMetrics, int idAlerts, String mail) throws ClassNotFoundException, SQLException {
+    public boolean atualizaAlerts(String nameAlerts, int idProvider, String statusProvider, String metrics, String operation, String valueMetrics, int idAlerts, String mail, String typeAlert) throws ClassNotFoundException, SQLException {
         Alerts alert = new Alerts();
         alert.setNameAlerts(nameAlerts);
         alert.setProv(new ProviderBD().buscaProvider(idProvider));
@@ -50,6 +51,7 @@ public class ProviderAlerts {
         alert.setOperation(operation);
         alert.setValueMetrics(valueMetrics);
         alert.setMail(mail);
+        alert.setTypeAlert(typeAlert);
         return new AlertsBD().atualizaAlerts(alert, idAlerts);
     }
 }
