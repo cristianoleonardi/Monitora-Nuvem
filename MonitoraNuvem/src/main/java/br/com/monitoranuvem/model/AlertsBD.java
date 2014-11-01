@@ -25,7 +25,7 @@ public class AlertsBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO ALERTS (NAMEALERTS,IDPROVIDER,STATUSPROVIDER,METRICS,"
-                + "OPERATION,VALUEMETRICS,MAIL) VALUES (?,?,?,?,?,?,?)"
+                + "OPERATION,VALUEMETRICS,MAIL,TYPEALERT) VALUES (?,?,?,?,?,?,?,?)"
         );
         stmt.setString(1, alert.getNameAlerts());
         stmt.setInt(2, alert.getProv().getId());
@@ -34,6 +34,7 @@ public class AlertsBD {
         stmt.setString(5, alert.getOperation());
         stmt.setString(6, alert.getValueMetrics());
         stmt.setString(7, alert.getMail());
+        stmt.setString(8, alert.getTypeAlert());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -60,7 +61,7 @@ public class AlertsBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDALERTS,NAMEALERTS,IDPROVIDER,STATUSPROVIDER,METRICS,"
-                + "OPERATION,VALUEMETRICS,MAIL FROM ALERTS WHERE IDALERTS=?"
+                + "OPERATION,VALUEMETRICS,MAIL,TYPEALERT FROM ALERTS WHERE IDALERTS=?"
         );
         stmt.setInt(1, idAlert);
         ResultSet resultado = stmt.executeQuery();
@@ -73,6 +74,7 @@ public class AlertsBD {
             alert.setOperation(resultado.getString("OPERATION"));
             alert.setValueMetrics(resultado.getString("VALUEMETRICS"));
             alert.setMail(resultado.getString("MAIL"));
+            alert.setTypeAlert(resultado.getString("TYPEALERT"));
         }
         conn.close();
         return alert;
@@ -94,6 +96,7 @@ public class AlertsBD {
             alert.setOperation(resultado.getString("OPERATION"));
             alert.setValueMetrics(resultado.getString("VALUEMETRICS"));
             alert.setMail(resultado.getString("MAIL"));
+            alert.setTypeAlert(resultado.getString("TYPEALERT"));
             lista.add(alert);
         }
         conn.close();
