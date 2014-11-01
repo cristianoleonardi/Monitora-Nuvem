@@ -13,6 +13,7 @@ public class Alerts {
     
     private int idAlerts;
     private String nameAlerts;
+    private String typeAlert;
     private Provider prov;
     private String statusProvider;
     private String metrics;
@@ -82,5 +83,13 @@ public class Alerts {
 
     public void setMail(String mail) {
         this.mail = mail;
-    }       
+    } 
+
+    public String getTypeAlert() {
+        return typeAlert;
+    }
+
+    public void setTypeAlert(String typeAlert) {
+        this.typeAlert = typeAlert;
+    }   
 }
