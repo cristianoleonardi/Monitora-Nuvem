@@ -26,7 +26,7 @@
     </servlet>
     <servlet>
         <servlet-name>sendalertview</servlet-name>
-        <servlet-class>br.com.monitoranuvem.view.sendAlertView</servlet-class>
+        <servlet-class>br.com.monitoranuvem.view.SendAlertView</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>providerhistoryview</servlet-name>

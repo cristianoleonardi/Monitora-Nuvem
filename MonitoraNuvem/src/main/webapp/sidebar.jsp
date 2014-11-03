@@ -104,6 +104,5 @@
             <h4 class="sidebar-widget-header"><i class="icon i-clock"></i> Próxima Atualização</h4>
             <h3 id="cronometro">Iniciando Contador...</h3>
         </div>
-
     </div>
 </aside>

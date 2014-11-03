@@ -86,15 +86,15 @@
                                         <label class="col-lg-2 control-label" for="normal">Tipo de Alerta</label>
                                         <div class="col-lg-5">
                                             <select name="alerttype" class="form-control" <% if (alerts != null) out.print(""); %>>
-                                                <option value="Custo" <% if (alerts != null && alerts.getMail() == "Custo") {
+                                                <option value="Custo" <% if (alerts != null && alerts.getTypeAlert().equalsIgnoreCase("Custo")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
-                                                    Custo das Instâncias
+                                                    Custo
                                                 </option>
-                                                <option value="Status" <% if (alerts != null && alerts.getMail() == "Status") {
+                                                <option value="Status" <% if (alerts != null && alerts.getTypeAlert().equalsIgnoreCase("Status")) {
                                                         out.print("selected=\"selected\"");
                                                     } %>>
-                                                    Status das Instâncias
+                                                    Status
                                                 </option>
                                             </select>  
                                         </div>
@@ -259,6 +259,7 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
+                                            <th>Tipo de Alerta</th>
                                             <th>Nome do Alerta</th>
                                             <th>Provedor</th>
                                             <th>Status</th>
@@ -277,6 +278,7 @@
                                         <% for (Alerts alert : listaAlerts) { %>
                                         <tr class="gradeA">
                                             <td class="center"><% out.print(alert.getIdAlerts()); %></td>
+                                            <td><% out.print(alert.getTypeAlert()); %></td>
                                             <td><% out.print(alert.getNameAlerts()); %></td>
                                             <td><% out.print(alert.getProv().getNome()); %></td>
                                             <td><% out.print(alert.getStatusProvider()); %></td>
