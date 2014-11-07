@@ -7,6 +7,7 @@ package br.com.monitoranuvem.model;
 
 import br.com.monitoranuvem.controller.ProviderDialogControl;
 import br.com.monitoranuvem.controller.ProviderInstanceControl;
+import java.util.Date;
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.domain.ComputeMetadata;
 import org.jclouds.compute.domain.NodeMetadata;
@@ -44,8 +45,13 @@ public class ThreadAmazon implements Runnable {
                             inst.setInstanceProvider(metadata.getName());
                             inst.setProvider(new ProviderBD().buscaProvider(pn.getId()));
                             inst.setStatus(metadata.getStatus().name());
-//                            inst.setDataCreate(server.getCreated());
-//                            inst.setDataUpdate(server.getUpdated());
+                            if (!(metadata.getHardware() == null)) {
+                                inst.setTypeinstance(metadata.getHardware().getId().toString());
+                            }else{
+                                inst.setTypeinstance("t2.micro");
+                            }
+                            inst.setDataCreate(new Date());
+                            inst.setDataUpdate(new Date());
                             pic.criarAtualizarInstancia(inst);
                         }
                     }
