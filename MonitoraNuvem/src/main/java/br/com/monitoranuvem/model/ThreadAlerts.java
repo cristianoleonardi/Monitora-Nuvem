@@ -31,82 +31,84 @@ public class ThreadAlerts implements Runnable {
                 double vPerc = 0;
 
                 for (Alerts a : alert) {
-                    count = 0;
-                    ArrayList<InstanceProvider> listInstance = new InstanceProviderBD().listaQDTStatusProviderDay(a.getProv().getId(), a.getStatusProvider().toUpperCase().trim());
-                    switch (a.getMetrics().toUpperCase()) {
-                        case "N":
-                            switch (a.getOperation()) {
-                                case "=":
-                                    if (listInstance.size() == Integer.valueOf(a.getValueMetrics())) {
-                                        count = 1;
-                                        atualizaSendAlert(a.getIdAlerts());
-                                    }
-                                    break;
-                                case ">":
-                                    if (listInstance.size() > Integer.valueOf(a.getValueMetrics())) {
-                                        count = 1;
-                                        atualizaSendAlert(a.getIdAlerts());
-                                    }
-                                    break;
-                                case ">=":
-                                    if (listInstance.size() >= Integer.valueOf(a.getValueMetrics())) {
-                                        count = 1;
-                                        atualizaSendAlert(a.getIdAlerts());
-                                    }
-                                    break;
-                                case "<":
-                                    if (listInstance.size() < Integer.valueOf(a.getValueMetrics())) {
-                                        count = 1;
-                                        atualizaSendAlert(a.getIdAlerts());
-                                    }
-                                    break;
-                                case "<=":
-                                    if (listInstance.size() <= Integer.valueOf(a.getValueMetrics())) {
-                                        count = 1;
-                                        atualizaSendAlert(a.getIdAlerts());
-                                    }
-                                    break;
-                            }
-                            break;
-                        case "%":
-                            totalInstance = new InstanceProviderBD().totalInstaceProvider(a.getProv().getId());
-                            vPerc = listInstance.size() * 100.0 / totalInstance;
-                            switch (a.getOperation()) {
-                                case "=":
-                                    if (vPerc == Double.parseDouble(a.getValueMetrics())) {
-                                        count = 1;
-                                        atualizaSendAlert(a.getIdAlerts());
-                                    }
-                                    break;
-                                case ">":
-                                    if (vPerc > Double.parseDouble(a.getValueMetrics())) {
-                                        count = 1;
-                                        atualizaSendAlert(a.getIdAlerts());
-                                    }
-                                    break;
-                                case ">=":
-                                    if (vPerc >= Double.parseDouble(a.getValueMetrics())) {
-                                        count = 1;
-                                        atualizaSendAlert(a.getIdAlerts());
-                                    }
-                                    break;
-                                case "<":
-                                    if (vPerc < Double.parseDouble(a.getValueMetrics())) {
-                                        count = 1;
-                                        atualizaSendAlert(a.getIdAlerts());
-                                    }
-                                    break;
-                                case "<=":
-                                    if (vPerc <= Double.parseDouble(a.getValueMetrics())) {
-                                        count = 1;
-                                        atualizaSendAlert(a.getIdAlerts());
-                                    }
-                                    break;
-                            }
-                            break;
-                    }
-                    if (count == 0) {
-                        atualizaSendAlert(a.getIdAlerts());
+                    if (a.getTypeAlert().equals("Status")) {
+                        count = 0;
+                        ArrayList<InstanceProvider> listInstance = new InstanceProviderBD().listaQDTStatusProviderDay(a.getProv().getId(), a.getStatusProvider().toUpperCase().trim());
+                        switch (a.getMetrics().toUpperCase()) {
+                            case "N":
+                                switch (a.getOperation()) {
+                                    case "=":
+                                        if (listInstance.size() == Integer.valueOf(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case ">":
+                                        if (listInstance.size() > Integer.valueOf(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case ">=":
+                                        if (listInstance.size() >= Integer.valueOf(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case "<":
+                                        if (listInstance.size() < Integer.valueOf(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case "<=":
+                                        if (listInstance.size() <= Integer.valueOf(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                }
+                                break;
+                            case "%":
+                                totalInstance = new InstanceProviderBD().totalInstaceProvider(a.getProv().getId());
+                                vPerc = listInstance.size() * 100.0 / totalInstance;
+                                switch (a.getOperation()) {
+                                    case "=":
+                                        if (vPerc == Double.parseDouble(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case ">":
+                                        if (vPerc > Double.parseDouble(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case ">=":
+                                        if (vPerc >= Double.parseDouble(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case "<":
+                                        if (vPerc < Double.parseDouble(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case "<=":
+                                        if (vPerc <= Double.parseDouble(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                }
+                                break;
+                        }
+                        if (count == 0) {
+                            atualizaSendAlert(a.getIdAlerts());
+                        }
                     }
                 }
                 Thread.sleep(delay);
@@ -121,7 +123,7 @@ public class ThreadAlerts implements Runnable {
         int idSend;
         if (num > 0) {
             idSend = new SendAlertsBD().buscaSendAlert(idAlert);
-             if (count == 0) {
+            if (count == 0) {
                 new SendAlertsBD().atualizaSendAlert(idSend);
             }
             new HistorySendAlertsBD().criarHistoricoAlerts(idSend);
