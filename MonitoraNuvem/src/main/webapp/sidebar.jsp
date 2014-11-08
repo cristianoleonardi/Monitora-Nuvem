@@ -59,6 +59,20 @@
                     </ul>
                 </li>
                 <li>
+                    <a href="#">
+                        <span class="icon"><i class="icon20 i-coins"></i></span>
+                        <span class="txt">Gestão de Custos</span>
+                    </a>
+                    <ul class="sub">
+                        <li>
+                            <a href="#">
+                                <span class="icon"><i class="icon20 i-coins"></i></span>
+                                <span class="txt">Custos</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
                     <a href="providerhistoryview">
                         <span class="icon"><i class="icon20 i-archive"></i></span>
                         <span class="txt">Dados Históricos</span>

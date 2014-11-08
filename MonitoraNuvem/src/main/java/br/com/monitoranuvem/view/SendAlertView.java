@@ -65,11 +65,11 @@ public class SendAlertView extends HttpServlet {
             mensagem
                     += "<strong>Nome do Alerta: </strong>" + sendAlerts.getAlerts().getNameAlerts() + "<br />"
                     + "<strong>Provedor: </strong>" + sendAlerts.getAlerts().getProv().getNome() + "<br />"
-                    + "<strong>Status da InstÃ¢ncia: </strong>" + sendAlerts.getAlerts().getStatusProvider() + "<br />"
-                    + "<h3>MÃ©trica Atingida: </h3>"
-                        + " (Status da InstÃ¢ncia: "
+                    + "<strong>Status da Instância: </strong>" + sendAlerts.getAlerts().getStatusProvider() + "<br />"
+                    + "<h3>Métrica Atingida: </h3>"
+                        + " (Status da Instância: "
                     + sendAlerts.getAlerts().getStatusProvider()
-                    + " Ã© "
+                    + " é "
                     + sendAlerts.getAlerts().getOperation()
                     + " "
                     + sendAlerts.getAlerts().getValueMetrics()
