@@ -195,7 +195,8 @@ public class SendAlertsBD {
             }
             send.setSend(resultado.getInt("SEND"));
             send.setStatus(resultado.getInt("STATUS"));
-            send.setDuracao("01:00");
+            System.out.println(new HistorySendAlertsBD().diferenca(resultado.getInt("IDSENDALERTS")));
+//            send.setDuracao(new HistorySendAlertsBD().diferenca(resultado.getInt("IDSENDALERTS")));
             list.add(send);
         }
         conn.close();

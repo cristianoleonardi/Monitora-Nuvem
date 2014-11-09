@@ -8,6 +8,7 @@ package br.com.monitoranuvem.model;
 import br.com.monitoranuvem.connection.ConnectionMySql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,5 +39,22 @@ public class HistorySendAlertsBD {
             return true;
         }
         return false;
+    }
+
+    public String diferenca(int IdsendAlerts) throws ClassNotFoundException, SQLException {
+        String diff ="";
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT CONCAT(TIMEDIFF(MAX(DATE),MIN(DATE)),'') AS DIFERENCA "
+                + "FROM HISTORICOSENDALERTS "
+                + "WHERE IDSENDALERTS =?");
+        stmt.setInt(1, IdsendAlerts);
+        ResultSet resultado = stmt.executeQuery();
+        while (resultado.next()) {
+            diff = resultado.getString("DIFERENCA");
+        }
+        conn.close();
+        return diff;
+
     }
 }
