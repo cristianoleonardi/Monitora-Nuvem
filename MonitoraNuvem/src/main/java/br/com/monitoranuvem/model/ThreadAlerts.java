@@ -8,6 +8,7 @@ package br.com.monitoranuvem.model;
 import br.com.monitoranuvem.controller.ProviderAlerts;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -109,6 +110,50 @@ public class ThreadAlerts implements Runnable {
                         if (count == 0) {
                             atualizaSendAlert(a.getIdAlerts());
                         }
+                    } else if (a.getTypeAlert().equals("Custo")) {
+                        count = 0;
+                        double custo = 0.00;
+                        ArrayList<InstanceProvider> listInstance = new InstanceProviderBD().listaProviderDay(a.getProv().getId());
+                        custo = calculaCusto(listInstance);
+                        switch (a.getMetrics().toUpperCase()) {
+                            case "N":
+                                switch (a.getOperation()) {
+                                    case "=":
+                                        if (custo == Double.valueOf(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case ">":
+                                        if (custo > Double.valueOf(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case ">=":
+                                        if (custo >= Double.valueOf(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case "<":
+                                        if (custo < Double.valueOf(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                    case "<=":
+                                        if (custo <= Double.valueOf(a.getValueMetrics())) {
+                                            count = 1;
+                                            atualizaSendAlert(a.getIdAlerts());
+                                        }
+                                        break;
+                                }
+                                break;
+                        }
+                        if (count == 0) {
+                            atualizaSendAlert(a.getIdAlerts());
+                        }
                     }
                 }
                 Thread.sleep(delay);
@@ -118,7 +163,7 @@ public class ThreadAlerts implements Runnable {
         }
     }
 
-    public void atualizaSendAlert(int idAlert) throws ClassNotFoundException, SQLException {
+    private void atualizaSendAlert(int idAlert) throws ClassNotFoundException, SQLException {
         int num = new SendAlertsBD().existeAlert(idAlert);
         int idSend;
         if (num > 0) {
@@ -133,5 +178,20 @@ public class ThreadAlerts implements Runnable {
                 new HistorySendAlertsBD().criarHistoricoAlerts(idSend);
             }
         }
+    }
+
+    private double calculaCusto(ArrayList<InstanceProvider> listInstance) throws ClassNotFoundException, SQLException {
+        Date data = new Date();
+        double priceprovider = 0;
+        ArrayList<ProviderPrice> providerPrice = new ProviderPriceBD().listaProviderPrice();
+        for (InstanceProvider li : listInstance) {
+            for (ProviderPrice pp : providerPrice) {
+                if (pp.getProvider().getId() == li.getProvider().getId()
+                        && pp.getInstanceType().equals(li.getTypeinstance())) {
+                    priceprovider += ((data.getTime() - li.getDataCreate().getTime()) / (double) (1000.0 * 60.0 * 60.0)) * pp.getPrice();
+                }
+            }
+        }
+        return priceprovider;
     }
 }
