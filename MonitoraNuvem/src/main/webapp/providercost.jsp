@@ -1,5 +1,7 @@
 <%-- Imports --%>
 
+<%@page import="br.com.monitoranuvem.model.Custo"%>
+<%@page import="java.util.ArrayList"%>
 <%-- Inclusão do cabeçalho da página --%>
 <jsp:include page="header.jsp" />
 
@@ -44,29 +46,26 @@
                                     <thead>
                                         <tr>
                                             <th>Provedor</th>
-                                            <th>Instância</th>
                                             <th>Tempo de Utilização</th>
                                             <th>Custo Atual</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
-                                                //ArrayList<HistoryProvider> listaHistoryProvider = (ArrayList<HistoryProvider>) session.getAttribute("listaHistoryProvider");
-                                                //session.removeAttribute("listaHistoryProvider");
+                                                ArrayList<Custo> listaCusto = (ArrayList<Custo>) session.getAttribute("listaCusto");
+                                                session.removeAttribute("listaCusto");
                                         %>
-                                        <% //for (HistoryProvider historico : listaHistoryProvider) { %>
+                                        <% for (Custo custo : listaCusto) { %>
                                         <tr class="gradeA">
-                                            <td><% //out.print(historico.getInstanceProvider().getIdInstance()); %></td>
-                                            <td><% //out.print(historico.getInstanceProvider().getInstanceProvider()); %></td>
-                                            <td><% //out.print(historico.getStatus()); %></td>
-                                            <td class="center"><% //out.print(historico.getDataUpdate()); %></td>
+                                            <td><% out.print(custo.getProv().getNome()); %></td>
+                                            <td><% out.print(custo.getTotalHoras()); %></td>
+                                            <td><% out.print(custo.getCusto()); %></td>
                                         </tr>
-                                        <% //} %>
+                                        <% } %>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th>Provedor</th>
-                                            <th>Instância</th>
                                             <th>Tempo de Utilização</th>
                                             <th>Custo Atual</th>
                                         </tr>
