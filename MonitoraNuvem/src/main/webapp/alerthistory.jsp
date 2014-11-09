@@ -36,8 +36,8 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="icon"><i class="icon20 i-coin"></i></div> 
-                                <h4>Custo Atual</h4>
+                                <div class="icon"><i class="icon20 i-bell-2"></i></div> 
+                                <h4>Histórico de Alertas</h4>
                                 <a href="#" class="minimize"></a>
                             </div><!-- End .panel-heading -->
 
@@ -86,7 +86,7 @@
                                                     }
                                                 %>
                                             </td>
-                                            <td class="center"><% out.print(""); %></td>
+                                            <td class="center"><% out.print(alerta.getDuracao()); %></td>
                                         </tr>
                                         <% }%>
                                     </tbody>
