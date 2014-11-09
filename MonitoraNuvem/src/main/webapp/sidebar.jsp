@@ -53,7 +53,13 @@
                         <li>
                             <a href="alertview">
                                 <span class="icon"><i class="icon20 i-alarm-plus"></i></span>
-                                <span class="txt">Alertas</span>
+                                <span class="txt">Configurar Alertas</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="alerthistoryview">
+                                <span class="icon"><i class="icon20 i-bell-2"></i></span>
+                                <span class="txt">Histórico de Alertas</span>
                             </a>
                         </li>
                     </ul>
@@ -65,9 +71,9 @@
                     </a>
                     <ul class="sub">
                         <li>
-                            <a href="#">
-                                <span class="icon"><i class="icon20 i-coins"></i></span>
-                                <span class="txt">Custos</span>
+                            <a href="providercostview">
+                                <span class="icon"><i class="icon20 i-coin"></i></span>
+                                <span class="txt">Custo Atual</span>
                             </a>
                         </li>
                     </ul>

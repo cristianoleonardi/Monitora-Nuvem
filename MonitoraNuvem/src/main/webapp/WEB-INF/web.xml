@@ -36,6 +36,14 @@
         <servlet-name>providerpriceview</servlet-name>
         <servlet-class>br.com.monitoranuvem.view.ProviderPriceView</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>providercostview</servlet-name>
+        <servlet-class>br.com.monitoranuvem.view.ProviderCostView</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>alerthistoryview</servlet-name>
+        <servlet-class>br.com.monitoranuvem.view.AlertHistoryView</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>provider</servlet-name>
         <url-pattern>/provider</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>providerpriceview</servlet-name>
         <url-pattern>/providerpriceview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>providercostview</servlet-name>
+        <url-pattern>/providercostview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>alerthistoryview</servlet-name>
+        <url-pattern>/alerthistoryview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

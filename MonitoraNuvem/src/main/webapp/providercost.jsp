@@ -1,8 +1,5 @@
 <%-- Imports --%>
 
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="br.com.monitoranuvem.model.HistoryProvider"%>
 <%-- Inclusão do cabeçalho da página --%>
 <jsp:include page="header.jsp" />
 
@@ -21,23 +18,23 @@
             <div class="crumb">
                 <ul class="breadcrumb">
                     <li><a href="/monitoranuvem"><i class="icon16 i-home-4"></i>Home</a></li>
-                    <li class="active">Histórico</li>
+                    <li class="active">Custo Atual</li>
                 </ul>
             </div>
 
             <div class="container-fluid">
                 <div id="heading" class="page-header">
-                    <h1><i class="icon20 i-archive"></i> Histórico de Monitorações</h1>
+                    <h1><i class="icon20 i-coin"></i> Custo Atual</h1>
                 </div>
-
+                
                 <div class="row">
 
                     <div class="col-lg-12">
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="icon"><i class="icon20 i-archive"></i></div> 
-                                <h4>Histórico das Instâncias Monitoradas</h4>
+                                <div class="icon"><i class="icon20 i-coin"></i></div> 
+                                <h4>Custo Atual</h4>
                                 <a href="#" class="minimize"></a>
                             </div><!-- End .panel-heading -->
 
@@ -46,38 +43,32 @@
                                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="dataTable">
                                     <thead>
                                         <tr>
-                                            <th>ID Instância</th>
+                                            <th>Provedor</th>
                                             <th>Instância</th>
-                                            <th>Status</th>
-                                            <th>Data - Hora Monitoração</th>
+                                            <th>Tempo de Utilização</th>
+                                            <th>Custo Atual</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
-                                            ArrayList<HistoryProvider> listaHistoryProvider = (ArrayList<HistoryProvider>) session.getAttribute("listaHistoryProvider");
-                                            session.removeAttribute("listaHistoryProvider");
+                                                //ArrayList<HistoryProvider> listaHistoryProvider = (ArrayList<HistoryProvider>) session.getAttribute("listaHistoryProvider");
+                                                //session.removeAttribute("listaHistoryProvider");
                                         %>
-                                        <% for (HistoryProvider historico : listaHistoryProvider) { %>
+                                        <% //for (HistoryProvider historico : listaHistoryProvider) { %>
                                         <tr class="gradeA">
-                                            <td><% out.print(historico.getInstanceProvider().getIdInstance()); %></td>
-                                            <td><% out.print(historico.getInstanceProvider().getInstanceProvider()); %></td>
-                                            <td><% out.print(historico.getStatus()); %></td>
-                                            <td class="center">
-                                                <%
-                                                    SimpleDateFormat dt;
-                                                    dt = new SimpleDateFormat("dd/MM/yyyy ' - ' HH:mm");
-                                                    out.print(dt.format(historico.getDataUpdate()));
-                                                %>
-                                            </td>
+                                            <td><% //out.print(historico.getInstanceProvider().getIdInstance()); %></td>
+                                            <td><% //out.print(historico.getInstanceProvider().getInstanceProvider()); %></td>
+                                            <td><% //out.print(historico.getStatus()); %></td>
+                                            <td class="center"><% //out.print(historico.getDataUpdate()); %></td>
                                         </tr>
-                                        <% }%>
+                                        <% //} %>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>ID Instância</th>
+                                            <th>Provedor</th>
                                             <th>Instância</th>
-                                            <th>Status</th>
-                                            <th>Data - Hora Monitoração</th>
+                                            <th>Tempo de Utilização</th>
+                                            <th>Custo Atual</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -87,7 +78,7 @@
                     </div>                     
 
                 </div>
-
+                
             </div>
         </div>
     </section>
@@ -95,4 +86,3 @@
 
 <%-- Inclusão do rodapé da página --%>
 <jsp:include page="footer.jsp" />
-

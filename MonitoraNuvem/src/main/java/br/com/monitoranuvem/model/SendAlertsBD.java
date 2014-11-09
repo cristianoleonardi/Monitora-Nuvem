@@ -168,4 +168,36 @@ public class SendAlertsBD {
         conn.close();
         return list;                
     }
+    
+    public ArrayList<SendAlerts> listaSendAlertsHistory() throws ClassNotFoundException, SQLException, ParseException {
+        SendAlerts send;
+        String date_s;
+        SimpleDateFormat dt;
+        Date date;
+        ArrayList<SendAlerts> list = new ArrayList<>();
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT IDSENDALERTS,IDALERTS,DATESENDALERTS,SEND,STATUS "
+                + "FROM SENDALERTS"
+        );
+        ResultSet resultado = stmt.executeQuery();
+        while (resultado.next()) {
+            send = new SendAlerts();
+            send.setIdSendAlerts(resultado.getInt("IDSENDALERTS"));
+            send.setAlerts(new AlertsBD().buscaAlerts(resultado.getInt("IDALERTS")));
+            date_s = resultado.getString("DATESENDALERTS");
+            if (date_s != null) {
+                dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                date = dt.parse(date_s);
+                send.setDateSendAlerts(date);
+            } else {
+                send.setDateSendAlerts(null);
+            }
+            send.setSend(resultado.getInt("SEND"));
+            send.setStatus(resultado.getInt("STATUS"));
+            list.add(send);
+        }
+        conn.close();
+        return list;                
+    }
 }

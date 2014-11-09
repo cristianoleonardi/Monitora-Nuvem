@@ -21,13 +21,13 @@
             <div class="crumb">
                 <ul class="breadcrumb">
                     <li><a href="/monitoranuvem"><i class="icon16 i-home-4"></i>Home</a></li>
-                    <li class="active">Instâncias por Status</li>
+                    <li class="active">Configurar Alertas</li>
                 </ul>
             </div>
 
             <div class="container-fluid">
                 <div id="heading" class="page-header">
-                    <h1><i class="icon20 i-bell-2"></i> Cadastro de Alertas</h1>
+                    <h1><i class="icon20 i-alarm-plus"></i> Configurar Alertas</h1>
                 </div>
 
                 <%-- Alertas de cadastro --%>
@@ -52,8 +52,8 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="icon"><i class="icon20 i-direction"></i></div>
-                                <h4>Cadastro de Alertas</h4>
+                                <div class="icon"><i class="icon20 i-alarm-plus"></i></div>
+                                <h4>Configurar Alertas</h4>
                                 <a href="#" class="minimize"></a>
                             </div>
 

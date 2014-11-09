@@ -19,5 +19,9 @@ public class SendAlertsControl {
     
     public ArrayList<SendAlerts> listaSendAlerts() throws ClassNotFoundException, SQLException, ParseException{
         return new SendAlertsBD().listaSendAlerts();
-    }    
+    }
+    
+    public ArrayList<SendAlerts> listaSendAlertsHistory() throws ClassNotFoundException, SQLException, ParseException{
+        return new SendAlertsBD().listaSendAlertsHistory();
+    }
 }
