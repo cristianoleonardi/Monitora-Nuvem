@@ -174,6 +174,7 @@ public class SendAlertsBD {
         String date_s;
         SimpleDateFormat dt;
         Date date;
+        String text ="";
         ArrayList<SendAlerts> list = new ArrayList<>();
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
@@ -195,7 +196,8 @@ public class SendAlertsBD {
             }
             send.setSend(resultado.getInt("SEND"));
             send.setStatus(resultado.getInt("STATUS"));
-            send.setDuracao(new HistorySendAlertsBD().diferenca(resultado.getInt("IDSENDALERTS")));
+            text = new HistorySendAlertsBD().diferenca(resultado.getInt("IDSENDALERTS"));
+            send.setDuracao(text);
             list.add(send);
         }
         conn.close();
