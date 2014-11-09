@@ -56,10 +56,12 @@ public class SendAlertView extends HttpServlet {
         ArrayList<SendAlerts> listaSendAlerts = sac.listaSendAlerts();
 
         boolean sendAlertsAdded = false;
-        String[] destino;
+        String[] destino = new String[100];
         String mensagem = "";
         for (SendAlerts sendAlerts : listaSendAlerts) {
-            destino = sendAlerts.getAlerts().getMail().split(",");
+            if (!sendAlerts.getAlerts().getMail().equals("")) {
+                destino = sendAlerts.getAlerts().getMail().split(",");
+            }
             mensagem = "<!DOCTYPE html><html><head><title></title></head><body>";
             mensagem += "<h1>Alerta Monitora Nuvem</h1>";
             mensagem
@@ -67,7 +69,7 @@ public class SendAlertView extends HttpServlet {
                     + "<strong>Provedor: </strong>" + sendAlerts.getAlerts().getProv().getNome() + "<br />"
                     + "<strong>Status da Instância: </strong>" + sendAlerts.getAlerts().getStatusProvider() + "<br />"
                     + "<h3>Métrica Atingida: </h3>"
-                        + " (Status da Instância: "
+                    + " (Status da Instância: "
                     + sendAlerts.getAlerts().getStatusProvider()
                     + " é "
                     + sendAlerts.getAlerts().getOperation()
@@ -76,9 +78,9 @@ public class SendAlertView extends HttpServlet {
                     + ")";
             mensagem += "</body></html>";
 
-            //Envio de email
-            if (sendAlerts.getSend() == 0) {
-                if(jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)){
+            //Envio de email somente se existem e-mails cadastrados e se ainda não enviou
+            if (!sendAlerts.getAlerts().getMail().equals("") && sendAlerts.getSend() == 0) {
+                if (jmsc.sendEmail(destino, "Alerta Monitora Nuvem", mensagem)) {
                     psa.atualizaStatusMail(sendAlerts.getIdSendAlerts());
                 }
             }
