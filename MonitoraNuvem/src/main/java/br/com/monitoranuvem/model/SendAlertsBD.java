@@ -195,6 +195,7 @@ public class SendAlertsBD {
             }
             send.setSend(resultado.getInt("SEND"));
             send.setStatus(resultado.getInt("STATUS"));
+            send.setDuracao("01:00");
             list.add(send);
         }
         conn.close();

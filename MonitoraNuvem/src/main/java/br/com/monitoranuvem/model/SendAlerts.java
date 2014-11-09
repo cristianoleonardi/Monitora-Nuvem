@@ -18,6 +18,7 @@ public class SendAlerts {
     private Date dateSendAlerts;
     private int send;
     private int status;
+    private String duracao;
 
     public int getIdSendAlerts() {
         return idSendAlerts;
@@ -57,5 +58,13 @@ public class SendAlerts {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(String duracao) {
+        this.duracao = duracao;
     }    
 }
