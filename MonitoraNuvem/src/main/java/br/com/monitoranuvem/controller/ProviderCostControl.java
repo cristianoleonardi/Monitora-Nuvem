@@ -7,6 +7,8 @@ package br.com.monitoranuvem.controller;
 
 import br.com.monitoranuvem.model.Cost;
 import br.com.monitoranuvem.model.CostProvider;
+import br.com.monitoranuvem.model.HistoryCostBD;
+import br.com.monitoranuvem.model.HistoryCostProvider;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -19,5 +21,12 @@ public class ProviderCostControl {
     
     public ArrayList<Cost> custoProvider() throws ClassNotFoundException, SQLException, ParseException{
         return new CostProvider().custoProvider();
-    }    
+    }   
+    
+    public ArrayList<HistoryCostProvider> listHistoryCostProvider() throws ClassNotFoundException, SQLException, ParseException{
+        return new HistoryCostBD().listHistoryCostProvider();
+    }
+    public ArrayList<HistoryCostProvider> listHistoryCostProvider(int idProvider) throws ClassNotFoundException, SQLException, ParseException{
+        return new HistoryCostBD().listHistoryCostProvider(idProvider);
+    }
 }
