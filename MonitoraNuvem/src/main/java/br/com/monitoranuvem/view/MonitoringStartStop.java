@@ -106,6 +106,10 @@ public class MonitoringStartStop extends HttpServlet {
                 sb.append("<name>Alertas</name>");
                 sb.append("<status>").append(dc.statusThreadAlerts()).append("</status>");
                 sb.append("</thread>");
+                sb.append("<thread>");
+                sb.append("<name>Custos</name>");
+                sb.append("<status>").append(dc.statusThreadCost()).append("</status>");
+                sb.append("</thread>");
                 sb.append("</statusThread>");
 
                 statusAdded = true;
