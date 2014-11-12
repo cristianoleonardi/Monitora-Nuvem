@@ -16,12 +16,12 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Marcio
  */
-public class CustoProvider {
+public class CostProvider {
 
-    public ArrayList<Custo> custoProvider() throws ClassNotFoundException, SQLException, ParseException {
+    public ArrayList<Cost> custoProvider() throws ClassNotFoundException, SQLException, ParseException {
         Date data = new Date();
         long tempo = 0;
-        ArrayList<Custo> c = new ArrayList<>();
+        ArrayList<Cost> c = new ArrayList<>();
         double priceprovider = 0;
         ArrayList<ProviderPrice> provPrice = new ProviderPriceBD().listaProviderPrice();
         ArrayList<Provider> lstProvider = new ProviderBD().listaProvider();
@@ -42,7 +42,7 @@ public class CustoProvider {
                     TimeUnit.MILLISECONDS.toMinutes(tempo) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(tempo)),
                     TimeUnit.MILLISECONDS.toSeconds(tempo) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(tempo)));
             DecimalFormat df = new DecimalFormat("####0.00");
-            c.add(new Custo(lstPrv, df.format(priceprovider),hms));
+            c.add(new Cost(lstPrv, df.format(priceprovider),hms));
         }
         return c;
     }

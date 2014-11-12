@@ -5,8 +5,8 @@
  */
 package br.com.monitoranuvem.view;
 
-import br.com.monitoranuvem.controller.ProviderCustoControl;
-import br.com.monitoranuvem.model.Custo;
+import br.com.monitoranuvem.controller.ProviderCostControl;
+import br.com.monitoranuvem.model.Cost;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -41,8 +41,8 @@ public class ProviderCostView extends HttpServlet {
         //Instancia a sessão para manipular as variáveis de sessao
         HttpSession session = request.getSession(true);
         
-        ProviderCustoControl pcc = new ProviderCustoControl();
-        ArrayList<Custo> listaCusto = pcc.custoProvider();
+        ProviderCostControl pcc = new ProviderCostControl();
+        ArrayList<Cost> listaCusto = pcc.custoProvider();
         
         session.setAttribute("listaCusto", listaCusto);
         

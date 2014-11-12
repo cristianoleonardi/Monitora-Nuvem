@@ -5,8 +5,8 @@
  */
 package br.com.monitoranuvem.controller;
 
-import br.com.monitoranuvem.model.Custo;
-import br.com.monitoranuvem.model.CustoProvider;
+import br.com.monitoranuvem.model.Cost;
+import br.com.monitoranuvem.model.CostProvider;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -15,9 +15,9 @@ import java.util.ArrayList;
  *
  * @author Marcio
  */
-public class ProviderCustoControl {
+public class ProviderCostControl {
     
-    public ArrayList<Custo> custoProvider() throws ClassNotFoundException, SQLException, ParseException{
-        return new CustoProvider().custoProvider();
+    public ArrayList<Cost> custoProvider() throws ClassNotFoundException, SQLException, ParseException{
+        return new CostProvider().custoProvider();
     }    
 }

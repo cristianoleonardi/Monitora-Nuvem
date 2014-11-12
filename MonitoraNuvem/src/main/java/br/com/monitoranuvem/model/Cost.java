@@ -9,13 +9,13 @@ package br.com.monitoranuvem.model;
  *
  * @author Marcio
  */
-public class Custo {
+public class Cost {
 
     private Provider prov;
     private String custo;
     private String totalHoras;
 
-    public Custo(Provider prov, String custo, String totalHoras) {
+    public Cost(Provider prov, String custo, String totalHoras) {
         this.prov = prov;
         this.custo = custo;
         this.totalHoras = totalHoras;

@@ -47,22 +47,25 @@
                                 </div>
                                 <ul class="list-unstyled">
                                     <li><i class="icon16 i-arrow-right-3"></i>Cristiano Lopes Leonardi</li>
+                                    <li><i class="icon16 i-envelop"></i><a href="mailto:cristianoleonardi@hotmail.com">cristianoleonardi@hotmail.com</a></li>
                                     <li><i class="icon16 i-arrow-right-3"></i>Márcio Sonza Bolzan</li>
+                                    <li><i class="icon16 i-envelop"></i><a href="mailto:marciosbolzan@gmail.com">marciosbolzan@gmail.com</a></li>
                                 </ul>
                                 <br />
                                 <div class="page-header">
                                     <h4>Orientador:</h4>
                                 </div>
                                 <ul class="list-unstyled">
-                                    <li><i class="icon16 i-arrow-right-3"></i>Prof. Dr. Tiago Ferreto</li>
+                                    <li><i class="icon16 i-arrow-right-3"></i>Professor Doutor Tiago Coelho Ferreto</li>
+                                    <li><i class="icon16 i-envelop"></i><a href="mailto:tiago.ferreto@pucrs.br">tiago.ferreto@pucrs.br</a></li>
                                 </ul>
                                 <br />
                                 <div class="page-header">
-                                    <h4>Avaliadores:</h4>
+                                    <h4>Tecnologias Utilizadas:</h4>
                                 </div>
                                 <ul class="list-unstyled">
-                                    <li><i class="icon16 i-arrow-right-3"></i>1º Avaliador</li>
-                                    <li><i class="icon16 i-arrow-right-3"></i>2º Avaliador</li>
+                                    <li><i class="icon16 i-arrow-right-3"></i><strong>Linguagem de programação:</strong> Java</li>
+                                    <li><i class="icon16 i-arrow-right-3"></i><strong>Framework Visual:</strong> Bootstrap</li>
                                 </ul>
                             </div>
                         </div>
