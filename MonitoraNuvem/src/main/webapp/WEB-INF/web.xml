@@ -44,6 +44,10 @@
         <servlet-name>alerthistoryview</servlet-name>
         <servlet-class>br.com.monitoranuvem.view.AlertHistoryView</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>providercosthistoryview</servlet-name>
+        <servlet-class>br.com.monitoranuvem.view.ProviderCostHistoryView</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>provider</servlet-name>
         <url-pattern>/provider</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>alerthistoryview</servlet-name>
         <url-pattern>/alerthistoryview</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>providercosthistoryview</servlet-name>
+        <url-pattern>/providercosthistoryview</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

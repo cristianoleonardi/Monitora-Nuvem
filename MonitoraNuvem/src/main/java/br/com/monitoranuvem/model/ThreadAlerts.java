@@ -116,7 +116,7 @@ public class ThreadAlerts implements Runnable {
                         ArrayList<InstanceProvider> listInstance = new InstanceProviderBD().listaProviderDay(a.getProv().getId());
                         custo = calculaCusto(listInstance);
                         switch (a.getMetrics().toUpperCase()) {
-                            case "N":
+                            case "$":
                                 switch (a.getOperation()) {
                                     case "=":
                                         if (custo == Double.valueOf(a.getValueMetrics())) {

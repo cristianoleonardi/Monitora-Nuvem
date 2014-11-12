@@ -29,10 +29,10 @@ function init() {
 
     //Monta grafico activeInstanceByProvider
     doActiveInstanceByProvider();
-    
+
     //Monta grafico InstanceByStatus
     doInstanceByStatus();
-    
+
     //Monta grafico InstanceByStatus
     doHistoryInstancesByStatus();
 
@@ -213,11 +213,19 @@ function parseSendAlertView(responseXML) {
                 var name = alert.getElementsByTagName("name")[0];
                 var status = alert.getElementsByTagName("status")[0];
                 var provider = alert.getElementsByTagName("provider")[0];
+                var type = alert.getElementsByTagName("type")[0];
+                var metric = alert.getElementsByTagName("metric")[0];
+                var operation = alert.getElementsByTagName("operation")[0];
+                var value = alert.getElementsByTagName("value")[0];
                 var email = alert.getElementsByTagName("email")[0];
                 appendSendAlertView(
                         name.childNodes[0].nodeValue,
                         status.childNodes[0].nodeValue,
                         provider.childNodes[0].nodeValue,
+                        type.childNodes[0].nodeValue,
+                        metric.childNodes[0].nodeValue,
+                        operation.childNodes[0].nodeValue,
+                        value.childNodes[0].nodeValue,
                         qtdSendAlerts,
                         email.childNodes[0].nodeValue
                         );
@@ -341,7 +349,7 @@ function appendStartStopThread(status) {
     }
 }
 
-function appendSendAlertView(name, status, provider, qtdSendAlerts, email) {
+function appendSendAlertView(name, status, provider, type, metric, operation, value, qtdSendAlerts, email) {
     var li;
     var linkElement;
     var i;
@@ -372,7 +380,11 @@ function appendSendAlertView(name, status, provider, qtdSendAlerts, email) {
         linkElement.className = "";
         linkElement.setAttribute("href", "#");
         linkElement.appendChild(i);
-        linkElement.appendChild(document.createTextNode(name + " (Status - " + status + "; Provedor - " + provider + ") "));
+        if (type === "Status") {
+            linkElement.appendChild(document.createTextNode(name + " (Status - " + status + " do Provedor - " + provider + " " + operation + " " + value + ") "));
+        } else if (type === "Custo"){
+            linkElement.appendChild(document.createTextNode(name + " (Custo das instancias do Provedor - " + provider + " " + operation + " " + value + ") "));
+        }
         linkElement.appendChild(strong);
         li.appendChild(linkElement);
     } else {

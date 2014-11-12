@@ -42,6 +42,12 @@
                                 <span class="txt">Preços</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="providerhistoryview">
+                                <span class="icon"><i class="icon20 i-archive"></i></span>
+                                <span class="txt">Histórico Monitorações</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li>
@@ -73,16 +79,16 @@
                         <li>
                             <a href="providercostview">
                                 <span class="icon"><i class="icon20 i-coin"></i></span>
-                                <span class="txt">Custo Atual</span>
+                                <span class="txt">Custos Atuais</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="providercosthistoryview">
+                                <span class="icon"><i class="icon20 i-coins"></i></span>
+                                <span class="txt">Histórico de Custos</span>
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <a href="providerhistoryview">
-                        <span class="icon"><i class="icon20 i-archive"></i></span>
-                        <span class="txt">Dados Históricos</span>
-                    </a>
                 </li>
                 <li>
                     <a href="about.jsp">

@@ -1,8 +1,8 @@
 <%-- Imports --%>
 
 <%@page import="java.text.SimpleDateFormat"%>
+<%@page import="br.com.monitoranuvem.model.HistoryCostProvider"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="br.com.monitoranuvem.model.HistoryProvider"%>
 <%-- Inclusão do cabeçalho da página --%>
 <jsp:include page="header.jsp" />
 
@@ -21,13 +21,13 @@
             <div class="crumb">
                 <ul class="breadcrumb">
                     <li><a href="/monitoranuvem"><i class="icon16 i-home-4"></i>Home</a></li>
-                    <li class="active">Histórico</li>
+                    <li class="active">Histórico de Custos</li>
                 </ul>
             </div>
 
             <div class="container-fluid">
                 <div id="heading" class="page-header">
-                    <h1><i class="icon20 i-archive"></i> Histórico de Monitorações</h1>
+                    <h1><i class="icon20 i-coins"></i> Histórico de Custos</h1>
                 </div>
 
                 <div class="row">
@@ -36,8 +36,8 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="icon"><i class="icon20 i-archive"></i></div> 
-                                <h4>Histórico de Monitorações</h4>
+                                <div class="icon"><i class="icon20 i-coins"></i></div> 
+                                <h4>Histórico de Custos</h4>
                                 <a href="#" class="minimize"></a>
                             </div><!-- End .panel-heading -->
 
@@ -46,38 +46,38 @@
                                 <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered table-hover" id="dataTable">
                                     <thead>
                                         <tr>
-                                            <th>ID Instância</th>
-                                            <th>Instância</th>
-                                            <th>Status</th>
-                                            <th>Data - Hora Monitoração</th>
+                                            <th>Provedor</th>
+                                            <th>Data</th>
+                                            <th>Tempo de Utilização</th>
+                                            <th>Custo</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <%
-                                            ArrayList<HistoryProvider> listaHistoryProvider = (ArrayList<HistoryProvider>) session.getAttribute("listaHistoryProvider");
-                                            session.removeAttribute("listaHistoryProvider");
+                                            ArrayList<HistoryCostProvider> listaHistoryCostProvider = (ArrayList<HistoryCostProvider>) session.getAttribute("listaHistoryCostProvider");
+                                            session.removeAttribute("listaHistoryCostProvider");
                                         %>
-                                        <% for (HistoryProvider historico : listaHistoryProvider) { %>
+                                        <% for (HistoryCostProvider custo : listaHistoryCostProvider) { %>
                                         <tr class="gradeA">
-                                            <td><% out.print(historico.getInstanceProvider().getIdInstance()); %></td>
-                                            <td><% out.print(historico.getInstanceProvider().getInstanceProvider()); %></td>
-                                            <td><% out.print(historico.getStatus()); %></td>
-                                            <td class="center">
+                                            <td><% out.print(custo.getProv().getNome()); %></td>
+                                            <td>
                                                 <%
                                                     SimpleDateFormat dt;
                                                     dt = new SimpleDateFormat("dd/MM/yyyy ' - ' HH:mm");
-                                                    out.print(dt.format(historico.getDataUpdate()));
+                                                    out.print(dt.format(custo.getData()));
                                                 %>
                                             </td>
+                                            <td><% out.print(custo.getTime()); %></td>
+                                            <td><% out.print(custo.getCost()); %></td>
                                         </tr>
                                         <% }%>
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>ID Instância</th>
-                                            <th>Instância</th>
-                                            <th>Status</th>
-                                            <th>Data - Hora Monitoração</th>
+                                            <th>Provedor</th>
+                                            <th>Data</th>
+                                            <th>Tempo de Utilização</th>
+                                            <th>Custo</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -95,4 +95,3 @@
 
 <%-- Inclusão do rodapé da página --%>
 <jsp:include page="footer.jsp" />
-

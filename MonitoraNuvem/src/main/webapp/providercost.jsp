@@ -1,6 +1,6 @@
 <%-- Imports --%>
 
-<%@page import="br.com.monitoranuvem.model.Custo"%>
+<%@page import="br.com.monitoranuvem.model.Cost"%>
 <%@page import="java.util.ArrayList"%>
 <%-- Inclusão do cabeçalho da página --%>
 <jsp:include page="header.jsp" />
@@ -20,13 +20,13 @@
             <div class="crumb">
                 <ul class="breadcrumb">
                     <li><a href="/monitoranuvem"><i class="icon16 i-home-4"></i>Home</a></li>
-                    <li class="active">Custo Atual</li>
+                    <li class="active">Custos Atuais</li>
                 </ul>
             </div>
 
             <div class="container-fluid">
                 <div id="heading" class="page-header">
-                    <h1><i class="icon20 i-coin"></i> Custo Atual</h1>
+                    <h1><i class="icon20 i-coin"></i> Custos Atuais</h1>
                 </div>
                 
                 <div class="row">
@@ -36,7 +36,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="icon"><i class="icon20 i-coin"></i></div> 
-                                <h4>Custo Atual</h4>
+                                <h4>Custos Atuais</h4>
                                 <a href="#" class="minimize"></a>
                             </div><!-- End .panel-heading -->
 
@@ -52,10 +52,10 @@
                                     </thead>
                                     <tbody>
                                         <%
-                                                ArrayList<Custo> listaCusto = (ArrayList<Custo>) session.getAttribute("listaCusto");
+                                                ArrayList<Cost> listaCusto = (ArrayList<Cost>) session.getAttribute("listaCusto");
                                                 session.removeAttribute("listaCusto");
                                         %>
-                                        <% for (Custo custo : listaCusto) { %>
+                                        <% for (Cost custo : listaCusto) { %>
                                         <tr class="gradeA">
                                             <td><% out.print(custo.getProv().getNome()); %></td>
                                             <td><% out.print(custo.getTotalHoras()); %></td>

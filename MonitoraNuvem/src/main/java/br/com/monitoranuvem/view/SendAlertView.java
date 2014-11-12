@@ -62,21 +62,38 @@ public class SendAlertView extends HttpServlet {
             if (!sendAlerts.getAlerts().getMail().equals("")) {
                 destino = sendAlerts.getAlerts().getMail().split(",");
             }
-            mensagem = "<!DOCTYPE html><html><head><title></title></head><body>";
-            mensagem += "<h1>Alerta Monitora Nuvem</h1>";
-            mensagem
-                    += "<strong>Nome do Alerta: </strong>" + sendAlerts.getAlerts().getNameAlerts() + "<br />"
-                    + "<strong>Provedor: </strong>" + sendAlerts.getAlerts().getProv().getNome() + "<br />"
-                    + "<strong>Status da Instância: </strong>" + sendAlerts.getAlerts().getStatusProvider() + "<br />"
-                    + "<h3>Métrica Atingida: </h3>"
-                    + " (Status da Instância: "
-                    + sendAlerts.getAlerts().getStatusProvider()
-                    + " é "
-                    + sendAlerts.getAlerts().getOperation()
-                    + " "
-                    + sendAlerts.getAlerts().getValueMetrics()
-                    + ")";
-            mensagem += "</body></html>";
+            if (sendAlerts.getAlerts().getTypeAlert().equalsIgnoreCase("Status")) {
+                mensagem = "<!DOCTYPE html><html><head><title></title></head><body>";
+                mensagem += "<h1>Alerta Monitora Nuvem</h1>";
+                mensagem
+                        += "<strong>Nome do Alerta: </strong>" + sendAlerts.getAlerts().getNameAlerts() + "<br />"
+                        + "<strong>Provedor: </strong>" + sendAlerts.getAlerts().getProv().getNome() + "<br />"
+                        + "<strong>Tipo do Alerta: </strong>" + sendAlerts.getAlerts().getTypeAlert() + "<br />"
+                        + "<strong>Status da Instância: </strong>" + sendAlerts.getAlerts().getStatusProvider() + "<br />"
+                        + "<h3>Métrica Atingida: </h3>"
+                        + " (Status da Instância: "
+                        + sendAlerts.getAlerts().getStatusProvider()
+                        + " é "
+                        + sendAlerts.getAlerts().getOperation()
+                        + " "
+                        + sendAlerts.getAlerts().getValueMetrics()
+                        + ")";
+                mensagem += "</body></html>";
+            } else if (sendAlerts.getAlerts().getTypeAlert().equalsIgnoreCase("Custo")) {
+                mensagem = "<!DOCTYPE html><html><head><title></title></head><body>";
+                mensagem += "<h1>Alerta Monitora Nuvem</h1>";
+                mensagem
+                        += "<strong>Nome do Alerta: </strong>" + sendAlerts.getAlerts().getNameAlerts() + "<br />"
+                        + "<strong>Provedor: </strong>" + sendAlerts.getAlerts().getProv().getNome() + "<br />"
+                        + "<strong>Tipo do Alerta: </strong>" + sendAlerts.getAlerts().getTypeAlert() + "<br />"
+                        + "<h3>Métrica Atingida: </h3>"
+                        + " (Custo das instâncias é "
+                        + sendAlerts.getAlerts().getOperation()
+                        + " "
+                        + sendAlerts.getAlerts().getValueMetrics()
+                        + ")";
+                mensagem += "</body></html>";
+            }
 
             //Envio de email somente se existem e-mails cadastrados e se ainda não enviou
             if (!sendAlerts.getAlerts().getMail().equals("") && sendAlerts.getSend() == 0) {
@@ -90,6 +107,10 @@ public class SendAlertView extends HttpServlet {
             sb.append("<name>").append(sendAlerts.getAlerts().getNameAlerts()).append("</name>");
             sb.append("<status>").append(sendAlerts.getAlerts().getStatusProvider()).append("</status>");
             sb.append("<provider>").append(sendAlerts.getAlerts().getProv().getNome()).append("</provider>");
+            sb.append("<type>").append(sendAlerts.getAlerts().getTypeAlert()).append("</type>");
+            sb.append("<metric>").append(sendAlerts.getAlerts().getMetrics()).append("</metric>");
+            sb.append("<operation><![CDATA[").append(sendAlerts.getAlerts().getOperation()).append("]]></operation>");
+            sb.append("<value>").append(sendAlerts.getAlerts().getValueMetrics()).append("</value>");
             sb.append("<email>").append(sendAlerts.getSend()).append("</email>");
             sb.append("</alert>");
         }
