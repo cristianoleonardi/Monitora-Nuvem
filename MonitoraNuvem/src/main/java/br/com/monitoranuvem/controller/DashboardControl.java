@@ -5,6 +5,7 @@ import br.com.monitoranuvem.model.ThreadAmazon;
 import br.com.monitoranuvem.model.Provider;
 import br.com.monitoranuvem.model.ProviderBD;
 import br.com.monitoranuvem.model.ThreadAlerts;
+import br.com.monitoranuvem.model.ThreadCost;
 import br.com.monitoranuvem.model.ThreadOpenStack;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -18,9 +19,11 @@ public class DashboardControl {
     private Runnable threadAmazon;
     private Runnable threadOpen;
     private Runnable threadAlert;
+    private Runnable threadCost;
     private Thread thrAlert;
     private Thread thrOpen;
     private Thread thrAmazon;
+    private Thread thrCost;
     private static DashboardControl dc = null;
 
     public static synchronized DashboardControl getInstance() throws ClassNotFoundException, SQLException {
@@ -46,6 +49,10 @@ public class DashboardControl {
         threadAlert = new ThreadAlerts(60000);
         thrAlert = new Thread(threadAlert);
         thrAlert.start();
+        threadCost = new ThreadCost(60000);
+        thrCost = new Thread(threadCost);
+        thrCost.start();
+        
     }
 
     public void stopThread() {
@@ -59,6 +66,9 @@ public class DashboardControl {
 
         if (statusThreadAmazon() != null) {
             thrAmazon.interrupt();
+        }
+        if (statusThreadCost()!= null) {
+            thrCost.interrupt();
         }
     }
 
@@ -75,11 +85,16 @@ public class DashboardControl {
         }
         return null;
     }
-
     public String statusThreadOpen() {
         if (thrOpen != null) {
             return thrOpen.getState().toString();
         }
         return null;
     }
+    public String statusThreadCost() {
+        if (thrCost != null) {
+            return thrCost.getState().toString();
+        }
+        return null;
+    }   
 }
