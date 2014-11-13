@@ -103,5 +103,38 @@ public class HistoryCostBD {
         conn.close();
         return lista;
     }
+    
+    public ArrayList<HistoryCostProvider> listHistoryCostDay() throws ClassNotFoundException, SQLException, ParseException {
+        ArrayList<HistoryCostProvider> lista = new ArrayList<>();
+        HistoryCostProvider hist;
+        String date_s;
+        SimpleDateFormat dt;
+        Date date;
+        conn = new ConnectionMySql().getConnection();
+        PreparedStatement stmt = conn.prepareStatement(
+                "SELECT A.* "
+                + "FROM HISTORYCOSTPROVIDER A "
+                + "WHERE A.IDHISTORYCOSTPROVIDER  IN ( "
+                        + "SELECT MAX(B.IDHISTORYCOSTPROVIDER) "
+                        + "FROM HISTORYCOSTPROVIDER B "
+                        + "GROUP BY B.IDPROVIDER, DATE(B.DATE))"
+        );
+        ResultSet resultado = stmt.executeQuery();
+        while (resultado.next()) {
+            hist = new HistoryCostProvider();
+            hist.setIdHistoryCostProvider(resultado.getInt("IDHISTORYCOSTPROVIDER"));
+            hist.setProv(new ProviderBD().buscaProvider(resultado.getInt("IDPROVIDER")));
+            hist.setCost(resultado.getString("COST"));
+            hist.setTime(resultado.getString("TIME"));
+            date_s = resultado.getString("DATE");
+            dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            date = dt.parse(date_s);
+            hist.setData(date);
+            lista.add(hist);
+        }
+        conn.close();
+        return lista;
+    }
+           
 
 }

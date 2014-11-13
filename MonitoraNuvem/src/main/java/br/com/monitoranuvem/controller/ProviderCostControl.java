@@ -29,4 +29,8 @@ public class ProviderCostControl {
     public ArrayList<HistoryCostProvider> listHistoryCostProvider(int idProvider) throws ClassNotFoundException, SQLException, ParseException{
         return new HistoryCostBD().listHistoryCostProvider(idProvider);
     }
+    
+    public ArrayList<HistoryCostProvider> listHistoryCostDay() throws ClassNotFoundException, SQLException, ParseException{
+        return new HistoryCostBD().listHistoryCostDay();
+    } 
 }
