@@ -8,12 +8,9 @@ package br.com.monitoranuvem.model;
 import br.com.monitoranuvem.controller.ProviderDialogControl;
 import br.com.monitoranuvem.controller.ProviderInstanceControl;
 import java.util.Date;
-import java.util.List;
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.domain.ComputeMetadata;
 import org.jclouds.compute.domain.NodeMetadata;
-import org.jclouds.compute.domain.Processor;
-import org.jclouds.compute.domain.Volume;
 
 /**
  *
