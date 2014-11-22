@@ -38,7 +38,7 @@
                                     <li><i class="icon16 i-arrow-right-3"></i>Pontifícia Universidade Católica do Rio Grande do Sul</li>
                                     <li><i class="icon16 i-arrow-right-3"></i>Faculdade de Informática</li>
                                     <li><i class="icon16 i-arrow-right-3"></i>Bacharelado em Sistemas de Informação</li>
-                                    <li><i class="icon16 i-arrow-right-3"></i>Uma ferramenta para monitoração integrada de múltiplas nuvens computacionais</li>
+                                    <li><i class="icon16 i-arrow-right-3"></i>Monitora Nuvem - Uma ferramenta para monitoração integrada de múltiplas nuvens computacionais</li>
                                     <li><i class="icon16 i-arrow-right-3"></i>Porto Alegre - 2014</li>
                                 </ul>
                                 <br />
@@ -56,7 +56,7 @@
                                     <h4>Orientador:</h4>
                                 </div>
                                 <ul class="list-unstyled">
-                                    <li><i class="icon16 i-arrow-right-3"></i>Professor Doutor Tiago Coelho Ferreto</li>
+                                    <li><i class="icon16 i-arrow-right-3"></i>Professor Dr. Tiago Ferreto</li>
                                     <li><i class="icon16 i-envelop"></i><a href="mailto:tiago.ferreto@pucrs.br">tiago.ferreto@pucrs.br</a></li>
                                 </ul>
                                 <br />

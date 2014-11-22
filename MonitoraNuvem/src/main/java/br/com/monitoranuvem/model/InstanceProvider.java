@@ -6,6 +6,8 @@
 package br.com.monitoranuvem.model;
 
 import java.util.Date;
+import java.util.List;
+import org.jclouds.compute.domain.Volume;
 
 /**
  *
@@ -23,6 +25,60 @@ public class InstanceProvider {
     private int isChecked;
     private Date dateChecked;
     private String typeinstance;
+    private String soName;
+    private String soType;
+    private String soVersion;
+    private String soFamily;
+    private int hwRam;
+    private List<Volume> Volumes;
+
+    public List<Volume> getVolumes() {
+        return Volumes;
+    }
+
+    public void setVolumes(List<Volume> Volumes) {
+        this.Volumes = Volumes;
+    }
+
+    public int getHwRam() {
+        return hwRam;
+    }
+
+    public void setHwRam(int hwRam) {
+        this.hwRam = hwRam;
+    }
+
+    public String getSoFamily() {
+        return soFamily;
+    }
+
+    public void setSoFamily(String soFamily) {
+        this.soFamily = soFamily;
+    }
+
+    public String getSoVersion() {
+        return soVersion;
+    }
+
+    public void setSoVersion(String soVersion) {
+        this.soVersion = soVersion;
+    }
+
+    public String getSoType() {
+        return soType;
+    }
+
+    public void setSoType(String soType) {
+        this.soType = soType;
+    }
+
+    public String getSoName() {
+        return soName;
+    }
+
+    public void setSoName(String soName) {
+        this.soName = soName;
+    }
 
     public int getIdInstanceProvider() {
         return idInstanceProvider;

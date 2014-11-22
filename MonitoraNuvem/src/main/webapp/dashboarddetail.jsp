@@ -1,5 +1,7 @@
 <%-- Imports --%>
 
+<%@page import="org.jclouds.compute.domain.Processor"%>
+<%@page import="java.util.List"%>
 <%@page import="br.com.monitoranuvem.model.InstanceProvider"%>
 <%@page import="br.com.monitoranuvem.model.Provider"%>
 <%@page import="br.com.monitoranuvem.model.QtdStatusProvider"%>
@@ -177,6 +179,7 @@
                                         <div class="btn-group">
                                             <a href="#modalStorage" class="btn btn-xs gap-right20" data-toggle="modal" title="Storage"><i class="icon20 i-storage"></i></a>
                                             <a href="#modalHardware" class="btn btn-xs gap-right20" data-toggle="modal" title="Hardware"><i class="icon20 i-cogs"></i></a>
+                                            <a href="#modalOperatingSystem" class="btn btn-xs gap-right20" data-toggle="modal" title="S.O."><i class="icon20 i-console"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -193,7 +196,13 @@
                                         <h4 class="modal-title"><i class="icon20 i-storage"></i> Detalhes do Storage</h4>
                                     </div>
                                     <div class="modal-body">
+                                        <%
+                                            if (ip.getVolumes() == null) {
+                                                out.print("<strong>Este tipo de instância " + ip.getTypeinstance() + " não disponibiliza estas informações.</strong>");
+                                            } else {
+                                        %>
                                         
+                                        <% } %>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -201,7 +210,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="modal fade" id="modalHardware" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
@@ -210,7 +219,28 @@
                                         <h4 class="modal-title"><i class="icon20 i-cogs"></i> Detalhes do Hardware</h4>
                                     </div>
                                     <div class="modal-body">
-                                        
+                                        <strong>Processador: </strong><br />
+                                        <strong>Memória RAM: </strong><% out.print(ip.getHwRam()); %> GB
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal fade" id="modalOperatingSystem" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title"><i class="icon20 i-console"></i> Detalhes do Sistema Operacional</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <strong>Nome S.O.: </strong><% out.print(ip.getSoName()); %><br />
+                                        <strong>Arquitetura: </strong><% out.print(ip.getSoType()); %><br />
+                                        <strong>Versão: </strong><% out.print(ip.getSoVersion()); %><br />
+                                        <strong>Família: </strong><% out.print(ip.getSoFamily()); %>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>

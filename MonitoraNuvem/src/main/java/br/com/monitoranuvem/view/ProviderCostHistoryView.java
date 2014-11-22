@@ -8,7 +8,6 @@ package br.com.monitoranuvem.view;
 import br.com.monitoranuvem.controller.ProviderCostControl;
 import br.com.monitoranuvem.model.HistoryCostProvider;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class ProviderCostHistoryView extends HttpServlet {
         HttpSession session = request.getSession(true);
         
         ProviderCostControl pcc = new ProviderCostControl();
-        ArrayList<HistoryCostProvider> listaHistoryCostProvider = pcc.listHistoryCostProvider();
+        ArrayList<HistoryCostProvider> listaHistoryCostProvider = pcc.listHistoryCostDay();
         
         session.setAttribute("listaHistoryCostProvider", listaHistoryCostProvider);
         

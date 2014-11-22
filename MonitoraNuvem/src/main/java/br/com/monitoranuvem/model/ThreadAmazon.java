@@ -8,9 +8,12 @@ package br.com.monitoranuvem.model;
 import br.com.monitoranuvem.controller.ProviderDialogControl;
 import br.com.monitoranuvem.controller.ProviderInstanceControl;
 import java.util.Date;
+import java.util.List;
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.domain.ComputeMetadata;
 import org.jclouds.compute.domain.NodeMetadata;
+import org.jclouds.compute.domain.Processor;
+import org.jclouds.compute.domain.Volume;
 
 /**
  *
@@ -45,10 +48,25 @@ public class ThreadAmazon implements Runnable {
                             inst.setInstanceProvider(metadata.getName());
                             inst.setProvider(new ProviderBD().buscaProvider(pn.getId()));
                             inst.setStatus(metadata.getStatus().name());
+                            //Informacoes sobre Sistema Operacional
+                            inst.setSoName(metadata.getOperatingSystem().getName());
+                            if (metadata.getOperatingSystem().is64Bit()) {
+                                inst.setSoType("64Bit");
+                            } else {
+                                inst.setSoType("32Bit");
+                            }
+                            inst.setSoVersion(metadata.getOperatingSystem().getVersion());
+                            inst.setSoFamily(metadata.getOperatingSystem().getFamily().name());
+                            //Informacoes sobre Hardware
                             if (!(metadata.getHardware() == null)) {
                                 inst.setTypeinstance(metadata.getHardware().getId().toString());
-                            }else{
+                                inst.setHwRam(metadata.getHardware().getRam());
+                                //Informacoes sobre Volume
+                                inst.setVolumes((List<Volume>) metadata.getHardware().getVolumes());
+                            } else {
                                 inst.setTypeinstance("t2.micro");
+                                inst.setHwRam(1);
+                                inst.setVolumes(null);
                             }
                             inst.setDataCreate(new Date());
                             inst.setDataUpdate(new Date());

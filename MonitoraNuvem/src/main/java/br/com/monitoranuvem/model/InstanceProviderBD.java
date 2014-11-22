@@ -16,16 +16,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import org.jclouds.compute.domain.Volume;
 
 /**
  *
  * @author Marcio
  */
 public class InstanceProviderBD {
-
+    
     private Connection conn;
-
+    
     public boolean criarInstancia(InstanceProvider inst) throws ClassNotFoundException, SQLException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String dateForMySql = "";
@@ -33,8 +35,8 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO INSTANCEPROVIDER (INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,DATECHECKED,TYPEINSTANCE) "
-                + " VALUES (?,?,?,?,?,?,?,?,?)"
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,DATECHECKED,TYPEINSTANCE,SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES) "
+                + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         );
         stmt.setString(1, inst.getInstanceProvider());
         stmt.setString(2, inst.getStatus());
@@ -46,14 +48,14 @@ public class InstanceProviderBD {
         } else {
             stmt.setString(5, null);
         }
-
+        
         if (inst.getDataUpdate() != null) {
             dateForMySql = sdf.format(inst.getDataUpdate());
             stmt.setString(6, dateForMySql);
         } else {
             stmt.setString(6, null);
         }
-
+        
         stmt.setInt(7, 1);
         dateForMySql = sdf.format(data);
         stmt.setString(8, dateForMySql);
@@ -62,6 +64,32 @@ public class InstanceProviderBD {
         } else {
             stmt.setString(9, null);
         }
+        if (inst.getSoName() != null) {
+            stmt.setString(10, inst.getSoName());
+        } else {
+            stmt.setString(10, null);
+        }
+        if (inst.getSoType() != null) {
+            stmt.setString(10, inst.getSoType());
+        } else {
+            stmt.setString(10, null);
+        }
+        if (inst.getSoVersion() != null) {
+            stmt.setString(10, inst.getSoVersion());
+        } else {
+            stmt.setString(10, null);
+        }
+        if (inst.getSoFamily() != null) {
+            stmt.setString(10, inst.getSoFamily());
+        } else {
+            stmt.setString(10, null);
+        }
+        stmt.setInt(10, inst.getHwRam());
+        if (inst.getVolumes().toString() != null) {
+            stmt.setString(11, inst.getVolumes().toString());
+        } else {
+            stmt.setString(10, null);
+        }
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -69,7 +97,7 @@ public class InstanceProviderBD {
         }
         return false;
     }
-
+    
     public boolean criarHistorico(InstanceProvider inst) throws ClassNotFoundException, SQLException, ParseException {
         InstanceProvider instol = buscaInstanceProvider(inst.getIdInstance());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -91,7 +119,7 @@ public class InstanceProviderBD {
         }
         return false;
     }
-
+    
     public int existeInstancia(InstanceProvider inst) throws ClassNotFoundException, SQLException {
         int num = 0;
         conn = new ConnectionMySql().getConnection();
@@ -107,14 +135,14 @@ public class InstanceProviderBD {
         conn.close();
         return num;
     }
-
+    
     public boolean atualizaIntancia(InstanceProvider inst) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date data = new Date();
         String dateForMySql = "";
         PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, DATEUPDATE=?,ISCHECKED=?, DATECHECKED=?, INSTANCEPROVIDER=?, TYPEINSTANCE=? "
+                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, DATEUPDATE=?,ISCHECKED=?, DATECHECKED=?, INSTANCEPROVIDER=?, TYPEINSTANCE=?, SONAME=?, SOTYPE=?, SOVERSION=?, SOFAMILY=?, HWRAM=?, VOLUMES=? "
                 + "WHERE IDINSTANCE=?"
         );
         stmt.setString(1, inst.getStatus());
@@ -133,7 +161,33 @@ public class InstanceProviderBD {
         } else {
             stmt.setString(6, null);
         }
-        stmt.setString(7, inst.getIdInstance());
+        if (inst.getSoName() != null) {
+            stmt.setString(7, inst.getSoName());
+        } else {
+            stmt.setString(7, null);
+        }
+        if (inst.getSoType() != null) {
+            stmt.setString(8, inst.getSoType());
+        } else {
+            stmt.setString(8, null);
+        }
+        if (inst.getSoVersion() != null) {
+            stmt.setString(9, inst.getSoVersion());
+        } else {
+            stmt.setString(9, null);
+        }
+        if (inst.getSoFamily() != null) {
+            stmt.setString(10, inst.getSoFamily());
+        } else {
+            stmt.setString(10, null);
+        }
+        stmt.setInt(11, inst.getHwRam());
+        if (inst.getVolumes() != null) {
+            stmt.setString(12, inst.getVolumes().toString());
+        } else {
+            stmt.setString(12, null);
+        }
+        stmt.setString(13, inst.getIdInstance());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -142,7 +196,7 @@ public class InstanceProviderBD {
             return false;
         }
     }
-
+    
     public boolean atualizaChecked(Provider prov) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
@@ -160,7 +214,7 @@ public class InstanceProviderBD {
             return false;
         }
     }
-
+    
     public InstanceProvider buscaInstanceProvider(String idInstance) throws ClassNotFoundException, SQLException, ParseException {
         InstanceProvider instance = null;
         String date_s;
@@ -169,7 +223,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED, TYPEINSTANCE "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED, TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES "
                 + "FROM INSTANCEPROVIDER WHERE IDINSTANCE=?"
         );
         stmt.setString(1, idInstance);
@@ -207,11 +261,21 @@ public class InstanceProviderBD {
                 instance.setDateChecked(null);
             }
             instance.setTypeinstance(resultado.getString("TYPEINSTANCE"));
+            instance.setSoName(resultado.getString("SONAME"));
+            instance.setSoType(resultado.getString("SOTYPE"));
+            instance.setSoVersion(resultado.getString("SOVERSION"));
+            instance.setSoFamily(resultado.getString("SOFAMILY"));
+            instance.setHwRam(resultado.getInt("HWRAM"));
+            if (resultado.getString("VOLUMES") != null) {
+                //instance.setVolumes((List<Volume>) resultado.getString("VOLUMES"));
+            }
+        } else {
+            instance.setVolumes(null);
         }
         conn.close();
         return instance;
     }
-
+    
     public InstanceProvider buscaInstanceProvider(int id) throws ClassNotFoundException, SQLException, ParseException {
         InstanceProvider instance = null;
         String date_s;
@@ -220,7 +284,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE, TYPEINSTANCE "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM "
                 + "FROM INSTANCEPROVIDER WHERE IDINSTANCEPROVIDER=?"
         );
         stmt.setInt(1, id);
@@ -249,11 +313,16 @@ public class InstanceProviderBD {
                 instance.setDataUpdate(null);
             }
             instance.setTypeinstance(resultado.getString("TYPEINSTANCE"));
+            instance.setSoName(resultado.getString("SONAME"));
+            instance.setSoType(resultado.getString("SOTYPE"));
+            instance.setSoVersion(resultado.getString("SOVERSION"));
+            instance.setSoFamily(resultado.getString("SOFAMILY"));
+            instance.setHwRam(resultado.getInt("HWRAM"));
         }
         conn.close();
         return instance;
     }
-
+    
     public ArrayList<String> listaQDTStatusProviderDay() throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -268,7 +337,7 @@ public class InstanceProviderBD {
                 + "WHERE DATE(DATECHECKED) = ? "
                 + "GROUP BY IDPROVIDER, STATUSPROVIDER \n"
                 + "ORDER BY IDPROVIDER");
-
+        
         stmt.setString(1, dateForMySql);
         ResultSet resultado = stmt.executeQuery();
         ArrayList<QtdStatusProvider> lista = new ArrayList<>();
@@ -286,7 +355,7 @@ public class InstanceProviderBD {
         conn.close();
         return montaGrafico(lista, statusProvider, provider);
     }
-
+    
     public ArrayList<QtdStatusProvider> listaQDTStatusProvider(String status) throws ClassNotFoundException, SQLException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dateForMySql = "";
@@ -315,7 +384,7 @@ public class InstanceProviderBD {
         conn.close();
         return lista;
     }
-
+    
     public ArrayList<QtdStatusProvider> listaQDTStatusProvider(int idProvider) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
@@ -338,7 +407,7 @@ public class InstanceProviderBD {
         conn.close();
         return lista;
     }
-
+    
     public ArrayList<InstanceProvider> listaQDTStatusProviderDay(int idProvider, String status) throws ClassNotFoundException, SQLException, ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String dateForMySql = "";
@@ -347,7 +416,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED,TYPEINSTANCE "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED,TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? AND DATE(DATECHECKED) = ? AND STATUSPROVIDER=?");
         stmt.setInt(1, idProvider);
         stmt.setString(2, dateForMySql);
@@ -395,6 +464,31 @@ public class InstanceProviderBD {
             } else {
                 instance.setTypeinstance(null);
             }
+            if (resultado.getString("SONAME") != null) {
+                instance.setSoName(resultado.getString("SONAME"));
+            } else {
+                instance.setSoName(null);
+            }
+            if (resultado.getString("SOTYPE") != null) {
+                instance.setSoType(resultado.getString("SOTYPE"));
+            } else {
+                instance.setSoType(null);
+            }
+            if (resultado.getString("SOVERSION") != null) {
+                instance.setSoVersion(resultado.getString("SOVERSION"));
+            } else {
+                instance.setSoVersion(null);
+            }
+            if (resultado.getString("SOFAMILY") != null) {
+                instance.setSoFamily(resultado.getString("SOFAMILY"));
+            } else {
+                instance.setSoFamily(null);
+            }
+            if (resultado.getInt("HWRAM") != 0) {
+                instance.setHwRam(resultado.getInt("HWRAM"));
+            } else {
+                instance.setSoName(null);
+            }
             lista.add(instance);
         }
         conn.close();
@@ -409,7 +503,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED,TYPEINSTANCE "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED,TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? AND DATE(DATECHECKED) = ? AND STATUSPROVIDER=? ORDER BY IDPROVIDER");
         stmt.setInt(1, idProvider);
         stmt.setString(2, dateForMySql);
@@ -457,13 +551,37 @@ public class InstanceProviderBD {
             } else {
                 instance.setTypeinstance(null);
             }
+            if (resultado.getString("SONAME") != null) {
+                instance.setSoName(resultado.getString("SONAME"));
+            } else {
+                instance.setSoName(null);
+            }
+            if (resultado.getString("SOTYPE") != null) {
+                instance.setSoType(resultado.getString("SOTYPE"));
+            } else {
+                instance.setSoType(null);
+            }
+            if (resultado.getString("SOVERSION") != null) {
+                instance.setSoVersion(resultado.getString("SOVERSION"));
+            } else {
+                instance.setSoVersion(null);
+            }
+            if (resultado.getString("SOFAMILY") != null) {
+                instance.setSoFamily(resultado.getString("SOFAMILY"));
+            } else {
+                instance.setSoFamily(null);
+            }
+            if (resultado.getInt("HWRAM") != 0) {
+                instance.setHwRam(resultado.getInt("HWRAM"));
+            } else {
+                instance.setSoName(null);
+            }
             lista.add(instance);
         }
         conn.close();
         return lista;
     }
     
-
     public ArrayList<InstanceProvider> listaStatusProvider(String status) throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(""
@@ -483,7 +601,7 @@ public class InstanceProviderBD {
         conn.close();
         return lista;
     }
-
+    
     public ArrayList<InstanceProvider> listaStatusProvider() throws ClassNotFoundException, SQLException {
         conn = new ConnectionMySql().getConnection();
         Statement stmt = conn.createStatement();
@@ -501,7 +619,7 @@ public class InstanceProviderBD {
         conn.close();
         return lista;
     }
-
+    
     public ArrayList<InstanceProvider> listaInstanceProvider(Provider prov) throws ClassNotFoundException, SQLException, ParseException {
         String date_s;
         SimpleDateFormat dt;
@@ -509,7 +627,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(""
                 + "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER, "
-                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,TYPEINSTANCE "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,TYPEINSTANCE,SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? ");
         stmt.setInt(1, prov.getId());
         ResultSet resultado = stmt.executeQuery();
@@ -541,15 +659,40 @@ public class InstanceProviderBD {
             instanceProvider.setIsChecked(resultado.getInt("ISCHECKED"));
             if (resultado.getString("TYPEINSTANCE") != null) {
                 instanceProvider.setTypeinstance(resultado.getString("TYPEINSTANCE"));
-            }else{
+            } else {
                 instanceProvider.setTypeinstance(null);
+            }
+            if (resultado.getString("SONAME") != null) {
+                instanceProvider.setSoName(resultado.getString("SONAME"));
+            } else {
+                instanceProvider.setSoName(null);
+            }
+            if (resultado.getString("SOTYPE") != null) {
+                instanceProvider.setSoType(resultado.getString("SOTYPE"));
+            } else {
+                instanceProvider.setSoType(null);
+            }
+            if (resultado.getString("SOVERSION") != null) {
+                instanceProvider.setSoVersion(resultado.getString("SOVERSION"));
+            } else {
+                instanceProvider.setSoVersion(null);
+            }
+            if (resultado.getString("SOFAMILY") != null) {
+                instanceProvider.setSoFamily(resultado.getString("SOFAMILY"));
+            } else {
+                instanceProvider.setSoFamily(null);
+            }
+            if (resultado.getInt("HWRAM") != 0) {
+                instanceProvider.setHwRam(resultado.getInt("HWRAM"));
+            } else {
+                instanceProvider.setSoName(null);
             }
             lista.add(instanceProvider);
         }
         conn.close();
         return lista;
     }
-
+    
     private ArrayList<String> montaGrafico(ArrayList<QtdStatusProvider> list, Map<String, String> statusProvider, Map<String, String> provider) {
         ArrayList<String> linha = new ArrayList<>();
         int count = 0;
@@ -558,7 +701,7 @@ public class InstanceProviderBD {
         String labels = "[";
         Map<String, String> providerAux = new HashMap<String, String>();
         boolean passei;
-
+        
         for (String keyprovider : provider.keySet()) {
             providerAux.put(keyprovider, String.valueOf(count));
             count++;
@@ -596,14 +739,14 @@ public class InstanceProviderBD {
             }
             labels += "[" + providerAux.get(prov) + ", \"" + prov + "\"]";
         }
-
+        
         labels += "]";
         dadosGrafico += "]";
         linha.add(dadosGrafico);
         linha.add(labels);
         return linha;
     }
-
+    
     public ArrayList<InstanceProvider> listaInstanceProvider(Provider prov, String status) throws ClassNotFoundException, SQLException, ParseException {
         String date_s;
         SimpleDateFormat dt;
@@ -611,7 +754,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(""
                 + "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER, "
-                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,TYPEINSTANCE "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,TYPEINSTANCE,SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? AND STATUSPROVIDER=? ");
         stmt.setInt(1, prov.getId());
         stmt.setString(2, status);
@@ -643,12 +786,17 @@ public class InstanceProviderBD {
             }
             instanceProvider.setIsChecked(resultado.getInt("ISCHECKED"));
             instanceProvider.setTypeinstance(resultado.getString("TYPEINSTANCE"));
+            instanceProvider.setSoName(resultado.getString("SONAME"));
+            instanceProvider.setSoType(resultado.getString("SOTYPE"));
+            instanceProvider.setSoVersion(resultado.getString("SOVERSION"));
+            instanceProvider.setSoFamily(resultado.getString("SOFAMILY"));
+            instanceProvider.setHwRam(resultado.getInt("HWRAM"));
             lista.add(instanceProvider);
         }
         conn.close();
         return lista;
     }
-
+    
     public int totalInstaceProvider(int IdProvider) throws ClassNotFoundException, SQLException {
         int contador = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
