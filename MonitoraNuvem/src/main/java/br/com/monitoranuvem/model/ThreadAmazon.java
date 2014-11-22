@@ -60,15 +60,17 @@ public class ThreadAmazon implements Runnable {
                                 inst.setHwRam(metadata.getHardware().getRam());
                                 //Informacoes sobre Volume
                                 inst.setVolumes((String.valueOf(metadata.getHardware().getVolumes().get(0).getSize())));
+                                inst.setCores(String.valueOf(metadata.getHardware().getProcessors().get(0).getCores()));
+                                inst.setSpeed(String.valueOf(metadata.getHardware().getProcessors().get(0).getSpeed()));
                             } else {
                                 inst.setTypeinstance("t2.micro");
-                                inst.setHwRam(1);
+                                inst.setHwRam(0);
+                                inst.setCores(null);
+                                inst.setSpeed(null);
                                 inst.setVolumes(null);
                             }
                             inst.setDataCreate(new Date());
                             inst.setDataUpdate(new Date());
-                            inst.setCores(String.valueOf(metadata.getHardware().getProcessors().get(0).getCores()));
-                            inst.setCores(String.valueOf(metadata.getHardware().getProcessors().get(0).getSpeed()));
                             pic.criarAtualizarInstancia(inst);
                         }
                     }
