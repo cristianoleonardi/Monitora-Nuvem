@@ -29,6 +29,9 @@ public class InstanceProvider {
     private String soFamily;
     private int hwRam;
     private String Volumes;
+    private String Cores;
+    private String speed;
+            
 
     public String getVolumes() {
         return Volumes;
@@ -156,5 +159,21 @@ public class InstanceProvider {
 
     public void setTypeinstance(String typeinstance) {
         this.typeinstance = typeinstance;
-    }    
+    } 
+
+    public String getCores() {
+        return Cores;
+    }
+
+    public void setCores(String Cores) {
+        this.Cores = Cores;
+    }
+
+    public String getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(String speed) {
+        this.speed = speed;
+    }   
 }

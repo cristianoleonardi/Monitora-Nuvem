@@ -33,7 +33,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "INSERT INTO INSTANCEPROVIDER (INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,DATECHECKED,TYPEINSTANCE,SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES) "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,DATECHECKED,TYPEINSTANCE,SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES, CORES, SPEED) "
                 + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         );
         stmt.setString(1, inst.getInstanceProvider());
@@ -87,6 +87,16 @@ public class InstanceProviderBD {
             stmt.setString(15, inst.getVolumes().toString());
         } else {
             stmt.setString(15, null);
+        }
+        if (inst.getCores() != null) {
+            stmt.setString(16, inst.getCores().toString());
+        } else {
+            stmt.setString(16, null);
+        }
+        if (inst.getSpeed() != null) {
+            stmt.setString(17, inst.getSpeed().toString());
+        } else {
+            stmt.setString(17, null);
         }
         int ret = stmt.executeUpdate();
         conn.close();
@@ -143,7 +153,7 @@ public class InstanceProviderBD {
                 "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, "
                 + "DATEUPDATE=?,ISCHECKED=?, DATECHECKED=?, "
                 + "INSTANCEPROVIDER=?, TYPEINSTANCE=?, SONAME=?, "
-                + "SOTYPE=?, SOVERSION=?, SOFAMILY=?, HWRAM=?, VOLUMES=? "
+                + "SOTYPE=?, SOVERSION=?, SOFAMILY=?, HWRAM=?, VOLUMES=?, CORES=?, SPEED=? "
                 + " WHERE IDINSTANCE=?"
         );
         stmt.setString(1, inst.getStatus());
@@ -188,7 +198,17 @@ public class InstanceProviderBD {
         } else {
             stmt.setString(12, null);
         }
-        stmt.setString(13, inst.getIdInstance());
+        if (inst.getCores() != null) {
+            stmt.setString(13, inst.getCores().toString());
+        } else {
+            stmt.setString(13, null);
+        }
+        if (inst.getSpeed() != null) {
+            stmt.setString(14, inst.getSpeed().toString());
+        } else {
+            stmt.setString(14, null);
+        }
+        stmt.setString(15, inst.getIdInstance());
         int ret = stmt.executeUpdate();
         conn.close();
         if (ret > 0) {
@@ -224,7 +244,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED, TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED, TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES, CORES, SPEED "
                 + "FROM INSTANCEPROVIDER WHERE IDINSTANCE=?"
         );
         stmt.setString(1, idInstance);
@@ -268,6 +288,8 @@ public class InstanceProviderBD {
             instance.setSoFamily(resultado.getString("SOFAMILY"));
             instance.setHwRam(resultado.getInt("HWRAM"));
             instance.setVolumes(resultado.getString("VOLUMES"));
+            instance.setCores(resultado.getString("CORES"));
+            instance.setSpeed(resultado.getString("SPEED"));
         }
         conn.close();
         return instance;
@@ -281,7 +303,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE, TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES, CORES, SPEED "
                 + "FROM INSTANCEPROVIDER WHERE IDINSTANCEPROVIDER=?"
         );
         stmt.setInt(1, id);
@@ -316,6 +338,8 @@ public class InstanceProviderBD {
             instance.setSoFamily(resultado.getString("SOFAMILY"));
             instance.setHwRam(resultado.getInt("HWRAM"));
             instance.setVolumes(resultado.getString("VOLUMES"));
+            instance.setCores(resultado.getString("CORES"));
+            instance.setSpeed(resultado.getString("SPEED"));
         }
         conn.close();
         return instance;
@@ -414,7 +438,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED,TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED,TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES, CORES, SPEED "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? AND DATE(DATECHECKED) = ? AND STATUSPROVIDER=?");
         stmt.setInt(1, idProvider);
         stmt.setString(2, dateForMySql);
@@ -491,6 +515,16 @@ public class InstanceProviderBD {
                 instance.setVolumes(resultado.getString("VOLUMES"));
             } else {
                 instance.setVolumes(null);
+            }           
+            if (resultado.getString("CORES") != null) {
+                instance.setCores(resultado.getString("CORES"));
+            } else {
+                instance.setCores(null);
+            }
+            if (resultado.getString("SPEED") != null) {
+                instance.setSpeed(resultado.getString("SPEED"));
+            } else {
+                instance.setSpeed(null);
             }
             lista.add(instance);
         }
@@ -506,7 +540,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
                 "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED,TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE, ISCHECKED, DATECHECKED,TYPEINSTANCE, SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES, CORES, SPEED "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? AND DATE(DATECHECKED) = ? AND STATUSPROVIDER=? ORDER BY IDPROVIDER");
         stmt.setInt(1, idProvider);
         stmt.setString(2, dateForMySql);
@@ -584,6 +618,16 @@ public class InstanceProviderBD {
             } else {
                 instance.setVolumes(null);
             }
+            if (resultado.getString("CORES") != null) {
+                instance.setCores(resultado.getString("CORES"));
+            } else {
+                instance.setCores(null);
+            }
+            if (resultado.getString("SPEED") != null) {
+                instance.setSpeed(resultado.getString("SPEED"));
+            } else {
+                instance.setSpeed(null);
+            }
             lista.add(instance);
         }
         conn.close();
@@ -635,7 +679,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(""
                 + "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER, "
-                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,TYPEINSTANCE,SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,TYPEINSTANCE,SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES, CORES, SPEED "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? ");
         stmt.setInt(1, prov.getId());
         ResultSet resultado = stmt.executeQuery();
@@ -699,6 +743,16 @@ public class InstanceProviderBD {
                 instanceProvider.setVolumes(resultado.getString("VOLUMES"));
             } else {
                 instanceProvider.setVolumes(null);
+            }
+            if (resultado.getString("CORES") != null) {
+                instanceProvider.setCores(resultado.getString("CORES"));
+            } else {
+                instanceProvider.setCores(null);
+            }
+            if (resultado.getString("SPEED") != null) {
+                instanceProvider.setSpeed(resultado.getString("SPEED"));
+            } else {
+                instanceProvider.setSpeed(null);
             }
             lista.add(instanceProvider);
         }
@@ -767,7 +821,7 @@ public class InstanceProviderBD {
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(""
                 + "SELECT IDINSTANCEPROVIDER,INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER, "
-                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,TYPEINSTANCE,SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,TYPEINSTANCE,SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES, CORES, SPEED "
                 + "FROM INSTANCEPROVIDER WHERE IDPROVIDER=? AND STATUSPROVIDER=? ");
         stmt.setInt(1, prov.getId());
         stmt.setString(2, status);
@@ -805,6 +859,8 @@ public class InstanceProviderBD {
             instanceProvider.setSoFamily(resultado.getString("SOFAMILY"));
             instanceProvider.setHwRam(resultado.getInt("HWRAM"));
             instanceProvider.setVolumes(resultado.getString("VOLUMES"));
+            instanceProvider.setCores(resultado.getString("CORES"));
+            instanceProvider.setSpeed(resultado.getString("SPEED"));
             lista.add(instanceProvider);
         }
         conn.close();
