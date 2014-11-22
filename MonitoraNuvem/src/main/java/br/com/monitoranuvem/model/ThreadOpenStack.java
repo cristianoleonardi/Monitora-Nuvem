@@ -7,10 +7,12 @@ package br.com.monitoranuvem.model;
 
 import br.com.monitoranuvem.controller.ProviderDialogControl;
 import br.com.monitoranuvem.controller.ProviderInstanceControl;
+import java.util.List;
 import java.util.Set;
 import org.jclouds.compute.ComputeService;
 import org.jclouds.compute.domain.ComputeMetadata;
 import org.jclouds.compute.domain.NodeMetadata;
+import org.jclouds.compute.domain.Volume;
 import org.jclouds.openstack.nova.v2_0.NovaApi;
 import org.jclouds.openstack.nova.v2_0.domain.Server;
 import org.jclouds.openstack.nova.v2_0.features.ServerApi;
@@ -58,6 +60,24 @@ public class ThreadOpenStack implements Runnable {
                                     NodeMetadata metadata = compute.getNodeMetadata(node.getId());
                                     inst.setStatus(metadata.getStatus().name());
                                     inst.setTypeinstance(metadata.getHardware().getName().toString());
+                                    //Informacoes sobre Sistema Operacional
+                                    inst.setSoName(metadata.getOperatingSystem().getName());
+                                    if (metadata.getOperatingSystem().is64Bit()) {
+                                        inst.setSoType("64Bit");
+                                    } else {
+                                        inst.setSoType("32Bit");
+                                    }
+                                    inst.setSoVersion(metadata.getOperatingSystem().getVersion());
+                                    inst.setSoFamily(metadata.getOperatingSystem().getFamily().name());
+                                    //Informacoes sobre Hardware
+                                    if (!(metadata.getHardware() == null)) {
+                                        inst.setHwRam(metadata.getHardware().getRam());
+                                        //Informacoes sobre Volume
+                                        inst.setVolumes((List<Volume>) metadata.getHardware().getVolumes());
+                                    } else {
+                                        inst.setHwRam(1);
+                                        inst.setVolumes(null);
+                                    }
                                 }
                             }
                             pic.criarAtualizarInstancia(inst);

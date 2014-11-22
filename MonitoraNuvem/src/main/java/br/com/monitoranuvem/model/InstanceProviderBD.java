@@ -70,25 +70,25 @@ public class InstanceProviderBD {
             stmt.setString(10, null);
         }
         if (inst.getSoType() != null) {
-            stmt.setString(10, inst.getSoType());
+            stmt.setString(11, inst.getSoType());
         } else {
-            stmt.setString(10, null);
+            stmt.setString(11, null);
         }
         if (inst.getSoVersion() != null) {
-            stmt.setString(10, inst.getSoVersion());
+            stmt.setString(12, inst.getSoVersion());
         } else {
-            stmt.setString(10, null);
+            stmt.setString(12, null);
         }
         if (inst.getSoFamily() != null) {
-            stmt.setString(10, inst.getSoFamily());
+            stmt.setString(13, inst.getSoFamily());
         } else {
-            stmt.setString(10, null);
+            stmt.setString(13, null);
         }
-        stmt.setInt(10, inst.getHwRam());
+        stmt.setInt(14, inst.getHwRam());
         if (inst.getVolumes().toString() != null) {
-            stmt.setString(11, inst.getVolumes().toString());
+            stmt.setString(15, inst.getVolumes().toString());
         } else {
-            stmt.setString(10, null);
+            stmt.setString(15, null);
         }
         int ret = stmt.executeUpdate();
         conn.close();
@@ -142,8 +142,11 @@ public class InstanceProviderBD {
         Date data = new Date();
         String dateForMySql = "";
         PreparedStatement stmt = conn.prepareStatement(
-                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, DATEUPDATE=?,ISCHECKED=?, DATECHECKED=?, INSTANCEPROVIDER=?, TYPEINSTANCE=?, SONAME=?, SOTYPE=?, SOVERSION=?, SOFAMILY=?, HWRAM=?, VOLUMES=? "
-                + "WHERE IDINSTANCE=?"
+                "UPDATE INSTANCEPROVIDER SET STATUSPROVIDER=?, "
+                        + "DATEUPDATE=?,ISCHECKED=?, DATECHECKED=?, "
+                        + "INSTANCEPROVIDER=?, TYPEINSTANCE=?, SONAME=?, "
+                        + "SOTYPE=?, SOVERSION=?, SOFAMILY=?, HWRAM=?, VOLUMES=? "
+                + " WHERE IDINSTANCE=?"
         );
         stmt.setString(1, inst.getStatus());
         if (inst.getDataUpdate() != null) {
