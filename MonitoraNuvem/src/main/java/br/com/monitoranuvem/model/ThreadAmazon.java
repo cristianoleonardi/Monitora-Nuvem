@@ -70,6 +70,8 @@ public class ThreadAmazon implements Runnable {
                             }
                             inst.setDataCreate(new Date());
                             inst.setDataUpdate(new Date());
+                            inst.setCores(String.valueOf(metadata.getHardware().getProcessors().get(0).getCores()));
+                            inst.setCores(String.valueOf(metadata.getHardware().getProcessors().get(0).getSpeed()));
                             pic.criarAtualizarInstancia(inst);
                         }
                     }

@@ -78,6 +78,8 @@ public class ThreadOpenStack implements Runnable {
                                         inst.setHwRam(1);
                                         inst.setVolumes(null);
                                     }
+                                    inst.setCores(String.valueOf(metadata.getHardware().getProcessors().get(0).getCores()));
+                                    inst.setCores(String.valueOf(metadata.getHardware().getProcessors().get(0).getSpeed()));
                                 }
                             }
                             pic.criarAtualizarInstancia(inst);
