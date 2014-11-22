@@ -73,7 +73,7 @@ public class ThreadOpenStack implements Runnable {
                                     if (!(metadata.getHardware() == null)) {
                                         inst.setHwRam(metadata.getHardware().getRam());
                                         //Informacoes sobre Volume
-                                        inst.setVolumes((List<Volume>) metadata.getHardware().getVolumes());
+                                        inst.setVolumes(String.valueOf(metadata.getHardware().getVolumes().get(0).getSize()));
                                     } else {
                                         inst.setHwRam(1);
                                         inst.setVolumes(null);

@@ -62,7 +62,7 @@ public class ThreadAmazon implements Runnable {
                                 inst.setTypeinstance(metadata.getHardware().getId().toString());
                                 inst.setHwRam(metadata.getHardware().getRam());
                                 //Informacoes sobre Volume
-                                inst.setVolumes((List<Volume>) metadata.getHardware().getVolumes());
+                                inst.setVolumes((String.valueOf(metadata.getHardware().getVolumes().get(0).getSize())));
                             } else {
                                 inst.setTypeinstance("t2.micro");
                                 inst.setHwRam(1);

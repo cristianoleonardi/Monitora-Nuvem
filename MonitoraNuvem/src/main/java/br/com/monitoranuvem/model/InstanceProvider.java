@@ -6,8 +6,6 @@
 package br.com.monitoranuvem.model;
 
 import java.util.Date;
-import java.util.List;
-import org.jclouds.compute.domain.Volume;
 
 /**
  *
@@ -30,13 +28,13 @@ public class InstanceProvider {
     private String soVersion;
     private String soFamily;
     private int hwRam;
-    private List<Volume> Volumes;
+    private String Volumes;
 
-    public List<Volume> getVolumes() {
+    public String getVolumes() {
         return Volumes;
     }
 
-    public void setVolumes(List<Volume> Volumes) {
+    public void setVolumes(String Volumes) {
         this.Volumes = Volumes;
     }
 
