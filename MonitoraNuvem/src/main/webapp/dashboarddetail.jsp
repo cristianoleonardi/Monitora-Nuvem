@@ -196,13 +196,7 @@
                                         <h4 class="modal-title"><i class="icon20 i-storage"></i> Detalhes do Storage</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <%
-                                            if (ip.getVolumes() == null) {
-                                                out.print("<strong>Este tipo de instância " + ip.getTypeinstance() + " não disponibiliza estas informações.</strong>");
-                                            } else {
-                                        %>
-                                        
-                                        <% } %>
+                                        <strong>Disco: </strong><% if(ip.getVolumes() == null){out.print("Este tipo de instância " + ip.getTypeinstance() + " não disponibiliza esta informação.");} else {out.print(ip.getVolumes() + " GB");} %><br />
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -219,8 +213,10 @@
                                         <h4 class="modal-title"><i class="icon20 i-cogs"></i> Detalhes do Hardware</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <strong>Processador: </strong><br />
-                                        <strong>Memória RAM: </strong><% out.print(ip.getHwRam()); %> GB
+                                        <strong>Processador</strong><br />
+                                        <strong>- vCPUs: </strong><% if(ip.getCores() == null){out.print("Este tipo de instância " + ip.getTypeinstance() + " não disponibiliza esta informação.");} else {out.print(ip.getCores() + " vCPU");} %><br />
+                                        <strong>- Velocidade: </strong><% if(ip.getSpeed() == null){out.print("Este tipo de instância " + ip.getTypeinstance() + " não disponibiliza esta informação.");} else {out.print(ip.getSpeed() + " GHz");} %><br />
+                                        <strong>Memória RAM: </strong><% if(ip.getHwRam() == 0){out.print("Este tipo de instância " + ip.getTypeinstance() + " não disponibiliza esta informação.");} else {out.print(ip.getHwRam()/1024 + " GB");} %>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -237,10 +233,10 @@
                                         <h4 class="modal-title"><i class="icon20 i-console"></i> Detalhes do Sistema Operacional</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <strong>Nome S.O.: </strong><% out.print(ip.getSoName()); %><br />
-                                        <strong>Arquitetura: </strong><% out.print(ip.getSoType()); %><br />
-                                        <strong>Versão: </strong><% out.print(ip.getSoVersion()); %><br />
-                                        <strong>Família: </strong><% out.print(ip.getSoFamily()); %>
+                                        <strong>Nome S.O.: </strong><% if(ip.getSoName() == null){out.print("Este tipo de instância " + ip.getTypeinstance() + " não disponibiliza esta informação.");} else {out.print(ip.getSoName());} %><br />
+                                        <strong>Arquitetura: </strong><% if(ip.getSoType() == null){out.print("Este tipo de instância " + ip.getTypeinstance() + " não disponibiliza esta informação.");} else {out.print(ip.getSoType());} %><br />
+                                        <strong>Versão: </strong><% if(ip.getSoVersion() == null){out.print("Este tipo de instância " + ip.getTypeinstance() + " não disponibiliza esta informação.");} else {out.print(ip.getSoVersion());} %><br />
+                                        <strong>Família: </strong><% if(ip.getSoFamily() == null){out.print("Este tipo de instância " + ip.getTypeinstance() + " não disponibiliza esta informação.");} else {out.print(ip.getSoFamily());} %><br />
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
