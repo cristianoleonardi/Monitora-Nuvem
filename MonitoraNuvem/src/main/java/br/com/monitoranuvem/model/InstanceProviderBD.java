@@ -84,18 +84,18 @@ public class InstanceProviderBD {
             stmt.setString(13, null);
         }
         stmt.setInt(14, inst.getHwRam());
-        if (inst.getVolumes().toString() != null) {
-            stmt.setString(15, inst.getVolumes().toString());
+        if (inst.getVolumes() != null) {
+            stmt.setString(15, inst.getVolumes());
         } else {
             stmt.setString(15, null);
         }
         if (inst.getCores() != null) {
-            stmt.setString(16, inst.getCores().toString());
+            stmt.setString(16, inst.getCores());
         } else {
             stmt.setString(16, null);
         }
         if (inst.getSpeed() != null) {
-            stmt.setString(17, inst.getSpeed().toString());
+            stmt.setString(17, inst.getSpeed());
         } else {
             stmt.setString(17, null);
         }
