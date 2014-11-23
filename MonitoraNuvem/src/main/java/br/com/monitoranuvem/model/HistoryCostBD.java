@@ -117,7 +117,7 @@ public class HistoryCostBD {
                 + "WHERE A.IDHISTORYCOSTPROVIDER  IN ( "
                         + "SELECT MAX(B.IDHISTORYCOSTPROVIDER) "
                         + "FROM HISTORYCOSTPROVIDER B "
-                        + "GROUP BY B.IDPROVIDER, DATE(B.DATE))"
+                        + "GROUP BY B.IDPROVIDER, DATE(B.DATE)) ORDER BY A.DATE DESC"
         );
         ResultSet resultado = stmt.executeQuery();
         while (resultado.next()) {
