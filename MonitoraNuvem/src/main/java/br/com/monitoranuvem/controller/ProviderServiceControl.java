@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class ProviderServiceControl {
 
-    public boolean criarProviderService(int provider, String endpoint, String providerService, String accessKey, String secretAccessKey) throws ClassNotFoundException, SQLException {
+    public boolean criarProviderService(int provider, String providerService, String endpoint, String accessKey, String secretAccessKey) throws ClassNotFoundException, SQLException {
         ProviderControl pc = new ProviderControl();
         Provider p = pc.buscaProvider(provider);
         

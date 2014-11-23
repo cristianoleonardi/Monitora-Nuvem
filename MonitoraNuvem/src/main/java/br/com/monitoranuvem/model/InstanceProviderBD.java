@@ -32,9 +32,10 @@ public class InstanceProviderBD {
         Date data = new Date();
         conn = new ConnectionMySql().getConnection();
         PreparedStatement stmt = conn.prepareStatement(
-                "INSERT INTO INSTANCEPROVIDER (INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER,"
-                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,DATECHECKED,TYPEINSTANCE,SONAME, SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES, CORES, SPEED) "
-                + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+                "INSERT INTO INSTANCEPROVIDER (INSTANCEPROVIDER,STATUSPROVIDER, IDPROVIDER, "
+                + "IDINSTANCE,DATECREATE,DATEUPDATE,ISCHECKED,DATECHECKED,TYPEINSTANCE,SONAME, "
+                        + "SOTYPE, SOVERSION, SOFAMILY, HWRAM, VOLUMES, CORES, SPEED) "
+                + " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
         );
         stmt.setString(1, inst.getInstanceProvider());
         stmt.setString(2, inst.getStatus());
