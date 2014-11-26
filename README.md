@@ -1,4 +1,4 @@
-Projeto-Java-Web
+Monitora Nuvem
 ================
 
-Testes iniciais com a estrutura de um projeto Java Web.
+O Monitora Nuvem é uma ferramenta de monitoração integrada de múltiplas nu-vens computacionais que possui características capazes de permitir a integração com diversos provedores de computação em nuvem e o fornecimento de informações refe-rentes aos recursos monitorados, agrupados e relacionados em um único painel de controle. Através do Monitora Nuvem é possível definir provedores, configurar creden-ciais de acesso, cadastrar alertas e preços de serviços que serão monitorados para geração de dados históricos. Através dos dados monitorados é possível verificar o sta-tus operacional e os custos dos recursos, assim como, ser informado automaticamente quando determinadas situações ocorrerem nos recursos da nuvem. Durante a fase de avaliação da ferramenta foram utilizados os serviços das nuvens computacionais Ama-zon Web Services que possui seu foco em nuvens públicas e da OpenStak que é um ambiente voltado para nuvens privadas. Estas nuvens possibilitaram a realização de monitorações que permitiram a verificação das funcionalidades da ferramenta.
